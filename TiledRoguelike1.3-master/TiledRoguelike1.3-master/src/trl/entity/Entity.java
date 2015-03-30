@@ -58,10 +58,13 @@ public class Entity{
 
 		int x = Map.displayedNodesMinX;
 		int y = Map.displayedNodesMinY;
+
 		if ( getX ()>= x&& getX ()< x+ Game.W_COLS&& getY ()>= y
 				&& getY ()< y+ Game.W_ROWS ){
+
 			return true;
 		}
+
 		return false;
 	}
 
@@ -79,9 +82,13 @@ public class Entity{
 
 		Room[][] rooms = map.getRooms ();
 		Point position = new Point ( node.getX () , node.getY () );
+
 		for ( int x = 0 ; x< rooms.length ; x++ ){
+
 			for ( int y = 0 ; y< rooms[0].length ; y++ ){
+
 				if ( rooms[x][y].getBoundary ().contains ( position ) ){
+
 					return rooms[x][y];
 				}
 			}
