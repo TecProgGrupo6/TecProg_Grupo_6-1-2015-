@@ -10,7 +10,6 @@ import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -29,54 +28,54 @@ public class AddBooks extends JInternalFrame {
      ***      declaration of the private variables used in the program       ***
      ***************************************************************************/
 
-    //for creating the North Panel
+    // For creating the North Panel.
     private JPanel northPanel = new JPanel();
-    //for creaing the North Label
-    private JLabel northLabel = new JLabel("BOOK INFORMATION");
+    // For creaing the North Label.
+    private JLabel northLabel = new JLabel( "BOOK INFORMATION" );
 
-    //for creating the Center Panel
+    // For creating the Center Panel.
     private JPanel centerPanel = new JPanel();
-    //for creating an Internal Panel in the center panel
+    // For creating an Internal Panel in the center panel.
     private JPanel informationLabelPanel = new JPanel();
 
-    //for creating an array of JLabel
+    // For creating an array of JLabel.
     private JLabel[] informationLabel = new JLabel[10];
     private JLabel lblShelfNo = new JLabel(" Shelf No");
     private JTextField txtShelfNo = new JTextField();
-    //for creating an array of String
+    // For creating an array of String.
     private String[] informationString = {
         " The book subject: ", " The book title: ",
         " The name of the Author(s): ", " The name of the Publisher: ",
         " Copyright for the book: ", " The edition number: ", " The number of Pages: ",
         " ISBN for the book: ", " The number of copies: ", " The name of the Library: "
     };
-    //for creating an Internal Panel in the center panel
+    // For creating an Internal Panel in the center panel.
     private JPanel informationTextFieldPanel = new JPanel();
-    //for creating an array of JTextField
+    // For creating an array of JTextField.
     private JTextField[] informationTextField = new JTextField[10];
 
-    //for creating an Internal Panel in the center panel
+    // For creating an Internal Panel in the center panel.
     private JPanel insertInformationButtonPanel = new JPanel();
-    //for creating a button
-    private JButton insertInformationButton = new JButton("Insert the Information");
+    // For creating a button.
+    private JButton insertInformationButton = new JButton( "Insert the Information" );
 
-    //for creating South Panel
+    // For creating South Panel.
     private JPanel southPanel = new JPanel();
-    //for creating a button
-    private JButton OKButton = new JButton("Exit");
+    // For creating a button.
+    private JButton OKButton = new JButton( "Exit" );
 
-    //create objects from another classes for using them in the ActionListener
+    // Create objects from another classes for using them in the ActionListener.
     private Books book;
-    //for creating an array of string to store the data
+    // For creating an array of string to store the data.
     private String[] data;
-    //for setting availble option to true
+    // For setting availble option to true.
     private boolean availble = true;
 
-    //for checking the information from the text field
-    public boolean isCorrect() {
+    // For checking the information from the text field.
+    public boolean isCorrect(){
         data = new String[10];
-        for (int i = 0; i < informationLabel.length; i++) {
-            if (!informationTextField[i].getText().equals("")) {
+        for ( int i = 0 ; i < informationLabel.length ; i++ ){
+            if ( !informationTextField[i].getText().equals("") ){
                 data[i] = informationTextField[i].getText();
             } else {
                 return false;
@@ -85,57 +84,57 @@ public class AddBooks extends JInternalFrame {
         return true;
     }
 
-    //for setting the array of JTextField to empty
+    // For setting the array of JTextField to empty.
     public void clearTextField() {
-        for (int i = 0; i < informationTextField.length; i++) {
+        for ( int i = 0 ; i < informationTextField.length ; i++ ){
             informationTextField[i].setText(null);
         }
         txtShelfNo.setText(null);
     }
 
-    //constructor of addBooks
-    public AddBooks() {
-        //for setting the title for the internal frame
+    // Constructor of addBooks.
+    public AddBooks(){
+        // For setting the title for the internal frame.
         super("Add Books", false, true, false, true);
-        //for setting the icon
+        // For setting the icon.
         setFrameIcon(new ImageIcon(ClassLoader.getSystemResource("images/Add16.gif")));
-        //for getting the graphical user interface components display area
+        // For getting the graphical user interface components display area.
         Container cp = getContentPane();
 
-        //for setting the layout
+        // For setting the layout.
         northPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
-        //for setting the font for the North Panel
+        // For setting the font for the North Panel.
         northLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
-        //for adding the label in the North Panel
+        // For adding the label in the North Panel.
         northPanel.add(northLabel);
-        //for adding the north panel to the container
+        // For adding the north panel to the container.
         cp.add("North", northPanel);
 
-        //for setting the layout
+        // For setting the layout.
         centerPanel.setLayout(new BorderLayout());
-        //for setting the border to the panel
+        // For setting the border to the panel.
         centerPanel.setBorder(BorderFactory.createTitledBorder("Add a new book:"));
-        //for setting the layout
+        // For setting the layout.
         informationLabelPanel.setLayout(new GridLayout(11, 1, 1, 1));
         /***********************************************************************
          * for adding the strings to the labels, for setting the font 		   *
          * and adding these labels to the panel.							   *
          * finally adding the panel to the container						   *
          ***********************************************************************/
-        for (int i = 0; i < informationLabel.length; i++) {
+        for ( int i = 0 ; i < informationLabel.length ; i++ ){
             informationLabelPanel.add(informationLabel[i] = new JLabel(informationString[i]));
             informationLabel[i].setFont(new Font("Tahoma", Font.BOLD, 11));
         }
         centerPanel.add("West", informationLabelPanel);
 
-        //for setting the layout
+        // For setting the layout.
         informationTextFieldPanel.setLayout(new GridLayout(11, 1, 1, 1));
         /***********************************************************************
          * for adding the strings to the labels, for setting the font 		   *
          * and adding these labels to the panel.							   *
          * finally adding the panel to the container						   *
          ***********************************************************************/
-        for (int i = 0; i < informationTextField.length; i++) {
+        for ( int i = 0 ; i < informationTextField.length ; i++ ){
             informationTextFieldPanel.add(informationTextField[i] = new JTextField(25));
             informationTextField[i].setFont(new Font("Tahoma", Font.PLAIN, 11));
         }
@@ -174,18 +173,18 @@ public class AddBooks extends JInternalFrame {
          ***********************************************************************/
         insertInformationButton.addActionListener(new ActionListener() {
 
-            public void actionPerformed(ActionEvent ae) {
+            public void actionPerformed(ActionEvent ae){
 
-                //for checking if there is a missing information
-                if (isCorrect()) {
-                    Thread runner = new Thread() {
+                // For checking if there is a missing information.
+                if (isCorrect()){
+                    Thread runner = new Thread(){
 
                         public void run() {
                             book = new Books();
-                            //for checking if there is no double information in the database
+                            // For checking if there is no double information in the database.
                             book.connection("SELECT BookID FROM Books WHERE ISBN = '" + data[7] + "'");
                             String ISBN = book.getISBN();
-                            if (!data[7].equalsIgnoreCase(ISBN)) {
+                            if ( !data[7].equalsIgnoreCase(ISBN) ){
                                 try{
                                     String sql="INSERT INTO Books (Subject,Title,Author,Publisher,Copyright," +
                                         "Edition,Pages,ISBN,NumberOfBooks,NumberOfAvailbleBooks,Library,Availble,ShelfNo) VALUES "+
@@ -218,31 +217,31 @@ public class AddBooks extends JInternalFrame {
                                         data[6] + ", '" + data[7] + "', " + data[8] + "," + data[8] + ",'" +
                                         data[9] + "', " + availble + ", '" + txtShelfNo.getText() + "')";
                                 book.update(sql);*/
-                                //JOptionPane.showMessageDialog(null, sql);
-                                //for setting the array of JTextField to empty
+                                // JOptionPane.showMessageDialog(null, sql);
+                                // For setting the array of JTextField to empty.
                                 clearTextField();
-                            } else {
+                            }else{
                                 JOptionPane.showMessageDialog(null, "The book is in the library", "Error", JOptionPane.ERROR_MESSAGE);
                             }
                         }
                     };
                     runner.start();
-                } //if there is a missing data, then display Message Dialog
-                else {
+                } // If there is a missing data, then display Message Dialog.
+                else{
                     JOptionPane.showMessageDialog(null, "Please, complete the information", "Warning", JOptionPane.WARNING_MESSAGE);
                 }
             }
         });
-        //for adding the action listener for the button to dispose the frame
-        OKButton.addActionListener(new ActionListener() {
+        // For adding the action listener for the button to dispose the frame.
+        OKButton.addActionListener(new ActionListener(){
 
-            public void actionPerformed(ActionEvent ae) {
+            public void actionPerformed(ActionEvent ae){
                 dispose();
             }
         });
-        //for setting the visible to true
+        // For setting the visible to true.
         setVisible(true);
-        //show the internal frame
+        // Show the internal frame.
         pack();
     }
 }
