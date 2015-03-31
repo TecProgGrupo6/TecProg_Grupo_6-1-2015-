@@ -22,131 +22,136 @@ import javax.swing.JTextField;
 /**
  *A public class
  */
-public class AddMembers extends JInternalFrame {
+public class AddMembers extends JInternalFrame{
 	/***************************************************************************
 	 ***      declaration of the private variables used in the program       ***
 	 ***************************************************************************/
 
-	//for creating the North Panel
+	// For creating the North Panel.
 	private JPanel northPanel = new JPanel();
-	//for creaing the North Label
+	// For creaing the North Label.
 	private JLabel northLabel = new JLabel("MEMBER INFORMATION");
 
-	//for creating the Center Panel
+	// For creating the Center Panel.
 	private JPanel centerPanel = new JPanel();
-	//for creating an Internal Panel in the center panel
+	// For creating an Internal Panel in the center panel.
 	private JPanel informationLabelPanel = new JPanel();
-	//for creating an array of JLabel
+	// For creating an array of JLabel.
 	private JLabel[] informationLabel = new JLabel[7];
-	//for creating an array of String
+	// For creating an array of String.
 	private String[] informaionString = {" Member ID: ", " The Password: ", " Rewrite the password: ",
 	                                     " The Name: ", " E-MAIL: ", " Major Branch:", " Expired: "};
-	//for creating an Internal Panel in the center panel
+	// For creating an Internal Panel in the center panel.
 	private JPanel informationTextFieldPanel = new JPanel();
-	//for creating an array of JTextField
+	// For creating an array of JTextField.
 	private JTextField[] informationTextField = new JTextField[5];
-	//for creating an array of JPasswordField
+	// For creating an array of JPasswordField.
 	private JPasswordField[] informationPasswordField = new JPasswordField[2];
 
-	//for creating an Internal Panel in the center panel
+	// For creating an Internal Panel in the center panel.
 	private JPanel insertInformationButtonPanel = new JPanel();
-	//for creating a button
+	// For creating a button.
 	private JButton insertInformationButton = new JButton("Insert the Information");
 
-	//for creating the South Panel
+	// For creating the South Panel.
 	private JPanel southPanel = new JPanel();
-	//for creating a button
+	// For creating a button.
 	private JButton OKButton = new JButton("Exit");
 
-	//create objects from another classes for using them in the ActionListener
+	// Create objects from another classes for using them in the ActionListener.
 	private Members member;
-	//for creating an array of string to store the data
+	// For creating an array of string to store the data.
 	private String[] data;
 
-	//for checking the password
+	// For checking the password.
 	public boolean isPasswordCorrect() {
-		if (informationPasswordField[0].getText().equals(informationPasswordField[1].getText()))
+		if (informationPasswordField[0].getText().equals(informationPasswordField[1].getText())){
 			data[1] = informationPasswordField[1].getText();
-		else if (!informationPasswordField[0].getText().equals(informationPasswordField[1].getText()))
+		}else if (!informationPasswordField[0].getText().equals(informationPasswordField[1].getText())){
 			return false;
-
+		}
+		
 		return true;
 	}
 
-	//for checking the information from the text field
-	public boolean isCorrect() {
+	// For checking the information from the text field.
+	public boolean isCorrect(){
 		data = new String[6];
-		for (int i = 0; i < informationLabel.length; i++) {
-			if (i == 0) {
-				if (!informationTextField[i].getText().equals("")) {
+		for ( int i = 0 ; i < informationLabel.length ; i++ ){
+			if (i == 0){
+				if ( !informationTextField[i].getText().equals("") ){
 					data[i] = informationTextField[i].getText();
+				}else{
+					return false;
 				}
-				else
-					return false;
 			}
-			if (i == 1 || i == 2) {
-				if (informationPasswordField[i - 1].getText().equals(""))
+			if ( i == 1 || i == 2 ){
+				if ( informationPasswordField[i - 1].getText().equals("") ){
 					return false;
+				}
 			}
 			if (i == 3 || i == 4 || i == 5 || i == 6) {
 				if (!informationTextField[i - 2].getText().equals("")) {
 					data[i - 1] = informationTextField[i - 2].getText();
-				}
-				else
+				}else{
 					return false;
+				}
 			}
 		}
 		return true;
 	}
 
-	//for setting the array of JTextField & JPasswordField to null
-	public void clearTextField() {
-		for (int i = 0; i < informationLabel.length; i++) {
-			if (i == 0)
+	// For setting the array of JTextField & JPasswordField to null.
+	public void clearTextField(){
+		for ( int i = 0 ; i < informationLabel.length ; i++ ){
+			if ( i == 0 ){
 				informationTextField[i].setText(null);
-			if (i == 1 || i == 2)
+			}
+			if (i == 1 || i == 2){
 				informationPasswordField[i - 1].setText(null);
-			if (i == 3 || i == 4 || i == 5 || i == 6)
+			}
+			if (i == 3 || i == 4 || i == 5 || i == 6){
 				informationTextField[i - 2].setText(null);
+			}
 		}
 	}
 
-	//constructor of addMembers
-	public AddMembers() {
-		//for setting the title for the internal frame
+	// Constructor of addMembers.
+	public AddMembers(){
+		// For setting the title for the internal frame.
 		super("Add Members", false, true, false, true);
-		//for setting the icon
+		// For setting the icon.
 		setFrameIcon(new ImageIcon(ClassLoader.getSystemResource("images/Add16.gif")));
-		//for getting the graphical user interface components display area
+		// For getting the graphical user interface components display area.
 		Container cp = getContentPane();
 
-		//for setting the layout
+		// For setting the layout.
 		northPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
-		//for setting the font
+		// For setting the font.
 		northLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
-		//for adding the label to the panel
+		// For adding the label to the panel.
 		northPanel.add(northLabel);
-		//for adding the panel to the container
+		// For adding the panel to the container.
 		cp.add("North", northPanel);
 
-		//for setting the layout
+		// For setting the layout.
 		centerPanel.setLayout(new BorderLayout());
-		//for setting the border to the panel
+		// For setting the border to the panel.
 		centerPanel.setBorder(BorderFactory.createTitledBorder("Add a new member:"));
-		//for setting the layout
+		// For setting the layout.
 		informationLabelPanel.setLayout(new GridLayout(7, 1, 1, 1));
-		//for setting the layout
+		// For setting the layout.
 		informationTextFieldPanel.setLayout(new GridLayout(7, 1, 1, 1));
 		/***********************************************************************
 		 * for adding the strings to the labels, for setting the font		   *
 		 * and adding these labels to the panel.							   *
 		 * finally adding the panel to the container						   *
 		 ***********************************************************************/
-		for (int i = 0; i < informationLabel.length; i++) {
+		for ( int i = 0 ; i < informationLabel.length ; i++ ){
 			informationLabelPanel.add(informationLabel[i] = new JLabel(informaionString[i]));
 			informationLabel[i].setFont(new Font("Tahoma", Font.BOLD, 11));
 		}
-		//for adding the panel to the centerPanel
+		// For adding the panel to the centerPanel.
 		centerPanel.add("West", informationLabelPanel);
 
 		/***********************************************************************
@@ -154,16 +159,16 @@ public class AddMembers extends JInternalFrame {
 		 * setting the font to the JTextField and JPasswordField. Finally      *
 		 * adding the panel to the centerPanel                                 *
 		 ***********************************************************************/
-		for (int i = 0; i < informationLabel.length; i++) {
-			if (i == 1 || i == 2) {
+		for ( int i = 0 ; i < informationLabel.length ; i++ ){
+			if ( i == 1 || i == 2 ){
 				informationTextFieldPanel.add(informationPasswordField[i - 1] = new JPasswordField(25));
 				informationPasswordField[i - 1].setFont(new Font("Tahoma", Font.PLAIN, 11));
 			}
-			if (i == 0) {
+			if ( i == 0 ){
 				informationTextFieldPanel.add(informationTextField[i] = new JTextField(25));
 				informationTextField[i].setFont(new Font("Tahoma", Font.PLAIN, 11));
 			}
-			if (i == 3 || i == 4 || i == 5 || i == 6) {
+			if ( i == 3 || i == 4 || i == 5 || i == 6 ){
 				informationTextFieldPanel.add(informationTextField[i - 2] = new JTextField(25));
 				informationTextField[i - 2].setFont(new Font("Tahoma", Font.PLAIN, 11));
 			}
@@ -197,49 +202,51 @@ public class AddMembers extends JInternalFrame {
 		 * taken from the JTextField[] and make the connection for database,   *
 		 * after that update the table in the database with the new value      *
 		 ***********************************************************************/
-		insertInformationButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent ae) {
-				//for checking if there is a missing information
-				if (isCorrect()) {
-					if (isPasswordCorrect()) {
-						Thread runner = new Thread() {
-							public void run() {
+		insertInformationButton.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent ae){
+				// For checking if there is a missing information.
+				if ( isCorrect() ){
+					if ( isPasswordCorrect() ){
+						Thread runner = new Thread(){
+							public void run(){
 								member = new Members();
 								Date d=new Date();
-								//for checking if there is no same information in the database
+								// For checking if there is no same information in the database.
 								member.connection("SELECT * FROM Members WHERE ID = " + data[0]);
 								int ID = member.getID();
-								if (Integer.parseInt(data[0]) != ID) {
+								if ( Integer.parseInt(data[0]) != ID ){
 									member.update("INSERT INTO Members (ID,Password,Name,EMail,Major,Expired) VALUES (" +
 									        data[0] + ", '" + data[1] + "','" + data[2] + "','" +
 									        data[3] + "','" + data[4] + "','" + data[5] + "')");
-									//for setting the array of JTextField & JPasswordField to null
+									// For setting the array of JTextField & JPasswordField to null.
 									clearTextField();
-								}
-								else
+								}else{
 									JOptionPane.showMessageDialog(null, "Member is in the Library", "Error", JOptionPane.ERROR_MESSAGE);
+								}
 							}
 						};
 						runner.start();
 					}
-					//if the password is wrong
-					else
+					// If the password is wrong.
+					else{
 						JOptionPane.showMessageDialog(null, "the passowrd is wrong", "Error", JOptionPane.ERROR_MESSAGE);
+					}
 				}
-				//if there is a missing data, then display Message Dialog
-				else
+				// If there is a missing data, then display Message Dialog.
+				else{
 					JOptionPane.showMessageDialog(null, "Please, complete the information", "Warning", JOptionPane.WARNING_MESSAGE);
+				}
 			}
 		});
-		//for adding the action listener for the button to dispose the frame
-		OKButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent ae) {
+		// For adding the action listener for the button to dispose the frame.
+		OKButton.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent ae){
 				dispose();
 			}
 		});
-		//for setting the visible to true
+		// For setting the visible to true.
 		setVisible(true);
-		//show the internal frame
+		// Show the internal frame.
 		pack();
 	}
 }
