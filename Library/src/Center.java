@@ -6,15 +6,20 @@ import java.awt.*;
  *A PUBLIC CLASS FOR CENTER.JAVA
  */
 public class Center {
+	
 	JLibrary l; //for using the class in JLibrary.java
 
-	public Center(JLibrary l) {
+	public Center( JLibrary l ) {
+		
 		this.l = l;
+		
 	}
 
+	//for centering the window
 	public void LibraryCenter() {
-		//for centering the window
+		
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		l.setLocation((screenSize.width - l.getWidth()) / 2, (screenSize.height - l.getHeight()) / 2);
+		l.setLocation(( screenSize.width - l.getWidth()) / 2, (screenSize.height - l.getHeight()) / 2 );
+		
 	}
 }
