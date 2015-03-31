@@ -4,7 +4,9 @@
 
 import java.sql.*;
 
+
 public class Books {
+	
 	/***************************************************************************
 	 ***      declaration of the private variables used in the program       ***
 	 ***************************************************************************/
@@ -13,20 +15,34 @@ public class Books {
 	private Statement statement = null;
 	private ResultSet resultSet = null;
 
-	private int bookID;
-	private String subject;
-	private String title;
-	private String author;
-	private String publisher;
-	private int copyright;
-	private int edition;
-	private int pages;
+	private int bookID; //Id of the book
+	
+	private String subject; //The subject of the book
+	
+	private String title; //The title of the book
+	
+	private String author; // The author of the book
+	
+	private String publisher; //The publisher of the book
+	
+	private int copyright; // The copyright of the book
+	
+	private int edition; //The edition of the book
+	
+	private int pages; //Number of pages
+	
 	private String ISBN;
-	private int numberOfBooks;
-	private int numberOfAvailbleBooks;
-	private int numberOfBorrowedBooks;
-	private String library;
-	private boolean availble;
+	
+	private int numberOfBooks; //The number of books
+	
+	private int numberOfAvailbleBooks; //The number of books that are available
+	
+	private int numberOfBorrowedBooks; //The number of books that are borrowed
+	
+	private String library; //The name of the library
+	
+	private boolean availble; //If its available
+	
 	private String URL = "jdbc:odbc:JLibrary";
 
 	public Books() {
@@ -88,26 +104,39 @@ public class Books {
 		return availble;
 	}
 
-	public void connection(String Query) {
+	public void connection( String Query ) {
+		
 		try {
-			Class.forName("sun.jdbc.odbc.JdbcOdbcDriver");
+			
+			Class.forName( "sun.jdbc.odbc.JdbcOdbcDriver" );
+			
 		}
-		catch (ClassNotFoundException cnfe) {
+		catch ( ClassNotFoundException cnfe ) {
+			
 			System.out.println("Books.java\n" + cnfe.toString());
+			
 		}
-		catch (Exception e) {
+		catch ( Exception e ) {
+			
 			System.out.println("Books.java\n" + e.toString());
+			
 		}
+		
 		/***************************************************************
 		 * for making the connection,creating the statement and update *
-		 * the table in the database. After that,closing the statmenet *
+		 * the table in the database. After that,closing the statement *
 		 * and connection. There is catch block SQLException for error *
 		 ***************************************************************/
+		
 		try {
+			
 			connection = DriverManager.getConnection(URL);
 			statement = connection.createStatement();
 			resultSet = statement.executeQuery(Query);
-			while (resultSet.next()) {
+			
+			while ( resultSet.next() ) {
+				
+				// Getting the book specification
 				bookID = resultSet.getInt(1);
 				subject = resultSet.getString(2);
 				title = resultSet.getString(3);
@@ -122,41 +151,60 @@ public class Books {
 				numberOfBorrowedBooks = resultSet.getInt(12);
 				library = resultSet.getString(13);
 				availble = resultSet.getBoolean(14);
+				
 			}
+			
 			resultSet.close();
 			statement.close();
 			connection.close();
+			
 		}
-		catch (SQLException SQLe) {
+		catch ( SQLException SQLe ) {
+			
 			System.out.println("Books.java\n" + SQLe.toString());
+			
 		}
 	}
 
-	public void update(String Query) {
+	public void update( String Query ) {
+		
 		try {
+			
 			Class.forName("sun.jdbc.odbc.JdbcOdbcDriver");
+			
 		}
-		catch (ClassNotFoundException cnfe) {
+		
+		catch ( ClassNotFoundException cnfe ) {
+			
 			System.out.println("Books.java\n" + cnfe.toString());
+			
 		}
-		catch (Exception e) {
+		catch ( Exception e ) {
+			
 			System.out.println("Books.java\n" + e.toString());
+			
 		}
+		
 		/***************************************************************
 		 * for making the connection,creating the statement and update *
-		 * the table in the database. After that,closing the statmenet *
+		 * the table in the database. After that,closing the statement *
 		 * and connection. There is catch block SQLException for error *
 		 ***************************************************************/
+		
 		try {
+			
 			//connection = DriverManager.getConnection("jdbc:odbc:JLibrary2");
 			connection = DriverManager.getConnection(URL);
 			statement = connection.createStatement();
 			statement.executeUpdate(Query);
 			statement.close();
 			connection.close();
+			
 		}
-		catch (SQLException SQLe) {
-			System.out.println("Books.java\nError:" + SQLe.toString());
+		catch ( SQLException SQLe ) {
+			
+			System.out.println( "Books.java\nError:" + SQLe.toString() );
+			
 		}
 	}
 }
