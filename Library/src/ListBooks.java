@@ -1,4 +1,4 @@
-//import the packages for using the classes in them into the program
+// Import the packages for using the classes in them into the program.
 
 import javax.swing.*;
 import javax.swing.table.TableColumn;
@@ -10,29 +10,29 @@ import java.awt.print.PrinterJob;
 import java.sql.SQLException;
 
 /**
- *A public class
+ * A public class
  */
-public class ListBooks extends JInternalFrame {
+public class ListBooks extends JInternalFrame{
 	/***************************************************************************
-	 ***      declaration of the private variables used in the program       ***
+	 *** declaration of the private variables used in the program ***
 	 ***************************************************************************/
 
-	//for creating the North Panel
+	// For creating the North Panel.
 	private JPanel northPanel = new JPanel();
-	//for creating the Center Panel
+	// For creating the Center Panel.
 	private JPanel centerPanel = new JPanel();
-	//for creating the label
+	// For creating the label.
 	private JLabel northLabel = new JLabel("THE LIST FOR THE BOOKS");
-	//for creating the button
+	// For creating the button.
 	private JButton printButton;
-	//for creating the table
+	// For creating the table.
 	private JTable table;
-	//for creating the TableColumn
+	// For creating the TableColumn.
 	private TableColumn column = null;
-	//for creating the JScrollPane
+	// For creating the JScrollPane.
 	private JScrollPane scrollPane;
 
-	//for creating an object for the ResultSetTableModel class
+	// For creating an object for the ResultSetTableModel class.
 	private ResultSetTableModel tableModel;
 
 	/***************************************************************************
@@ -40,118 +40,131 @@ public class ListBooks extends JInternalFrame {
 	 ***************************************************************************/
 	private static final String JDBC_DRIVER = "sun.jdbc.odbc.JdbcOdbcDriver";
 	private static final String DATABASE_URL = "jdbc:odbc:JLibrary";
-	private static final String DEFAULT_QUERY = "SELECT BookID, Subject, Title, Author," +
-	        "Publisher, Copyright, Edition, Pages, NumberOfBooks, ISBN, Library, Availble,ShelfNo FROM Books";
+	private static final String DEFAULT_QUERY = "SELECT BookID, Subject, Title, Author,"
+			+ "Publisher, Copyright, Edition, Pages, NumberOfBooks, ISBN, Library, Availble,ShelfNo FROM Books";
 
-	//constructor of listBooks
+	// Constructor of listBooks.
 	public ListBooks() {
-		//for setting the title for the internal frame
+		// For setting the title for the internal frame.
 		super("Books", false, true, false, true);
-		//for setting the icon
+		// For setting the icon.
 		setFrameIcon(new ImageIcon(ClassLoader.getSystemResource("images/List16.gif")));
-		//setLocale(new java.util.Locale("ar", "SA", ""));
+		// setLocale(new java.util.Locale("ar", "SA", ""));
 
-		//for getting the graphical user interface components display area
+		// For getting the graphical user interface components display area.
 		Container cp = getContentPane();
 
-		//for bassing the required information to the ResultSetTableModel object
-		try {
+		// For bassing the required information to the ResultSetTableModel.
+		// Object.
+		try{
 			tableModel = new ResultSetTableModel(JDBC_DRIVER, DATABASE_URL, DEFAULT_QUERY);
-			//for setting the Query
-			try {
+			// For setting the Query.
+			try{
 				tableModel.setQuery(DEFAULT_QUERY);
+			}catch (SQLException sqlException){
 			}
-			catch (SQLException sqlException) {
-			}
-		}
-		catch (ClassNotFoundException classNotFound) {
+		}catch (ClassNotFoundException classNotFound){
 			System.out.println(classNotFound.toString());
-		}
-		catch (SQLException sqlException) {
+		}catch (SQLException sqlException){
 			System.out.println(sqlException.toString());
 		}
-		//for setting the table with the information
+		// For setting the table with the information.
 		table = new JTable(tableModel);
-		//for setting the size for the table
+		// For setting the size for the table.
 		table.setPreferredScrollableViewportSize(new Dimension(990, 200));
-		//for setting the font
+		// For setting the font.
 		table.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		//for setting the scrollpane to the table
+		// For setting the scrollpane to the table.
 		scrollPane = new JScrollPane(table);
 
-		//for setting the size for the table columns
-		for (int i = 0; i < 13; i++) {
+		// For setting the size for the table columns.
+		for ( int i = 0 ; i < 13 ; i++ ){
 			column = table.getColumnModel().getColumn(i);
-			if (i == 0) //BookID
+			if ( i == 0 ){ // BookID.
 				column.setPreferredWidth(20);
-			if (i == 1) //Subject
+			}
+			if ( i == 1 ){ // Subject.
 				column.setPreferredWidth(100);
-			if (i == 2) //Title
+			}
+			if ( i == 2 ){ // Title.
 				column.setPreferredWidth(150);
-			if (i == 3) //Auther
+			}
+			if ( i == 3 ){ // Auther.
 				column.setPreferredWidth(50);
-			if (i == 4) //Publisher
+			}
+			if ( i == 4 ){ // Publisher.
 				column.setPreferredWidth(70);
-			if (i == 5) //Copyright
+			}
+			if ( i == 5 ){ // Copyright.
 				column.setPreferredWidth(40);
-			if (i == 6) //Edition
+			}
+			if ( i == 6 ){ // Edition.
 				column.setPreferredWidth(40);
-			if (i == 7) //Pages
+			}
+			if ( i == 7 ){ // Pages.
 				column.setPreferredWidth(40);
-			if (i == 8) //NumberOfBooks
+			}
+			if ( i == 8 ){ // NumberOfBooks.
 				column.setPreferredWidth(80);
-			if (i == 9) //ISBN
+			}
+			if ( i == 9 ){ // ISBN.
 				column.setPreferredWidth(70);
-			if (i == 10) //Library
+			}
+			if ( i == 10 ){ // Library.
 				column.setPreferredWidth(30);
-			if (i == 11) //Availble
+			}
+			if ( i == 11 ){ // Availble.
 				column.setPreferredWidth(30);
-                        if (i == 12) //ShelfNo
+			}
+			if ( i == 12 ){ // ShelfNo.
 				column.setPreferredWidth(30);
+			}
 		}
-		//for setting the font to the label
+		// For setting the font to the label.
 		northLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
-		//for setting the layout to the panel
+		// For setting the layout to the panel.
 		northPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
-		//for adding the label to the panel
+		// For adding the label to the panel.
 		northPanel.add(northLabel);
-		//for adding the panel to the container
+		// For adding the panel to the container.
 		cp.add("North", northPanel);
 
-		//for setting the layout to the panel
+		// For setting the layout to the panel.
 		centerPanel.setLayout(new BorderLayout());
-		//for creating an image for the button
+		// For creating an image for the button.
 		ImageIcon printIcon = new ImageIcon(ClassLoader.getSystemResource("images/Print16.gif"));
-		//for adding the button to the panel
+		// For adding the button to the panel.
 		printButton = new JButton("print the books", printIcon);
-		//for setting the tip text
+		// For setting the tip text.
 		printButton.setToolTipText("Print");
-		//for setting the font to the button
+		// For setting the font to the button.
 		printButton.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		//for adding the button to the panel
+		// For adding the button to the panel.
 		centerPanel.add(printButton, BorderLayout.NORTH);
-		//for adding the scrollpane to the panel
+		// For adding the scrollpane to the panel.
 		centerPanel.add(scrollPane, BorderLayout.CENTER);
-		//for setting the border to the panel
+		// For setting the border to the panel.
 		centerPanel.setBorder(BorderFactory.createTitledBorder("Books:"));
-		//for adding the panel to the container
+		// For adding the panel to the container.
 		cp.add("Center", centerPanel);
 
-		//for adding the actionListener to the button
-		printButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent ae) {
-				Thread runner = new Thread() {
-					public void run() {
-						try {
+		// For adding the actionListener to the button.
+		printButton.addActionListener(new ActionListener(){
+			public void actionPerformed( ActionEvent ae ){
+				Thread runner = new Thread(){
+					public void run(){
+						try{
 							PrinterJob prnJob = PrinterJob.getPrinterJob();
 							prnJob.setPrintable(new PrintingBooks(DEFAULT_QUERY));
-							if (!prnJob.printDialog())
+							if ( !prnJob.printDialog() ){
 								return;
+							}else{
+								
+							}
 							setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
 							prnJob.print();
 							setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-						}
-						catch (PrinterException ex) {
+						}catch (PrinterException ex){
 							System.out.println("Printing error: " + ex.toString());
 						}
 					}
@@ -159,9 +172,9 @@ public class ListBooks extends JInternalFrame {
 				runner.start();
 			}
 		});
-		//for setting the visible to true
+		// For setting the visible to true.
 		setVisible(true);
-		//to show the frame
+		// To show the frame.
 		pack();
 	}
 }
