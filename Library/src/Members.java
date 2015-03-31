@@ -13,13 +13,13 @@ public class Members {
 	private Statement statement = null;
 	private ResultSet resultSet = null;
 
-	private int memberID;
+	private int memberID; //The ID of the member
 	private int ID;
-	private String password;
-	private String name;
-	private String email;
-	private String major;
-	private int numberOfBooks;
+	private String password; //The member's password
+	private String name; //The member's name
+	private String email; //The member's email
+	private String major; //The member's major
+	private int numberOfBooks; //Number of books 
 	private int mony;
 	private Date expired;
 	private String URL = "jdbc:odbc:JLibrary";
@@ -74,15 +74,23 @@ public class Members {
 		return expired;
 	}
 
-	public void connection(String Query) {
+	//Establishing an connection
+	public void connection( String Query ) {
+		
 		try {
-			Class.forName("sun.jdbc.odbc.JdbcOdbcDriver");
+			
+			Class.forName( "sun.jdbc.odbc.JdbcOdbcDriver" );
+			
 		}
-		catch (ClassNotFoundException cnfe) {
+		catch ( ClassNotFoundException cnfe ) {
+			
 			System.out.println("Members.java\n" + cnfe.toString());
+			
 		}
-		catch (Exception e) {
+		catch ( Exception e ) {
+			
 			System.out.println("Members.java\n" + e.toString());
+			
 		}
 		/***************************************************************
 		 * for making the connection,creating the statement and update *
@@ -90,10 +98,13 @@ public class Members {
 		 * and connection. There is catch block SQLException for error *
 		 ***************************************************************/
 		try {
+			
 			connection = DriverManager.getConnection(URL);
 			statement = connection.createStatement();
 			resultSet = statement.executeQuery(Query);
-			while (resultSet.next()) {
+			
+			while ( resultSet.next() ) {
+				
 				memberID = resultSet.getInt(1);
 				ID = resultSet.getInt(2);
 				password = resultSet.getString(3);
@@ -103,25 +114,34 @@ public class Members {
 				numberOfBooks = resultSet.getInt(7);
 				mony = resultSet.getInt(8);
 				expired = resultSet.getDate(9);
+				
 			}
+			
 			resultSet.close();
 			statement.close();
 			connection.close();
 		}
-		catch (SQLException SQLe) {
+		catch ( SQLException SQLe ) {
+			
 			System.out.println("Members.java\n" + SQLe.toString());
 		}
 	}
 
-	public void update(String Query) {
+	public void update( String Query ) {
 		try {
+			
 			Class.forName("sun.jdbc.odbc.JdbcOdbcDriver");
+			
 		}
-		catch (ClassNotFoundException cnfe) {
+		catch ( ClassNotFoundException cnfe ) {
+			
 			System.out.println("Members.java\n" + cnfe.toString());
+			
 		}
-		catch (Exception e) {
+		catch ( Exception e ) {
+			
 			System.out.println("Members.java\n" + e.toString());
+			
 		}
 		/***************************************************************
 		 * for making the connection,creating the statement and update *
@@ -129,13 +149,16 @@ public class Members {
 		 * and connection. There is catch block SQLException for error *
 		 ***************************************************************/
 		try {
+			
 			connection = DriverManager.getConnection(URL);
 			statement = connection.createStatement();
 			statement.executeUpdate(Query);
 			statement.close();
 			connection.close();
+			
 		}
-		catch (SQLException SQLe) {
+		catch ( SQLException SQLe ) {
+			
 			System.out.println("Members.java\n" + SQLe.toString());
 		}
 	}
