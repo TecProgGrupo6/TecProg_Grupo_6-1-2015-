@@ -1,9 +1,8 @@
 package trl.map.feature;
 
-
 public class Goal extends Feature{
 
-	public Goal() {
+	public Goal(){
 		passable = true;
 	}
 }

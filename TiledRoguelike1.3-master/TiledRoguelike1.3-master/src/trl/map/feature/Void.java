@@ -1,9 +1,8 @@
 package trl.map.feature;
 
-
 public class Void extends Feature{
 
-	public Void() {
+	public Void(){
 		passable = false;
 	}
 
