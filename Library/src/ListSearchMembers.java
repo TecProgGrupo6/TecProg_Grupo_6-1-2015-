@@ -18,17 +18,23 @@ public class ListSearchMembers extends JInternalFrame {
 	 ***************************************************************************/
 
 	//for creating the North Panel
-	private JPanel northPanel = new JPanel();
+	private JPanel northPanel = new JPanel(); 
+	
 	//for creating the Center Panel
 	private JPanel centerPanel = new JPanel();
+	
 	//for creating the label
 	private JLabel label = new JLabel("THE LIST FOR THE SEARCHED MEMBERS");
+	
 	//for creating the button
 	private JButton printButton;
+	
 	//for creating the table
 	private JTable table;
+	
 	//for creating the TableColumn
 	private TableColumn column = null;
+	
 	//for creating the JScrollPane
 	private JScrollPane scrollPane;
 
@@ -36,11 +42,14 @@ public class ListSearchMembers extends JInternalFrame {
 	private ResultSetTableModel tableModel;
 
 	//constructor of listSearchMembers
-	public ListSearchMembers(String query) {
+	public ListSearchMembers( String query ) {
+		
 		//for setting the title for the internal frame
-		super("Searched Members", false, true, false, true);
+		super( "Searched Members", false, true, false, true );
+		
 		//for setting the icon
-		setFrameIcon(new ImageIcon(ClassLoader.getSystemResource("images/List16.gif")));
+		setFrameIcon(new ImageIcon( ClassLoader.getSystemResource("images/List16.gif")) );
+		
 		//for getting the graphical user interface components display area
 		Container cp = getContentPane();
 
@@ -52,8 +61,10 @@ public class ListSearchMembers extends JInternalFrame {
 		final String DEFAULT_QUERY = query;
 
 		//for bassing the required information to the ResultSetTableModel object
-		try {
+		try { 
+			
 			tableModel = new ResultSetTableModel(JDBC_DRIVER, DATABASE_URL, DEFAULT_QUERY);
+			
 			//for setting the Query
 			try {
 				tableModel.setQuery(DEFAULT_QUERY);
@@ -61,79 +72,132 @@ public class ListSearchMembers extends JInternalFrame {
 			catch (SQLException sqlException) {
 			}
 		}
-		catch (ClassNotFoundException classNotFound) {
-			System.out.println("ListSearchMembers.java\n" + classNotFound.toString());
+		catch ( ClassNotFoundException classNotFound ) {
+			
+			System.out.println( "ListSearchMembers.java\n" + classNotFound.toString() );
+			
 		}
 		catch (SQLException sqlException) {
 		}
+		
 		//for setting the table with the information
 		table = new JTable(tableModel);
+		
 		//for setting the size for the table
 		table.setPreferredScrollableViewportSize(new Dimension(700, 200));
+		
 		//for setting the font
 		table.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		
 		//for setting the scrollpane to the table
 		scrollPane = new JScrollPane(table);
 
 		//for setting the size for the table columns
-		for (int i = 0; i < 6; i++) {
+		for ( int i = 0; i < 6; i++ ) {
+			
 			column = table.getColumnModel().getColumn(i);
-			if (i == 0) //MemberID
+			
+			if (i == 0) {//MemberID
+
 				column.setPreferredWidth(30);
-			if (i == 1) //ID
+				
+			}
+			else if (i == 1) {//ID
+				
 				column.setPreferredWidth(20);
-			if (i == 2) //Name
+				
+			}
+			else if (i == 2) {//Name
+				
 				column.setPreferredWidth(150);
-			if (i == 3) //E-MAIL
+				
+			}
+			else if (i == 3) {//E-MAIL
+				
 				column.setPreferredWidth(120);
-			if (i == 4) //Major
+				
+			}
+			else if (i == 4) {//Major
+				
 				column.setPreferredWidth(20);
-			if (i == 5) //Expired
+				
+			}
+			else if (i == 5) {//Expired
+				
 				column.setPreferredWidth(40);
+				
 		}
+			else {
+				//No action
+			}
+			
 		//for setting the font to the label
 		label.setFont(new Font("Tahoma", Font.BOLD, 14));
+		
 		//for setting the layout to the panel
 		northPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
+		
 		//for adding the label to the panel
 		northPanel.add(label);
+		
 		//for adding the panel to the container
 		cp.add("North", northPanel);
 
 		//for setting the layout to the panel
 		centerPanel.setLayout(new BorderLayout());
+		
 		//for creating an image for the button
 		ImageIcon printIcon = new ImageIcon(ClassLoader.getSystemResource("images/Print16.gif"));
+		
 		//for adding the button to the panel
 		printButton = new JButton("print the members", printIcon);
+		
 		//for setting the tip text
 		printButton.setToolTipText("Print");
+		
 		//for setting the font to the button
 		printButton.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		
 		//for adding the button to the panel
 		centerPanel.add(printButton, BorderLayout.NORTH);
+		
 		//for adding the scrollpane to the panel
 		centerPanel.add(scrollPane, BorderLayout.CENTER);
+		
 		//for setting the border to the panel
 		centerPanel.setBorder(BorderFactory.createTitledBorder("Members:"));
+		
 		//for adding the panel to the container
 		cp.add("Center", centerPanel);
 
 		//for adding the actionListener to the button
-		printButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent ae) {
+		printButton.addActionListener( new ActionListener() {
+			
+		
+			public void actionPerformed( ActionEvent ae ) {
+				
 				Thread runner = new Thread() {
+					
 					public void run() {
 						try {
+							
 							PrinterJob prnJob = PrinterJob.getPrinterJob();
 							prnJob.setPrintable(new PrintingMembers(DEFAULT_QUERY));
-							if (!prnJob.printDialog())
+							
+							if  ( !prnJob.printDialog() ) {
 								return;
+							}
+							else {
+								//No action
+							}
+							
 							setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
 							prnJob.print();
 							setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+							
 						}
-						catch (PrinterException ex) {
+						catch ( PrinterException ex ) {
+							
 							System.out.println("Printing error: " + ex.toString());
 						}
 					}
@@ -141,9 +205,11 @@ public class ListSearchMembers extends JInternalFrame {
 				runner.start();
 			}
 		});
+		
 		//for setting the visible to true
 		setVisible(true);
 		//to show the frame
 		pack();
 	}
+}
 }
