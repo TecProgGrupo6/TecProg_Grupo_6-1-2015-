@@ -14,7 +14,7 @@ public class Ranger extends Player{
 	// private Node target;
 	private List<Enemy> targets;
 
-	public Ranger(Map map){
+	public Ranger ( Map map ){
 
 		super ( map );
 		this.maxHP = 40;
@@ -41,34 +41,52 @@ public class Ranger extends Player{
 		List<Enemy> enemies = new ArrayList<Enemy> ();
 		List<Entity> entities = null;
 		for ( Node node : map.getVisibleToPlayer () ){
-			
+
 			if ( node.getEntities ()!= null ){
-				
+
 				entities = new ArrayList<Entity> ( node.getEntities () );
 				for ( Entity entity : entities ){
-					
+
 					if ( entity instanceof trl.entity.enemy.Enemy ){
-						
+
 						enemies.add ( (Enemy) entity );
+					}else{
+
+						// Nothing to do
 					}
 				}
+
+			}else{
+
+				// Nothing to do
 			}
+
 		}
+
 		return enemies;
 	}
-	//Action to enemy
-	public void fireArrow(Enemy target){
+
+	// Action to enemy
+	public void fireArrow( Enemy target ){
 
 		int damage = 4;
-		
+
 		if ( getLevel ()> 4 ){
-			
+
 			damage = getLevel ();
+		}else{
+
+			// Nothing to do
 		}
+
 		if ( damage> 10 ){
-			
+
 			damage = 10;
+		}else{
+
+			// Nothing to do
 		}
+
 		target.setHP ( target.getHP ()- damage );
 		damageDealt = damage;
 		target.setDamageTaken ( damage );

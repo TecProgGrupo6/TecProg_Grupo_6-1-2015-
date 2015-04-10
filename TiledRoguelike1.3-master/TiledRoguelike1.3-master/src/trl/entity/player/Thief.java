@@ -5,7 +5,7 @@ import trl.map.Map;
 
 public class Thief extends Player{
 
-	public Thief(Map map){
+	public Thief ( Map map ){
 
 		super ( map );
 		this.maxHP = 40;
@@ -13,6 +13,7 @@ public class Thief extends Player{
 		this.image = Game.getImageManager ().thief;
 		init ();
 	}
+
 	// Initialize Thief
 	public void init(){
 
