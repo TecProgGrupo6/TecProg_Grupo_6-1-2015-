@@ -36,76 +36,69 @@ public abstract class Player extends Actor{
 
 	protected int turnsSinceCombat;
 
-	public boolean  up = false , 
-					dn = false , 
-					lt = false , 
-					rt = false ,
-					ur = false , 
-					dr = false , 
-					dl = false , 
-					ul = false , 
-					wait = false ,
-					shout = false , 
-					blink = false , 
-					explode = false , 
-					close = false ,
-					quicken = false , 
-					targetEnemy = false , 
-					fireArrow = false ,
-					gotTargets = false , 
-					nextTarget = false , 
-					previousTarget = false ,
-					getTargets = false , 
-					cancel = false;
+	public boolean up = false , dn = false , lt = false , rt = false ,
+			ur = false , dr = false , dl = false , ul = false , wait = false ,
+			shout = false , blink = false , explode = false , close = false ,
+			quicken = false , targetEnemy = false , fireArrow = false ,
+			gotTargets = false , nextTarget = false , previousTarget = false ,
+			getTargets = false , cancel = false;
 
 	protected double xpEarned;
 
-	public Player(Map map){
+	public Player ( Map map ){
 
 		super ( map );
 		level = 1;
 	}
-	
-	//?
+
+	// ?
 	public boolean adjacentEnemy(){
 
 		for ( int x = -1 ; x<= 1 ; x++ ){
-			
+
 			for ( int y = 1 ; y>= 0 ; y-- ){
-				
-				if ( x>= 0&& x< Game.COLUMNS && y>= 0 && y< Game.ROWS ){
-					
+
+				if ( x>= 0&& x< Game.COLUMNS&& y>= 0&& y< Game.ROWS ){
+
 					Node adjacent = map.getNode ( getX ()+ x , getY ()+ y );
 					if ( adjacent!= null ){
-						
+
 						if ( adjacent.checkEntityByID ( (byte) 0 ) ){
-							
-							System.out.println ( "Adjacent enemy. Can't shoot." );
-							
+
+							System.out
+									.println ( "Adjacent enemy. Can't shoot." );
+
 							return true;
+						}else{
+							
+							// Nothing to do
 						}
 					}
 				}
 			}
 		}
-		
+
 		System.out.println ( "No adjacent enemies found." );
-		
+
 		return false;
 	}
+
 	// See enemies on screen
 	public void alertEnemies(){
 
 		for ( Enemy enemy : GameplayState.getEnemyGroup ().getEnemies () ){
-			
+
 			if ( map.isVisibleToPlayer ( enemy.getLoc () ) ){
-				
+
 				enemy.setAwareOfPlayer ( true );
+			}else{
+				
+				// Nothing to do
 			}
 		}
 	}
 
-	//Clear All
+	// Clear All
 	public void clearAllTargetingFlags(){
 
 		targetEnemy = false;
@@ -119,13 +112,18 @@ public abstract class Player extends Actor{
 		targets = null;
 		// }
 		if ( target!= null ){
-			
+
 			target.setTargeted ( false );
+		}else{
+			
+			// Nothing to do
 		}
+		
 		target = null;
 	}
-	//Earning xp
-	public void gainXP(double xp){
+
+	// Earning xp
+	public void gainXP( double xp ){
 
 		xpEarned += xp;
 	}
@@ -154,26 +152,33 @@ public abstract class Player extends Actor{
 
 		return xpEarned;
 	}
-	//Handle movement by some item
+
+	// Handle movement by some item
 	public void handleMovementResult(){
 
 		// If potion in this node, consume and remove
 		if ( loc.checkEntityByID ( (byte) 1 ) ){
-			
+
 			loc.removeEntityByID ( (byte) 1 );
 			hp = maxHP;
+		}else{
+			
+			// Nothing to do
 		}
 
 		// If hammer in this node, consume and remove
 		if ( loc.checkEntityByID ( (byte) 2 ) ){
-			
+
 			useHammer ();
 			loc.removeEntityByID ( (byte) 2 );
+		}else{
+			
+			// Nothing to do
 		}
 
 		// If key in this node, pick it up and spawn lock.
 		if ( loc.checkEntityByID ( (byte) 5 ) ){
-			
+
 			hasKey = true;
 			loc.removeEntityByID ( (byte) 5 );
 
@@ -181,63 +186,81 @@ public abstract class Player extends Actor{
 			Node randomNode = map.getRandomNodeInRoom ();
 			map.placeEntity ( new Lock ( map ) , randomNode );
 			if ( this instanceof trl.entity.player.Thief ){
-				
+
 				for ( Entity entity : randomNode.getEntities () ){
-					
+
 					entity.setSeenByPlayer ( true );
 				}
+			}else{
+				
+				// Nothing to do
 			}
+			
+		}else{
+			
+			// Nothing to do
 		}
 
 		// If lock in this node, remove it and spawn stair (or goal).
 		if ( loc.checkEntityByID ( (byte) 6 ) ){
-			
+
 			openedLock = true;
 			loc.removeEntityByID ( (byte) 6 );
 			if ( GameplayState.dungeonLevel== 5 ){
-				
+
 				Goal goal = new Goal ( map );
 				if ( this instanceof trl.entity.player.Thief ){
-					
+
 					goal.setSeenByPlayer ( true );
+				}else{
+					
+					// Nothing to do
 				}
-			} else{
 				
+			}else{
+
 				map.getRandomNodeInRoom ().setFeature ( new StairDown () );
 			}
 		}
 
 		// If down stairway on this node, switch level
 		if ( loc.isStairDown () ){
-			
+
 			GameplayState.getEnemyGroup ().getEnemies ().clear ();
 			GameplayState gameState = (GameplayState) Game
 					.getGameStateManager ().getGameState ( 1 );
 			GameplayState.getEnemyGroup ().listEnemies ();
 			gameState.setDungeonLevel ( gameState.getDungeonLevel ()+ 1 );
 			gameState.init ();
+		}else{
+			
+			// Nothing to do
 		}
 
 		if ( loc.checkEntityByID ( (byte) 7 ) ){
-			
+
 			Game.getGameStateManager ().addGameState ( 2 , new WinGameState () );
 			Game.getGameStateManager ().setGameState ( 2 );
+		}else{
+			
+			// Nothing to do
 		}
+		
 	}
-	
-	//Moves through the map
+
+	// Moves through the map
 	public void handlePath(){
 
 		// Ignore all this if path is empty
 		if ( path!= null&& path.size ()> 0 ){
-			
+
 			// System.out.println("Path size=" + path.size() +
 			// ", initial path size=" + initialPathSize);
 			// Path size == 1 and initial path size == 1 and enemy in next node.
 			// Consider this a deliberate attempt to attack enemy.
 			if ( path.size ()== 1&& initialPathSize== 1
 					&& getNextPathNode ().checkEntityByID ( (byte) 0 ) ){
-				
+
 				// System.out.println("Attacking.");
 				attack ( GameplayState.getEnemyGroup ().getEnemy (
 						getNextPathNode () ) );
@@ -266,7 +289,7 @@ public abstract class Player extends Actor{
 			else if ( path.size ()== 1
 					&& initialPathSize== 1
 					&& getNextPathNode ().getFeature () instanceof trl.map.feature.DoorClosed ){
-				
+
 				openDoor ( getNextPathNode () );
 				// System.out.println("Opening door.");
 				path.clear ();
@@ -291,11 +314,15 @@ public abstract class Player extends Actor{
 			 * Player close flag set.
 			 */
 			else if ( close ){
-				
+
 				if ( getNextPathNode ().getFeature () instanceof trl.map.feature.DoorOpen ){
-					
+
 					getNextPathNode ().makeClosedDoor ();
+				}else{
+					
+					// Nothing to do
 				}
+				
 				path.clear ();
 				close = false;
 				acted = true;
@@ -303,15 +330,15 @@ public abstract class Player extends Actor{
 
 			// Move to next node
 			else{
-				
+
 				// System.out.println("Moving.");
 				move ( getNextPathNode () );
 				moved = true;
 			}
 		}
 	}
-	
-	//Do some special movements
+
+	// Do some special movements
 	public void handleSpecialActions(){
 
 		/*
@@ -319,53 +346,85 @@ public abstract class Player extends Actor{
 		 * for method calls. Should stay safe due to player class checks.
 		 */
 		if ( shout ){
-			
+
 			if ( timers[0]<= 0 ){
-				
+
 				( (Barbarian) this ).shout ();
 				acted = true;
+			}else{
+				
+				// Nothing to do
 			}
+			
 			shout = false;
+		}else{
+			
+			// Nothing to do
 		}
+		
 
 		if ( blink ){
-			
+
 			if ( timers[0]<= 0 ){
-				
+
 				( (Wizard) this ).blink ();
 				acted = true;
+			}else{
+				
+				// Nothing to do
 			}
+			
 			blink = false;
+		}else{
+			
+			// Nothing to do
 		}
+		
 
 		if ( explode ){
-			
+
 			if ( timers[1]<= 0 ){
 				( (Wizard) this ).explode ();
 				acted = true;
+			}else{
+				
+				// Nothing to do
 			}
+			
 			explode = false;
+		}else{
+			
+			// Nothing to do
 		}
+		
 
 		if ( quicken ){
-			
+
 			if ( timers[2]<= 0 ){
-				
+
 				( (Wizard) this ).quicken ();
 				acted = true;
+			}else{
+				
+				// Nothing to do
 			}
 			
+
 			quicken = false;
+		}else{
+			
+			// Nothing to do
 		}
+		
 
 		// if (!adjacentEnemy()) {
 		// If KeyManager says we're supposed to look for targets (getTargets),
 		// but haven't yet (!gotTargets)
 
 		if ( getTargets&& !gotTargets ){
-			
+
 			if ( !adjacentEnemy () ){
-				
+
 				targets = ( (Ranger) this ).getTargets (); // Returns 0-size
 															// list if no
 															// targets found,
@@ -373,33 +432,37 @@ public abstract class Player extends Actor{
 				// targets list size = 0, clear all flags. Should continue turn
 				// as normal.
 				if ( targets.size ()== 0 ){
-					
-					System.out.println ( "Targets list size = 0. No targets found. Canceling targeting." );
+
+					System.out
+							.println ( "Targets list size = 0. No targets found. Canceling targeting." );
 					clearAllTargetingFlags ();
 				}
 				// targets list size != 0, so we found at least one target. Stop
 				// looking (getTargets = false) and
 				// allow target switching(gotTargets = true)
 				else{
-					
+
 					getTargets = false;
 					gotTargets = true;
 				}
-			} else{
-				
+			}else{
+
 				clearAllTargetingFlags ();
 			}
+		}else{
+			
+			// Nothing to do
 		}
 
 		// Should only be possible if targets list size > 0
 		if ( !getTargets&& gotTargets ){
-			
+
 			// Allow player to cancel targeting
 			if ( cancel ){
-				
+
 				clearAllTargetingFlags ();
-			} else{
-				
+			}else{
+
 				/*
 				 * On first pass through, target will be null. If target is
 				 * null, it's safe for all conditions to assign target the first
@@ -408,7 +471,7 @@ public abstract class Player extends Actor{
 				 * in targets list.
 				 */
 				if ( target== null ){
-					
+
 					// System.out.println("Target list size = " +
 					// targets.size());
 					target = targets.get ( 0 );
@@ -422,47 +485,58 @@ public abstract class Player extends Actor{
 				 * assigned values of enemies.get(0)
 				 */
 				else{
-					
+
 					if ( targets.size ()> 1 ){
-						
+
 						// Targets list size must be > 1. Consider
 						// nextTarget/previousTarget meaningful, but
 						// clear them after each pass.
 						if ( nextTarget ){
-							
+
 							// Changing target, untarget current target
 							target.setTargeted ( false );
 							// If not last target in list, target = current
 							// target index + 1
-							if ( ( targets.size ()- 1 )> targets.indexOf ( target ) ){
-								
-								target = ( targets.get ( targets.indexOf ( target )+ 1 ) );
+							if ( ( targets.size ()- 1 )> targets
+									.indexOf ( target ) ){
+
+								target = ( targets.get ( targets
+										.indexOf ( target )+ 1 ) );
 							}
 							// Else target wraps around to first target
 							else{
-								
+
 								target = targets.get ( 0 );
 							}
 							// Changed target, target new target
 							target.setTargeted ( true );
-						}
-						if ( previousTarget ){
+						}else{
 							
+							// Nothing to do
+						}
+						
+						if ( previousTarget ){
+
 							target.setTargeted ( false );
 							// If not first target, target = current target
 							// index - 1
 							if ( targets.indexOf ( target )> 0 ){
-								
-								target = targets.get ( targets.indexOf ( target )- 1 );
+
+								target = targets.get ( targets
+										.indexOf ( target )- 1 );
 							}
 							// Else target wraps around to last in list
 							else{
-								
+
 								target = targets.get ( targets.size ()- 1 );
 							}
 							// Changed target, target new target
 							target.setTargeted ( true );
+						}else{
+							
+							// Nothing to do
 						}
+						
 					}
 				}
 			}
@@ -471,18 +545,23 @@ public abstract class Player extends Actor{
 		}
 
 		if ( fireArrow ){
-			
+
 			( (Ranger) this ).fireArrow ( target );
 			clearAllTargetingFlags ();
 			acted = true;
+		}else{
+			
+			// Nothing to do
 		}
+		
 	}
-	
-	//Check number of enemies defetead
-	public void incrementEnemiesDefeated(int enemiesDefeated){
+
+	// Check number of enemies defetead
+	public void incrementEnemiesDefeated( int enemiesDefeated ){
 
 		this.enemiesDefeated += enemiesDefeated;
 	}
+
 	// Check level
 	public void levelUp(){
 
@@ -493,14 +572,15 @@ public abstract class Player extends Actor{
 		maxHP = maxHP+ (int) Math.pow ( level , 1.0+ exponent );
 		hp = (int) ( percentHealth* (double) maxHP );
 	}
-	//print on screen
+
+	// print on screen
 	public void printEnemiesList(){
 
 		System.out.println ( "=== Enemies ===" );
 		System.out.println ( "Player at "+ getX ()+ ","+ getY () );
-		
+
 		for ( Enemy enemy : GameplayState.getEnemyGroup ().getEnemies () ){
-			
+
 			System.out.println ( enemy.toString ().substring (
 					enemy.toString ().lastIndexOf ( '.' ) )
 					+ " at "
@@ -513,39 +593,53 @@ public abstract class Player extends Actor{
 					+ enemy.awareOfPlayer ()+ ", sbp="+ enemy.seenByPlayer () );
 		}
 	}
-	//refresh screen?
+
+	// refresh screen?
 	public void refresh(){
 
 		hasKey = false;
 		openedLock = false;
 		turnsOnLevel = 0;
 	}
-	//random function of items
+
+	// random function of items
 	public void rollItems(){
 
 		// Roll for item creation
 		Random r = new Random ();
 		double roll = r.nextDouble ();
 		if ( roll>= .995 ){
-			
+
 			if ( !map.hammerOnMap () ){
-				
+
 				Hammer hammer = new Hammer ( map );
 				if ( GameplayState.getPlayer () instanceof trl.entity.player.Thief ){
-					
+
 					hammer.setSeenByPlayer ( true );
+				}else{
+					
+					// Nothing to do
 				}
-			}
-		} else if ( roll>= .9 ){
-			
-			if ( !map.potionOnMap () ){
 				
+			}
+		}else if ( roll>= .9 ){
+
+			if ( !map.potionOnMap () ){
+
 				Potion potion = new Potion ( map );
 				if ( GameplayState.getPlayer () instanceof trl.entity.player.Thief ){
-					
+
 					potion.setSeenByPlayer ( true );
+				}else{
+					
+					// Nothing to do
 				}
+				
+			}else{
+				
+				// Nothing to do
 			}
+			
 		}
 	}
 
@@ -553,62 +647,95 @@ public abstract class Player extends Actor{
 
 		Node nextNode = null;
 		if ( up&& getY ()< Game.ROWS- 1 ){
-			
+
 			up = false;
 			nextNode = map.getNode ( getX () , getY ()+ 1 );
-		}
-		if ( dn&& getY ()>= 1 ){
+		}else{
 			
+			// Nothing to do
+		}
+		
+		if ( dn&& getY ()>= 1 ){
+
 			dn = false;
 			nextNode = map.getNode ( getX () , getY ()- 1 );
-		}
-		if ( lt&& getX ()>= 1 ){
+		}else{
 			
+			// Nothing to do
+		}
+		
+		if ( lt&& getX ()>= 1 ){
+
 			lt = false;
 			nextNode = map.getNode ( getX ()- 1 , getY () );
-		}
-		if ( rt&& getX ()< Game.COLUMNS- 1 ){
+		}else{
 			
+			// Nothing to do
+		}
+		
+		if ( rt&& getX ()< Game.COLUMNS- 1 ){
+
 			rt = false;
 			nextNode = map.getNode ( getX ()+ 1 , getY () );
-		}
-		if ( ur&& getY ()< Game.ROWS- 1&& getX ()< Game.COLUMNS- 1 ){
+		}else{
 			
+			// Nothing to do
+		}
+		
+		if ( ur&& getY ()< Game.ROWS- 1&& getX ()< Game.COLUMNS- 1 ){
+
 			ur = false;
 			nextNode = map.getNode ( getX ()+ 1 , getY ()+ 1 );
+		}else{
+			
+			// Nothing to do
 		}
+		
 
 		if ( dr&& getY ()>= 1&& getX ()< Game.COLUMNS- 1 ){
-			
+
 			dr = false;
 			nextNode = map.getNode ( getX ()+ 1 , getY ()- 1 );
+		}else{
+			
+			// Nothing to do
 		}
+		
 
 		if ( dl&& getY ()>= 1&& getX ()>= 1 ){
-			
+
 			dl = false;
 			nextNode = map.getNode ( getX ()- 1 , getY ()- 1 );
+		}else{
+			
+			// Nothing to do
 		}
+		
 
 		if ( ul&& getY ()< Game.ROWS- 1&& getX ()>= 1 ){
-			
+
 			ul = false;
 			nextNode = map.getNode ( getX ()- 1 , getY ()+ 1 );
+		}else{
+			
+			// Nothing to do
 		}
+		
 
 		return nextNode;
 	}
 
-	public void setNewEnemies(boolean newEnemies){
+	public void setNewEnemies( boolean newEnemies ){
 
 		this.newEnemies = newEnemies;
 	}
 
-	public void setTurnsOnLevel(int turns){
+	public void setTurnsOnLevel( int turns ){
 
 		turnsOnLevel = turns;
 	}
-	//Tick function, gameplay related
+
+	// Tick function, gameplay related
 	public void tick(){
 
 		Node nextNode; // = null; //prospective node for movement/action
@@ -619,16 +746,20 @@ public abstract class Player extends Actor{
 
 		// Set stance to normal
 		if ( Game.tickTimer== 0 ){
-			
+
 			setStance ( true , false , false , false );
+		}else{
+			
+			// Nothing to do
 		}
+		
 
 		// Alert enemies in visibleNodes to player's presence
 		alertEnemies ();
 
 		// Check for keypresses
 		if ( myTurn&& Game.tickTimer== 0 ){
-			
+
 			/*
 			 * Get direction corresponding to keypress. Will be null until
 			 * player presses a key.
@@ -637,12 +768,16 @@ public abstract class Player extends Actor{
 
 			/* If not null, add node to path */
 			if ( nextNode!= null&& !( nextNode.isWall () ) ){
-				
+
 				path.clear ();
 				path.add ( nextNode );
 				initialPathSize = 1;
 
+			}else{
+				
+				// Nothing to do
 			}
+			
 
 			/*
 			 * Check the path and handle action depending on state and contents
@@ -659,19 +794,29 @@ public abstract class Player extends Actor{
 			 * node to the path.
 			 */
 			if ( wait ){
-				
+
 				wait = false;
 				acted = true;
+			}else{
+				
+				// Nothing to do
 			}
+			
+		}else{
+			
+			// Nothing to do
 		}
 
 		if ( moved ){
-			
+
 			handleMovementResult ();
+		}else{
+			
+			// Nothing to do
 		}
 
 		if ( acted|| moved|| attacked ){
-			
+
 			Game.turnCounter++;
 			turnsOnLevel++;
 			if ( !attacked ){
@@ -680,8 +825,9 @@ public abstract class Player extends Actor{
 				 * enemies from displaying damage indicator on subsequent rounds
 				 * after damage was previously done.
 				 */
-				for ( Enemy enemies : GameplayState.getEnemyGroup ().getEnemies () ){
-					
+				for ( Enemy enemies : GameplayState.getEnemyGroup ()
+						.getEnemies () ){
+
 					enemies.setDamageTaken ( 0 );
 				}
 			}
@@ -695,20 +841,32 @@ public abstract class Player extends Actor{
 			// increment
 			// health by one every other turn.
 			if ( !attacked&& getDamageTaken ()== 0 ){
-				
+
 				turnsSinceCombat++;
 				if ( this instanceof trl.entity.player.Barbarian ){
-					
+
 					if ( turnsSinceCombat>= 3&& turnsSinceCombat% 2== 0 ){
-						
+
 						if ( hp< maxHP ){
-							
+
 							hp += 1;
+						}else{
+							
+							// Nothing to do
 						}
+						
+					}else{
+						
+						// Nothing to do
 					}
+					
+				}else{
+					
+					// Nothing to do
 				}
-			} else{
 				
+			}else{
+
 				turnsSinceCombat = 0;
 			}
 
@@ -720,16 +878,23 @@ public abstract class Player extends Actor{
 		}
 
 		if ( xpEarned>= Math.pow ( level+ 1 , 2 ) ){
-			
+
 			levelUp ();
+		}else{
+			
+			// Nothing to do
 		}
 
 		// Kill player
 		if ( !this.isAlive () ){
-			
+
 			setImage ( Game.getImageManager ().corpse );
+		}else{
+			
+			// Nothing to do
 		}
 	}
+
 	// Action on player
 	public void useHammer(){
 
@@ -739,20 +904,29 @@ public abstract class Player extends Actor{
 		// int startY = map.getDisplayedNodesMinY();
 		int startY = Map.displayedNodesMinY;
 		for ( int x = startX ; x< startX+ Game.W_COLS ; x++ ){
-			
+
 			for ( int y = startY ; y< startY+ Game.W_ROWS ; y++ ){
-				
+
 				if ( map.getNode ( x , y )!= null && map.getNode ( x , y ).checkEntityByID ( (byte) 0 ) ){
+
+					GameplayState.getEnemyGroup ()
+							.getEnemy ( map.getNode ( x , y ) ).setHP ( 0 );
+
+				}else{
 					
-					GameplayState.getEnemyGroup ().getEnemy ( map.getNode ( x , y ) ).setHP ( 0 );
-					
+					// Nothing to do
 				}
+				
 			}
 		}
 		// Heal player up to 50% health
 		if ( hp< maxHP/ 2 ){
-			
+
 			hp = maxHP/ 2;
+		}else{
+			
+			// Nothing to do
 		}
+		
 	}
 }
