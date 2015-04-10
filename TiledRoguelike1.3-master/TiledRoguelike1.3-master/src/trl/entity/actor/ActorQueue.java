@@ -32,6 +32,7 @@ public class ActorQueue{
 	public void render(Graphics g){
 
 		for ( Actor actor : queue ){
+			
 			actor.render ( g );
 		}
 	}
@@ -63,12 +64,20 @@ public class ActorQueue{
 					if ( levelDiff<= 0.0d ){
 						
 						levelDiff = 1.0d;
+					}else{
+						
+						//nothing to do
 					}
+					
 					double percentXP = ( 1.0d/ levelDiff )
 							* (double) actor.getLevel ();
 					if ( percentXP> 1.0 ){
 						percentXP = 1.0;
+					}else{
+						
+						//nothing to do
 					}
+					
 					double xp = percentXP* (double) actor.getLevel ();
 					GameplayState.getPlayer ().gainXP ( xp );
 					itQueue.remove ();
@@ -79,8 +88,19 @@ public class ActorQueue{
 					if ( actor.getTurn () ){
 						
 						actor.endTurn ( queue.get ( queue.indexOf ( actor )+ 1 ) );
+					}else{
+						
+						//nothing to do
 					}
+					
+				}else{
+					
+					//nothing to do
 				}
+				
+			}else{
+				
+				//nothing to do
 			}
 
 			/* If actor acted on its turn, determine next actor */
