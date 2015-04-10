@@ -59,13 +59,15 @@ public class Entity{
 		int x = Map.displayedNodesMinX;
 		int y = Map.displayedNodesMinY;
 
-		if ( getX ()>= x&& getX ()< x+ Game.W_COLS&& getY ()>= y
-				&& getY ()< y+ Game.W_ROWS ){
+		if ( getX ()>= x&& getX ()< x+ Game.W_COLS&& getY ()>= y && getY ()< y+ Game.W_ROWS ){
 
 			return true;
+		}else{
+			
+			return false;
 		}
 
-		return false;
+		
 	}
 
 	public boolean seenByPlayer(){
@@ -90,6 +92,9 @@ public class Entity{
 				if ( rooms[x][y].getBoundary ().contains ( position ) ){
 
 					return rooms[x][y];
+				}else{
+					
+					//nothing to do
 				}
 			}
 		}
