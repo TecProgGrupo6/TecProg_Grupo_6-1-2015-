@@ -5,7 +5,7 @@ import trl.map.Map;
 
 public class Demon extends Enemy{
 
-	public Demon(Map map){
+	public Demon ( Map map ){
 
 		super ( map );
 		init ();

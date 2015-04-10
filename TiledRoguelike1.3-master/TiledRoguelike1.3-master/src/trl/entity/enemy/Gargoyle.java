@@ -5,7 +5,7 @@ import trl.map.Map;
 
 public class Gargoyle extends Enemy{
 
-	public Gargoyle(Map map){
+	public Gargoyle ( Map map ){
 
 		super ( map );
 		init ();

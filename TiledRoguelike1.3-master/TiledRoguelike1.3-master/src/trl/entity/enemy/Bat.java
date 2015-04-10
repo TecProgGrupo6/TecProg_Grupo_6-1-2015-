@@ -5,7 +5,7 @@ import trl.map.Map;
 
 public class Bat extends Enemy{
 
-	public Bat(Map map){
+	public Bat ( Map map ){
 
 		super ( map );
 		init ();

@@ -5,7 +5,7 @@ import trl.map.Map;
 
 public class GelatinousCube extends Enemy{
 
-	public GelatinousCube(Map map){
+	public GelatinousCube ( Map map ){
 
 		super ( map );
 		init ();

@@ -5,7 +5,7 @@ import trl.map.Map;
 
 public class Zombie extends Enemy{
 
-	public Zombie(Map map){
+	public Zombie ( Map map ){
 
 		super ( map );
 		init ();

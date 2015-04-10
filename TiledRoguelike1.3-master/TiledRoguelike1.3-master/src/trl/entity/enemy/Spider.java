@@ -5,11 +5,12 @@ import trl.map.Map;
 
 public class Spider extends Enemy{
 
-	public Spider(Map map){
+	public Spider ( Map map ){
 
 		super ( map );
 		init ();
 	}
+
 	// Initiliaze Spider
 	public void init(){
 

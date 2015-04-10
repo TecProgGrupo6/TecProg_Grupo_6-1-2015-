@@ -5,12 +5,13 @@ import trl.map.Map;
 
 public class Ogre extends Enemy{
 
-	public Ogre(Map map){
+	public Ogre ( Map map ){
 
 		super ( map );
 		init ();
 	}
-	//Initialize Ogre
+
+	// Initialize Ogre
 	public void init(){
 
 		maxHP = 28;

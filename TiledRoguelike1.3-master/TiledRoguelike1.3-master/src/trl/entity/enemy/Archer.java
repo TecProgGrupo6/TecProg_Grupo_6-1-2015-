@@ -5,11 +5,12 @@ import trl.map.Map;
 
 public class Archer extends Enemy{
 
-	public Archer(Map map){
+	public Archer ( Map map ){
 
 		super ( map );
 		init ();
 	}
+
 	// Initiliaze archer
 	public void init(){
 

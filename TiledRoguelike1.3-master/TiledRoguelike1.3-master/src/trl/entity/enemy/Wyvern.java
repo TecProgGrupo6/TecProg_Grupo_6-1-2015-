@@ -5,7 +5,7 @@ import trl.map.Map;
 
 public class Wyvern extends Enemy{
 
-	public Wyvern(Map map){
+	public Wyvern ( Map map ){
 
 		super ( map );
 		init ();

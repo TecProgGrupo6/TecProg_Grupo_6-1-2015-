@@ -5,7 +5,7 @@ import trl.map.Map;
 
 public class Goblin extends Enemy{
 
-	public Goblin(Map map){
+	public Goblin ( Map map ){
 
 		super ( map );
 		init ();

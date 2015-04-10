@@ -5,11 +5,12 @@ import trl.map.Map;
 
 public class Ant extends Enemy{
 
-	public Ant(Map map){
+	public Ant ( Map map ){
 
 		super ( map );
 		init ();
 	}
+
 	// Initiliaze an ant
 	public void init(){
 

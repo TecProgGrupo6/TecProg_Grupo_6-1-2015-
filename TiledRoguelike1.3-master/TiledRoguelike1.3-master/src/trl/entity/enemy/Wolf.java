@@ -5,11 +5,12 @@ import trl.map.Map;
 
 public class Wolf extends Enemy{
 
-	public Wolf(Map map){
+	public Wolf ( Map map ){
 
 		super ( map );
 		init ();
 	}
+
 	// Initiliaze Wolf
 	public void init(){
 

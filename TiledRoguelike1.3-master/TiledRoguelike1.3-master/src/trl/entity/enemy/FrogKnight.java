@@ -5,7 +5,7 @@ import trl.map.Map;
 
 public class FrogKnight extends Enemy{
 
-	public FrogKnight(Map map){
+	public FrogKnight ( Map map ){
 
 		super ( map );
 		init ();

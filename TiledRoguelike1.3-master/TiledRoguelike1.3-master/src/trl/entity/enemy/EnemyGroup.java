@@ -18,7 +18,7 @@ public class EnemyGroup{
 	private Map map;
 
 	// Initiliazes enemies in the map
-	public EnemyGroup(Map map){
+	public EnemyGroup ( Map map ){
 
 		this.map = map;
 		init ();
@@ -44,13 +44,13 @@ public class EnemyGroup{
 			switch ( dungeonLevel ) {
 			case 1:
 				if ( roll> .9 ){
-					
+
 					enemy = new Rat ( map );
-				} else if ( roll> .6 ){
-					
+				}else if ( roll> .6 ){
+
 					enemy = new Spider ( map );
-				} else{
-					
+				}else{
+
 					enemy = new Bat ( map );
 				}
 				break;
@@ -58,9 +58,9 @@ public class EnemyGroup{
 			case 2:
 				if ( roll> .9 ){
 					enemy = new Scorpion ( map );
-				} else if ( roll> .6 ){
+				}else if ( roll> .6 ){
 					enemy = new Wasp ( map );
-				} else{
+				}else{
 					enemy = new Ant ( map );
 				}
 
@@ -68,39 +68,39 @@ public class EnemyGroup{
 
 			case 3:
 				if ( roll> .9 ){
-					
+
 					enemy = new Panther ( map );
-				} else if ( roll> .6 ){
-					
+				}else if ( roll> .6 ){
+
 					enemy = new Goblin ( map );
-				} else{
-					
+				}else{
+
 					enemy = new GelatinousCube ( map );
 				}
 				break;
 
 			case 4:
 				if ( roll> .9 ){
-					
+
 					enemy = new Gremlin ( map );
-				} else if ( roll> .6 ){
-					
+				}else if ( roll> .6 ){
+
 					enemy = new Wyvern ( map );
-				} else{
-					
+				}else{
+
 					enemy = new Wolf ( map );
 				}
 				break;
 
 			case 5:
 				if ( roll> .9 ){
-					
+
 					enemy = new Gargoyle ( map );
-				} else if ( roll> .6 ){
-					
+				}else if ( roll> .6 ){
+
 					enemy = new Ogre ( map );
-				} else{
-					
+				}else{
+
 					enemy = new Zombie ( map );
 				}
 				break;
@@ -110,14 +110,18 @@ public class EnemyGroup{
 			if ( GameplayState.getPlayer () instanceof trl.entity.player.Thief ){
 
 				enemy.setSeenByPlayer ( true );
+			}else{
+				
+				// Nothing to do
 			}
+			
 			enemies.add ( enemy );
 			GameplayState.getActorQueue ().addActor ( enemy );
 		}
 	}
 
 	// Removes enemy from map
-	public void removeEnemy(Actor enemy){
+	public void removeEnemy( Actor enemy ){
 
 		// Remove from enemy list
 		enemies.remove ( enemy );
@@ -125,19 +129,23 @@ public class EnemyGroup{
 		map.getNodeWith ( enemy ).removeEntity ( enemy );
 	}
 
-	public Enemy getEnemy(Node node){
+	public Enemy getEnemy( Node node ){
 
 		for ( Enemy enemy : enemies ){
 
 			if ( enemy.getLoc ().equals ( node ) ){
 
 				return enemy;
+			}else{
+				
+				// Nothing to do
 			}
+			
 		}
 		return null;
 	}
 
-	public Enemy getEnemy(int index){
+	public Enemy getEnemy( int index ){
 
 		return ( enemies.get ( index ) );
 	}
@@ -148,10 +156,10 @@ public class EnemyGroup{
 	}
 
 	// Render graphics of the enemy
-	public void render(Graphics g){
+	public void render( Graphics g ){
 
 		for ( Enemy enemy : enemies ){
-			
+
 			enemy.render ( g );
 		}
 	}
@@ -169,13 +177,13 @@ public class EnemyGroup{
 
 		System.out.println ( "Current enemies:" );
 		System.out.println ( "================" );
-		
+
 		for ( Enemy enemy : enemies ){
 
 			System.out.println ( enemy.toString ().substring (
 					enemy.toString ().lastIndexOf ( "," )+ 1 ) );
 		}
-		
+
 		System.out.println ( "================" );
 	}
 }

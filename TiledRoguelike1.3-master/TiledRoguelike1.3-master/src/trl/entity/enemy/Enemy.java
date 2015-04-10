@@ -13,7 +13,7 @@ public abstract class Enemy extends Actor{
 
 	protected boolean targeted;
 
-	public Enemy(Map map){
+	public Enemy ( Map map ){
 
 		super ( map );
 	}
@@ -32,33 +32,40 @@ public abstract class Enemy extends Actor{
 		clearFlags (); // Set acted, attacked, moved to false.
 
 		// Set stance to normal
-		if (Game.tickTimer== 0){
+		if ( Game.tickTimer== 0 ){
 			setStance ( true , false , false , false );
+		}else{
+			
+			//nothing to do
 		}
 
-		if (myTurn&& Game.tickTimer== 0){
+		if ( myTurn&& Game.tickTimer== 0 ){
 
-			if (!awareOfPlayer){
-				
+			if ( !awareOfPlayer ){
+
 				// If all path nodes are consumed, get a new path.
 				// If enemy has been on the same node for 3 turns, get new path.
-				if (path.size ()== 0|| turnsOnNode>= 3){
-					
+				if ( path.size ()== 0|| turnsOnNode>= 3 ){
+
 					// setPathTo(map.getRandomNode());
 					setPathToConnectedRoom ();
+				}else{
+					
+					//nothing to do
 				}
+				
 			}
 
 			// If enemy is aware of player, attack or update path to player
 			else{
 				// If adjacent to player, attack.
-				if (this.loc.adjacent ( GameplayState.getPlayer ().getLoc () )){
-					
+				if ( this.loc.adjacent ( GameplayState.getPlayer ().getLoc () ) ){
+
 					attack ( GameplayState.getPlayer () );
 					GameplayState.getPlayer ().setDamageTaken ( damageDealt );
 					attacked = true;
-				} else{
-					
+				}else{
+
 					// Set path to player's location
 					setPathTo ( GameplayState.getPlayer ().getLoc () );
 				}
@@ -71,20 +78,24 @@ public abstract class Enemy extends Actor{
 			 * setDamageTaken(0) is a clumsy fix to prevent player from
 			 * indicating damage on rounds after he wasn't in combat.
 			 */
-			if (!attacked){
-				
+			if ( !attacked ){
+
 				previousNode = loc;
 				move ( getNextPathNode () );
 				moved = true;
-				if (loc.equals ( previousNode )){
-					
+				if ( loc.equals ( previousNode ) ){
+
 					turnsOnNode++;
-				} else{
-					
+				}else{
+
 					turnsOnNode = 0;
 				}
 				GameplayState.getPlayer ().setDamageTaken ( 0 );
+			}else{
+				
+				//nothing to do
 			}
+			
 		}
 	}
 
@@ -93,23 +104,24 @@ public abstract class Enemy extends Actor{
 		return xpReward;
 	}
 
-	public void setAwareOfPlayer(boolean awareOfPlayer){
+	public void setAwareOfPlayer( boolean awareOfPlayer ){
 
 		this.awareOfPlayer = awareOfPlayer;
 	}
-
+	//returns the atribute
 	public boolean awareOfPlayer(){
 
 		return awareOfPlayer;
 	}
-
+	//returns the atribute
 	public boolean getTargeted(){
 
 		return targeted;
 	}
 
-	public void setTargeted(boolean targeted){
+	public void setTargeted( boolean targeted ){
 
 		this.targeted = targeted;
 	}
+	
 }
