@@ -5,7 +5,7 @@ import trl.map.Map;
 
 public abstract class Item extends Entity{
 
-	public Item(Map map){
+	public Item ( Map map ){
 
 		super ( map );
 	}

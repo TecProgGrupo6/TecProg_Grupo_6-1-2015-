@@ -5,11 +5,12 @@ import trl.map.Map;
 
 public class Key extends Item{
 
-	public Key(Map map){
+	public Key ( Map map ){
 
 		super ( map );
 		init ();
 	}
+
 	// Initiliaze Key
 	public void init(){
 

@@ -5,11 +5,12 @@ import trl.map.Map;
 
 public class Goal extends Item{
 
-	public Goal(Map map){
+	public Goal ( Map map ){
 
 		super ( map );
 		init ();
 	}
+
 	// Initiliaze Goal
 	public void init(){
 

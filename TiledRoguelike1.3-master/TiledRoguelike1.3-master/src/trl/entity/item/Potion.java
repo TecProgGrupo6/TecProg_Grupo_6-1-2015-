@@ -5,11 +5,12 @@ import trl.map.Map;
 
 public class Potion extends Item{
 
-	public Potion(Map map){
+	public Potion ( Map map ){
 
 		super ( map );
 		init ();
 	}
+
 	// Initializes Potion
 	public void init(){
 

@@ -5,11 +5,12 @@ import trl.map.Map;
 
 public class Hammer extends Item{
 
-	public Hammer(Map map){
+	public Hammer ( Map map ){
 
 		super ( map );
 		init ();
 	}
+
 	// Initiliaze Hammer
 	public void init(){
 
