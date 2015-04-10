@@ -7,7 +7,7 @@ import trl.map.Map;
 
 public class Barbarian extends Player{
 
-	public Barbarian(Map map){
+	public Barbarian ( Map map ){
 
 		super ( map );
 		this.maxHP = 50;
@@ -15,6 +15,7 @@ public class Barbarian extends Player{
 		this.image = Game.getImageManager ().barbarian;
 		init ();
 	}
+
 	// Initializes Barbarian
 	public void init(){
 
@@ -22,6 +23,7 @@ public class Barbarian extends Player{
 		this.myTurn = true;
 		timers = new int[1];
 	}
+
 	// Action to shout
 	public void shout(){
 
