@@ -18,13 +18,17 @@ import trl.sound.SoundManager;
 
 public abstract class Actor extends Entity{
 
-	protected int hp , maxHP , atk;
+	protected int hp ;
+	
+	protected int maxHP;
+	
+	protected int attack;
 
 	protected int damageTaken;
 
 	protected int damageDealt;
 
-	protected SoundManager sm;
+	protected SoundManager soundManager;
 
 	protected boolean acted; // Did I do anything during my tick?
 
@@ -91,11 +95,11 @@ public abstract class Actor extends Entity{
 	protected void attack( Actor defender ){
 
 		Random r = new Random ();
-		damageDealt = (int) Math.round ( r.nextDouble ()* atk )+ level;
+		damageDealt = (int) Math.round ( r.nextDouble ()* attack )+ level;
 
-		if ( damageDealt> atk ){
+		if ( damageDealt> attack ){
 
-			damageDealt = atk;
+			damageDealt = attack;
 		}else{
 
 			// nothing to do
@@ -216,7 +220,7 @@ public abstract class Actor extends Entity{
 
 		if ( attacked&& damageDealt> 0 ){
 
-			sm.playSound ( "strike" );
+			soundManager.playSound ( "strike" );
 		}else{
 			
 			//nothing to do
@@ -224,7 +228,7 @@ public abstract class Actor extends Entity{
 
 		if ( attacked&& damageDealt== 0 ){
 
-			sm.playSound ( "miss" );
+			soundManager.playSound ( "miss" );
 		}else{
 			
 			//nothing to do
