@@ -26,7 +26,7 @@ public class Wizard extends Player{
 		this.myTurn = true;
 		// timers[0] = blink, timers[1] = explode, timers[2] = quicken
 		timers = new int[3];
-		for ( int i : timers ){
+		for ( @SuppressWarnings("unused") int i : timers ){
 			i = 0;
 		}
 	}
