@@ -18,11 +18,12 @@ public class Ranger extends Player{
 
 		super ( map );
 		this.maxHP = 40;
-		this.atk = 7;
+		this.attack = 7;
 		this.image = Game.getImageManager ().ranger;
 		init ();
 	}
 
+	// Initializes Ranger
 	public void init(){
 
 		this.hp = maxHP;

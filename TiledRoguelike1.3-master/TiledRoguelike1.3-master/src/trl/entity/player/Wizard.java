@@ -14,7 +14,7 @@ public class Wizard extends Player{
 
 		super ( map );
 		this.maxHP = 30;
-		this.atk = 5;
+		this.attack = 5;
 		this.image = Game.getImageManager ().wizard;
 		init ();
 	}
@@ -27,7 +27,6 @@ public class Wizard extends Player{
 		// timers[0] = blink, timers[1] = explode, timers[2] = quicken
 		timers = new int[3];
 		for ( int i : timers ){
-
 			i = 0;
 		}
 	}

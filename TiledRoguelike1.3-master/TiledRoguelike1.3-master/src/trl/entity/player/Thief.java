@@ -9,7 +9,7 @@ public class Thief extends Player{
 
 		super ( map );
 		this.maxHP = 40;
-		this.atk = 7;
+		this.attack = 7;
 		this.image = Game.getImageManager ().thief;
 		init ();
 	}

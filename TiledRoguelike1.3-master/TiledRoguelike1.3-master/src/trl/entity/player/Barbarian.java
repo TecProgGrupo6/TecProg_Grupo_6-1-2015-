@@ -11,7 +11,7 @@ public class Barbarian extends Player{
 
 		super ( map );
 		this.maxHP = 50;
-		this.atk = 10;
+		this.attack = 10;
 		this.image = Game.getImageManager ().barbarian;
 		init ();
 	}
