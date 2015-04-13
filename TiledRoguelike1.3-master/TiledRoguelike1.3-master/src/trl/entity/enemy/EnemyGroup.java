@@ -12,8 +12,10 @@ import trl.map.Node;
 
 public class EnemyGroup{
 
+	//List of enemys in the map
 	private List<Enemy> enemies;
 
+	//Represents the game's map
 	private Map map;
 
 	// Initiliazes enemies in the map
