@@ -5,12 +5,12 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import trl.entity.enemy.Enemy;
 import trl.gamestate.GameplayState;
 import trl.main.Game;
 
 public class ActorQueue{
 
+	//Represent the queue of the Actors
 	private List<Actor> queue;
 
 	public ActorQueue(){
@@ -36,23 +36,17 @@ public class ActorQueue{
 			actor.render ( g );
 		}
 	}
-	//
+	
 	public void tick(){
 
 		Actor actor;
-		/* Start tick loop */
+		// Start tick loop 
 		for ( Iterator<Actor> itQueue = queue.iterator () ; itQueue.hasNext () ; ){
 			actor = itQueue.next ();
-			// if (actor instanceof trl.entity.enemy.Enemy &&
-			// GameplayState.tickEnemies) {
-			// actor.tick();
-			// }
-			// else if (actor instanceof trl.entity.enemy.Enemy) {
-			// actor.tick();
-			// }
+			
 			actor.tick ();
 
-			/* If actor was enemy */
+			// If actor was enemy..
 			if ( actor instanceof trl.entity.enemy.Enemy ){
 				
 				if ( !actor.isAlive ()&& Game.tickTimer> 0 ){
@@ -83,7 +77,6 @@ public class ActorQueue{
 					itQueue.remove ();
 					GameplayState.getEnemyGroup ().removeEnemy ( actor );
 
-					/* This needs to stay here */
 					// If it's a dead enemy's turn, pass turn to next actor
 					if ( actor.getTurn () ){
 						
@@ -103,40 +96,38 @@ public class ActorQueue{
 				//nothing to do
 			}
 
-			/* If actor acted on its turn, determine next actor */
+			// If actor acted on its turn, determine next actor... 
 			if ( actor.getTurn () ){
 				
 				if ( actor.getActed () ){
 					
-					// GameplayState.getMap().updateDisplayedNodes();
 					GameplayState.getMap ().updateVisibleToPlayer ();
 					GameplayState.getMap ().updateImageMap ();
-					// If there's another actor in queue, hand turn to that
-					// actor
+					/* 
+					 * If there's another actor in queue, hand turn to that
+					 * actor
+					 */
 					if ( itQueue.hasNext () ){
 						
-						// Get next actor by index (current + 1) instead of
-						// moving iterator
-						// System.out.println(actor.toString() +
-						// " passing turn to " + queue.get(queue.indexOf(actor)
-						// + 1));
+						/* Get next actor by index (current + 1) instead of
+						 *  moving iterator
+						 */
+						
 						actor.endTurn ( queue.get ( queue.indexOf ( actor )+ 1 ) );
 					}
 					// Hand turn to first actor in queue
 					else{
 						
-						// System.out.println(actor.toString() +
-						// " passing turn to " + queue.get(0).toString());
 						actor.endTurn ( queue.get ( 0 ) );
 					}
 				} else{
 					
-					/* If actor did not act. Not currently implemented */
+					// If actor did not act. Not currently implemented
 				}
 			}
 
 		}
-		/* End tick loop */
+		// End tick loop
 
 		GameplayState.getEnemyGroup ().spawnEnemies ();
 	}
@@ -148,7 +139,7 @@ public class ActorQueue{
 
 	public void flush(){
 
-		for ( Actor actor : queue ){
+		for ( @SuppressWarnings("unused") Actor actor : queue ){
 			
 			actor = null;
 		}
