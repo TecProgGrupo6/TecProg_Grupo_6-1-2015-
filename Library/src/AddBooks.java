@@ -35,6 +35,7 @@ public class AddBooks extends JInternalFrame {
 
     // For creating the Center Panel.
     private JPanel centerPanel = new JPanel();
+    
     // For creating an Internal Panel in the center panel.
     private JPanel informationLabelPanel = new JPanel();
 
@@ -42,6 +43,7 @@ public class AddBooks extends JInternalFrame {
     private JLabel[] informationLabel = new JLabel[10];
     private JLabel lblShelfNo = new JLabel(" Shelf No");
     private JTextField txtShelfNo = new JTextField();
+    
     // For creating an array of String.
     private String[] informationString = {
         " The book subject: ", " The book title: ",
@@ -49,25 +51,31 @@ public class AddBooks extends JInternalFrame {
         " Copyright for the book: ", " The edition number: ", " The number of Pages: ",
         " ISBN for the book: ", " The number of copies: ", " The name of the Library: "
     };
+    
     // For creating an Internal Panel in the center panel.
     private JPanel informationTextFieldPanel = new JPanel();
+    
     // For creating an array of JTextField.
     private JTextField[] informationTextField = new JTextField[10];
 
     // For creating an Internal Panel in the center panel.
     private JPanel insertInformationButtonPanel = new JPanel();
+    
     // For creating a button.
     private JButton insertInformationButton = new JButton( "Insert the Information" );
 
     // For creating South Panel.
     private JPanel southPanel = new JPanel();
+    
     // For creating a button.
     private JButton OKButton = new JButton( "Exit" );
 
     // Create objects from another classes for using them in the ActionListener.
     private Books book;
+    
     // For creating an array of string to store the data.
     private String[] data;
+    
     // For setting availble option to true.
     private boolean availble = true;
 
@@ -75,8 +83,11 @@ public class AddBooks extends JInternalFrame {
     public boolean isCorrect(){
         data = new String[10];
         for ( int i = 0 ; i < informationLabel.length ; i++ ){
+        	
             if ( !informationTextField[i].getText().equals("") ){
+            	
                 data[i] = informationTextField[i].getText();
+                
             } else {
                 return false;
             }
@@ -87,6 +98,7 @@ public class AddBooks extends JInternalFrame {
     // For setting the array of JTextField to empty.
     public void clearTextField() {
         for ( int i = 0 ; i < informationTextField.length ; i++ ){
+        	
             informationTextField[i].setText(null);
         }
         txtShelfNo.setText(null);
@@ -94,36 +106,47 @@ public class AddBooks extends JInternalFrame {
 
     // Constructor of addBooks.
     public AddBooks(){
+    	
         // For setting the title for the internal frame.
         super("Add Books", false, true, false, true);
+        
         // For setting the icon.
         setFrameIcon(new ImageIcon(ClassLoader.getSystemResource("images/Add16.gif")));
+        
         // For getting the graphical user interface components display area.
         Container cp = getContentPane();
 
         // For setting the layout.
         northPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
+        
         // For setting the font for the North Panel.
         northLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
+        
         // For adding the label in the North Panel.
         northPanel.add(northLabel);
+        
         // For adding the north panel to the container.
         cp.add("North", northPanel);
 
         // For setting the layout.
         centerPanel.setLayout(new BorderLayout());
+        
         // For setting the border to the panel.
         centerPanel.setBorder(BorderFactory.createTitledBorder("Add a new book:"));
+        
         // For setting the layout.
         informationLabelPanel.setLayout(new GridLayout(11, 1, 1, 1));
+        
         /***********************************************************************
          * for adding the strings to the labels, for setting the font 		   *
          * and adding these labels to the panel.							   *
          * finally adding the panel to the container						   *
          ***********************************************************************/
         for ( int i = 0 ; i < informationLabel.length ; i++ ){
+        	
             informationLabelPanel.add(informationLabel[i] = new JLabel(informationString[i]));
             informationLabel[i].setFont(new Font("Tahoma", Font.BOLD, 11));
+            
         }
         centerPanel.add("West", informationLabelPanel);
 
@@ -138,6 +161,7 @@ public class AddBooks extends JInternalFrame {
             informationTextFieldPanel.add(informationTextField[i] = new JTextField(25));
             informationTextField[i].setFont(new Font("Tahoma", Font.PLAIN, 11));
         }
+        
         lblShelfNo.setFont(new Font("Tahoma", Font.BOLD, 11));
         informationLabelPanel.add(lblShelfNo);
         txtShelfNo.setFont(new Font("Tahoma", Font.PLAIN, 11));
@@ -185,6 +209,7 @@ public class AddBooks extends JInternalFrame {
                             book.connection("SELECT BookID FROM Books WHERE ISBN = '" + data[7] + "'");
                             String ISBN = book.getISBN();
                             if ( !data[7].equalsIgnoreCase(ISBN) ){
+                            	
                                 try{
                                     String sql="INSERT INTO Books (Subject,Title,Author,Publisher,Copyright," +
                                         "Edition,Pages,ISBN,NumberOfBooks,NumberOfAvailbleBooks,Library,Availble,ShelfNo) VALUES "+
@@ -205,9 +230,13 @@ public class AddBooks extends JInternalFrame {
                                         ps.setString(11, data[9]);
                                         ps.setBoolean(12, availble);
                                         ps.setInt(13, Integer.parseInt(txtShelfNo.getText()));
-                                        ps.executeUpdate();      
-                                }catch(Exception ex){
+                                        ps.executeUpdate();  
+                                        
+                                }
+                                catch(Exception ex){
+                                	
                                     JOptionPane.showMessageDialog(null, ex.toString());
+                                    
                                 }
                                 
                                 /*String sql="INSERT INTO Books (Subject,Title,Author,Publisher,Copyright," +
@@ -220,13 +249,17 @@ public class AddBooks extends JInternalFrame {
                                 // JOptionPane.showMessageDialog(null, sql);
                                 // For setting the array of JTextField to empty.
                                 clearTextField();
-                            }else{
+                            }
+                            else{
+                            	
                                 JOptionPane.showMessageDialog(null, "The book is in the library", "Error", JOptionPane.ERROR_MESSAGE);
+                                
                             }
                         }
                     };
                     runner.start();
-                } // If there is a missing data, then display Message Dialog.
+                } 
+                // If there is a missing data, then display Message Dialog.
                 else{
                     JOptionPane.showMessageDialog(null, "Please, complete the information", "Warning", JOptionPane.WARNING_MESSAGE);
                 }
