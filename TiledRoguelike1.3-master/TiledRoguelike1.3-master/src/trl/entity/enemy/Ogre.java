@@ -15,7 +15,7 @@ public class Ogre extends Enemy{
 	public void init(){
 
 		maxHP = 28;
-		atk = 5;
+		attack = 5;
 		image = Game.getImageManager ().ogre;
 		hp = maxHP;
 		xpReward = 14;

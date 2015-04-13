@@ -15,7 +15,7 @@ public class GelatinousCube extends Enemy{
 	public void init(){
 
 		maxHP = 14;
-		atk = 5;
+		attack = 5;
 		image = Game.getImageManager ().gelatinousCube;
 		hp = maxHP;
 		xpReward = 7;

@@ -15,7 +15,7 @@ public class Gremlin extends Enemy{
 	public void init(){
 
 		maxHP = 24;
-		atk = 5;
+		attack = 5;
 		image = Game.getImageManager ().gremlin;
 		hp = maxHP;
 		xpReward = 12;

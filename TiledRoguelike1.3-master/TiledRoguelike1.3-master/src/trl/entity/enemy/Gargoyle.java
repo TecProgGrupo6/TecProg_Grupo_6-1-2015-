@@ -15,7 +15,7 @@ public class Gargoyle extends Enemy{
 	public void init(){
 
 		maxHP = 30;
-		atk = 5;
+		attack = 5;
 		image = Game.getImageManager ().gargoyle;
 		hp = maxHP;
 		xpReward = 15;

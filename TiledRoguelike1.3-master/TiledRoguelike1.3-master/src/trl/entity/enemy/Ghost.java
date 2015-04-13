@@ -1,6 +1,5 @@
 package trl.entity.enemy;
 
-import trl.main.Game;
 import trl.map.Map;
 
 public class Ghost extends Enemy{
@@ -15,7 +14,7 @@ public class Ghost extends Enemy{
 	public void init(){
 
 		maxHP = 5;
-		atk = 5;
+		attack = 5;
 		// image = Game.getImageManager().ghost;
 		hp = maxHP;
 		xpReward = 1;

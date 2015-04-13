@@ -15,7 +15,7 @@ public class Bat extends Enemy{
 	public void init(){
 
 		maxHP = 6;
-		atk = 5;
+		attack = 5;
 		image = Game.getImageManager ().bat;
 		hp = maxHP;
 		level = 1;

@@ -15,7 +15,7 @@ public class Demon extends Enemy{
 	public void init(){
 
 		maxHP = 15;
-		atk = 10;
+		attack = 10;
 		image = Game.getImageManager ().demon;
 		hp = maxHP;
 		level = 1;

@@ -7,7 +7,6 @@ import java.util.Random;
 
 import trl.entity.actor.Actor;
 import trl.gamestate.GameplayState;
-import trl.main.Game;
 import trl.map.Map;
 import trl.map.Node;
 
@@ -166,7 +165,7 @@ public class EnemyGroup{
 
 	public void flush(){
 
-		for ( Enemy enemy : enemies ){
+		for ( @SuppressWarnings("unused") Enemy enemy : enemies ){
 
 			enemy = null;
 		}

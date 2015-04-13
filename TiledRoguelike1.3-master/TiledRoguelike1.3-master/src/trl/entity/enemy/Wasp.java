@@ -15,7 +15,7 @@ public class Wasp extends Enemy{
 	public void init(){
 
 		maxHP = 10;
-		atk = 5;
+		attack = 5;
 		image = Game.getImageManager ().wasp;
 		hp = maxHP;
 		xpReward = 5;

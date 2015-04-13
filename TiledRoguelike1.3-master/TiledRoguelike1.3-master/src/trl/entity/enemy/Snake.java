@@ -15,7 +15,7 @@ public class Snake extends Enemy{
 	public void init(){
 
 		maxHP = 5;
-		atk = 5;
+		attack = 5;
 		image = Game.getImageManager ().snake;
 		hp = maxHP;
 		level = 1;

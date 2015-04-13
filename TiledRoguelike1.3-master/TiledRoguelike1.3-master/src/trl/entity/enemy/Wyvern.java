@@ -15,7 +15,7 @@ public class Wyvern extends Enemy{
 	public void init(){
 
 		maxHP = 22;
-		atk = 5;
+		attack = 5;
 		image = Game.getImageManager ().wyvern;
 		hp = maxHP;
 		xpReward = 11;

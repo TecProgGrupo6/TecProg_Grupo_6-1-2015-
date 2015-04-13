@@ -15,7 +15,7 @@ public class Spider extends Enemy{
 	public void init(){
 
 		maxHP = 7;
-		atk = 5;
+		attack = 5;
 		image = Game.getImageManager ().spider;
 		hp = maxHP;
 		level = 2;

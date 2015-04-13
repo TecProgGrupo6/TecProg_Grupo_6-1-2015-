@@ -15,7 +15,7 @@ public class Panther extends Enemy{
 	public void init(){
 
 		maxHP = 18;
-		atk = 5;
+		attack = 5;
 		image = Game.getImageManager ().panther;
 		hp = maxHP;
 		xpReward = 9;

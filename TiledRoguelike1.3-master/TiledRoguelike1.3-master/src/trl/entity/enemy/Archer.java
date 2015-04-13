@@ -15,7 +15,7 @@ public class Archer extends Enemy{
 	public void init(){
 
 		maxHP = 5;
-		atk = 5;
+		attack = 5;
 		image = Game.getImageManager ().archer;
 		hp = maxHP;
 		xpReward = 1;

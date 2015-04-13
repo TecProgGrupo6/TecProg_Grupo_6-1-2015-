@@ -15,7 +15,7 @@ public class FrogKnight extends Enemy{
 	public void init(){
 
 		maxHP = 10;
-		atk = 8;
+		attack = 8;
 		image = Game.getImageManager ().frogKnight;
 		hp = maxHP;
 		level = 1;

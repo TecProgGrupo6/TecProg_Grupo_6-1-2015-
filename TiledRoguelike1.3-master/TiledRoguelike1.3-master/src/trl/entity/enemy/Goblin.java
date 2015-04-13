@@ -15,7 +15,7 @@ public class Goblin extends Enemy{
 	public void init(){
 
 		maxHP = 16;
-		atk = 5;
+		attack = 5;
 		image = Game.getImageManager ().goblin;
 		hp = maxHP;
 		xpReward = 8;

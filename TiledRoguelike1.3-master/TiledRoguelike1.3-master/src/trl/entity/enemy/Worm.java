@@ -15,7 +15,7 @@ public class Worm extends Enemy{
 	public void init(){
 
 		maxHP = 5;
-		atk = 5;
+		attack = 5;
 		image = Game.getImageManager ().worm;
 		hp = maxHP;
 		xpReward = 1;

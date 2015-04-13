@@ -15,7 +15,7 @@ public class Wolf extends Enemy{
 	public void init(){
 
 		maxHP = 20;
-		atk = 5;
+		attack = 5;
 		image = Game.getImageManager ().wolf;
 		hp = maxHP;
 		xpReward = 10;

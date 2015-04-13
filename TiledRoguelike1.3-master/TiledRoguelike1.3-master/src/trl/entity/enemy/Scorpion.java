@@ -15,7 +15,7 @@ public class Scorpion extends Enemy{
 	public void init(){
 
 		maxHP = 12;
-		atk = 5;
+		attack = 5;
 		image = Game.getImageManager ().scorpion;
 		hp = maxHP;
 		xpReward = 6;

@@ -15,7 +15,7 @@ public class Rat extends Enemy{
 	public void init(){
 
 		maxHP = 8;
-		atk = 5;
+		attack = 5;
 		image = Game.getImageManager ().rat;
 		hp = maxHP;
 		level = 3;

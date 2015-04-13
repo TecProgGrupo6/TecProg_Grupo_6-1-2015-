@@ -15,7 +15,7 @@ public class Zombie extends Enemy{
 	public void init(){
 
 		maxHP = 26;
-		atk = 5;
+		attack = 5;
 		image = Game.getImageManager ().zombie;
 		hp = maxHP;
 		xpReward = 13;
