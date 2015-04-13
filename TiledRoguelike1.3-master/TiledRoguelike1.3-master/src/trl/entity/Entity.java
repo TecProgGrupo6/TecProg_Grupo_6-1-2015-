@@ -10,14 +10,19 @@ import trl.map.Room;
 
 public class Entity{
 
+	//Represent on place in the map
 	protected Node loc;
+	
+	//Represent the map
+	protected Map map; 
 
-	protected Map map;
+	//Image in buffered
+	protected BufferedImage image; 
 
-	protected BufferedImage image;
-
+	//Describe if the player can see or not
 	protected boolean seenByPlayer;
 
+	//Describe if can be visible for the player or not
 	protected boolean visibleToPlayer;
 
 	public Entity(Map map){
@@ -51,7 +56,7 @@ public class Entity{
 	}
 
 	/*
-	 * Edited this at 21:32 on 1/1/14. This could be part of the issue with
+	 * This could be part of the issue with
 	 * enemies becoming aware of the player when it seems like they should not.
 	 */
 	public boolean inDisplayedNodes(){
