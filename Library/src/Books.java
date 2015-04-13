@@ -104,6 +104,7 @@ public class Books {
 		return availble;
 	}
 
+	// Establishing connection
 	public void connection( String Query ) {
 		
 		try {
@@ -166,6 +167,7 @@ public class Books {
 		}
 	}
 
+	//Updating book
 	public void update( String Query ) {
 		
 		try {
