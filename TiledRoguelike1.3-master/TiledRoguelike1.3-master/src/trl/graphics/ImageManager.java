@@ -7,16 +7,63 @@ import java.awt.image.Kernel;
 import trl.main.Game;
 
 public class ImageManager{
-	public BufferedImage barbarian, stoneTile, stoneWall, boundaryWall, demon,
-			corpse, bang, frogKnight, archer, miss, potion, hammer, thief, eye,
-			wizard, swords, fire, rat, bat, spider, snake, voidNode, openDoor,
-			closedDoor, wolf, ant, stairDown, wyvern, wasp, imp,
-			gelatinousCube, ogre, panther, worm, scorpion, goblin, gremlin,
-			gargoyle, zombie, goal, stairDownShadow, goalShadow, key, lock,
-			lockOpen, keyShadow, lockShadow, lockOpenShadow, ranger, arrows;
+	public BufferedImage barbarian;
+	public BufferedImage stoneTile;
+	public BufferedImage stoneWall;
+	public BufferedImage boundaryWall;
+	public BufferedImage demon;
+	public BufferedImage corpse;
+	public BufferedImage bang;
+	public BufferedImage frogKnight;
+	public BufferedImage archer;
+	public BufferedImage miss;
+	public BufferedImage potion;
+	public BufferedImage hammer; 
+	public BufferedImage thief;
+	public BufferedImage eye;
+	public BufferedImage wizard;
+	public BufferedImage swords;
+	public BufferedImage fire;
+	public BufferedImage rat;
+	public BufferedImage bat;
+	public BufferedImage spider;
+	public BufferedImage snake;
+	public BufferedImage voidNode;
+	public BufferedImage openDoor;
+	public BufferedImage closedDoor;
+	public BufferedImage wolf;
+	public BufferedImage ant;
+	public BufferedImage stairDown;
+	public BufferedImage wyvern;
+	public BufferedImage wasp;
+	public BufferedImage imp;
+	public BufferedImage gelatinousCube;
+	public BufferedImage ogre;
+	public BufferedImage panther;
+	public BufferedImage worm;
+	public BufferedImage scorpion;
+	public BufferedImage goblin;
+	public BufferedImage gremlin;
+	public BufferedImage gargoyle;
+	public BufferedImage zombie;
+	public BufferedImage goal;
+	public BufferedImage stairDownShadow;
+	public BufferedImage goalShadow;
+	public BufferedImage key;
+	public BufferedImage lock;
+	public BufferedImage lockOpen;
+	public BufferedImage keyShadow;
+	public BufferedImage lockShadow;
+	public BufferedImage lockOpenShadow;
+	public BufferedImage ranger;
+	public BufferedImage arrows;
 
-	public BufferedImage closedDoorShadow, openDoorShadow, stoneTile1Shadow,
-			stoneWallShadow, potionShadow, hammerShadow;
+	public BufferedImage closedDoorShadow;
+	public BufferedImage openDoorShadow;
+	public BufferedImage stoneTile1Shadow;
+	public BufferedImage stoneWallShadow;
+	public BufferedImage potionShadow;
+	public BufferedImage hammerShadow;
 
 	public ImageManager(SpriteSheet ss){
 		// Row 1
