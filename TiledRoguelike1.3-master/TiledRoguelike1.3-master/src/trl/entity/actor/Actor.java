@@ -143,20 +143,20 @@ public abstract class Actor extends Entity{
 	// Ends the turn of action
 	public void endTurn( Actor nextActor ){
 
-		// System.out.print("Turn = " + Game.turnCounter);
 		myTurn = false;
 		nextActor.setTurn ( true );
 
-		// Set turn delay if actor is visible.
-		// tickTimer = TURN_DELAY if there are any enemies currently visible
-		// to the player
-		// If player is ending turn
+		/* 
+		Set turn delay if actor is visible.
+		tickTimer = TURN_DELAY if there are any enemies currently visible
+		to the player
+		If player is ending turn
+		*/
 		if ( this instanceof trl.entity.player.Player ){
 
-			// Are there any currently visible enemies?
+			// Verify if there any currently visible enemies
 			for ( Enemy enemy : GameplayState.getEnemyGroup ().getEnemies () ){
 
-				// if (enemy.isVisibleToPlayer()) {
 				if ( enemy.getVisibleToPlayer () ){
 
 					Game.tickTimer = Game.TURN_DELAY;
@@ -169,16 +169,11 @@ public abstract class Actor extends Entity{
 			// Am I a wizard who just exploded (even though I am alone)
 			if ( this instanceof trl.entity.player.Wizard && getTimers ()[1]== 10 ){
 
-				// System.out.print(this.toString() + " Exploded wizard. ");
 				Game.tickTimer = Game.TURN_DELAY;
 			}
 		}
 		// If enemy ending its turn
 		if ( this instanceof trl.entity.enemy.Enemy ){
-			// Am I currently visible to the player?
-			// if (map.getVisibleToPlayer().contains(loc)) {
-			// Game.tickTimer = Game.TURN_DELAY;
-			// }
 
 			if ( this.getVisibleToPlayer () ){
 
@@ -203,8 +198,10 @@ public abstract class Actor extends Entity{
 	// Moves your character to a place if it is possible
 	public void move( Node node ){
 
-		// Remove the actor from current node, set loc to argument node,
-		// add self to current loc, remove argument node from path.
+		/* 
+		Remove the actor from current node, set loc to argument node,
+		add self to current loc, remove argument node from path.
+		*/
 
 		if ( node.getFeature ().isPassable ()&& !node.hasEnemy () ){
 
@@ -218,11 +215,6 @@ public abstract class Actor extends Entity{
 			//nothing to do
 		}
 	}
-
-	// protected boolean actedThisTick() {
-	// return acted;
-	// }
-	//
 
 	// Resets some states
 	protected void clearFlags(){
@@ -334,21 +326,8 @@ public abstract class Actor extends Entity{
 			nextRoom = current.getRandomConnectedRoom ();
 		}
 
-		// System.out.println("setPathToConnectedRoom: nextRoom = " +
-		// nextRoom.toString());
 		Node destination = nextRoom.getRandomNodeInRoom ();
-		// System.out.println("nextRoom col=" + nextRoom.getColumn() + ", row="
-		// + nextRoom.getRow());
-		// System.out.println("nextRoom minX=" +
-		// nextRoom.getBoundary().getMinX() + ",maxX=" +
-		// nextRoom.getBoundary().getMaxX());
-		// System.out.println("nextRoom minY=" +
-		// nextRoom.getBoundary().getMinY() + ",maxY=" +
-		// nextRoom.getBoundary().getMaxY());
-		// System.out.println("setPathToConnectedRoom: destination = " +
-		// destination.toString() + ", x = " + destination.getX() + "," +
-		// destination.getY() + ", feature = " +
-		// destination.getFeature().toString());
+
 		path = map.findPath ( loc , destination );
 	}
 
@@ -356,17 +335,16 @@ public abstract class Actor extends Entity{
 	public void render( Graphics g ){
 
 		if ( this.inDisplayedNodes () ){
+			
 			// Row and column in displayed nodes
 			int wx = map.getDisplayedX ( loc );
 			int wy = map.getDisplayedY ( loc );
-			// System.out.println("wx = " + wx + ", wy = " + wy);
 
 			// Pixel x and y in game window
 			int px = wx* Game.SCALED_TILE_SIZE;
 			int py = Game.W_HEIGHT- ( wy* Game.SCALED_TILE_SIZE )
 					- Game.SCALED_TILE_SIZE;
-			// System.out.println("px = " + px + ", py = " + py);
-
+	
 			// Height and width in pixels
 			int width = Game.SCALED_TILE_SIZE;
 			int height = Game.SCALED_TILE_SIZE;
@@ -461,6 +439,7 @@ public abstract class Actor extends Entity{
 
 		g.setColor ( trGray );
 		g.fillRect ( x+ 1 , y+ (int) ( width* .75 )- 1 , width- 2 , 6 );
+		
 		// Draw border
 		g.setColor ( trBlack );
 		g.drawRect ( x+ 1 , y+ (int) ( height* .75 )- 1 , width- 2 , 6 );
@@ -485,7 +464,6 @@ public abstract class Actor extends Entity{
 		
 		if ( percentHealth<= .25 ){
 
-			// g.setColor (Color.red);
 			g.setColor ( trRed );
 		}else{
 			
@@ -504,8 +482,7 @@ public abstract class Actor extends Entity{
 		if ( this instanceof trl.entity.player.Wizard&& this.timers[1]> 0
 				&& Game.tickTimer> 0 ){
 			// Determine blast radius at time = timers[1]
-			// System.out.println("Rendering explosion. Tick timer = " +
-			// Game.tickTimer);
+
 			if ( Game.tickTimer== Game.TURN_DELAY ){
 
 				r = 0;
