@@ -18,38 +18,55 @@ import trl.sound.SoundManager;
 
 public abstract class Actor extends Entity{
 
+	//Life of the Player
 	protected int hp ;
 	
+	//Represent maximum amount of hp
 	protected int maxHP;
 	
+	//Represent the attack force
 	protected int attack;
 
+	//Quantity of damage caused in player
 	protected int damageTaken;
 
+	//Quantity of damage caused in other 
 	protected int damageDealt;
 
+	//Sound Manager
 	protected SoundManager soundManager;
 
-	protected boolean acted; // Did I do anything during my tick?
+	//Represent if something was done in the player's turn
+	protected boolean acted;
 
-	protected boolean attacked; // Did I attack this tick?
+	//Describe if the player was attacked or not
+	protected boolean attacked; 
 
+	//Describe if the player was moved or not
 	protected boolean moved; // Did I move this tick?
 
-	protected boolean myTurn; // Is it my turn to act (and nobody else's)?
+	//Describe if the current turn is the Player's turn
+	protected boolean myTurn;
 
+	//Represent the timers of the game
 	protected int[] timers;
 
-	protected boolean[] stance; // normal, attacking, hit, shooting
+	//Describes the conditions: normal, attacking, hit and shooting
+	protected boolean[] stance;
 
+	//List contains all map's places
 	protected List<Node> path;
 
+	//Actual place of the player in map
 	protected int initialPathSize;
 
+	//Represent the Player's level
 	protected int level;
 
+	//Saves the previous place
 	protected Node previousNode;
 
+	//Turns on node
 	protected int turnsOnNode;
 
 	public Actor(Map map){
