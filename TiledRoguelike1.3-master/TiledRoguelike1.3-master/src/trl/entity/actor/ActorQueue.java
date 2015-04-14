@@ -60,7 +60,7 @@ public class ActorQueue{
 						levelDiff = 1.0d;
 					}else{
 						
-						//nothing to do
+						// Nothing to do
 					}
 					
 					double percentXP = ( 1.0d/ levelDiff )
@@ -69,7 +69,7 @@ public class ActorQueue{
 						percentXP = 1.0;
 					}else{
 						
-						//nothing to do
+						// Nothing to do
 					}
 					
 					double xp = percentXP* (double) actor.getLevel ();
@@ -83,17 +83,17 @@ public class ActorQueue{
 						actor.endTurn ( queue.get ( queue.indexOf ( actor )+ 1 ) );
 					}else{
 						
-						//nothing to do
+						// Nothing to do
 					}
 					
 				}else{
 					
-					//nothing to do
+					// Nothing to do
 				}
 				
 			}else{
 				
-				//nothing to do
+				// Nothing to do
 			}
 
 			// If actor acted on its turn, determine next actor... 

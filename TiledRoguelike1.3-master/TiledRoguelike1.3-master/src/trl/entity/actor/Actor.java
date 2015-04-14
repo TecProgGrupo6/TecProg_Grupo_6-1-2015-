@@ -18,55 +18,55 @@ import trl.sound.SoundManager;
 
 public abstract class Actor extends Entity{
 
-	//Life of the Player
+	// Life of the Player
 	protected int hp ;
 	
-	//Represent maximum amount of hp
+	// Represent maximum amount of hp
 	protected int maxHP;
 	
-	//Represent the attack force
+	// Represent the attack force
 	protected int attack;
 
-	//Quantity of damage caused in player
+	// Quantity of damage caused in player
 	protected int damageTaken;
 
-	//Quantity of damage caused in other 
+	// Quantity of damage caused in other 
 	protected int damageDealt;
 
-	//Sound Manager
+	// Sound Manager
 	protected SoundManager soundManager;
 
-	//Represent if something was done in the player's turn
+	// Represent if something was done in the player's turn
 	protected boolean acted;
 
-	//Describe if the player was attacked or not
+	// Describe if the player was attacked or not
 	protected boolean attacked; 
 
-	//Describe if the player was moved or not
+	// Describe if the player was moved or not
 	protected boolean moved; // Did I move this tick?
 
-	//Describe if the current turn is the Player's turn
+	// Describe if the current turn is the Player's turn
 	protected boolean myTurn;
 
-	//Represent the timers of the game
+	// Represent the timers of the game
 	protected int[] timers;
 
-	//Describes the conditions: normal, attacking, hit and shooting
+	// Describes the conditions: normal, attacking, hit and shooting
 	protected boolean[] stance;
 
-	//List contains all map's places
+	// List contains all map's places
 	protected List<Node> path;
 
-	//Actual place of the player in map
+	// Actual place of the player in map
 	protected int initialPathSize;
 
-	//Represent the Player's level
+	// Represent the Player's level
 	protected int level;
 
-	//Saves the previous place
+	// Saves the previous place
 	protected Node previousNode;
 
-	//Turns on node
+	// Turns on node
 	protected int turnsOnNode;
 
 	public Actor(Map map){
@@ -119,7 +119,7 @@ public abstract class Actor extends Entity{
 			damageDealt = attack;
 		}else{
 
-			// nothing to do
+			// Nothing to do
 		}
 
 		defender.setHP ( defender.getHP ()- damageDealt );
@@ -131,7 +131,7 @@ public abstract class Actor extends Entity{
 			defender.setStance ( false , false , true , false );
 		}else{
 
-			// nothing to do
+			// Nothing to do
 		}
 	}
 
@@ -163,7 +163,7 @@ public abstract class Actor extends Entity{
 					break;
 				}else{
 
-					// nothing to do
+					// Nothing to do
 				}
 			}
 			// Am I a wizard who just exploded (even though I am alone)
@@ -180,7 +180,7 @@ public abstract class Actor extends Entity{
 				Game.tickTimer = Game.TURN_DELAY;
 			}else{
 				
-				//nothing to do
+				// Nothing to do
 			}
 		}
 	}
@@ -232,7 +232,7 @@ public abstract class Actor extends Entity{
 			soundManager.playSound ( "strike" );
 		}else{
 			
-			//nothing to do
+			// Nothing to do
 		}
 
 		if ( attacked&& damageDealt== 0 ){
@@ -240,7 +240,7 @@ public abstract class Actor extends Entity{
 			soundManager.playSound ( "miss" );
 		}else{
 			
-			//nothing to do
+			// Nothing to do
 		}
 	}
 
@@ -358,7 +358,7 @@ public abstract class Actor extends Entity{
 				}
 				else{
 					
-					//nothing to do
+					// Nothing to do
 				}
 				// Draw damage indicator
 				if ( myTurn&& Game.tickTimer> 0&& getDamageTaken ()> 0 ){
@@ -370,7 +370,7 @@ public abstract class Actor extends Entity{
 							+ width/ 2 , py+ height/ 2 );
 				}else{
 					
-					//nothing to do
+					// Nothing to do
 				}
 
 				if ( this instanceof trl.entity.player.Wizard&& timers[1]== 10 ){
@@ -378,7 +378,7 @@ public abstract class Actor extends Entity{
 					renderExplosion ( g , px , py );
 				}else{
 					
-					//nothing to do
+					// Nothing to do
 				}
 
 				// Draw target box
@@ -390,12 +390,12 @@ public abstract class Actor extends Entity{
 						g.drawRect ( px+ 1 , py+ 1 , width- 2 , height- 2 );
 					}else{
 						
-						//nothing to do
+						// Nothing to do
 					}
 					
 				}else{
 					
-					//nothing to do
+					// Nothing to do
 				}
 
 				// If attacking
@@ -405,7 +405,7 @@ public abstract class Actor extends Entity{
 							width , height , null );
 				}else{
 					
-					//nothing to do
+					// Nothing to do
 				}
 
 				// If shooting
@@ -415,7 +415,7 @@ public abstract class Actor extends Entity{
 							width , height , null );
 				}else{
 					
-					//nothing to do
+					// Nothing to do
 				}
 				
 			}else{
@@ -451,7 +451,7 @@ public abstract class Actor extends Entity{
 			g.setColor ( trGreen );
 		}else{
 			
-			//nothing to do
+			// Nothing to do
 		}
 		
 		if ( percentHealth> .25&& percentHealth<= .75 ){
@@ -459,7 +459,7 @@ public abstract class Actor extends Entity{
 			g.setColor ( trYellow );
 		}else{
 			
-			//nothing to do
+			// Nothing to do
 		}
 		
 		if ( percentHealth<= .25 ){
@@ -467,7 +467,7 @@ public abstract class Actor extends Entity{
 			g.setColor ( trRed );
 		}else{
 			
-			//nothing to do
+			// Nothing to do
 		}
 		
 		// Draw bar
@@ -478,9 +478,11 @@ public abstract class Actor extends Entity{
 	// Renderizes the explosions
 	public void renderExplosion( Graphics g , int x , int y ){
 
-		int r = 0; // blast radius
+		// Blast radius
+		int r = 0; 
 		if ( this instanceof trl.entity.player.Wizard&& this.timers[1]> 0
 				&& Game.tickTimer> 0 ){
+			
 			// Determine blast radius at time = timers[1]
 
 			if ( Game.tickTimer== Game.TURN_DELAY ){
@@ -527,7 +529,7 @@ public abstract class Actor extends Entity{
 			node.makeClosedDoor ();
 		}else{
 			
-			//nothing to do
+			// Nothing to do
 		}
 		
 		if ( this instanceof trl.entity.player.Player ){
@@ -536,7 +538,7 @@ public abstract class Actor extends Entity{
 			path.remove ( node );
 		}else{
 			
-			//nothing to do
+			// Nothing to do
 		}
 		
 	}
@@ -549,7 +551,7 @@ public abstract class Actor extends Entity{
 			node.makeOpenDoor ();
 		}else{
 			
-			//nothing to do
+			// Nothing to do
 		}
 		
 		if ( this instanceof trl.entity.player.Player ){
@@ -557,7 +559,7 @@ public abstract class Actor extends Entity{
 			path.remove ( node );
 		}else{
 			
-			//nothing to do
+			// Nothing to do
 		}
 		
 	}

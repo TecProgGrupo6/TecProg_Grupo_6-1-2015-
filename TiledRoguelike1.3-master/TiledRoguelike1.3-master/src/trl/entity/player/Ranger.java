@@ -11,7 +11,7 @@ import trl.map.Node;
 
 public class Ranger extends Player{
 
-	// private Node target;
+	// Private Node target;
 	private List<Enemy> targets;
 
 	public Ranger ( Map map ){

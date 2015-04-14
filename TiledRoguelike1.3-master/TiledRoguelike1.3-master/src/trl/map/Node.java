@@ -15,67 +15,67 @@ import trl.map.feature.Wall;
 
 public class Node{
 
-	//Coordinate x
+	// Coordinate x
 	private int x;
 	
-	//Coordinate y
+	// Coordinate y
 	private int y;
 	
-	//Representetion of the parent node
+	// Representetion of the parent node
 	private Node parentNode;
 	
-	//Representation of the moviment 
+	// Representation of the moviment 
 	private int gScore;
 	
-	//Representation of the moviment 
+	// Representation of the moviment 
 	private int hScore;
 	
-	//Representation of the moviment 
+	// Representation of the moviment 
 	private int fScore;
 	
-	//Representation of the game's map
+	// Representation of the game's map
 	private Map map;
 	
-	//List of entities space
+	// List of entities space
 	private List<Entity> entities;
 	
-	//Define if the node is wall
+	// Define if the node is wall
 	private boolean isWall = false;
 	
-	//Define if the node is floor
+	// Define if the node is floor
 	private boolean isFloor = false;
 	
-	//Define if the node is empty
+	// Define if the node is empty
 	private boolean isVoid = true;
 	
-	//Define if the Door node is open
+	// Define if the Door node is open
 	private boolean isDoorOpen = false;
 	
-	//Define if the Door node is closed
+	// Define if the Door node is closed
 	private boolean isDoorClosed = false;
 	
-	//Image of the node
+	// Image of the node
 	private BufferedImage image;
 	
-	//Describe if the player can see or not the node
+	// Describe if the player can see or not the node
 	private boolean seenByPlayer;
 	
-	//Representation of any kind of feature (places)
+	// Representation of any kind of feature (places)
 	private Feature feature;
 	
-	//Representation of the closed door space
+	// Representation of the closed door space
 	public static Feature closedDoor = new DoorClosed();
 	
-	//Representation of the open door space
+	// Representation of the open door space
 	public static Feature openDoor = new DoorOpen();
 	
-	//Representation of the empty place
+	// Representation of the empty place
 	public static Feature voidNode = new Void();
 	
-	//Representation of the wall place
+	// Representation of the wall place
 	public static Feature wall = new Wall();
 	
-	//Representation of the floor space
+	// Representation of the floor space
 	public static Feature floor = new Floor();
 
 	public Node(int x, int y, Map map){

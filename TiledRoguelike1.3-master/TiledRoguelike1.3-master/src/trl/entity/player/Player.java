@@ -21,19 +21,25 @@ public abstract class Player extends Actor{
 
 	// Counts the total of enemies defeated
 	protected int enemiesDefeated;
+	
 	// Checks if the player has the key
 	protected boolean hasKey = false;
+	
 	// Represents the enemies visible
 	protected boolean newEnemies = false; // if new enemy became visible, set
 											// true
 	// Checks if a lock is opened
 	protected boolean openedLock = false;
+	
 	// Represents the enemy which the player can interect
 	protected Enemy target;
+	
 	// Represents the list of enemies
 	protected List<Enemy> targets;
+	
 	// Represents the regen of the health
 	protected int turnsOnLevel;
+	
 	// Represents the regen on battle of the barbarian character
 	protected int turnsSinceCombat;
 
@@ -45,31 +51,45 @@ public abstract class Player extends Actor{
 	public boolean downRightDirection = false;
 	public boolean downLeftDirection = false;
 	public boolean upLeftDirection = false;
+	
 	// Represents the ending of turn witout action
 	public boolean wait = false;
+	
 	// Shout action of the player
 	public boolean shout = false;
+	
 	// Represents blink state of the player
 	public boolean blink = false;
+	
 	// Action from the wizzard character
 	public boolean explode = false;
+	
 	// Represents the action to close
 	public boolean close = false;
+	
 	// Action from the wizzard character
 	public boolean quicken = false;
+	
 	public boolean targetEnemy = false;
+	
 	// Action of the the ranger character
 	public boolean fireArrow = false;
+	
 	// Target got
 	public boolean gotTargets = false;
+	
 	// Represents the order of the actions on the targets
 	public boolean nextTarget = false;
+	
 	// Represents the order of the actions on the targets
 	public boolean previousTarget = false;
+	
 	// Action to interect with target
 	public boolean getTargets = false;
+	
 	// Represents cancel state ( action on target ) of the player
 	public boolean cancel = false;
+	
 	// Represents the total amount of xp from the player
 	protected double xpEarned;
 
@@ -444,7 +464,7 @@ public abstract class Player extends Actor{
 															// list if no
 															// targets found,
 															// not null!
-				// targets list size = 0, clear all flags. Should continue turn
+				// Targets list size = 0, clear all flags. Should continue turn
 				// as normal.
 				if ( targets.size ()== 0 ){
 
@@ -584,7 +604,7 @@ public abstract class Player extends Actor{
 		hp = (int) ( percentHealth* (double) maxHP );
 	}
 
-	// print on screen
+	// Print on screen
 	public void printEnemiesList(){
 
 		System.out.println ( "=== Enemies ===" );
@@ -598,7 +618,7 @@ public abstract class Player extends Actor{
 		}
 	}
 
-	// refresh screen?
+	// Refresh screen?
 	public void refresh(){
 
 		hasKey = false;
@@ -606,7 +626,7 @@ public abstract class Player extends Actor{
 		turnsOnLevel = 0;
 	}
 
-	// random function of items
+	// Random function of items
 	public void rollItems(){
 
 		// Roll for item creation
