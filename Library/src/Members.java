@@ -108,7 +108,7 @@ public class Members {
 		}
 		
 		/***************************************************************
-		 * for making the connection,creating the statement and update *
+		 * For making the connection,creating the statement and update *
 		 * the table in the database. After that,closing the statmenet *
 		 * and connection. There is catch block SQLException for error *
 		 ***************************************************************/
@@ -160,7 +160,7 @@ public class Members {
 			
 		}
 		/***************************************************************
-		 * for making the connection,creating the statement and update *
+		 * For making the connection,creating the statement and update *
 		 * the table in the database. After that,closing the statmenet *
 		 * and connection. There is catch block SQLException for error *
 		 ***************************************************************/

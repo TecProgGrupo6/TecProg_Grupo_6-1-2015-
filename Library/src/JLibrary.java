@@ -16,20 +16,28 @@ public class JLibrary extends JFrame implements ActionListener{
 
 	// For creating the JPanel
 	private JPanel searchPanel = new JPanel ();
+	
 	// For creating the JToolBar for the program
 	private JToolBar searchToolBar = new JToolBar ();
+	
 	// For creating the label
 	private JLabel searchLabel = new JLabel ( "Book title: " );
+	
 	// For creating the JTextField to use it on the searchToolBar
 	private JTextField searchTextField = new JTextField ( 15 );
+	
 	// For creating the JButton to use it on the searchToolBar
 	private JButton goButton = new JButton ( "Go" );
+	
 	// Variable to add objects from others classes
 	private JDesktopPane desktop = new JDesktopPane ();
+	
 	// Does nothing...
 	private JSplitPane splitPane;
+	
 	// Does nothing...
 	private JScrollPane desktopScrollPane;
+	
 	// Does nothing...
 	private JScrollPane treeScrollPane;
 
@@ -39,36 +47,44 @@ public class JLibrary extends JFrame implements ActionListener{
 	 ***************************************************************************/
 	// To create the menubar
 	private Menubar menu;
+	
 	// To create a toolbar
 	private Toolbar toolbar;
+	
 	// To create a statusbar
 	private StatusBar statusbar = new StatusBar ();
+	
 	// To list the books
 	private ListBooks listBooks;
+	
 	// To add books
 	private AddBooks addBooks;
+	
 	// To borrow books
 	private BorrowBooks borrowBooks;
+	
 	// To return books
 	private ReturnBooks returnBooks; 
+	
 	// To add members
 	private AddMembers addMembers; 
+	
 	// To list members
 	private ListMembers listMembers;
+	
 	// To search books
 	private SearchBooksAndMembers search; 
 
-	// constructor of JLibrary
+	// Constructor of JLibrary
 	public JLibrary (){
 
-		// for setting the title for the frame
+		// For setting the title for the frame
 		super ( "Library System" );
 
-		// for setting the size
+		// For setting the size
 		Dimension screenSize = java.awt.Toolkit.getDefaultToolkit ()
 				.getScreenSize ();
 
-		// setSize(screenSize.width, screenSize.height - 30);
 		setExtendedState ( JFrame.MAXIMIZED_BOTH );
 
 		Toolkit kit = Toolkit.getDefaultToolkit ();
@@ -79,8 +95,7 @@ public class JLibrary extends JFrame implements ActionListener{
 		menu = new Menubar ();
 		toolbar = new Toolbar ();
 
-		// menu bar Action.........
-
+		// Menu bar Action.........
 		setJMenuBar ( menu );
 		menu.exit.addActionListener ( this );
 		menu.addBook.addActionListener ( this );
@@ -91,55 +106,53 @@ public class JLibrary extends JFrame implements ActionListener{
 		menu.borrowBook.addActionListener ( this );
 		menu.returnBook.addActionListener ( this );
 
-		// get the graphical user interface components display the desktop
+		// Get the graphical user interface components display the desktop
 		Container cp = getContentPane ();
 
 		desktop.setBackground ( Color.GRAY );
 
 		cp.add ( "Center" , desktop );
 
-		// for setting the font
+		// For setting the font
 		searchLabel.setFont ( new Font ( "Tahoma" , Font.BOLD , 11 ) );
 
-		// for setting the font
+		// For setting the font
 		searchTextField.setFont ( new Font ( "Tahoma" , Font.PLAIN , 12 ) );
 
 		goButton.setFont ( new Font ( "Tahoma" , Font.BOLD , 9 ) );
 
-		// for adding the searchLable to the searchToolBar
+		// For adding the searchLable to the searchToolBar
 		searchToolBar.add ( searchLabel );
 
-		// for adding the searchTextField to searchToolBar
+		// For adding the searchTextField to searchToolBar
 		searchToolBar.add ( searchTextField );
 
-		// for adding the goButton to searchToolBar
+		// For adding the goButton to searchToolBar
 		searchToolBar.add ( goButton );
 
-		// for adding listenerAction for the button
+		// For adding listenerAction for the button
 		goButton.addActionListener ( this );
 
-		// for setting the layout
+		// For setting the layout
 		searchPanel.setLayout ( new BorderLayout () );
 
-		// for adding the toolBar to the searchPanel
+		// For adding the toolBar to the searchPanel
 		searchPanel.add ( "Center" , toolbar );
 
-		// for adding the searchToolBar to the searchPanel
-		// searchPanel.add("South", searchToolBar);
-		// for adding the searchPanel to the Container
+		// For adding the searchPanel to the Container
 		cp.add ( "North" , searchPanel );
 
-		// for adding the statusbar to the Container
+		// For adding the statusbar to the Container
 		cp.add ( "South" , statusbar );
 
 		for ( int i = 0 ; i< toolbar.imageName24.length ; i++ ){
 
-			// for adding the action to the button
+			// For adding the action to the button
 			toolbar.button[i].addActionListener ( this );
 
 		}
 
-		// for adding WindowListener to the program
+		// For adding WindowListener to the program
 		addWindowListener ( new WindowAdapter (){
 
 			public void windowClosing( WindowEvent e ){
@@ -149,12 +162,12 @@ public class JLibrary extends JFrame implements ActionListener{
 			}
 		} );
 
-		// show the program
+		// Show the program
 		show ();
 	}
 
 	/**
-	 * this method is invoked when an action occurs.
+	 * This method is invoked when an action occurs.
 	 *
 	 * @param ae
 	 *            the action event.

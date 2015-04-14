@@ -11,13 +11,25 @@ public class Menubar extends JMenuBar{
 	 ***************************************************************************/
 
 	// For creating the JMenu for the program.
-	public JMenu fileMenu, bookMenu, memberMenu, searchMenu, loanMenu;
+	public JMenu fileMenu;
+	public JMenu bookMenu;
+	public JMenu memberMenu;
+	public JMenu searchMenu;
+	public JMenu loanMenu;
+	
 	// For creating the JMenuItem for JMenu.
-	public JMenuItem exit, addBook, listBook;
-	public JMenuItem addMember, listMember;
-	public JMenuItem searchBooksAndMembers, borrowBook, returnBook;
+	public JMenuItem exit;
+	public JMenuItem addBook;
+	public JMenuItem listBook;
+	public JMenuItem addMember;
+	public JMenuItem listMember;
+	public JMenuItem searchBooksAndMembers;
+	public JMenuItem borrowBook;
+	public JMenuItem returnBook;
+	
 	// For creating an imageIcon.
 	public ImageIcon[] icons;
+	
 	// For creating the name of the image file 16*16.
 	public String[] imageName16 = { "images/Print16.gif", "images/Exit16.gif", "images/Add16.gif", "images/List16.gif",
 			"images/Edit16.gif", "images/Delete16.gif", "images/Information16.gif", "images/Find16.gif",
@@ -26,6 +38,7 @@ public class Menubar extends JMenuBar{
 	};
 
 	public Menubar(){
+		
 		// For adding book, member, search, loan & help Menus to the menu bar.
 		this.add(fileMenu = new JMenu("File"));
 		this.add(bookMenu = new JMenu("Books"));
@@ -33,9 +46,7 @@ public class Menubar extends JMenuBar{
 		this.add(searchMenu = new JMenu("Search"));
 		this.add(loanMenu = new JMenu("Loan"));
 
-		/**
-		 * for setting the Mnemonic
-		 */
+		// For setting the Mnemonic
 		fileMenu.setMnemonic('f');
 		bookMenu.setMnemonic('b');
 		memberMenu.setMnemonic('m');

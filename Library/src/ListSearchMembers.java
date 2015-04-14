@@ -20,18 +20,25 @@ public class ListSearchMembers extends JInternalFrame{
 
 	// For creating the North Panel
 	private JPanel northPanel = new JPanel ();
+	
 	// For creating the Center Panel
 	private JPanel centerPanel = new JPanel ();
+	
 	// For creating the label
 	private JLabel label = new JLabel ( "THE LIST FOR THE SEARCHED MEMBERS" );
+	
 	// For creating the button
 	private JButton printButton;
+	
 	// For creating the table
 	private JTable table;
+	
 	// For creating the TableColumn
 	private TableColumn column = null;
+	
 	// For creating the JScrollPane
 	private JScrollPane scrollPane;
+	
 	// For creating an object for the ResultSetTableModel class
 	private ResultSetTableModel tableModel;
 
@@ -149,16 +156,16 @@ public class ListSearchMembers extends JInternalFrame{
 			// For setting the font to the button
 			printButton.setFont ( new Font ( "Tahoma" , Font.PLAIN , 12 ) );
 
-			// for adding the button to the panel
+			// For adding the button to the panel
 			centerPanel.add ( printButton , BorderLayout.NORTH );
 
-			// for adding the scrollpane to the panel
+			// For adding the scrollpane to the panel
 			centerPanel.add ( scrollPane , BorderLayout.CENTER );
 
-			// for setting the border to the panel
+			// For setting the border to the panel
 			centerPanel.setBorder ( BorderFactory.createTitledBorder ( "Members:" ) );
 
-			// for adding the panel to the container
+			// For adding the panel to the container
 			cp.add ( "Center" , centerPanel );
 
 			// for adding the actionListener to the button
