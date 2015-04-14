@@ -20,16 +20,52 @@ import trl.main.Game;
 
 public class Map{
 
-	public static int MAX_ROOM_WIDTH = 10, MAX_ROOM_HEIGHT = 10;
-	public static int MIN_ROOM_WIDTH = 5, MIN_ROOM_HEIGHT = 5;
+	//Maximum width of a room
+	public static int MAX_ROOM_WIDTH = 10;
+	
+	//Maximum height of a room
+	public static int MAX_ROOM_HEIGHT = 10;
+	
+	//Minimum width of a room
+	public static int MIN_ROOM_WIDTH = 5;
+	
+	//Minimum height of a room
+	public static int MIN_ROOM_HEIGHT = 5;
+	
+	//Nodes to be displayed
 	private Node[][] displayedNodes;
+	
+	//Value representing the last node
 	private boolean endNodeFound;
-	private int hSize, vSize;
+	
+	//Columns in the game (horizontal)
+	private int hSize;
+	
+	//Rows in the game
+	private int vSize;
+	
+	//Image of the complete map
 	private BufferedImage imageMap[][];
+	
+	//Map Grid
 	private Node[][] mapGrid;
-	public static int displayedNodesMinX, displayedNodesMinY,
-			displayedNodesMaxX, displayedNodesMaxY;
+	
+	//Minimum of nodes in the x axis
+	public static int displayedNodesMinX;
+	
+	//Minimum of nodes in the y axis
+	public static int displayedNodesMinY;
+	
+	//Maximum of nodes in the x axis
+	public static int displayedNodesMaxX;
+	
+	//Maximum of nodes in the y axis
+	public static int displayedNodesMaxY;
+	
+	//Rooms in the map
 	private Room[][] rooms;
+	
+	//Nodes that the pleyer can see
 	private List<Node> visibleToPlayer;
 
 	public Map(){
@@ -48,18 +84,22 @@ public class Map{
 				int candYPos = node.getY() + y;
 				if((candXPos >= 0 && candXPos < Game.COLUMNS)
 						&& (candYPos >= 0 && candYPos < Game.ROWS)){
-					// New node at coordinates if it is within bounds of the map
-					// grid
+					/*
+					 *  New node at coordinates if it is within bounds of the map
+					 *  grid
+					 */
 					Node candidate = new Node(candXPos, candYPos, this);
 
-					// Make sure candidate node is not obstructed or in the
-					// closed list
+					/*
+					 *  Make sure candidate node is not obstructed or in the
+					 *  closed list
+					 */
 					if(isLegalCell(getNode(candidate.getX(), candidate.getY()))
 							|| getNode(candidate.getX(), candidate.getY())
 									.getFeature() instanceof trl.map.feature.DoorClosed
 							|| getNode(candidate.getX(), candidate.getY())
 									.getFeature() instanceof trl.map.feature.DoorOpen){
-						// getNode(candidate.getX(), candidate.getY());
+						
 						candidate.setParent(node);
 						candidate.setGScore();
 						candidate.setHScore(endNode);
@@ -118,6 +158,7 @@ public class Map{
 	public void addRectAdjacents(List<Node> openList, List<Node> closedList,
 			Node endNode, Node node){
 		Set<Node> tempList = new HashSet<Node>();
+		
 		// Determine adjacent nodes to argument node
 		for (int x = -1; x <= 1; x++){
 			for (int y = 1; y >= -1; y--){
@@ -128,15 +169,20 @@ public class Map{
 					int candYPos = node.getY() + y;
 					if((candXPos >= 0 && candXPos < Game.COLUMNS)
 							&& (candYPos >= 0 && candYPos < Game.ROWS)){
-						// New node at coordinates if it is within bounds of the
-						// map grid
+						/*
+						 *  New node at coordinates if it is within bounds of the
+						 *  map grid
+						 */
+						
 						Node candidate = new Node(candXPos, candYPos, this);
 
 						/*
 						 * Make sure candidate node is not obstructed or in the
 						 * closed list if (isLegalCell(getNode(candidate.getX(),
 						 * candidate.getY()))) {
-						 */getNode(candidate.getX(), candidate.getY());
+						 */
+						
+						getNode(candidate.getX(), candidate.getY());
 						candidate.setParent(node);
 						candidate.setGScore();
 						candidate.setHScore(endNode);
@@ -195,6 +241,7 @@ public class Map{
 
 	public void addWalkableAdjacents(List<Node> checked, List<Node> checking){
 		Set<Node> tempList = new HashSet<Node>();
+		
 		// Determine adjacent nodes to argument node
 		Iterator<Node> itChecking = checking.iterator();
 		while (itChecking.hasNext()){
@@ -205,12 +252,18 @@ public class Map{
 					int candYPos = toCheck.getY() + y;
 					if((candXPos >= 0 && candXPos < hSize)
 							&& (candYPos >= 0 && candYPos < vSize)){
-						// Get node at coordinates if it is within bounds of the
-						// map grid
+						/*
+						 *  Get node at coordinates if it is within bounds of the
+						 *  map grid
+						 */
+						
 						Node candidate = getNode(candXPos, candYPos);
 
-						// Make sure candidate node is not obstructed or in the
-						// checked list
+						/* 
+						 * Make sure candidate node is not obstructed or in the
+						 * checked list
+						 */
+						
 						if(candidate != null
 								&& (candidate.getFeature().isPassable() || candidate
 										.getFeature() instanceof trl.map.feature.DoorClosed)
@@ -237,19 +290,16 @@ public class Map{
 	}
 
 	public boolean allNodesWalkable(){
-		// System.out.println("Checking all nodes walkable.");
+		
 		int walkableNodes = 0;
 		for (int x = 0; x < mapGrid.length; x++){
 			for (int y = 0; y < mapGrid[0].length; y++){
-				// System.out.println(mapGrid[x][y].getFeature().toString() +
-				// " passable = " + mapGrid[x][y].getFeature().isPassable());
+				
 				if(mapGrid[x][y] != null){
 					if(mapGrid[x][y].getFeature().isPassable()
 							|| mapGrid[x][y].getFeature() instanceof trl.map.feature.DoorClosed){
 						if(mapGrid[x][y].getFeature() instanceof trl.map.feature.DoorOpen){
-							// System.out.println("Adding " +
-							// mapGrid[x][y].getFeature().toString() + " at" + x
-							// + "," + y + " as passable node.");
+							// Nothing 
 						} else{
 							// Nothing
 						}
@@ -266,7 +316,7 @@ public class Map{
 		List<Node> checking = new ArrayList<Node>();
 		List<Node> checked = new ArrayList<Node>();
 		Node start = getRandomNode();
-		// System.out.println(walkableNodes + " walkable nodes expected.");
+		
 		checking.add(start);
 		// First pass
 		addWalkableAdjacents(checked, checking);
@@ -275,8 +325,7 @@ public class Map{
 		while (checked.size() != walkableNodes){
 			addWalkableAdjacents(checked, checking);
 			if(checking.isEmpty() && checked.size() != walkableNodes){
-				// System.out.println("Found " + checked.size() +
-				// " walkable nodes.");
+				
 				return false;
 			} else{
 				// Nothing
@@ -302,7 +351,7 @@ public class Map{
 	}
 
 	public List<Node> findPath(Node start, Node end){
-		// System.out.println("Starting pathfinding.");
+
 		List<Node> openList = new ArrayList<Node>();
 		List<Node> closedList = new ArrayList<Node>();
 		endNodeFound = false;
@@ -324,14 +373,14 @@ public class Map{
 		// Repeating process
 		while (!endNodeFound){
 			if(openList.isEmpty() && !endNodeFound){
-				// System.out.println("Ran out of nodes before destination found.");
+
 				return null;
 			} else{
 				// Nothing
 			}
 			processOpenList(openList, closedList, endNode, true);
 		}
-		// System.out.println("Closed list size = " + closedList.size());
+
 		return getPath(startNode, endNode, closedList);
 	}
 
@@ -367,25 +416,18 @@ public class Map{
 		return getConnection(startNode, endNode, closedList);
 	}
 
-	// public List<Node> findRoomConnection(Node start, Node end) {
-	// List<Node> connection = new ArrayList<>();
-	// connection = getRoomConnection(start, end);
-	// // System.out.println("Room connection size = " + connection.size());
-	// return connection;
-	// }
+	
 
 	public void generateMap(){
-		// System.out.print("Generating rooms...");
 		generateRooms();
-		// System.out.println(" done.");
-		// System.out.print("Connecting rooms...");
+		
 		connectRooms();
-		// System.out.println(" done.");
-		// System.out.print("Placing hallways...");
+		
 		placeHallwayWalls();
-		// System.out.println(" done.");
+		
 		// Place stairway
-		// getRandomNodeInRoom().setFeature(new StairDown());
+		
+		@SuppressWarnings("unused")
 		Key key = new Key(this);
 	}
 
@@ -396,15 +438,13 @@ public class Map{
 		 */
 		rooms = new Room[(int) Game.COLUMNS / MAX_ROOM_WIDTH][(int) Game.ROWS
 				/ MAX_ROOM_HEIGHT];
-		// System.out.println("Generating " + (int)Game.COLUMNS / MAX_ROOM_WIDTH
-		// + " rooms across and " + (int)Game.COLUMNS / MAX_ROOM_WIDTH +
-		// " vertically.");
+		
 		for (int column = 0; column < (int) Game.COLUMNS / MAX_ROOM_WIDTH; column++){
 			for (int row = 0; row < Game.ROWS / MAX_ROOM_HEIGHT; row++){
 				rooms[column][row] = new Room(this, row, column);
 			}
 		}
-		// System.out.println("Starting init rooms.");
+
 		for (int column = 0; column < rooms.length; column++){
 			for (int row = 0; row < rooms[column].length; row++){
 				for (int x = rooms[column][row].getX(); x < rooms[column][row]
@@ -424,7 +464,7 @@ public class Map{
 										+ rooms[column][row].getHeight() - 1){
 							getNode(x, y).makeFloor();
 						}
-						// else make them walls.
+						// Else make them walls.
 						else{
 							getNode(x, y).makeWall();
 						}
@@ -432,7 +472,7 @@ public class Map{
 				}
 			}
 		}
-		// System.out.println("Init rooms complete.");
+		
 	}
 
 	public List<Node> getAoENodes(Node origin, int radius){
@@ -490,8 +530,8 @@ public class Map{
 
 	public List<Node> getConnection(Node startNode, Node endNode,
 			List<Node> closedList){
-		// start with last item in list. should be destination.
-		// System.out.println("Closed list size = " + closedList.size());
+		// Start with last item in list. should be destination.
+		
 		Node current = closedList.get(closedList.size() - 1);
 		List<Node> path = new ArrayList<Node>();
 		int i = 0;
@@ -514,6 +554,7 @@ public class Map{
 	public Node getDisplayedNodesOrigin(){
 		// Returns origin node for drawing game window
 		int x = 0, y = 0;
+		@SuppressWarnings("unused")
 		boolean nonNullFound = false;
 		Node firstNonNull = displayedNodes[0][0];
 		if(firstNonNull == null){
@@ -874,9 +915,8 @@ public class Map{
 	public void processOpenList(List<Node> openList, List<Node> closedList,
 			Node endNode, boolean diagAllowed){
 		Node bestNode = getBestFScore(openList);
-		// System.out.println("Best node: " + bestNode.toString() + " x=" +
-		// bestNode.getX() + ", y=" + bestNode.getY() + ", parent=" +
-		// bestNode.getParent().toString());
+		
+		
 		openList.remove(bestNode);
 		closedList.add(bestNode);
 		if(diagAllowed){
@@ -896,21 +936,21 @@ public class Map{
 		g.fillRect(0, 0, Game.W_WIDTH, Game.W_HEIGHT);
 		for (int x = 0; x < Game.W_COLS; x++){
 			for (int y = 0; y < Game.W_ROWS; y++){
-				// skip null (void) nodes
+				// Skip null (void) nodes
 				if(imageMap[x][y] != null){
-					// draw features
+					// Draw features
 					g.drawImage(imageMap[x][y], x * Game.SCALED_TILE_SIZE,
 							(Game.W_HEIGHT - Game.SCALED_TILE_SIZE) - y
 									* Game.SCALED_TILE_SIZE,
 							Game.SCALED_TILE_SIZE, Game.SCALED_TILE_SIZE, null);
-					// draw entities
+					// Draw entities
 					if(visibleToPlayer.contains(displayedNodes[x][y])){
 						if(displayedNodes[x][y].getEntities() != null
 								&& displayedNodes[x][y].getEntities().size() > 0){
 							for (Entity entity : displayedNodes[x][y]
 									.getEntities()){
 								// Skip actors. They are drawn in their
-								// respective classes.
+								// Respective classes.
 								if(!(entity instanceof trl.entity.actor.Actor)){
 									g.drawImage(
 											entity.getImage(),
@@ -964,10 +1004,7 @@ public class Map{
 		 * startX and startY represent the cartesian coordinates (lower left
 		 * origin) of the frame.
 		 */
-		// if (GameplayState.getPlayer() == null) {
-		// System.out.println("GameplayState.getPlayer() NULL");
-		// }
-		// System.out.println("Updating displayed nodes.");
+		
 		int startX = 0, startY = 0;
 		if(GameplayState.getPlayer().getX() <= Game.W_COLS / 2){
 			startX = 0;
@@ -1067,15 +1104,16 @@ public class Map{
 			enemy.setVisibleToPlayer(false);
 		}
 
-		// check line of sight to nodes currently in displayedNodes[][]
+		// Check line of sight to nodes currently in displayedNodes[][]
+		
 		// Loop through displayed nodes
 		for (int x = 0; x < Game.W_COLS; x++){
 			for (int y = 0; y < Game.W_ROWS; y++){
 				Node displayedNode = displayedNodes[x][y];
 				// Don't bother with LoS for null nodes.
 				if(displayedNode != null){
-					// playerLoS contains all nodes in a Bresenham line
-					// between player loc and target node
+					// PlayerLoS contains all nodes in a Bresenham line
+					// Between player loc and target node
 					List<Node> playerLoS = getLine(GameplayState.getPlayer()
 							.getLoc(), displayedNode);
 					boolean losObstructed = false;
@@ -1171,8 +1209,7 @@ public class Map{
 			for (x = 0; x < Game.W_COLS; x++){
 				for (y = 0; y < Game.W_ROWS; y++){
 					if(displayedNodes[x][y] != null){
-						// System.out.println("setDisplayedNodesMinX looking at non-null node "
-						// + x + "," + y );
+						
 						displayedNodesMinX = displayedNodes[x][y].getX() - x;
 						nonNullFound = true;
 						break;
