@@ -7,62 +7,173 @@ import java.awt.image.Kernel;
 import trl.main.Game;
 
 public class ImageManager{
+	
+	//Barbarian image
 	public BufferedImage barbarian;
+	
+	//Stone Tile image
 	public BufferedImage stoneTile;
+	
+	//Stone wall image
 	public BufferedImage stoneWall;
+	
+	//Image of boundary Wall
 	public BufferedImage boundaryWall;
+	
+	//Demon image
 	public BufferedImage demon;
+	
+	//Corpse image
 	public BufferedImage corpse;
+	
+	//Bang image
 	public BufferedImage bang;
+	
+	//Image of the Frog Knight
 	public BufferedImage frogKnight;
+	
+	//Archer image
 	public BufferedImage archer;
+	
+	//Miss image
 	public BufferedImage miss;
+	
+	//Potion image
 	public BufferedImage potion;
+	
+	//Hammer image
 	public BufferedImage hammer; 
+	
+	//Thief imade
 	public BufferedImage thief;
+	
+	//Eye image
 	public BufferedImage eye;
+	
+	//Wizard image
 	public BufferedImage wizard;
+	
+	//Swords image
 	public BufferedImage swords;
+	
+	//Fire image
 	public BufferedImage fire;
+	
+	//Rat image
 	public BufferedImage rat;
+	
+	//Bat image
 	public BufferedImage bat;
+	
+	//Spider image
 	public BufferedImage spider;
+	
+	//Snake image
 	public BufferedImage snake;
+	
+	//Empty place image
 	public BufferedImage voidNode;
+	
+	//Image of the open door
 	public BufferedImage openDoor;
+	
+	//Image of coled door
 	public BufferedImage closedDoor;
+	
+	//Wolf image
 	public BufferedImage wolf;
+	
+	//Ant image
 	public BufferedImage ant;
+	
+	//Image of stair down
 	public BufferedImage stairDown;
+	
+	//Wyvern image
 	public BufferedImage wyvern;
+	
+	//Wasp image
 	public BufferedImage wasp;
+	
+	//Imp image
 	public BufferedImage imp;
+	
+	//Gelatinous Cube image
 	public BufferedImage gelatinousCube;
+	
+	//Ogre image
 	public BufferedImage ogre;
+	
+	//Panther image
 	public BufferedImage panther;
+	
+	//Worm image
 	public BufferedImage worm;
+	
+	//Scorpion image
 	public BufferedImage scorpion;
+	
+	//Goblin image
 	public BufferedImage goblin;
+	
+	//Gremilin image
 	public BufferedImage gremlin;
+	
+	//Gargoyle image
 	public BufferedImage gargoyle;
+	
+	//Zombie image
 	public BufferedImage zombie;
+	
+	//Goal image
 	public BufferedImage goal;
+	
+	//Shadow image of the stair down
 	public BufferedImage stairDownShadow;
+	
+	//Shadow image of the goal
 	public BufferedImage goalShadow;
+	
+	//Key image
 	public BufferedImage key;
+	
+	//Lock image
 	public BufferedImage lock;
+	
+	//Image of open lock
 	public BufferedImage lockOpen;
+	
+	//Shadow image of the key
 	public BufferedImage keyShadow;
+	
+	//Shadow image of the lock
 	public BufferedImage lockShadow;
+	
+	//Shadow image of the open lock
 	public BufferedImage lockOpenShadow;
+	
+	//Ranger image
 	public BufferedImage ranger;
+	
+	//Arrows image
 	public BufferedImage arrows;
 
+	//Shadow image of the closed door
 	public BufferedImage closedDoorShadow;
+	
+	//Shadow image of the open door
 	public BufferedImage openDoorShadow;
+	
+	//Another stile of stone tile image
 	public BufferedImage stoneTile1Shadow;
+	
+	//Shadow image of the stone wall
 	public BufferedImage stoneWallShadow;
+	
+	//Shadow image of the potion
 	public BufferedImage potionShadow;
+	
+	//Shadow image of the hammer
 	public BufferedImage hammerShadow;
 
 	public ImageManager(SpriteSheet ss){
