@@ -16,16 +16,22 @@ public class PrintingMembers extends JInternalFrame implements Printable{
 	 ***************************************************************************/
 
 	// For setting the connection and statement.
+	
+	
+	//Connection status
 	private Connection connection = null;
+	//Creating the statement
 	private Statement statement = null;
+	//Resultset from the statement which comes from the data base
 	private ResultSet resultset = null;
-
+	//Constant of the URL from the database
 	private String URL = "jdbc:odbc:JLibrary";
 
 	// For creating the text area.
 	private JTextArea textArea = new JTextArea();
 	// For creating the vector to use it in the print.
 	private Vector lines;
+	//Constant to check number os spaces in the Vector method
 	public static final int TAB_SIZE = 10;
 
 	// Constructor of JLibrary.
@@ -38,10 +44,13 @@ public class PrintingMembers extends JInternalFrame implements Printable{
 		// For adding the textarea to the container.
 		cp.add(textArea);
 		try{
+			
 			Class.forName("sun.jdbc.odbc.JdbcOdbcDriver");
 		}catch (ClassNotFoundException ea){
+			
 			System.out.println(ea.toString());
 		}catch (Exception e){
+			
 			System.out.println(e.toString());
 		}
 		/***************************************************************
@@ -54,6 +63,7 @@ public class PrintingMembers extends JInternalFrame implements Printable{
 			statement = connection.createStatement();
 			resultset = statement.executeQuery(query);
 			textArea.append("=============== Members Information ===============\n\n");
+			
 			while ( resultset.next() ){
 				textArea.append("Member ID: " + resultset.getString("ID") + "\n" + "Name: "
 						+ resultset.getString("Name") + "\n" + "Major: " + resultset.getString("Major") + "\n"
@@ -64,6 +74,7 @@ public class PrintingMembers extends JInternalFrame implements Printable{
 			statement.close();
 			connection.close();
 		}catch (SQLException SQLe){
+			
 			System.out.println(SQLe.toString());
 		}
 		// For setting the visible to true.
@@ -88,8 +99,11 @@ public class PrintingMembers extends JInternalFrame implements Printable{
 		int hLine = fm.getHeight();
 
 		if ( lines == null ){
+			
 			lines = getLines(fm, wPage);
 		}else{
+			
+			//Nothing to do
 			
 		}
 
@@ -123,20 +137,20 @@ public class PrintingMembers extends JInternalFrame implements Printable{
 			if ( line.equals("\r") ){
 				continue;
 			}else{
-				
+				// Nothing to do
 			}
 			// StringTokenizer will ignore empty lines, so it's a bit tricky to
 			// get them...
 			if ( line.equals("\n") && prevToken.equals("\n") ){
 				v.add("");
 			}else{
-				
+				// Nothing to do
 			}
 			prevToken = line;
 			if ( line.equals("\n") ){
 				continue;
 			}else{
-				
+				// Nothing to do
 			}
 
 			StringTokenizer st2 = new StringTokenizer(line, " \t", true);
@@ -144,12 +158,13 @@ public class PrintingMembers extends JInternalFrame implements Printable{
 			while ( st2.hasMoreTokens() ){
 				String token = st2.nextToken();
 				if ( token.equals("\t") ){
+					
 					int numSpaces = TAB_SIZE - line2.length() % TAB_SIZE;
 					token = "";
 					for ( int k = 0 ; k < numSpaces ; k++ )
 						token += " ";
 				}else{
-					
+					// Nothing to do
 				}
 				
 				int lineLength = fm.stringWidth(line2 + token);
@@ -159,7 +174,7 @@ public class PrintingMembers extends JInternalFrame implements Printable{
 					line2 = token.trim();
 					continue;
 				}else{
-					
+					// Nothing to do
 				}
 				line2 += token;
 			}
