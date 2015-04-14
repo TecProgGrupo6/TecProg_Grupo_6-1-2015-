@@ -17,16 +17,22 @@ public class PrintingBooks extends JInternalFrame implements Printable{
 
 	// Connection status
 	private Connection connection = null;
+	
 	// Creating the statement
 	private Statement statement = null;
+	
 	// Resultset from the statement which comes from the data base
 	private ResultSet resultset = null;
+	
 	// Constant of the URL from the database
 	private String URL = "jdbc:odbc:JLibrary";
+	
 	// For creating the text area
 	private JTextArea textArea = new JTextArea ();
+	
 	// For creating the vector to use it in the print
 	private Vector lines;
+	
 	// Tab size
 	public static final int TAB_SIZE = 5;
 
@@ -91,10 +97,12 @@ public class PrintingBooks extends JInternalFrame implements Printable{
 		}
 		// for setting the visible to true
 		setVisible ( true );
+		
 		// to show the frame
 		pack ();
 	}
 
+	//Printing books
 	public int print( Graphics pg , PageFormat pageFormat , int pageIndex ) throws PrinterException{
 
 		pg.translate ( (int) pageFormat.getImageableX () , (int) pageFormat.getImageableY () );
