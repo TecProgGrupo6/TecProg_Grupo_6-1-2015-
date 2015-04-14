@@ -9,23 +9,43 @@ import java.sql.*;
  * and JTable row 0 is ResultSet row 1)
  */
 public class ResultSetTableModel extends AbstractTableModel{
+	
+	//Connection status
 	private Connection connection;
+	
+	//Creating the statement
 	private Statement statement;
+	
+	//Resultset from the statement which comes from the data base
 	private ResultSet resultSet;
+	
+	//Getting the metaData from the ResultSet Class
 	private ResultSetMetaData metaData;
+	
+	//Number of rows from the ResultSet
 	private int numberOfRows;
+	
 	// Keep track of database connection status.
 	private boolean connectedToDatabase = false;
 
 	// Initialize resultSet and obtain its meta data object.
 	// Determine number of rows.
 	public ResultSetTableModel(String driver, String url, String query) throws SQLException, ClassNotFoundException {
-		Class.forName(driver); // load database driver class
-		connection = DriverManager.getConnection(url); // connect to database
+		
+		// load database driver class
+		Class.forName(driver); 
+		
+		// connect to database
+		connection = DriverManager.getConnection(url); 
+		
 		// Create Statement to query database.
 		statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-		connectedToDatabase = true; // Update database connection status.
-		setQuery(query); // Set query and execute it.
+		
+		// Update database connection status.
+		connectedToDatabase = true;
+		
+		// Set query and execute it.
+		setQuery(query); 
 	}
 
 	// Get class that represents column type.
@@ -39,7 +59,9 @@ public class ResultSetTableModel extends AbstractTableModel{
 		// Determine Java class of column.
 		try{
 			String className = metaData.getColumnClassName(column + 1);
-			return Class.forName(className); // Return Class object that represents className.
+			
+			// Return Class object that represents className.
+			return Class.forName(className); 
 												
 		}
 		// Catch SQLExceptions and ClassNotFoundExceptions.
@@ -115,7 +137,7 @@ public class ResultSetTableModel extends AbstractTableModel{
 			return resultSet.getObject(column + 1);
 		}
 		// Catch SQLExceptions and print error message.
-		catch (SQLException sqlException){
+		catch ( SQLException sqlException ){
 			sqlException.printStackTrace();
 		}
 		// If problems, return empty string object.
@@ -132,12 +154,18 @@ public class ResultSetTableModel extends AbstractTableModel{
 		}
 		// Specify query and execute it.
 		resultSet = statement.executeQuery(query);
+		
 		// Obtain meta data for ResultSet.
 		metaData = resultSet.getMetaData();
+		
 		// Determine number of rows in ResultSet.
 		resultSet.last(); // move to last row
-		numberOfRows = resultSet.getRow(); // Get row number.
-		fireTableStructureChanged(); // Notify JTable that model has changed.
+		
+		// Get row number.
+		numberOfRows = resultSet.getRow();
+		
+		// Notify JTable that model has changed.
+		fireTableStructureChanged(); 
 	}
 
 	// Close Statement and Connection.
