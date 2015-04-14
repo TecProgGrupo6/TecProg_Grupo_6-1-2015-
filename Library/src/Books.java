@@ -15,33 +15,46 @@ public class Books {
 	private Statement statement = null;
 	private ResultSet resultSet = null;
 
-	private int bookID; //Id of the book
+	//Id of the book
+	private int bookID;
 	
-	private String subject; //The subject of the book
+	//The subject of the book
+	private String subject; 
 	
-	private String title; //The title of the book
+	//The title of the book
+	private String title; 
 	
-	private String author; // The author of the book
+	// The author of the book
+	private String author; 
 	
-	private String publisher; //The publisher of the book
+	//The publisher of the book
+	private String publisher; 
 	
-	private int copyright; // The copyright of the book
+	// The copyright of the book
+	private int copyright; 
 	
-	private int edition; //The edition of the book
+	//The edition of the book
+	private int edition; 
 	
-	private int pages; //Number of pages
+	//Number of pages
+	private int pages; 
 	
 	private String ISBN;
 	
-	private int numberOfBooks; //The number of books
+	//The number of books
+	private int numberOfBooks; 
 	
-	private int numberOfAvailbleBooks; //The number of books that are available
+	//The number of books that are available
+	private int numberOfAvailbleBooks; 
 	
-	private int numberOfBorrowedBooks; //The number of books that are borrowed
+	//The number of books that are borrowed
+	private int numberOfBorrowedBooks; 
 	
-	private String library; //The name of the library
+	//The name of the library
+	private String library; 
 	
-	private boolean availble; //If its available
+	//If its available
+	private boolean availble; 
 	
 	private String URL = "jdbc:odbc:JLibrary";
 
@@ -124,8 +137,8 @@ public class Books {
 		}
 		
 		/***************************************************************
-		 * for making the connection,creating the statement and update *
-		 * the table in the database. After that,closing the statement *
+		 * For making the connection,creating the statement and update *
+		 * the table in the database. After that, closing the statement*
 		 * and connection. There is catch block SQLException for error *
 		 ***************************************************************/
 		
@@ -188,7 +201,7 @@ public class Books {
 		}
 		
 		/***************************************************************
-		 * for making the connection,creating the statement and update *
+		 * For making the connection,creating the statement and update *
 		 * the table in the database. After that,closing the statement *
 		 * and connection. There is catch block SQLException for error *
 		 ***************************************************************/

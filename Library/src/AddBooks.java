@@ -29,6 +29,7 @@ public class AddBooks extends JInternalFrame {
      ***************************************************************************/
 
     // For creating the North Panel.
+	
     private JPanel northPanel = new JPanel();
     // For creaing the North Label.
     private JLabel northLabel = new JLabel( "BOOK INFORMATION" );
@@ -265,6 +266,7 @@ public class AddBooks extends JInternalFrame {
                 }
             }
         });
+        
         // For adding the action listener for the button to dispose the frame.
         OKButton.addActionListener(new ActionListener(){
 
@@ -272,8 +274,10 @@ public class AddBooks extends JInternalFrame {
                 dispose();
             }
         });
+        
         // For setting the visible to true.
         setVisible(true);
+        
         // Show the internal frame.
         pack();
     }
