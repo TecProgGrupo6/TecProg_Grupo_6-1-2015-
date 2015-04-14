@@ -5,6 +5,8 @@ import java.awt.image.BufferedImage;
 import trl.main.Game;
 
 public class SpriteSheet{
+	
+	//Sheet image
 	private BufferedImage sheet;
 
 	public SpriteSheet(BufferedImage sheet){
