@@ -63,7 +63,7 @@ public class PrintingMembers extends JInternalFrame implements Printable{
 		}
 		
 		/***************************************************************
-		 * for making the connection,creating the statement and update * the
+		 * For making the connection,creating the statement and update * the
 		 * table in the database. After that,closing the statmenet * and
 		 * connection. There is catch block SQLException for error *
 		 ***************************************************************/
@@ -160,8 +160,10 @@ public class PrintingMembers extends JInternalFrame implements Printable{
 				// Nothing to do
 			}
 			
-			// StringTokenizer will ignore empty lines, so it's a bit tricky to
-			// get them...
+			/*
+			 *  StringTokenizer will ignore empty lines, so it's a bit tricky to
+			 *  get them...
+			 */
 			if ( line.equals("\n") && prevToken.equals("\n") ){
 				v.add("");
 			}else{

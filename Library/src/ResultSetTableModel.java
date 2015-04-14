@@ -10,19 +10,19 @@ import java.sql.*;
  */
 public class ResultSetTableModel extends AbstractTableModel{
 	
-	//Connection status
+	// Connection status
 	private Connection connection;
 	
-	//Creating the statement
+	// Creating the statement
 	private Statement statement;
 	
-	//Resultset from the statement which comes from the data base
+	// Resultset from the statement which comes from the data base
 	private ResultSet resultSet;
 	
-	//Getting the metaData from the ResultSet Class
+	// Getting the metaData from the ResultSet Class
 	private ResultSetMetaData metaData;
 	
-	//Number of rows from the ResultSet
+	// Number of rows from the ResultSet
 	private int numberOfRows;
 	
 	// Keep track of database connection status.
@@ -35,7 +35,7 @@ public class ResultSetTableModel extends AbstractTableModel{
 		// load database driver class
 		Class.forName(driver); 
 		
-		// connect to database
+		// Connect to database
 		connection = DriverManager.getConnection(url); 
 		
 		// Create Statement to query database.
@@ -50,12 +50,14 @@ public class ResultSetTableModel extends AbstractTableModel{
 
 	// Get class that represents column type.
 	public Class getColumnClass( int column ) throws IllegalStateException{
+		
 		// Ensure database connection is available.
 		if ( !connectedToDatabase ){
 			throw new IllegalStateException("Not Connected to Database");
 		}else{
 			
 		}
+		
 		// Determine Java class of column.
 		try{
 			String className = metaData.getColumnClassName(column + 1);
@@ -64,30 +66,36 @@ public class ResultSetTableModel extends AbstractTableModel{
 			return Class.forName(className); 
 												
 		}
+		
 		// Catch SQLExceptions and ClassNotFoundExceptions.
 		catch (Exception exception){
 			exception.printStackTrace();
 		}
+		
 		// If problems occur above, assume type Object.
 		return Object.class;
 	}
 
 	// Get number of columns in ResultSet.
 	public int getColumnCount() throws IllegalStateException{
+		
 		// Ensure database connection is available.
 		if ( !connectedToDatabase ){
 			throw new IllegalStateException("Not Connected to Database");
 		}else{
 			
 		}
+		
 		// Determine number of columns.
 		try{
 			return metaData.getColumnCount();
 		}
+		
 		// Catch SQLExceptions and print error message.
 		catch (SQLException sqlException){
 			sqlException.printStackTrace();
 		}
+		
 		// If problems occur above, return 0 for number of columns.
 		return 0;
 	}
@@ -100,20 +108,24 @@ public class ResultSetTableModel extends AbstractTableModel{
 		}else{
 			
 		}
+		
 		// Determine column name.
 		try{
 			return metaData.getColumnName(column + 1);
 		}
+		
 		// Catch SQLExceptions and print error message.
 		catch (SQLException sqlException){
 			sqlException.printStackTrace();
 		}
+		
 		// If problems, return empty string for column name.
 		return "";
 	}
 
 	// Return number of rows in ResultSet.
 	public int getRowCount() throws IllegalStateException{
+		
 		// Ensure database connection is available.
 		if ( !connectedToDatabase ){
 			throw new IllegalStateException("Not Connected to Database");
@@ -125,27 +137,32 @@ public class ResultSetTableModel extends AbstractTableModel{
 
 	// Obtain value in particular row and column.
 	public Object getValueAt( int row, int column ) throws IllegalStateException{
+		
 		// Ensure database connection is available.
 		if ( !connectedToDatabase ){
 			throw new IllegalStateException("Not Connected to Database");
 		}else{
 			
 		}
+		
 		// Obtain a value at specified ResultSet row and column.
 		try{
 			resultSet.absolute(row + 1);
 			return resultSet.getObject(column + 1);
 		}
+		
 		// Catch SQLExceptions and print error message.
 		catch ( SQLException sqlException ){
 			sqlException.printStackTrace();
 		}
+		
 		// If problems, return empty string object.
 		return "";
 	}
 
 	// Set new database query string.
 	public void setQuery( String query ) throws SQLException, IllegalStateException{
+		
 		// Ensure database connection is available.
 		if ( !connectedToDatabase ){
 			throw new IllegalStateException("Not Connected to Database");
@@ -170,15 +187,18 @@ public class ResultSetTableModel extends AbstractTableModel{
 
 	// Close Statement and Connection.
 	public void disconnectFromDatabase(){
+		
 		// Close Statement and Connection.
 		try{
 			statement.close();
 			connection.close();
 		}
+		
 		// Catch SQLExceptions and print error message.
 		catch (SQLException sqlException){
 			sqlException.printStackTrace();
 		}
+		
 		// Update database connection status.
 		finally{
 			connectedToDatabase = false;

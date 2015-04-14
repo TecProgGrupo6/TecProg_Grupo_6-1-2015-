@@ -9,10 +9,10 @@ public class Toolbar extends JToolBar {
 	 ***      declaration of the private variables used in the program       ***
 	 ***************************************************************************/
 
-	//for creating the buttons to use them in ToolBar
+	// For creating the buttons to use them in ToolBar
 	public JButton[] button;
 	
-	//for creating the name of the image file 24*24
+	// For creating the name of the image file 24*24
 	public String[] imageName24 = {"images/Add24.gif", "images/List24.gif",
 	                           "images/Add24.gif",
 	                               "images/List24.gif", 
@@ -22,12 +22,12 @@ public class Toolbar extends JToolBar {
 	                          
 	                               "images/Exit24.gif"};
 	
-	//for creating the tipText for the toolbar
+	// For creating the tipText for the toolbar
 	public String[] tipText = {"Add Books", "List All Books",
 	                           "Add Members", "List Members", 
 	                           "Search", "Borrow Books", "Return Books", "Exit"};
 
-	//Creating a toolbar
+	// Creating a toolbar
 	public Toolbar() {
 		
 		button = new JButton[19];
@@ -36,18 +36,18 @@ public class Toolbar extends JToolBar {
 			
 			if ( i == 2|| i ==4 || i == 5|| i == 7 ) {
 				
-			//for adding separator to the toolBar
+			// For adding separator to the toolBar
 				addSeparator();
 			
 			}
 			else {
-				//No action
+				// No action
 			}
 			
-			//for adding the buttons to toolBar
+			// For adding the buttons to toolBar
 			add(button[i] = new JButton(new ImageIcon(ClassLoader.getSystemResource(imageName24[i]))));
 			
-			//for setting the ToolTipText to the button
+			// For setting the ToolTipText to the button
 			button[i].setToolTipText(tipText[i]);
 		}
 	}
