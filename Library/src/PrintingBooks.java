@@ -15,14 +15,13 @@ public class PrintingBooks extends JInternalFrame implements Printable{
 	 *** declaration of the private variables used in the program ***
 	 ***************************************************************************/
 
-
-	//Connection status
+	// Connection status
 	private Connection connection = null;
-	//Creating the statement
+	// Creating the statement
 	private Statement statement = null;
-	//Resultset from the statement which comes from the data base
+	// Resultset from the statement which comes from the data base
 	private ResultSet resultset = null;
-	//Constant of the URL from the database
+	// Constant of the URL from the database
 	private String URL = "jdbc:odbc:JLibrary";
 	// For creating the text area
 	private JTextArea textArea = new JTextArea ();
