@@ -13,13 +13,27 @@ public class Members {
 	private Statement statement = null;
 	private ResultSet resultSet = null;
 
-	private int memberID; //The ID of the member
+	//The ID of the member
+	private int memberID; 
+	
+	//Member ID
 	private int ID;
-	private String password; //The member's password
-	private String name; //The member's name
-	private String email; //The member's email
-	private String major; //The member's major
-	private int numberOfBooks; //Number of books 
+	
+	//The member's password
+	private String password; 
+	
+	//The member's name
+	private String name; 
+	
+	//The member's email
+	private String email; 
+	
+	//The member's major
+	private String major; 
+	
+	//Number of books 
+	private int numberOfBooks; 
+	
 	private int mony;
 	private Date expired;
 	private String URL = "jdbc:odbc:JLibrary";
@@ -92,6 +106,7 @@ public class Members {
 			System.out.println("Members.java\n" + e.toString());
 			
 		}
+		
 		/***************************************************************
 		 * for making the connection,creating the statement and update *
 		 * the table in the database. After that,closing the statmenet *
@@ -127,6 +142,7 @@ public class Members {
 		}
 	}
 
+	//Updating member
 	public void update( String Query ) {
 		try {
 			
