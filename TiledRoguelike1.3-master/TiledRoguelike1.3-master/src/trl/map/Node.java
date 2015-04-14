@@ -15,20 +15,67 @@ import trl.map.feature.Wall;
 
 public class Node{
 
-	private int x, y;
+	//Coordinate x
+	private int x;
+	
+	//Coordinate y
+	private int y;
+	
+	//Representetion of the parent node
 	private Node parentNode;
-	private int gScore, hScore, fScore;
+	
+	//Representation of the moviment 
+	private int gScore;
+	
+	//Representation of the moviment 
+	private int hScore;
+	
+	//Representation of the moviment 
+	private int fScore;
+	
+	//Representation of the game's map
 	private Map map;
+	
+	//List of entities space
 	private List<Entity> entities;
-	private boolean isWall = false, isFloor = false, isVoid = true,
-			isDoorOpen = false, isDoorClosed = false;
+	
+	//Define if the node is wall
+	private boolean isWall = false;
+	
+	//Define if the node is floor
+	private boolean isFloor = false;
+	
+	//Define if the node is empty
+	private boolean isVoid = true;
+	
+	//Define if the Door node is open
+	private boolean isDoorOpen = false;
+	
+	//Define if the Door node is closed
+	private boolean isDoorClosed = false;
+	
+	//Image of the node
 	private BufferedImage image;
+	
+	//Describe if the player can see or not the node
 	private boolean seenByPlayer;
+	
+	//Representation of any kind of feature (places)
 	private Feature feature;
+	
+	//Representation of the closed door space
 	public static Feature closedDoor = new DoorClosed();
+	
+	//Representation of the open door space
 	public static Feature openDoor = new DoorOpen();
+	
+	//Representation of the empty place
 	public static Feature voidNode = new Void();
+	
+	//Representation of the wall place
 	public static Feature wall = new Wall();
+	
+	//Representation of the floor space
 	public static Feature floor = new Floor();
 
 	public Node(int x, int y, Map map){
@@ -288,48 +335,7 @@ public class Node{
 		return false;
 	}
 
-	// public boolean checkEntityByName(String entityName) {
-	// if (entities == null) {
-	// // System.out.println("entities NULL");
-	// }
-	// if (entities != null && entities.size() > 0) {
-	// for (Entity entity : entities) {
-	// switch (entityName) {
-	// case "enemy": {
-	// if (entity instanceof trl.entity.enemy.Enemy) {
-	// return true;
-	// }
-	// break;
-	// }
-	// case "potion": {
-	// if (entity instanceof trl.entity.item.Potion) {
-	// return true;
-	// }
-	// break;
-	// }
-	// case "hammer": {
-	// if (entity instanceof trl.entity.item.Hammer) {
-	// return true;
-	// }
-	// break;
-	// }
-	// case "actor": {
-	// if (entity instanceof trl.entity.actor.Actor) {
-	// return true;
-	// }
-	// break;
-	// }
-	// case "entity": {
-	// if (entity instanceof trl.entity.Entity) {
-	// return true;
-	// }
-	// break;
-	// }
-	// }
-	// }
-	// }
-	// return false;
-	// }
+	
 
 	public void removeEntityByID(byte entityID){
 		Iterator<Entity> entity = entities.iterator();
