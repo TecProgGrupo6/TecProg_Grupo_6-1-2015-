@@ -93,7 +93,8 @@ public abstract class Actor extends Entity{
 
 		this.hp = hp;
 	}
-
+	
+	// Checks if the player is still alive
 	public boolean isAlive(){
 
 		return hp > 0;
@@ -171,6 +172,7 @@ public abstract class Actor extends Entity{
 			}
 			// Am I a wizard who just exploded (even though I am alone)
 			boolean isWizzardAndTime = this instanceof trl.entity.player.Wizard && getTimers ()[1] == 10;
+			
 			if ( isWizzardAndTime ){
 
 				Game.tickTimer = Game.TURN_DELAY;
@@ -481,7 +483,10 @@ public abstract class Actor extends Entity{
 
 		// Blast radius
 		int r = 0;
-		if ( this instanceof trl.entity.player.Wizard && this.timers[1] > 0 && Game.tickTimer > 0 ){
+		
+		boolean wizzardAndTimerGreaterZero = this instanceof trl.entity.player.Wizard && this.timers[1] > 0 && Game.tickTimer > 0;
+		
+		if ( wizzardAndTimerGreaterZero ){
 
 			// Determine blast radius at time = timers[1]
 
