@@ -15,45 +15,45 @@ public class ActorQueue{
 
 	public ActorQueue (){
 
-		init ();
+		init();
 	}
 
-	public void init(){
+	public void init (){
 
-		queue = new ArrayList<Actor> ();
+		queue = new ArrayList<Actor>();
 	}
 
-	public void addActor( Actor actor ){
+	public void addActor ( Actor actor ){
 
 		// Add actor at beginning of queue
-		queue.add ( 0 , actor );
+		queue.add( 0 , actor );
 	}
 
-	public void render( Graphics g ){
+	public void render ( Graphics g ){
 
 		for ( Actor actor : queue ){
 
-			actor.render ( g );
+			actor.render( g );
 		}
 	}
 
-	public void tick(){
+	public void tick (){
 
 		Actor actor;
 		// Start tick loop
-		for ( Iterator<Actor> itQueue = queue.iterator () ; itQueue.hasNext () ; ){
-			actor = itQueue.next ();
+		for ( Iterator<Actor> itQueue = queue.iterator() ; itQueue.hasNext() ; ){
+			actor = itQueue.next();
 
-			actor.tick ();
+			actor.tick();
 
 			// If actor was enemy..
 			if ( actor instanceof trl.entity.enemy.Enemy ){
 
-				if ( !actor.isAlive () && Game.tickTimer > 0 ){
+				if ( !actor.isAlive() && Game.tickTimer > 0 ){
 
-					GameplayState.getPlayer ().incrementEnemiesDefeated ( 1 );
+					GameplayState.getPlayer().incrementEnemiesDefeated( 1 );
 					// Calc xp gain for dead enemy
-					double levelDiff = GameplayState.getPlayer ().getLevel () - actor.getLevel ();
+					double levelDiff = GameplayState.getPlayer().getLevel() - actor.getLevel();
 					if ( levelDiff <= 0.0d ){
 
 						levelDiff = 1.0d;
@@ -62,7 +62,7 @@ public class ActorQueue{
 						// Nothing to do
 					}
 
-					double percentXP = ( 1.0d / levelDiff ) * (double) actor.getLevel ();
+					double percentXP = ( 1.0d / levelDiff ) * (double) actor.getLevel();
 					if ( percentXP > 1.0 ){
 						percentXP = 1.0;
 					}else{
@@ -70,17 +70,17 @@ public class ActorQueue{
 						// Nothing to do
 					}
 
-					double xp = percentXP * (double) actor.getLevel ();
-					GameplayState.getPlayer ().gainXP ( xp );
-					itQueue.remove ();
-					GameplayState.getEnemyGroup ().removeEnemy ( actor );
+					double xp = percentXP * (double) actor.getLevel();
+					GameplayState.getPlayer().gainXP( xp );
+					itQueue.remove();
+					GameplayState.getEnemyGroup().removeEnemy( actor );
 
 					// If it's a dead enemy's turn, pass turn to next actor
-					if ( actor.getTurn () ){
-						
-						int getQueueParams = queue.indexOf ( actor ) + 1 ;
-						
-						actor.endTurn ( queue.get ( getQueueParams ) );
+					if ( actor.getTurn() ){
+
+						int getQueueParams = queue.indexOf( actor ) + 1;
+
+						actor.endTurn( queue.get( getQueueParams ) );
 					}else{
 
 						// Nothing to do
@@ -97,31 +97,31 @@ public class ActorQueue{
 			}
 
 			// If actor acted on its turn, determine next actor...
-			if ( actor.getTurn () ){
+			if ( actor.getTurn() ){
 
-				if ( actor.getActed () ){
+				if ( actor.getActed() ){
 
-					GameplayState.getMap ().updateVisibleToPlayer ();
-					GameplayState.getMap ().updateImageMap ();
+					GameplayState.getMap().updateVisibleToPlayer();
+					GameplayState.getMap().updateImageMap();
 					/*
 					 * If there's another actor in queue, hand turn to that
 					 * actor
 					 */
-					if ( itQueue.hasNext () ){
+					if ( itQueue.hasNext() ){
 
 						/*
 						 * Get next actor by index (current + 1) instead of
 						 * moving iterator
 						 */
-						
-						int getQueueParams = queue.indexOf ( actor ) + 1;
-						
-						actor.endTurn ( queue.get ( getQueueParams ) );
+
+						int getQueueParams = queue.indexOf( actor ) + 1;
+
+						actor.endTurn( queue.get( getQueueParams ) );
 					}
 					// Hand turn to first actor in queue
 					else{
 
-						actor.endTurn ( queue.get ( 0 ) );
+						actor.endTurn( queue.get( 0 ) );
 					}
 				}else{
 
@@ -132,17 +132,18 @@ public class ActorQueue{
 		}
 		// End tick loop
 
-		GameplayState.getEnemyGroup ().spawnEnemies ();
+		GameplayState.getEnemyGroup().spawnEnemies();
 	}
 
-	public Actor getActor( int index ){
+	public Actor getActor ( int index ){
 
-		return queue.get ( index );
+		return queue.get( index );
 	}
 
-	public void flush(){
+	public void flush (){
 
-		for ( @SuppressWarnings ( "unused" ) Actor actor : queue ){
+		for ( @SuppressWarnings ( "unused" )
+		Actor actor : queue ){
 
 			actor = null;
 		}
