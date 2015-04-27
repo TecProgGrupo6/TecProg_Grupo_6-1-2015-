@@ -74,12 +74,13 @@ public class AddMembers extends JInternalFrame{
 	private String[] data;
 
 	// For checking the password.
+	boolean getPassword = informationPasswordField[0].getText().equals(informationPasswordField[1].getText());
 	public boolean isPasswordCorrect() {
-		if ( informationPasswordField[0].getText().equals(informationPasswordField[1].getText()) ){
+		if ( getPassword ){
 			
 			data[1] = informationPasswordField[1].getText();
 			
-		}else if ( !informationPasswordField[0].getText().equals(informationPasswordField[1].getText()) ){
+		}else if ( !getPassword ){
 			return false;
 		}
 		
@@ -87,10 +88,12 @@ public class AddMembers extends JInternalFrame{
 	}
 
 	// For checking the information from the text field.
+	double informationLabelLength = informationLabel.length;
+	
 	public boolean isCorrect(){
 		data = new String[6];
 		
-		for ( int i = 0 ; i < informationLabel.length ; i++ ){
+		for ( int i = 0 ; i < informationLabelLength ; i++ ){
 			if ( i == 0 ){
 				if ( !informationTextField[i].getText().equals("") ){
 					
@@ -123,7 +126,7 @@ public class AddMembers extends JInternalFrame{
 
 	// For setting the array of JTextField & JPasswordField to null.
 	public void clearTextField(){
-		for ( int i = 0 ; i < informationLabel.length ; i++ ){
+		for ( int i = 0 ; i < informationLabelLength ; i++ ){
 			if ( i == 0 ){
 				
 				informationTextField[i].setText(null);
