@@ -10,19 +10,19 @@ import trl.map.Room;
 
 public class Entity{
 
-	//Represent on place in the map
+	// Represent on place in the map
 	protected Node loc;
 	
-	//Represent the map
+	// Represent the map
 	protected Map map; 
 
-	//Image in buffered
+	// Image in buffered
 	protected BufferedImage image; 
 
-	//Describe if the player can see or not
+	// Describe if the player can see or not
 	protected boolean seenByPlayer;
 
-	//Describe if can be visible for the player or not
+	// Describe if can be visible for the player or not
 	protected boolean visibleToPlayer;
 
 	public Entity(Map map){
@@ -99,7 +99,7 @@ public class Entity{
 					return rooms[x][y];
 				}else{
 					
-					//nothing to do
+					// Nothing to do
 				}
 			}
 		}
