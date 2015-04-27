@@ -12,12 +12,12 @@ public class Entity{
 
 	// Represent on place in the map
 	protected Node loc;
-
+	
 	// Represent the map
-	protected Map map;
+	protected Map map; 
 
 	// Image in buffered
-	protected BufferedImage image;
+	protected BufferedImage image; 
 
 	// Describe if the player can see or not
 	protected boolean seenByPlayer;
@@ -64,7 +64,10 @@ public class Entity{
 		int x = Map.displayedNodesMinX;
 		int y = Map.displayedNodesMinY;
 
-		if ( getX ()>= x&& getX ()< x+ Game.W_COLS&& getY ()>= y&& getY ()< y+ Game.W_ROWS ){
+		boolean inXrange = getX() >= x && getX() < x+ Game.W_COLS;
+		boolean inYrange = getY() >= y && getY() < y+ Game.W_ROWS;
+		
+		if ( inXrange && inYrange ){
 
 			return true;
 		}else{
@@ -97,8 +100,9 @@ public class Entity{
 
 					return rooms[x][y];
 				}else{
-
-					// nothing to do
+					
+					// Nothing to do
+					
 				}
 			}
 		}
