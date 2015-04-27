@@ -105,10 +105,16 @@ public abstract class Player extends Actor{
 		for ( int x = -1 ; x <= 1 ; x++ ){
 
 			for ( int y = 1 ; y >= 0 ; y-- ){
-
-				if ( x >= 0 && x < Game.COLUMNS && y >= 0 && y < Game.ROWS ){
-
-					Node adjacent = map.getNode ( getX () + x , getY () + y );
+				
+				boolean xCoordinateAndColumns = x >= 0 && x < Game.COLUMNS;
+				boolean yCoordinateAndRows = y >= 0 && y < Game.ROWS;
+				
+				if ( xCoordinateAndColumns && yCoordinateAndRows ){
+					
+					int summX = getX () + x;
+					int summY = getY () + y;
+					Node adjacent = map.getNode ( summX , summY );
+					
 					if ( adjacent != null ){
 
 						if ( adjacent.checkEntityByID ( (byte) 0 ) ){
@@ -154,10 +160,9 @@ public abstract class Player extends Actor{
 		nextTarget = false;
 		previousTarget = false;
 		getTargets = false;
-		// if (targets != null) { //Will be null if player hasn't targeted
-		// anything before
+		// If (targets != null) { //Will be null if player hasn't targeted anything before
 		targets = null;
-		// }
+		
 		if ( target != null ){
 
 			target.setTargeted ( false );
@@ -174,7 +179,7 @@ public abstract class Player extends Actor{
 
 		xpEarned += xp;
 	}
-
+	
 	public int getEnemiesDefeated(){
 
 		return enemiesDefeated;
@@ -298,13 +303,25 @@ public abstract class Player extends Actor{
 	public void handlePath(){
 
 		// Ignore all this if path is empty
-		if ( path != null && path.size () > 0 ){
+		boolean isPathEmptyAndSizeGreaterZero = path != null && path.size () > 0;
+		if ( isPathEmptyAndSizeGreaterZero ){
 
-			// System.out.println("Path size=" + path.size() +
-			// ", initial path size=" + initialPathSize);
-			// Path size == 1 and initial path size == 1 and enemy in next node.
-			// Consider this a deliberate attempt to attack enemy.
-			if ( path.size () == 1 && initialPathSize == 1 && getNextPathNode ().checkEntityByID ( (byte) 0 ) ){
+			/* System.out.println("Path size=" + path.size() +
+			 *", initial path size=" + initialPathSize);
+			 * Path size == 1 and initial path size == 1 and enemy in next node.
+			 *Consider this a deliberate attempt to attack enemy.
+			*/
+			
+			boolean isPathSizeAndInitialEqualsOne = path.size () == 1 && initialPathSize == 1;
+			boolean isNodePathCkecksZero = getNextPathNode ().checkEntityByID ( (byte) 0 );
+			boolean pathLowerInitialAndPathEntity = (path.size () < initialPathSize)  && getNextPathNode ().checkEntityByID ( (byte) 0 );
+			
+			boolean pathAndInitialPathEqualsOne = path.size () == 1 && initialPathSize == 1;
+			boolean nextPathNodeGetFeatureClose =  getNextPathNode ().getFeature () instanceof trl.map.feature.DoorClosed;
+			boolean pathSizeGreaterOneAndPathLowerIniticial =  path.size () >= 1 && path.size () < initialPathSize;
+			
+			boolean nextPathNodeGetFeatureOpen = getNextPathNode ().getFeature () instanceof trl.map.feature.DoorOpen;
+			if ( isPathSizeAndInitialEqualsOne && isNodePathCkecksZero ){
 
 				// System.out.println("Attacking.");
 				attack ( GameplayState.getEnemyGroup ().getEnemy ( getNextPathNode () ) );
@@ -318,7 +335,10 @@ public abstract class Player extends Actor{
 			// This looks like the player ran into
 			// the enemy while traveling a longer path. Don't consider this a
 			// deliberate attack
-			else if ( path.size () < initialPathSize && getNextPathNode ().checkEntityByID ( (byte) 0 ) ){
+			
+			
+			
+			else if ( pathLowerInitialAndPathEntity ){
 				// System.out.println("Blocked by enemy/forgetting path.");
 				path.clear ();
 				acted = true;
@@ -328,8 +348,7 @@ public abstract class Player extends Actor{
 			 * Path size == 1 and initial path size == 1 and closed door in next
 			 * node. consider this a deliberate attempt to open the door.
 			 */
-			else if ( path.size () == 1 && initialPathSize == 1
-					&& getNextPathNode ().getFeature () instanceof trl.map.feature.DoorClosed ){
+			else if ( pathAndInitialPathEqualsOne && nextPathNodeGetFeatureClose ){
 
 				openDoor ( getNextPathNode () );
 				// System.out.println("Opening door.");
@@ -343,8 +362,7 @@ public abstract class Player extends Actor{
 			 * traveling a longer path. Don't consider this a deliberate attempt
 			 * to open the door.
 			 */
-			else if ( path.size () >= 1 && path.size () < initialPathSize
-					&& getNextPathNode ().getFeature () instanceof trl.map.feature.DoorClosed ){
+			else if ( pathSizeGreaterOneAndPathLowerIniticial && nextPathNodeGetFeatureClose ){
 				// System.out.println("Blocked by door/forgetting path.");
 				path.clear ();
 				acted = true;
@@ -354,8 +372,8 @@ public abstract class Player extends Actor{
 			 * Player close flag set.
 			 */
 			else if ( close ){
-
-				if ( getNextPathNode ().getFeature () instanceof trl.map.feature.DoorOpen ){
+			
+				if ( nextPathNodeGetFeatureOpen ){
 
 					getNextPathNode ().makeClosedDoor ();
 				}else{
@@ -455,10 +473,13 @@ public abstract class Player extends Actor{
 		// if (!adjacentEnemy()) {
 		// If KeyManager says we're supposed to look for targets (getTargets),
 		// but haven't yet (!gotTargets)
+		
+		boolean getTargetsAndNotGotTargets = getTargets && !gotTargets;
+		boolean notAdjacentEnemy = !adjacentEnemy ();
+		
+		if ( getTargetsAndNotGotTargets ){
 
-		if ( getTargets && !gotTargets ){
-
-			if ( !adjacentEnemy () ){
+			if ( notAdjacentEnemy ){
 
 				targets = ( (Ranger) this ).getTargets (); // Returns 0-size
 															// list if no
@@ -489,7 +510,9 @@ public abstract class Player extends Actor{
 		}
 
 		// Should only be possible if targets list size > 0
-		if ( !getTargets && gotTargets ){
+		boolean NotgetTargetsAndGotTargets = !getTargets && gotTargets;
+		
+		if ( NotgetTargetsAndGotTargets ){
 
 			// Allow player to cancel targeting
 			if ( cancel ){
@@ -521,6 +544,8 @@ public abstract class Player extends Actor{
 				else{
 
 					if ( targets.size () > 1 ){
+						
+						int targetsSizeMinusOne = ( targets.size () - 1 );
 
 						// Targets list size must be > 1. Consider
 						// nextTarget/previousTarget meaningful, but
@@ -531,7 +556,10 @@ public abstract class Player extends Actor{
 							target.setTargeted ( false );
 							// If not last target in list, target = current
 							// target index + 1
-							if ( ( targets.size () - 1 ) > targets.indexOf ( target ) ){
+							
+							
+							
+							if ( targetsSizeMinusOne > targets.indexOf ( target ) ){
 
 								target = ( targets.get ( targets.indexOf ( target ) + 1 ) );
 							}
@@ -559,7 +587,7 @@ public abstract class Player extends Actor{
 							// Else target wraps around to last in list
 							else{
 
-								target = targets.get ( targets.size () - 1 );
+								target = targets.get ( targetsSizeMinusOne );
 							}
 							// Changed target, target new target
 							target.setTargeted ( true );
@@ -609,12 +637,22 @@ public abstract class Player extends Actor{
 
 		System.out.println ( "=== Enemies ===" );
 		System.out.println ( "Player at " + getX () + "," + getY () );
+		
+		
 
 		for ( Enemy enemy : GameplayState.getEnemyGroup ().getEnemies () ){
-
-			System.out.println ( enemy.toString ().substring ( enemy.toString ().lastIndexOf ( '.' ) ) + " at "
-					+ enemy.getX () + "," + enemy.getY () + " v2p=" + enemy.getVisibleToPlayer () + " ,aop="
-					+ enemy.awareOfPlayer () + ", sbp=" + enemy.seenByPlayer () );
+			String enemyPrint = enemy.toString ().substring ( enemy.toString ().lastIndexOf ( '.' ) ) +
+								" at " + enemy.getX () +
+								"," +
+								enemy.getY () +
+								" v2p=" +
+								enemy.getVisibleToPlayer () +
+								" ,aop="+
+								enemy.awareOfPlayer () +
+								", sbp=" +
+								enemy.seenByPlayer ();
+			
+			System.out.println ( enemyPrint );
 		}
 	}
 
@@ -670,6 +708,7 @@ public abstract class Player extends Actor{
 	public Node setDirection(){
 
 		Node nextNode = null;
+		
 		if ( upDirection && getY () < Game.ROWS - 1 ){
 
 			upDirection = false;
@@ -705,8 +744,10 @@ public abstract class Player extends Actor{
 
 			// Nothing to do
 		}
+		
+		boolean upRightYRowsColumns = upRightDirection && getY () < Game.ROWS - 1 && getX () < Game.COLUMNS - 1;
 
-		if ( upRightDirection && getY () < Game.ROWS - 1 && getX () < Game.COLUMNS - 1 ){
+		if ( upRightYRowsColumns ){
 
 			upRightDirection = false;
 			nextNode = map.getNode ( getX () + 1 , getY () + 1 );
@@ -714,8 +755,10 @@ public abstract class Player extends Actor{
 
 			// Nothing to do
 		}
+		
+		boolean downRightYXColumns = downRightDirection && getY () >= 1 && getX () < Game.COLUMNS - 1;
 
-		if ( downRightDirection && getY () >= 1 && getX () < Game.COLUMNS - 1 ){
+		if ( downRightYXColumns ){
 
 			downRightDirection = false;
 			nextNode = map.getNode ( getX () + 1 , getY () - 1 );
@@ -723,8 +766,10 @@ public abstract class Player extends Actor{
 
 			// Nothing to do
 		}
-
-		if ( downLeftDirection && getY () >= 1 && getX () >= 1 ){
+		
+		boolean downLeftYX = downLeftDirection && getY () >= 1 && getX () >= 1;
+		
+		if ( downLeftYX ){
 
 			downLeftDirection = false;
 			nextNode = map.getNode ( getX () - 1 , getY () - 1 );
@@ -732,8 +777,10 @@ public abstract class Player extends Actor{
 
 			// Nothing to do
 		}
+		
+		boolean upLeftYRowsX = upLeftDirection && getY () < Game.ROWS - 1 && getX () >= 1 ;
 
-		if ( upLeftDirection && getY () < Game.ROWS - 1 && getX () >= 1 ){
+		if ( upLeftYRowsX ){
 
 			upLeftDirection = false;
 			nextNode = map.getNode ( getX () - 1 , getY () + 1 );
@@ -920,11 +967,15 @@ public abstract class Player extends Actor{
 		int startX = Map.displayedNodesMinX;
 		// int startY = map.getDisplayedNodesMinY();
 		int startY = Map.displayedNodesMinY;
+		
+		
 		for ( int x = startX ; x < startX + Game.W_COLS ; x++ ){
 
 			for ( int y = startY ; y < startY + Game.W_ROWS ; y++ ){
-
-				if ( map.getNode ( x , y ) != null && map.getNode ( x , y ).checkEntityByID ( (byte) 0 ) ){
+				
+				boolean isNodeNullAndNodeCheckedID = map.getNode ( x , y ) != null && map.getNode ( x , y ).checkEntityByID ( (byte) 0 );
+				
+				if ( isNodeNullAndNodeCheckedID ){
 
 					GameplayState.getEnemyGroup ().getEnemy ( map.getNode ( x , y ) ).setHP ( 0 );
 
@@ -936,9 +987,12 @@ public abstract class Player extends Actor{
 			}
 		}
 		// Heal player up to 50% health
-		if ( hp < maxHP / 2 ){
+		
+		int heal = maxHP / 2;
+		
+		if ( hp < heal ){
 
-			hp = maxHP / 2;
+			hp = heal;
 		}else{
 
 			// Nothing to do
