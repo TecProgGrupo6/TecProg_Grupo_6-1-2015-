@@ -106,10 +106,10 @@ public abstract class Player extends Actor{
 
 			for ( int y = 1 ; y >= 0 ; y-- ){
 
-				boolean xCoordinateAndColumns = x >= 0 && x < Game.COLUMNS;
-				boolean yCoordinateAndRows = y >= 0 && y < Game.ROWS;
+				boolean xGreaterThanZeroAndLessThanColumns = x >= 0 && x < Game.COLUMNS;
+				boolean yGreaterThanZeroAndLessThanRows = y >= 0 && y < Game.ROWS;
 
-				if ( xCoordinateAndColumns && yCoordinateAndRows ){
+				if ( xGreaterThanZeroAndLessThanColumns && yGreaterThanZeroAndLessThanRows ){
 
 					int summX = getAxisX() + x;
 					int summY = getAxisY() + y;
@@ -304,7 +304,7 @@ public abstract class Player extends Actor{
 	public void handlePath (){
 
 		// Ignore all this if path is empty
-		boolean isPathEmptyAndSizeGreaterZero = path != null && path.size() > 0;
+		boolean isPathEmptyAndSizeGreaterZero = ( path != null && path.size() > 0 );
 		if ( isPathEmptyAndSizeGreaterZero ){
 
 			/*
@@ -790,29 +790,10 @@ public abstract class Player extends Actor{
 
 		turnsOnLevel = turns;
 	}
-
-	// Tick function, gameplay related
-	public void tick (){
-
-		Node nextNode; // = null; //prospective node for movement/action
-		Enemy enemy; // prospective enemy in nextNode
-
-		// Clear activity flags
-		clearFlags();
-
-		// Set stance to normal
-		if ( Game.tickTimer == 0 ){
-
-			setStance( true , false , false , false );
-		}else{
-
-			// Nothing to do
-		}
-
-		// Alert enemies in visibleNodes to player's presence
-		alertEnemies();
-
-		// Check for keypresses
+	
+	
+	public void keyPresses( Node nextNode , Enemy enemy ){
+		
 		if ( myTurn && Game.tickTimer == 0 ){
 
 			/*
@@ -868,11 +849,17 @@ public abstract class Player extends Actor{
 
 			// Nothing to do
 		}
-
+		
+	}
+	// Checks if the player has moved, been attacked or acted
+	public void action(){
+		
 		if ( acted || moved || attacked ){
 
 			Game.turnCounter++;
 			turnsOnLevel++;
+			
+			// Checks if the player has been attacked
 			if ( !attacked ){
 				/*
 				 * If not attacked, set all enemy damageTaken = 0. Prevents
@@ -890,9 +877,10 @@ public abstract class Player extends Actor{
 				setStance( false , true , false , false );
 			}
 
-			// Health regen for barbarian. Starting 3 turns after last combat,
-			// increment
-			// health by one every other turn.
+			/* Health regen for barbarian. Starting 3 turns after last combat,
+			 * increment
+			 * health by one every other turn.
+			 */
 			if ( !attacked && getDamageTaken() == 0 ){
 
 				turnsSinceCombat++;
@@ -928,7 +916,51 @@ public abstract class Player extends Actor{
 			decrementTimers();
 			map.updateDisplayedNodes();
 			// printEnemiesList();
+		}else{
+			
+			// Nothing to do
 		}
+		
+	}
+	
+	
+	
+
+	
+	// Tick function, gameplay related
+	public void tick (){
+
+		Node nextNode = null; // = null; //prospective node for movement/action
+		Enemy enemy = null; // prospective enemy in nextNode
+
+		// Clear activity flags
+		clearFlags();
+
+		// Set stance to normal
+		if ( Game.tickTimer == 0 ){
+
+			setStance( true , false , false , false );
+		}else{
+
+			// Nothing to do
+		}
+
+		// Alert enemies in visibleNodes to player's presence
+		alertEnemies();
+
+		// Check for keypresses
+		keyPresses( nextNode , enemy );
+
+		if ( moved ){
+
+			handleMovementResult();
+		}else{
+
+			// Nothing to do
+		}
+		
+		// Checks if the player has moved, been attacked or acted
+		action();
 
 		if ( xpEarned >= Math.pow( level + 1 , 2 ) ){
 
@@ -949,13 +981,8 @@ public abstract class Player extends Actor{
 	}
 
 	// Action on player
-	public void useHammer (){
 
-		// Set HP of all enemies in visibleNodes = 0
-		// int startX = map.getDisplayedNodesMinX();
-		int startX = Map.displayedNodesMinX;
-		// int startY = map.getDisplayedNodesMinY();
-		int startY = Map.displayedNodesMinY;
+	public void getEnemyHammer ( int startX , int startY ){
 
 		for ( int x = startX ; x < startX + Game.W_COLS ; x++ ){
 
@@ -975,6 +1002,19 @@ public abstract class Player extends Actor{
 
 			}
 		}
+
+	}
+
+	public void useHammer (){
+
+		// Set HP of all enemies in visibleNodes = 0
+		// int startX = map.getDisplayedNodesMinX();
+		int startX = Map.displayedNodesMinX;
+		// int startY = map.getDisplayedNodesMinY();
+		int startY = Map.displayedNodesMinY;
+
+		getEnemyHammer( startX , startY );
+
 		// Heal player up to 50% health
 
 		int heal = maxHP / 2;
@@ -988,4 +1028,5 @@ public abstract class Player extends Actor{
 		}
 
 	}
+
 }

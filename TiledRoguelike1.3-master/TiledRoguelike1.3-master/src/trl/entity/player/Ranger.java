@@ -41,6 +41,16 @@ public class Ranger extends Player{
 		targets.clear();
 		List<Enemy> enemies = new ArrayList<Enemy>();
 		List<Entity> entities = null;
+		
+		// Add enemies to the list
+		addEnemies(enemies, entities);
+
+		return enemies;
+	}
+	
+	// Add enemies to the list
+	public void addEnemies ( List<Enemy> enemies , List<Entity> entities ){
+
 		for ( Node node : map.getVisibleToPlayer() ){
 
 			if ( node.getEntities() != null ){
@@ -64,7 +74,6 @@ public class Ranger extends Player{
 
 		}
 
-		return enemies;
 	}
 
 	// Action to enemy

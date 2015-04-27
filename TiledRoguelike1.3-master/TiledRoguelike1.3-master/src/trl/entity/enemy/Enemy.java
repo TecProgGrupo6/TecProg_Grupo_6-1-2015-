@@ -39,36 +39,25 @@ public abstract class Enemy extends Actor{
 			// Nothing to do
 		}
 
-		if ( myTurn && Game.tickTimer == 0 ){
+		boolean myTurnAndGameTimer = ( myTurn && Game.tickTimer == 0 );
+
+		if ( myTurnAndGameTimer ){
 
 			if ( !awareOfPlayer ){
 
 				// If all path nodes are consumed, get a new path.
 				// If enemy has been on the same node for 3 turns, get new path.
-				if ( path.size() == 0 || turnsOnNode >= 3 ){
 
-					// setPathTo(map.getRandomNode());
-					setPathToConnectedRoom();
-				}else{
-
-					// Nothing to do
-				}
+				enemyNotAware();
 
 			}
 
 			// If enemy is aware of player, attack or update path to player
 			else{
 				// If adjacent to player, attack.
-				if ( this.loc.adjacent( GameplayState.getPlayer().getLoc() ) ){
-
-					attack( GameplayState.getPlayer() );
-					GameplayState.getPlayer().setDamageTaken( damageDealt );
-					attacked = true;
-				}else{
-
-					// Set path to player's location
-					setPathTo( GameplayState.getPlayer().getLoc() );
-				}
+				
+				enemyAware();
+				
 			}
 
 			/*
@@ -80,23 +69,62 @@ public abstract class Enemy extends Actor{
 			 */
 			if ( !attacked ){
 
-				previousNode = loc;
-				move( getNextPathNode() );
-				moved = true;
-				if ( loc.equals( previousNode ) ){
-
-					turnsOnNode++;
-				}else{
-
-					turnsOnNode = 0;
-				}
-				GameplayState.getPlayer().setDamageTaken( 0 );
+				enemyNotAttacked();
 			}else{
 
 				// Nothing to do
 			}
 
 		}
+	}
+	
+	// returns zero damage to the player
+	public void enemyNotAttacked(){
+		
+		previousNode = loc;
+		move( getNextPathNode() );
+		moved = true;
+		
+		if ( loc.equals( previousNode ) ){
+
+			turnsOnNode++;
+		}else{
+
+			turnsOnNode = 0;
+		}
+		
+		GameplayState.getPlayer().setDamageTaken( 0 );
+		
+	}
+	
+	// If enemy is aware of player, attack or update path to player
+	public void enemyAware(){
+		
+		if ( this.loc.adjacent( GameplayState.getPlayer().getLoc() ) ){
+
+			attack( GameplayState.getPlayer() );
+			GameplayState.getPlayer().setDamageTaken( damageDealt );
+			attacked = true;
+		}else{
+
+			// Set path to player's location
+			setPathTo( GameplayState.getPlayer().getLoc() );
+		}
+		
+	}
+	
+	// If enemy is not aware, changes the path
+	public void enemyNotAware(){
+		
+		if ( path.size() == 0 || turnsOnNode >= 3 ){
+
+			// setPathTo(map.getRandomNode());
+			setPathToConnectedRoom();
+		}else{
+
+			// Nothing to do
+		}
+		
 	}
 
 	public int getXP (){
