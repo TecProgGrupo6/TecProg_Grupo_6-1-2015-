@@ -17,24 +17,24 @@ import trl.map.Node;
 
 public class GameplayState extends GameState{
 
-	// public static final int ROWS = 40, COLUMNS = 40; //Map rows and columns
-	// public static final int W_ROWS = 11, W_COLS =11; //Displayed nodes
-	// public static int SCALE = 2;
-	// public static final int TILE_SIZE = 30;
-	// public static final int SCALED_TILE_SIZE = TILE_SIZE * SCALE;
-	// public static final int Game.W_WIDTH = W_COLS * TILE_SIZE * SCALE;
-	// public static final int Game.W_HEIGHT = W_ROWS * TILE_SIZE * SCALE;
-	// public static final int MSG_HEIGHT = 40 * SCALE;
-
 	public static final int TURN_DELAY = 10;
+
 	public static int tickTimer;
+
 	private static EnemyGroup enemyGroup;
+
 	private static ActorQueue actorQueue;
+
 	private static Player player;
+
 	public static Map map;
+
 	private int classChoice;
+
 	public static int turnCounter;
+
 	public static int dungeonLevel;
+
 	public static int addEnemyInterval = 70; /*
 											 * Number of turns on each level
 											 * after which an enemy is added.
@@ -51,6 +51,28 @@ public class GameplayState extends GameState{
 	public void init (){
 
 		// If we're building the state from scratch
+		setDungeonLevel();
+
+		map.updateDisplayedNodes();
+		map.updateVisibleToPlayer();
+		map.updateImageMap();
+		tickTimer = 0;
+
+		System.out.println( "Player turns on level = " + player.getTurnsOnLevel() );
+
+		int maxEnemies = dungeonLevel + ( GameplayState.getPlayer().getTurnsOnLevel() / GameplayState.addEnemyInterval );
+
+		System.out.println( "Max enemies: " + dungeonLevel + " + (" + player.getTurnsOnLevel() + " / " + addEnemyInterval + ")" );
+		// System.out.println("Enemy group size = " +
+		// enemyGroup.getEnemies().size());
+		// System.out.println("Actor queue size = ");
+		enemyGroup.listEnemies();
+
+	}
+
+	// Set the new map depending on the level of the player and class
+	public void setDungeonLevel (){
+
 		if ( dungeonLevel == 1 ){
 			map = new Map();
 			enemyGroup = new EnemyGroup( map );
@@ -83,6 +105,7 @@ public class GameplayState extends GameState{
 			}
 			}
 			actorQueue.addActor( player );
+
 			enemyGroup.spawnEnemies();
 		}else if ( dungeonLevel == 5 ){
 			map.init();
@@ -93,6 +116,7 @@ public class GameplayState extends GameState{
 			player.refresh();
 			actorQueue.addActor( player );
 			enemyGroup.spawnEnemies();
+
 			/*
 			 * For now, we will randomly place the player in the newly created
 			 * map. Later, we will add logic to ensure that the player enters
@@ -101,12 +125,17 @@ public class GameplayState extends GameState{
 			 * that a room is generated around the location of the down stairway
 			 * such that it doesn't end up in a wall or void space.
 			 */
+
 			player.initActor();
+
 			player.refresh();
+
 			if ( player instanceof trl.entity.player.Thief ){
+
 				map.revealAll();
 			}else{
-				// nothing
+
+				// Nothing to do
 			}
 			player.endTurn( actorQueue.getActor( 0 ) );
 		}else{
@@ -133,40 +162,38 @@ public class GameplayState extends GameState{
 			 */
 			player.initActor();
 			player.refresh();
+
 			if ( player instanceof trl.entity.player.Thief ){
+
 				map.revealAll();
 			}else{
-				// nothing
+
+				// Nothing to do
 			}
+
 			player.endTurn( actorQueue.getActor( 0 ) );
 		}
-		map.updateDisplayedNodes();
-		map.updateVisibleToPlayer();
-		map.updateImageMap();
-		tickTimer = 0;
-		System.out.println( "Player turns on level = " + player.getTurnsOnLevel() );
-		int maxEnemies = dungeonLevel + ( GameplayState.getPlayer().getTurnsOnLevel() / GameplayState.addEnemyInterval );
-		System.out.println( "Max enemies: " + dungeonLevel + " + (" + player.getTurnsOnLevel() + " / " + addEnemyInterval + ")" );
-		// System.out.println("Enemy group size = " +
-		// enemyGroup.getEnemies().size());
-		// System.out.println("Actor queue size = ");
-		enemyGroup.listEnemies();
 
 	}
 
 	public void tick (){
 
 		if ( tickEnemies ){
+
 			tickEnemies = false;
 		}else{
+
 			tickEnemies = true;
 		}
 		if ( !player.isAlive() ){
+
 			Game.getGameStateManager().addGameState( 2 , new LoseGameState( player.getEnemiesDefeated() ) );
 			Game.getGameStateManager().setGameState( 2 );
 		}else{
-			// nothing
+
+			// Nothing to do
 		}
+
 		actorQueue.tick();
 	}
 
@@ -201,15 +228,11 @@ public class GameplayState extends GameState{
 		g.drawString( "Enemies: " + player.getEnemiesDefeated() , 0 , Game.W_HEIGHT + 5 * g.getFont().getSize() + 2 );
 
 		if ( player instanceof trl.entity.player.Barbarian ){
-			if ( player.getTimers()[0] <= 0 ){
-				g.setColor( Color.green );
-				g.drawString( "(s) Shout" , 200 , Game.W_HEIGHT + g.getFont().getSize() );
-			}else{
-				g.setColor( Color.red );
-				g.drawString( "(s) Shout (" + player.getTimers()[0] + ")" , 200 , Game.W_HEIGHT + g.getFont().getSize() );
-			}
+
+			drawStatusBarbarian( g );
 		}
 		if ( player instanceof trl.entity.player.Ranger ){
+
 			// if (player.getTimers()[0] <= 0) {
 			g.setColor( Color.green );
 			g.drawString( "(f) Fire Arrow" , 200 , Game.W_HEIGHT + g.getFont().getSize() );
@@ -221,48 +244,88 @@ public class GameplayState extends GameState{
 			// }
 		}
 		if ( player instanceof trl.entity.player.Wizard ){
-			if ( player.getTimers()[0] <= 0 ){
-				g.setColor( Color.green );
-				g.drawString( "(b) Blink" , 200 , Game.W_HEIGHT + g.getFont().getSize() );
-			}else{
-				g.setColor( Color.red );
-				g.drawString( "(b) Blink (" + player.getTimers()[0] + ")" , 200 , Game.W_HEIGHT + g.getFont().getSize() );
-			}
 
-			if ( player.getTimers()[1] <= 0 ){
-				g.setColor( Color.green );
-				g.drawString( "(e) Explode" , 200 , Game.W_HEIGHT + 2 * g.getFont().getSize() + 2 );
-			}else{
-				g.setColor( Color.red );
-				g.drawString( "(e) Explode (" + player.getTimers()[1] + ")" , 200 , Game.W_HEIGHT + 2 * g.getFont().getSize() + 2 );
-			}
+			drawStatusWizzard( g );
 
-			if ( player.getTimers()[2] <= 0 ){
-				if ( player.getHP() > 4 ){
-					g.setColor( Color.green );
-				}else{
-					g.setColor( Color.red );
-				}
-				g.drawString( "(q) Quicken" , 200 , Game.W_HEIGHT + 3 * g.getFont().getSize() + 2 );
-			}else{
-				g.setColor( Color.red );
-				g.drawString( "(q) Quicken (" + player.getTimers()[2] + ")" , 200 , Game.W_HEIGHT + 3 * g.getFont().getSize() + 2 );
-			}
 		}else{
-			// nothing
+
+			// Nothing to do
 		}
+		
 		g.setColor( Color.green );
 		g.drawString( "(c) Close Door" , 300 , Game.W_HEIGHT + g.getFont().getSize() );
 
-		if ( player.getHasKey() && !player.getOpenedLock() ){
+		boolean ifPlayerHasKeyAndDoorIsClosed = player.getHasKey() && !player.getOpenedLock();
+
+		if ( ifPlayerHasKeyAndDoorIsClosed ){
+
 			g.drawImage( Game.getImageManager().key , 400 , Game.W_HEIGHT , Game.TILE_SIZE , Game.TILE_SIZE , null );
 		}else{
-			// nothing
+
+			// Nothing to do
 		}
+
 		if ( player.getOpenedLock() ){
+
 			g.drawImage( Game.getImageManager().lockOpen , 400 , Game.W_HEIGHT , Game.TILE_SIZE , Game.TILE_SIZE , null );
 		}else{
-			// nothing
+			
+			// Nothing to do
+		}
+
+	}
+
+	public void drawStatusBarbarian ( Graphics g ){
+
+		if ( player.getTimers()[0] <= 0 ){
+
+			g.setColor( Color.green );
+			g.drawString( "(s) Shout" , 200 , Game.W_HEIGHT + g.getFont().getSize() );
+		}else{
+
+			g.setColor( Color.red );
+			g.drawString( "(s) Shout (" + player.getTimers()[0] + ")" , 200 , Game.W_HEIGHT + g.getFont().getSize() );
+		}
+
+	}
+
+	public void drawStatusWizzard ( Graphics g ){
+
+		if ( player.getTimers()[0] <= 0 ){
+
+			g.setColor( Color.green );
+			g.drawString( "(b) Blink" , 200 , Game.W_HEIGHT + g.getFont().getSize() );
+		}else{
+
+			g.setColor( Color.red );
+			g.drawString( "(b) Blink (" + player.getTimers()[0] + ")" , 200 , Game.W_HEIGHT + g.getFont().getSize() );
+		}
+
+		if ( player.getTimers()[1] <= 0 ){
+
+			g.setColor( Color.green );
+			g.drawString( "(e) Explode" , 200 , Game.W_HEIGHT + 2 * g.getFont().getSize() + 2 );
+		}else{
+
+			g.setColor( Color.red );
+			g.drawString( "(e) Explode (" + player.getTimers()[1] + ")" , 200 , Game.W_HEIGHT + 2 * g.getFont().getSize() + 2 );
+		}
+
+		if ( player.getTimers()[2] <= 0 ){
+
+			if ( player.getHP() > 4 ){
+
+				g.setColor( Color.green );
+			}else{
+
+				g.setColor( Color.red );
+			}
+
+			g.drawString( "(q) Quicken" , 200 , Game.W_HEIGHT + 3 * g.getFont().getSize() + 2 );
+		}else{
+
+			g.setColor( Color.red );
+			g.drawString( "(q) Quicken (" + player.getTimers()[2] + ")" , 200 , Game.W_HEIGHT + 3 * g.getFont().getSize() + 2 );
 		}
 
 	}
@@ -273,76 +336,38 @@ public class GameplayState extends GameState{
 		Color trGray = new Color( 128 , 128 , 128 , 196 );
 		Color trWhite = new Color( 255 , 255 , 255 , 196 );
 		Color brown = new Color( 128 , 69 , 19 );
+
 		int scale = 3;
 		int startX = Game.W_WIDTH - ( Game.COLUMNS * scale ) - Game.W_ROWS;
 
 		for ( int x = 0 ; x < Game.COLUMNS ; x++ ){
+
 			for ( int y = 0 ; y < Game.ROWS ; y++ ){
+
 				// Default color. Carries through if no other condition matches
 				g.setColor( trBlack );
 
 				// Set borders white
-				if ( x == 0 || y == 0 || x == Game.COLUMNS - 1 || y == Game.ROWS - 1 ){
+
+				boolean xOrYEqualsZero = ( x == 0 || y == 0 );
+				boolean xOrYEqualsColumsOrRowsMinusOne = ( x == Game.COLUMNS - 1 || y == Game.ROWS - 1 );
+
+				if ( xOrYEqualsZero || xOrYEqualsColumsOrRowsMinusOne ){
+
 					g.setColor( trWhite );
 				}else{
-					// nothing
+
+					// Nothing to do
 				}
+
 				Node node = map.getNode( x , y );
+
 				if ( node != null ){
+
 					if ( node.seenByPlayer() ){
-						if ( node.getFeature().isPassable() ){
-							g.setColor( trGray );
-						}else{
-							// nothing
-						}
-						if ( node.isStairDown() ){
-							g.setColor( Color.PINK );
-						}else{
-							// nothing
-						}
-						if ( node.isClosedDoor() ){
-							g.setColor( brown );
-						}else{
-							// nothing
-						}
-						if ( node.getEntities() != null && node.getEntities().size() > 0 ){
-							for ( Entity entity : node.getEntities() ){
-								if ( entity.seenByPlayer() ){
-									if ( entity instanceof trl.entity.item.Potion ){
-										g.setColor( Color.GREEN );
-									}else{
-										// nothing
-									}
-									if ( entity instanceof trl.entity.player.Player ){
-										g.setColor( Color.WHITE );
-									}else{
-										// nothing
-									}
-									if ( entity instanceof trl.entity.enemy.Enemy ){
-										g.setColor( Color.RED );
-									}else{
-										// nothing
-									}
-									if ( entity instanceof trl.entity.item.Hammer ){
-										g.setColor( Color.GREEN );
-									}else{
-										// nothing
-									}
-									if ( entity instanceof trl.entity.item.Key ){
-										g.setColor( Color.YELLOW );
-									}else{
-										// nothing
-									}
-									if ( entity instanceof trl.entity.item.Lock ){
-										g.setColor( Color.YELLOW );
-									}else{
-										// nothing
-									}
-								}else{
-									// nothing
-								}
-							}
-						}
+
+						drawMiniMapViaPlayer( node , g , trGray , brown );
+
 					}
 				}
 				// if (g.getColor() == null) {
@@ -352,6 +377,95 @@ public class GameplayState extends GameState{
 				g.fillRect( startX + ( x * scale ) , ( Game.ROWS * scale ) - y * scale , scale , scale );
 			}
 		}
+	}
+
+	// Draw mini map as the player walks
+	public void drawMiniMapViaPlayer ( Node node , Graphics g , Color trGray , Color brown ){
+
+		if ( node.getFeature().isPassable() ){
+
+			g.setColor( trGray );
+		}else{
+
+			// Nothing to do
+		}
+		
+		if ( node.isStairDown() ){
+
+			g.setColor( Color.PINK );
+		}else{
+
+			// Nothing to do
+		}
+		
+		if ( node.isClosedDoor() ){
+
+			g.setColor( brown );
+		}else{
+
+			// Nothing to do
+		}
+		
+		if ( node.getEntities() != null && node.getEntities().size() > 0 ){
+
+			for ( Entity entity : node.getEntities() ){
+
+				if ( entity.seenByPlayer() ){
+
+					if ( entity instanceof trl.entity.item.Potion ){
+
+						g.setColor( Color.GREEN );
+					}else{
+
+						// Nothing to do
+					}
+
+					if ( entity instanceof trl.entity.player.Player ){
+
+						g.setColor( Color.WHITE );
+					}else{
+
+						// Nothing to do
+					}
+
+					if ( entity instanceof trl.entity.enemy.Enemy ){
+
+						g.setColor( Color.RED );
+					}else{
+
+						// Nothing to do
+					}
+
+					if ( entity instanceof trl.entity.item.Hammer ){
+
+						g.setColor( Color.GREEN );
+					}else{
+
+						// Nothing to do
+					}
+
+					if ( entity instanceof trl.entity.item.Key ){
+
+						g.setColor( Color.YELLOW );
+					}else{
+
+						// Nothing to do
+					}
+
+					if ( entity instanceof trl.entity.item.Lock ){
+
+						g.setColor( Color.YELLOW );
+					}else{
+
+						// Nothing to do
+					}
+				}else{
+
+					// Nothing to do
+				}
+			}
+		}
+
 	}
 
 	public static EnemyGroup getEnemyGroup (){
