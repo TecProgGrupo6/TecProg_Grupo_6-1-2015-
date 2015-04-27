@@ -96,30 +96,30 @@ public class ListMembers extends JInternalFrame{
 		// For setting the size for the table columns
 		for ( int i = 0 ; i< 6 ; i++ ){
 
-			column = table.getColumnModel ().getColumn ( i );
+			column = table.getColumnModel().getColumn( i );
 			if ( i== 0 ){// MemberID
 
-				column.setPreferredWidth ( 30 );
+				column.setPreferredWidth( 30 );
 
 			}else if ( i== 1 ){ // ID
 
-				column.setPreferredWidth ( 20 );
+				column.setPreferredWidth( 20 );
 
 			}else if ( i== 2 ){ // Name
 
-				column.setPreferredWidth ( 150 );
+				column.setPreferredWidth( 150 );
 
 			}else if ( i== 3 ){ // E-MAIL
 
-				column.setPreferredWidth ( 120 );
+				column.setPreferredWidth( 120 );
 
 			}else if ( i== 4 ){ // Major
 
-				column.setPreferredWidth ( 20 );
+				column.setPreferredWidth( 20 );
 
 			}else if ( i== 5 ){// Expired
 
-				column.setPreferredWidth ( 40 );
+				column.setPreferredWidth( 40 );
 
 			}else{
 				// No action

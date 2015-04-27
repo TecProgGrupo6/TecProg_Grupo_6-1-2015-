@@ -30,7 +30,7 @@ public class AddMembers extends JInternalFrame{
 	// For creating the North Panel.
 	private JPanel northPanel = new JPanel();
 	
-	// For creaing the North Label.
+	// For creating the North Label.
 	private JLabel northLabel = new JLabel("MEMBER INFORMATION");
 
 	// For creating the Center Panel.
@@ -74,13 +74,12 @@ public class AddMembers extends JInternalFrame{
 	private String[] data;
 
 	// For checking the password.
-	boolean getPassword = informationPasswordField[0].getText().equals(informationPasswordField[1].getText());
 	public boolean isPasswordCorrect() {
-		if ( getPassword ){
+		if ( informationPasswordField[0].getText().equals(informationPasswordField[1].getText()) ){
 			
 			data[1] = informationPasswordField[1].getText();
 			
-		}else if ( !getPassword ){
+		}else if ( !informationPasswordField[0].getText().equals(informationPasswordField[1].getText()) ){
 			return false;
 		}
 		

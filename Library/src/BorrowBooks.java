@@ -74,7 +74,7 @@ public class BorrowBooks extends JInternalFrame{
 	
 	private Borrow borrow;
 
-	// For checking the information from the text field.
+	// To check the information from the text field.
 	public boolean isCorrect(){
 		data = new String[4];
 		for ( int i = 0 ; i < informationLabel.length ; i++ ){
@@ -96,6 +96,9 @@ public class BorrowBooks extends JInternalFrame{
 				
 				informationTextField[i].setText(null);
 				
+			}
+			else {
+				//No action
 			}
 	}
 
