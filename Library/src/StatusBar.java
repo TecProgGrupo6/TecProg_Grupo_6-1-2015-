@@ -18,7 +18,7 @@ public class StatusBar extends JPanel {
 	
 	private JLabel statusBar = new JLabel("  ");
 
-	//constructor of StatusBar
+	// Constructor of StatusBar
 	public StatusBar() {
 		
 		statusBar.setFont(new Font( "Tahoma", Font.BOLD, 9) );

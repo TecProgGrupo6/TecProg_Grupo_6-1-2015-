@@ -20,18 +20,25 @@ public class ListMembers extends JInternalFrame{
 
 	// For creating the North Panel
 	private JPanel northPanel = new JPanel ();
+	
 	// For creating the Center Panel
 	private JPanel centerPanel = new JPanel ();
+	
 	// For creating the label
 	private JLabel label = new JLabel ( "THE LIST FOR THE MEMBER" );
+	
 	// For creating the button
 	private JButton printButton;
+	
 	// For creating the table
 	private JTable table;
+	
 	// For creating the TableColumn
 	private TableColumn column = null;
+	
 	// For creating the JScrollPane
 	private JScrollPane scrollPane;
+	
 	// For creating an object for the ResultSetTableModel class
 	private ResultSetTableModel tableModel;
 
@@ -73,6 +80,7 @@ public class ListMembers extends JInternalFrame{
 		}catch ( ClassNotFoundException classNotFound ){
 		}catch ( SQLException sqlException ){
 		}
+		
 		// For setting the table with the information
 		table = new JTable ( tableModel );
 
@@ -131,6 +139,7 @@ public class ListMembers extends JInternalFrame{
 
 			// For setting the layout to the panel
 			centerPanel.setLayout ( new BorderLayout () );
+			
 			// For creating an image for the button
 			ImageIcon printIcon = new ImageIcon ( ClassLoader.getSystemResource ( "images/Print16.gif" ) );
 
@@ -190,6 +199,7 @@ public class ListMembers extends JInternalFrame{
 
 			// For setting the visible to true
 			setVisible ( true );
+			
 			// To show the frame
 			pack ();
 		}

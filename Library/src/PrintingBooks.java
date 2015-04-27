@@ -36,18 +36,18 @@ public class PrintingBooks extends JInternalFrame implements Printable{
 	// Tab size
 	public static final int TAB_SIZE = 5;
 
-	// constructor of JLibrary
+	// Constructor of JLibrary
 	public PrintingBooks ( String query ){
 
 		super ( "Printing Books" , false , true , false , true );
 
-		// for getting the graphical user interface components display area
+		// For getting the graphical user interface components display area
 		Container cp = getContentPane ();
 
-		// for setting the font
+		// For setting the font
 		textArea.setFont ( new Font ( "Tahoma" , Font.PLAIN , 9 ) );
 
-		// for adding the textarea to the container
+		// For adding the textarea to the container
 		cp.add ( textArea );
 
 		try{
@@ -65,7 +65,7 @@ public class PrintingBooks extends JInternalFrame implements Printable{
 		}
 
 		/***************************************************************
-		 * for making the connection,creating the statement and update * the
+		 * For making the connection,creating the statement and update * the
 		 * table in the database. After that,closing the statmenet * and
 		 * connection. There is catch block SQLException for error *
 		 ***************************************************************/
@@ -95,10 +95,10 @@ public class PrintingBooks extends JInternalFrame implements Printable{
 		}catch ( SQLException SQLe ){
 			System.out.println ( SQLe.toString () );
 		}
-		// for setting the visible to true
+		// For setting the visible to true
 		setVisible ( true );
 		
-		// to show the frame
+		// To show the frame
 		pack ();
 	}
 

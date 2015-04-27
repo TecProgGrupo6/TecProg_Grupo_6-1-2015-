@@ -22,53 +22,53 @@ public class ReturnBooks extends JInternalFrame implements ActionListener {
      ***      declaration of the private variables used in the program       ***
      ***************************************************************************/
 
-    //for creating the North Panel
+    // For creating the North Panel
     private JPanel northPanel = new JPanel();
     
-    //for creating the label
+    // For creating the label
     private JLabel title = new JLabel("BOOK INFORMATION");
 
-    //for creating the Center Panel
+    // For creating the Center Panel
     private JPanel centerPanel = new JPanel();
     
-    //for creating an Internal Panel in the center panel
+    // For creating an Internal Panel in the center panel
     private JPanel informationPanel = new JPanel();
     
-    //for creating an array of JLabel
+    // For creating an array of JLabel
     private JLabel[] informationLabel = new JLabel[2];
     
-    //for creating an array of String
+    // For creating an array of String
     private String[] informationString = {" Write the Book ID:", " Write the Member ID:"};
     
-    //for creating an array of JTextField
+    // For creating an array of JTextField
     private JTextField[] informationTextField = new JTextField[2];
     
-    //for creating an array of string to store the data
+    // For creating an array of string to store the data
     private String[] data;
     private JLabel lblFinePerDay = new JLabel("Fine/Day");
     private JTextField txtFinePerDay = new JTextField();
     private JLabel lblTotalFineAmt = new JLabel("Total fine amount");
     private JTextField txtTotalFineAmt = new JTextField();
     
-    //for creating an Internal Panel in the center panel
+    // For creating an Internal Panel in the center panel
     private JPanel returnButtonPanel = new JPanel();
     
-    //for creating the buton
+    // For creating the buton
     private JButton returnButton = new JButton("Return");
 
-    //for creating the panel
+    // For creating the panel
     private JPanel southPanel = new JPanel();
     
-    //for creating the button
+    // For creating the button
     private JButton cancelButton = new JButton("Cancel");
 
-    //for creating an object
+    // For creating an object
     private Books book;
     private Members member;
     private Borrow borrow;
 
 
-    //for checking the information from the text field
+    // For checking the information from the text field
     public boolean isCorrect() {
     	
         data = new String[2];
@@ -88,7 +88,7 @@ public class ReturnBooks extends JInternalFrame implements ActionListener {
         return true;
     }
 
-    //for setting the array of JTextField to null
+    // For setting the array of JTextField to null
     public void clearTextField() {
     	
         for ( int i = 0; i < informationTextField.length; i++ ) {
@@ -106,38 +106,38 @@ public class ReturnBooks extends JInternalFrame implements ActionListener {
         }
     }
 
-    //constructor of returnBooks
+    // Constructor of returnBooks
     public ReturnBooks() {
     	
-        //for setting the title for the internal frame
+        // For setting the title for the internal frame
         super("Return books", false, true, false, true);
         
-        //for setting the icon
+        // For setting the icon
         setFrameIcon(new ImageIcon(ClassLoader.getSystemResource("images/Import16.gif")));
         
-        //for getting the graphical user interface components display area
+        // For getting the graphical user interface components display area
         Container cp = getContentPane();
 
-        //for setting the layout
+        // For setting the layout
         northPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
         
-        //for setting the font
+        // For setting the font
         title.setFont(new Font("Tahoma", Font.BOLD, 14));
         
-        //for adding the label
+        // For adding the label
         northPanel.add(title);
         
-        //for adding the north panel to the container
+        // For adding the north panel to the container
         cp.add("North", northPanel);
 
-        //for setting the layout
+        // For setting the layout
         centerPanel.setLayout(new BorderLayout());
         
-        //for setting the layout for the internal panel
+        // For setting the layout for the internal panel
         informationPanel.setLayout(new GridLayout(4, 2, 1, 1));
 
         /***********************************************************************
-         * for adding the strings to the labels, for setting the font 		   *
+         * For adding the strings to the labels, for setting the font 		   *
          * and adding these labels to the panel.							   *
          * finally adding the panel to the container						   *
          ***********************************************************************/
@@ -159,54 +159,54 @@ public class ReturnBooks extends JInternalFrame implements ActionListener {
         txtFinePerDay.addKeyListener(new keyListener());
         centerPanel.add("Center", informationPanel);
         
-        //for setting the layout
+        // For setting the layout
         returnButtonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
         
-        //for adding the button
+        // For adding the button
         returnButtonPanel.add(returnButton);
         
-        //for setting the font to the button
+        // For setting the font to the button
         returnButton.setFont(new Font("Tahoma", Font.BOLD, 11));
         
-        //for adding the internal panel to the panel
+        // For adding the internal panel to the panel
         centerPanel.add("South", returnButtonPanel);
         
-        //for setting the border
+        // For setting the border
         centerPanel.setBorder(BorderFactory.createTitledBorder("Return a book:"));
         
-        //for adding the center panel to the container
+        // For adding the center panel to the container
         cp.add("Center", centerPanel);
 
-        //for setting the layout
+        // For setting the layout
         southPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
-        //for adding the button
-
+        
+        // For adding the button
         southPanel.add(cancelButton);
         
-        //for setting the font to the button
+        // For setting the font to the button
         cancelButton.setFont(new Font("Tahoma", Font.BOLD, 11));
         
-        //for setting the border
+        // For setting the border
         southPanel.setBorder(BorderFactory.createEtchedBorder());
         
-        //for adding the south panel to the container
+        // For adding the south panel to the container
         cp.add("South", southPanel);
 
         /***********************************************************************
-         * for adding the action listener to the button,first the text will be *
+         * For adding the action listener to the button,first the text will be *
          * taken from the JTextField and make the connection for database,     *
          * after that update the table in the database with the new value      *
          ***********************************************************************/
         
         returnButton.addActionListener(this);
         
-        //for adding the action listener for the button to dispose the frame
+        // For adding the action listener for the button to dispose the frame
         cancelButton.addActionListener(this);
         
-        //for setting the visible to true
+        // For setting the visible to true
         setVisible(true);
         
-        //show the internal frame
+        // Show the internal frame
         pack();
     }
 
@@ -214,7 +214,7 @@ public class ReturnBooks extends JInternalFrame implements ActionListener {
     	
         if ( ae.getSource() == returnButton ) {
         	
-            //for checking if there is a missing information
+            // For checking if there is a missing information
             if ( isCorrect() ) {
                 Thread runner = new Thread() {
 
@@ -229,7 +229,7 @@ public class ReturnBooks extends JInternalFrame implements ActionListener {
                         int numberOfBorrowedBooks = book.getNumberOfBorrowedBooks() - 1;
                         int numberOfBooks = member.getNumberOfBooks();
                         
-                        //for checking if there is no same information in the database
+                        // For checking if there is no same information in the database
                         if ( numberOfAvailbleBooks == 0 && numberOfBooks > 0 ) {
                         	
                             numberOfAvailbleBooks += 1;
@@ -240,7 +240,7 @@ public class ReturnBooks extends JInternalFrame implements ActionListener {
                             member.update("UPDATE Members SET NumberOfBooks =" + numberOfBooks + " WHERE MemberID =" + data[1]);
                             borrow.update("DELETE FROM Borrow WHERE BookID =" + data[0] + " AND MemberID =" + data[1]);
                             
-                            //for setting the array of JTextField to null
+                            // For setting the array of JTextField to null
                             JOptionPane.showMessageDialog(null, "The book is Successfully returned", "Success", JOptionPane.INFORMATION_MESSAGE);
                             clearTextField();
                             
@@ -254,7 +254,7 @@ public class ReturnBooks extends JInternalFrame implements ActionListener {
                             member.update("UPDATE Members SET NumberOfBooks =" + numberOfBooks + " WHERE MemberID =" + data[1]);
                             borrow.update("DELETE FROM Borrow WHERE BookID =" + data[0] + " AND MemberID =" + data[1]);
                             
-                            //for setting the array of JTextField to null
+                            // For setting the array of JTextField to null
                             JOptionPane.showMessageDialog(null, "The book is Successfully Returned", "Success", JOptionPane.INFORMATION_MESSAGE);
                             clearTextField();
                             
@@ -265,7 +265,7 @@ public class ReturnBooks extends JInternalFrame implements ActionListener {
                 };
                 runner.start();
             } 
-            //if there is a missing data, then display Message Dialog
+            // If there is a missing data, then display Message Dialog
             else {
                 JOptionPane.showMessageDialog(null, "Please, complete the information", "Warning", JOptionPane.WARNING_MESSAGE);
             }
@@ -332,5 +332,5 @@ public class ReturnBooks extends JInternalFrame implements ActionListener {
                 }
             }
         }
-    }//inner class closed
-}//class closed
+    }// Inner class closed
+}// Class closed

@@ -10,10 +10,10 @@ import trl.main.Game;
 
 public class ActorQueue{
 
-	//Represent the queue of the Actors
+	// Represent the queue of the Actors
 	private List<Actor> queue;
 
-	public ActorQueue(){
+	public ActorQueue (){
 
 		init ();
 	}
@@ -23,56 +23,54 @@ public class ActorQueue{
 		queue = new ArrayList<Actor> ();
 	}
 
-	public void addActor(Actor actor){
+	public void addActor( Actor actor ){
 
 		// Add actor at beginning of queue
 		queue.add ( 0 , actor );
 	}
 
-	public void render(Graphics g){
+	public void render( Graphics g ){
 
 		for ( Actor actor : queue ){
-			
+
 			actor.render ( g );
 		}
 	}
-	
+
 	public void tick(){
 
 		Actor actor;
-		// Start tick loop 
+		// Start tick loop
 		for ( Iterator<Actor> itQueue = queue.iterator () ; itQueue.hasNext () ; ){
 			actor = itQueue.next ();
-			
+
 			actor.tick ();
 
 			// If actor was enemy..
 			if ( actor instanceof trl.entity.enemy.Enemy ){
-				
-				if ( !actor.isAlive ()&& Game.tickTimer> 0 ){
-					
+
+				if ( !actor.isAlive () && Game.tickTimer > 0 ){
+
 					GameplayState.getPlayer ().incrementEnemiesDefeated ( 1 );
 					// Calc xp gain for dead enemy
-					double levelDiff = GameplayState.getPlayer ().getLevel ()
-							- actor.getLevel ();
-					if ( levelDiff<= 0.0d ){
-						
+					double levelDiff = GameplayState.getPlayer ().getLevel () - actor.getLevel ();
+					if ( levelDiff <= 0.0d ){
+
 						levelDiff = 1.0d;
 					}else{
-						
-						//nothing to do
+
+						// Nothing to do
 					}
-					
-					double percentXP = ( 1.0d/ levelDiff )
-							* (double) actor.getLevel ();
-					if ( percentXP> 1.0 ){
+
+					double percentXP = ( 1.0d / levelDiff ) * (double) actor.getLevel ();
+					if ( percentXP > 1.0 ){
 						percentXP = 1.0;
 					}else{
-						
-						//nothing to do
+
+						// Nothing to do
 					}
-					
-					double xp = percentXP* (double) actor.getLevel ();
+
+					double xp = percentXP * (double) actor.getLevel ();
 					GameplayState.getPlayer ().gainXP ( xp );
 					itQueue.remove ();
 					GameplayState.getEnemyGroup ().removeEnemy ( actor );
@@ -80,48 +78,53 @@ public class ActorQueue{
 					// If it's a dead enemy's turn, pass turn to next actor
 					if ( actor.getTurn () ){
 						
-						actor.endTurn ( queue.get ( queue.indexOf ( actor )+ 1 ) );
-					}else{
+						int getQueueParams = queue.indexOf ( actor ) + 1 ;
 						
-						//nothing to do
+						actor.endTurn ( queue.get ( getQueueParams ) );
+					}else{
+
+						// Nothing to do
 					}
-					
+
 				}else{
-					
-					//nothing to do
+
+					// Nothing to do
 				}
-				
+
 			}else{
-				
-				//nothing to do
+
+				// Nothing to do
 			}
 
-			// If actor acted on its turn, determine next actor... 
+			// If actor acted on its turn, determine next actor...
 			if ( actor.getTurn () ){
-				
+
 				if ( actor.getActed () ){
-					
+
 					GameplayState.getMap ().updateVisibleToPlayer ();
 					GameplayState.getMap ().updateImageMap ();
-					/* 
+					/*
 					 * If there's another actor in queue, hand turn to that
 					 * actor
 					 */
 					if ( itQueue.hasNext () ){
-						
-						/* Get next actor by index (current + 1) instead of
-						 *  moving iterator
+
+						/*
+						 * Get next actor by index (current + 1) instead of
+						 * moving iterator
 						 */
 						
-						actor.endTurn ( queue.get ( queue.indexOf ( actor )+ 1 ) );
+						int getQueueParams = queue.indexOf ( actor ) + 1;
+						
+						actor.endTurn ( queue.get ( getQueueParams ) );
 					}
 					// Hand turn to first actor in queue
 					else{
-						
+
 						actor.endTurn ( queue.get ( 0 ) );
 					}
-				} else{
-					
+				}else{
+
 					// If actor did not act. Not currently implemented
 				}
 			}
@@ -132,15 +135,15 @@ public class ActorQueue{
 		GameplayState.getEnemyGroup ().spawnEnemies ();
 	}
 
-	public Actor getActor(int index){
+	public Actor getActor( int index ){
 
 		return queue.get ( index );
 	}
 
 	public void flush(){
 
-		for ( @SuppressWarnings("unused") Actor actor : queue ){
-			
+		for ( @SuppressWarnings ( "unused" ) Actor actor : queue ){
+
 			actor = null;
 		}
 	}

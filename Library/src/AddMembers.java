@@ -267,6 +267,7 @@ public class AddMembers extends JInternalFrame{
 									member.update("INSERT INTO Members (ID,Password,Name,EMail,Major,Expired) VALUES (" +
 									        data[0] + ", '" + data[1] + "','" + data[2] + "','" +
 									        data[3] + "','" + data[4] + "','" + data[5] + "')");
+									
 									// For setting the array of JTextField & JPasswordField to null.
 									clearTextField();
 									
@@ -277,11 +278,13 @@ public class AddMembers extends JInternalFrame{
 						};
 						runner.start();
 					}
+					
 					// If the password is wrong.
 					else{
 						JOptionPane.showMessageDialog(null, "the passowrd is wrong", "Error", JOptionPane.ERROR_MESSAGE);
 					}
 				}
+				
 				// If there is a missing data, then display Message Dialog.
 				else{
 					JOptionPane.showMessageDialog(null, "Please, complete the information", "Warning", JOptionPane.WARNING_MESSAGE);
@@ -295,8 +298,10 @@ public class AddMembers extends JInternalFrame{
 				dispose();
 			}
 		});
+		
 		// For setting the visible to true.
 		setVisible(true);
+		
 		// Show the internal frame.
 		pack();
 	}

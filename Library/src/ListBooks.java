@@ -15,21 +15,27 @@ import java.sql.SQLException;
 public class ListBooks extends JInternalFrame{
 
 	/***************************************************************************
-	 *** declaration of the private variables used in the program ***
+	 *** Declaration of the private variables used in the program ***
 	 ***************************************************************************/
 
 	// For creating the North Panel.
 	private JPanel northPanel = new JPanel ();
+	
 	// For creating the Center Panel.
 	private JPanel centerPanel = new JPanel ();
+	
 	// For creating the label.
 	private JLabel northLabel = new JLabel ( "THE LIST FOR THE BOOKS" );
+	
 	// For creating the button.
 	private JButton printButton;
+	
 	// For creating the table.
 	private JTable table;
+	
 	// For creating the TableColumn.
 	private TableColumn column = null;
+	
 	// For creating the JScrollPane.
 	private JScrollPane scrollPane;
 
@@ -41,8 +47,10 @@ public class ListBooks extends JInternalFrame{
 	 ***************************************************************************/
 	// Constant of the database url
 	private static final String JDBC_DRIVER = "sun.jdbc.odbc.JdbcOdbcDriver";
+	
 	// Database related
 	private static final String DATABASE_URL = "jdbc:odbc:JLibrary";
+	
 	// Database related
 	private static final String DEFAULT_QUERY = "SELECT BookID, Subject, Title, Author,"
 			+ "Publisher, Copyright, Edition, Pages, NumberOfBooks, ISBN, Library, Availble,ShelfNo FROM Books";
@@ -52,8 +60,10 @@ public class ListBooks extends JInternalFrame{
 
 		// For setting the title for the internal frame.
 		super ( "Books" , false , true , false , true );
+		
 		// For setting the icon.
 		setFrameIcon ( new ImageIcon ( ClassLoader.getSystemResource ( "images/List16.gif" ) ) );
+		
 		// SetLocale(new java.util.Locale("ar", "SA", ""));
 
 		// For getting the graphical user interface components display area.
@@ -80,94 +90,121 @@ public class ListBooks extends JInternalFrame{
 		}
 		// For setting the table with the information.
 		table = new JTable ( tableModel );
+		
 		// For setting the size for the table.
 		table.setPreferredScrollableViewportSize ( new Dimension ( 990 , 200 ) );
+		
 		// For setting the font.
 		table.setFont ( new Font ( "Tahoma" , Font.PLAIN , 12 ) );
+		
 		// For setting the scrollpane to the table.
 		scrollPane = new JScrollPane ( table );
 
 		// For setting the size for the table columns.
 		for ( int i = 0 ; i< 13 ; i++ ){
 			column = table.getColumnModel ().getColumn ( i );
-			if ( i== 0 ){ // BookID.
+			// BookID.
+			if ( i== 0 ){ 
 				
 				column.setPreferredWidth ( 20 );
 			}
-			if ( i== 1 ){ // Subject.
+			// Subject.
+			if ( i== 1 ){ 
 				
 				column.setPreferredWidth ( 100 );
 			}
-			if ( i== 2 ){ // Title.
+			// Title.
+			if ( i== 2 ){ 
 				
 				column.setPreferredWidth ( 150 );
 			}
-			if ( i== 3 ){ // Auther.
+			// Auther.
+			if ( i== 3 ){ 
 				
 				column.setPreferredWidth ( 50 );
 			}
-			if ( i== 4 ){ // Publisher.
+			// Publisher.
+			if ( i== 4 ){ 
 				
 				column.setPreferredWidth ( 70 );
 			}
-			if ( i== 5 ){ // Copyright.
+			// Copyright.
+			if ( i== 5 ){ 
 				
 				column.setPreferredWidth ( 40 );
 			}
-			if ( i== 6 ){ // Edition.
+			// Edition.
+			if ( i== 6 ){ 
 				
 				column.setPreferredWidth ( 40 );
 			}
-			if ( i== 7 ){ // Pages.
+			// Pages.
+			if ( i== 7 ){ 
 				
 				column.setPreferredWidth ( 40 );
 			}
-			if ( i== 8 ){ // NumberOfBooks.
+			// NumberOfBooks.
+			if ( i== 8 ){ 
 				
 				column.setPreferredWidth ( 80 );
 			}
-			if ( i== 9 ){ // ISBN.
+			// ISBN.
+			if ( i== 9 ){ 
 				
 				column.setPreferredWidth ( 70 );
 			}
-			if ( i== 10 ){ // Library.
+			// Library.
+			if ( i== 10 ){ 
 				
 				column.setPreferredWidth ( 30 );
 			}
-			if ( i== 11 ){ // Availble.
+			// Availble.
+			if ( i== 11 ){ 
 				
 				column.setPreferredWidth ( 30 );
 			}
-			if ( i== 12 ){ // ShelfNo.
+			// ShelfNo.
+			if ( i== 12 ){ 
 				
 				column.setPreferredWidth ( 30 );
 			}
 		}
 		// For setting the font to the label.
 		northLabel.setFont ( new Font ( "Tahoma" , Font.BOLD , 14 ) );
+		
 		// For setting the layout to the panel.
 		northPanel.setLayout ( new FlowLayout ( FlowLayout.CENTER ) );
+		
 		// For adding the label to the panel.
 		northPanel.add ( northLabel );
+		
 		// For adding the panel to the container.
 		cp.add ( "North" , northPanel );
 
 		// For setting the layout to the panel.
 		centerPanel.setLayout ( new BorderLayout () );
+		
 		// For creating an image for the button.
 		ImageIcon printIcon = new ImageIcon ( ClassLoader.getSystemResource ( "images/Print16.gif" ) );
+		
 		// For adding the button to the panel.
 		printButton = new JButton ( "print the books" , printIcon );
+		
 		// For setting the tip text.
 		printButton.setToolTipText ( "Print" );
+		
 		// For setting the font to the button.
 		printButton.setFont ( new Font ( "Tahoma" , Font.PLAIN , 12 ) );
+		
 		// For adding the button to the panel.
 		centerPanel.add ( printButton , BorderLayout.NORTH );
+		
 		// For adding the scrollpane to the panel.
 		centerPanel.add ( scrollPane , BorderLayout.CENTER );
+		
 		// For setting the border to the panel.
 		centerPanel.setBorder ( BorderFactory.createTitledBorder ( "Books:" ) );
+		
 		// For adding the panel to the container.
 		cp.add ( "Center" , centerPanel );
 
@@ -204,8 +241,10 @@ public class ListBooks extends JInternalFrame{
 				runner.start ();
 			}
 		} );
+		
 		// For setting the visible to true.
 		setVisible ( true );
+		
 		// To show the frame.
 		pack ();
 	}

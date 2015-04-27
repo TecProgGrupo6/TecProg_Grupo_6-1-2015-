@@ -20,52 +20,52 @@ import trl.main.Game;
 
 public class Map{
 
-	//Maximum width of a room
+	// Maximum width of a room
 	public static int MAX_ROOM_WIDTH = 10;
 	
-	//Maximum height of a room
+	// Maximum height of a room
 	public static int MAX_ROOM_HEIGHT = 10;
 	
-	//Minimum width of a room
+	// Minimum width of a room
 	public static int MIN_ROOM_WIDTH = 5;
 	
-	//Minimum height of a room
+	// Minimum height of a room
 	public static int MIN_ROOM_HEIGHT = 5;
 	
-	//Nodes to be displayed
+	// Nodes to be displayed
 	private Node[][] displayedNodes;
 	
-	//Value representing the last node
+	// Value representing the last node
 	private boolean endNodeFound;
 	
-	//Columns in the game (horizontal)
+	// Columns in the game (horizontal)
 	private int hSize;
 	
-	//Rows in the game
+	// Rows in the game
 	private int vSize;
 	
-	//Image of the complete map
+	// Image of the complete map
 	private BufferedImage imageMap[][];
 	
-	//Map Grid
+	// Map Grid
 	private Node[][] mapGrid;
 	
-	//Minimum of nodes in the x axis
+	// Minimum of nodes in the x axis
 	public static int displayedNodesMinX;
 	
-	//Minimum of nodes in the y axis
+	// Minimum of nodes in the y axis
 	public static int displayedNodesMinY;
 	
-	//Maximum of nodes in the x axis
+	// Maximum of nodes in the x axis
 	public static int displayedNodesMaxX;
 	
-	//Maximum of nodes in the y axis
+	// Maximum of nodes in the y axis
 	public static int displayedNodesMaxY;
 	
-	//Rooms in the map
+	// Rooms in the map
 	private Room[][] rooms;
 	
-	//Nodes that the pleyer can see
+	// Nodes that the pleyer can see
 	private List<Node> visibleToPlayer;
 
 	public Map(){

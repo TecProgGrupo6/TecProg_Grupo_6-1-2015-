@@ -7,7 +7,7 @@ import java.awt.*;
  */
 public class Center {
 	
-	JLibrary l; //for using the class in JLibrary.java
+	JLibrary l; //For using the class in JLibrary.java
 
 	public Center( JLibrary l ) {
 		
@@ -15,7 +15,7 @@ public class Center {
 		
 	}
 
-	//for centering the window
+	//For centering the window
 	public void LibraryCenter() {
 		
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();

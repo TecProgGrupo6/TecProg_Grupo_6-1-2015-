@@ -10,7 +10,9 @@ public class Borrow {
 	 ***************************************************************************/
 
 	private Connection connection = null;
+	
 	private Statement statement = null;
+	
 	private ResultSet resultSet = null;
 
 	//Inform the book ID

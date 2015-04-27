@@ -36,7 +36,7 @@ public abstract class Enemy extends Actor{
 			setStance ( true , false , false , false );
 		}else{
 			
-			//nothing to do
+			// Nothing to do
 		}
 
 		if ( myTurn&& Game.tickTimer== 0 ){
@@ -51,7 +51,7 @@ public abstract class Enemy extends Actor{
 					setPathToConnectedRoom ();
 				}else{
 					
-					//nothing to do
+					// Nothing to do
 				}
 				
 			}
@@ -93,7 +93,7 @@ public abstract class Enemy extends Actor{
 				GameplayState.getPlayer ().setDamageTaken ( 0 );
 			}else{
 				
-				//nothing to do
+				// Nothing to do
 			}
 			
 		}
