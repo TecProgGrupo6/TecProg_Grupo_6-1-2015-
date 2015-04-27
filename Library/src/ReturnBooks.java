@@ -312,7 +312,10 @@ public class ReturnBooks extends JInternalFrame implements ActionListener {
                             if ( today.after(da) ) {
                             	
                                 long finedays = today.getTime() - da.getTime();
-                                int days = (int) (finedays / (1000 * 60 * 60 * 24));
+                                final int MINUTES = 60;
+                                final int SECONDS = 60;
+                                final int HOURS  = 24;
+                                int days = (int) (finedays / (1000 * SECONDS * MINUTES * HOURS));
                                 System.out.println(days);
                                 txtTotalFineAmt.setText(String.valueOf(fineamt * days));
                                 

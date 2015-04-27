@@ -81,9 +81,10 @@ public class AddBooks extends JInternalFrame {
     private boolean availble = true;
 
     // For checking the information from the text field.
+   double informationLabelLength = informationLabel.length;
     public boolean isCorrect(){
         data = new String[10];
-        for ( int i = 0 ; i < informationLabel.length ; i++ ){
+        for ( int i = 0 ; i < informationLabelLength ; i++ ){
         	
             if ( !informationTextField[i].getText().equals("") ){
             	
@@ -97,8 +98,9 @@ public class AddBooks extends JInternalFrame {
     }
 
     // For setting the array of JTextField to empty.
+    double informationTextFieldLength = informationTextField.length;
     public void clearTextField() {
-        for ( int i = 0 ; i < informationTextField.length ; i++ ){
+        for ( int i = 0 ; i < informationTextFieldLength ; i++ ){
         	
             informationTextField[i].setText(null);
         }

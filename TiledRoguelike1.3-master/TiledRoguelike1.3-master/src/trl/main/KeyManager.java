@@ -21,21 +21,21 @@ public class KeyManager implements KeyListener{
 	// Action event from the keyboard
 	public void keyPressed( KeyEvent e ){
 
-		if ( gsm.getGameState ()== 0 ){
+		if ( gsm.getGameState () == 0 ){
 			
-			if ( e.getKeyCode ()== KeyEvent.VK_UP ){
+			if ( e.getKeyCode () == KeyEvent.VK_UP ){
 				
 				MenuState.up = true;
 			}else{
 				// Nothing
 			}
-			if ( e.getKeyCode ()== KeyEvent.VK_DOWN ){
+			if ( e.getKeyCode () == KeyEvent.VK_DOWN ){
 				
 				MenuState.down = true;
 			}else{
 				// Nothing
 			}
-			if ( e.getKeyCode ()== KeyEvent.VK_ENTER ){
+			if ( e.getKeyCode () == KeyEvent.VK_ENTER ){
 				
 				MenuState.enter = false;
 			}else{
@@ -44,20 +44,20 @@ public class KeyManager implements KeyListener{
 		}else{
 			// Nothing
 		}
-		if ( gsm.getGameState ()== 2 ){
-			if ( e.getKeyCode ()== KeyEvent.VK_UP ){
+		if ( gsm.getGameState () == 2 ){
+			if ( e.getKeyCode () == KeyEvent.VK_UP ){
 				
 				LoseGameState.up = true;
 			}else{
 				// Nothing
 			}
-			if ( e.getKeyCode ()== KeyEvent.VK_DOWN ){
+			if ( e.getKeyCode () == KeyEvent.VK_DOWN ){
 				
 				LoseGameState.down = true;
 			}else{
 				// Nothing
 			}
-			if ( e.getKeyCode ()== KeyEvent.VK_ENTER ){
+			if ( e.getKeyCode () == KeyEvent.VK_ENTER ){
 				
 				LoseGameState.enter = false;
 			}else{
@@ -70,63 +70,63 @@ public class KeyManager implements KeyListener{
 
 	public void keyReleased( KeyEvent e ){
 
-		if ( gsm.getGameState ()== 1&& Game.tickTimer<= 0 ){
+		if ( gsm.getGameState () == 1&& Game.tickTimer<= 0 ){
 			
-			if ( e.getKeyCode ()== KeyEvent.VK_NUMPAD8 ){
+			if ( e.getKeyCode ( )== KeyEvent.VK_NUMPAD8 ){
 				
 				GameplayState.getPlayer ().upDirection = true;
 			}else{
 				// Nothing
 			}
-			if ( e.getKeyCode ()== KeyEvent.VK_NUMPAD2 ){
+			if ( e.getKeyCode ()  == KeyEvent.VK_NUMPAD2 ){
 				
 				GameplayState.getPlayer ().downDirection = true;
 			}else{
 				// Nothing
 			}
-			if ( e.getKeyCode ()== KeyEvent.VK_NUMPAD4 ){
+			if ( e.getKeyCode () == KeyEvent.VK_NUMPAD4 ){
 				
 				GameplayState.getPlayer ().leftDirection = true;
 			}else{
 				// Nothing
 			}
-			if ( e.getKeyCode ()== KeyEvent.VK_NUMPAD6 ){
+			if ( e.getKeyCode () == KeyEvent.VK_NUMPAD6 ){
 				
 				GameplayState.getPlayer ().rightDirection = true;
 			}else{
 				// Nothing
 			}
-			if ( e.getKeyCode ()== KeyEvent.VK_NUMPAD9 ){
+			if ( e.getKeyCode () == KeyEvent.VK_NUMPAD9 ){
 				
 				GameplayState.getPlayer ().upRightDirection = true;
 			}else{
 				// Nothing
 			}
-			if ( e.getKeyCode ()== KeyEvent.VK_NUMPAD3 ){
+			if ( e.getKeyCode () == KeyEvent.VK_NUMPAD3 ){
 				
 				GameplayState.getPlayer ().downRightDirection = true;
 			}else{
 				// Nothing
 			}
-			if ( e.getKeyCode ()== KeyEvent.VK_NUMPAD1 ){
+			if ( e.getKeyCode () == KeyEvent.VK_NUMPAD1 ){
 				
 				GameplayState.getPlayer ().downLeftDirection = true;
 			}else{
 				// Nothing
 			}
-			if ( e.getKeyCode ()== KeyEvent.VK_NUMPAD7 ){
+			if ( e.getKeyCode () == KeyEvent.VK_NUMPAD7 ){
 				
 				GameplayState.getPlayer ().upLeftDirection = true;
 			}else{
 				// Nothing
 			}
-			if ( e.getKeyCode ()== KeyEvent.VK_NUMPAD5 ){
+			if ( e.getKeyCode () == KeyEvent.VK_NUMPAD5 ){
 				
 				GameplayState.getPlayer ().wait = true;
 			}else{
 				// Nothing
 			}
-			if ( e.getKeyCode ()== KeyEvent.VK_S ){
+			if ( e.getKeyCode () == KeyEvent.VK_S ){
 				
 				if ( GameplayState.getPlayer () instanceof trl.entity.player.Barbarian ){
 					
@@ -138,7 +138,7 @@ public class KeyManager implements KeyListener{
 				// Nothing
 			}
 
-			if ( e.getKeyCode ()== KeyEvent.VK_B ){
+			if ( e.getKeyCode () == KeyEvent.VK_B ){
 				
 				if ( GameplayState.getPlayer () instanceof trl.entity.player.Wizard ){
 					
@@ -149,7 +149,7 @@ public class KeyManager implements KeyListener{
 			}else{
 				// Nothing
 			}
-			if ( e.getKeyCode ()== KeyEvent.VK_E ){
+			if ( e.getKeyCode () == KeyEvent.VK_E ){
 				
 				if ( GameplayState.getPlayer () instanceof trl.entity.player.Wizard ){
 					
@@ -160,13 +160,13 @@ public class KeyManager implements KeyListener{
 			}else{
 				// Nothing
 			}
-			if ( e.getKeyCode ()== KeyEvent.VK_C ){
+			if ( e.getKeyCode () == KeyEvent.VK_C ){
 				
 				GameplayState.getPlayer ().close = true;
 			}else{
 				// Nothing
 			}
-			if ( e.getKeyCode ()== KeyEvent.VK_Q ){
+			if ( e.getKeyCode () == KeyEvent.VK_Q ){
 				
 				if ( GameplayState.getPlayer () instanceof trl.entity.player.Wizard ){
 					
@@ -177,7 +177,7 @@ public class KeyManager implements KeyListener{
 			}else{
 				// Nothing
 			}
-			if ( e.getKeyCode ()== KeyEvent.VK_F ){
+			if ( e.getKeyCode () == KeyEvent.VK_F ){
 				if ( GameplayState.getPlayer () instanceof trl.entity.player.Ranger ){
 					
 					/*
@@ -211,20 +211,20 @@ public class KeyManager implements KeyListener{
 			}else{
 				// Nothing
 			}
-			if ( e.getKeyCode ()== KeyEvent.VK_ESCAPE ){
+			if ( e.getKeyCode () == KeyEvent.VK_ESCAPE ){
 				
 				GameplayState.getPlayer ().cancel = true;
 			}else{
 				// Nothing
 			}
 
-			if ( e.getKeyCode ()== KeyEvent.VK_LEFT ){
+			if ( e.getKeyCode ( )== KeyEvent.VK_LEFT ){
 				
 				GameplayState.getPlayer ().previousTarget = true;
 			}else{
 				// Nothing
 			}
-			if ( e.getKeyCode ()== KeyEvent.VK_RIGHT ){
+			if ( e.getKeyCode () == KeyEvent.VK_RIGHT ){
 				
 				GameplayState.getPlayer ().nextTarget = true;
 			}else{
@@ -234,21 +234,21 @@ public class KeyManager implements KeyListener{
 			// Nothing
 		}
 
-		if ( gsm.getGameState ()== 0 ){
+		if ( gsm.getGameState () == 0 ){
 			
-			if ( e.getKeyCode ()== KeyEvent.VK_UP ){
+			if ( e.getKeyCode () == KeyEvent.VK_UP ){
 				
 				MenuState.up = false;
 			}else{
 				// Nothing
 			}
-			if ( e.getKeyCode ()== KeyEvent.VK_DOWN ){
+			if ( e.getKeyCode () == KeyEvent.VK_DOWN ){
 				
 				MenuState.down = false;
 			}else{
 				// Nothing
 			}
-			if ( e.getKeyCode ()== KeyEvent.VK_ENTER ){
+			if ( e.getKeyCode () == KeyEvent.VK_ENTER ){
 				
 				MenuState.enter = true;
 			}else{
@@ -257,21 +257,21 @@ public class KeyManager implements KeyListener{
 		}else{
 			// Nothing
 		}
-		if ( gsm.getGameState ()== 2 ){
+		if ( gsm.getGameState () == 2 ){
 			
-			if ( e.getKeyCode ()== KeyEvent.VK_UP ){
+			if ( e.getKeyCode () == KeyEvent.VK_UP ){
 				
 				LoseGameState.up = false;
 			}else{
 				// Nothing
 			}
-			if ( e.getKeyCode ()== KeyEvent.VK_DOWN ){
+			if ( e.getKeyCode () == KeyEvent.VK_DOWN ){
 				
 				LoseGameState.down = false;
 			}else{
 				// Nothing
 			}
-			if ( e.getKeyCode ()== KeyEvent.VK_ENTER ){
+			if ( e.getKeyCode () == KeyEvent.VK_ENTER ){
 				
 				LoseGameState.enter = true;
 			}else{

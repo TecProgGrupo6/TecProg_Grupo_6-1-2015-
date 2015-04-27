@@ -25,12 +25,12 @@ public class Entity{
 	// Describe if can be visible for the player or not
 	protected boolean visibleToPlayer;
 
-	public Entity(Map map){
+	public Entity ( Map map ){
 
 		this.map = map;
 	}
 
-	public void setLoc(Node node){
+	public void setLoc( Node node ){
 
 		this.loc = node;
 	}
@@ -56,23 +56,25 @@ public class Entity{
 	}
 
 	/*
-	 * This could be part of the issue with
-	 * enemies becoming aware of the player when it seems like they should not.
+	 * This could be part of the issue with enemies becoming aware of the player
+	 * when it seems like they should not.
 	 */
 	public boolean inDisplayedNodes(){
 
 		int x = Map.displayedNodesMinX;
 		int y = Map.displayedNodesMinY;
 
-		if ( getX ()>= x&& getX ()< x+ Game.W_COLS&& getY ()>= y && getY ()< y+ Game.W_ROWS ){
+		boolean inXrange = getX() >= x && getX() < x+ Game.W_COLS;
+		boolean inYrange = getY() >= y && getY() < y+ Game.W_ROWS;
+		
+		if ( inXrange && inYrange ){
 
 			return true;
 		}else{
-			
+
 			return false;
 		}
 
-		
 	}
 
 	public boolean seenByPlayer(){
@@ -80,12 +82,12 @@ public class Entity{
 		return seenByPlayer;
 	}
 
-	public void setSeenByPlayer(boolean seen){
+	public void setSeenByPlayer( boolean seen ){
 
 		this.seenByPlayer = seen;
 	}
 
-	public Room getOccupiedRoom(Node node){
+	public Room getOccupiedRoom( Node node ){
 
 		Room[][] rooms = map.getRooms ();
 		Point position = new Point ( node.getX () , node.getY () );
@@ -100,6 +102,7 @@ public class Entity{
 				}else{
 					
 					// Nothing to do
+					
 				}
 			}
 		}
@@ -116,7 +119,7 @@ public class Entity{
 		return visibleToPlayer;
 	}
 
-	public void setVisibleToPlayer(boolean visibleToPlayer){
+	public void setVisibleToPlayer( boolean visibleToPlayer ){
 
 		this.visibleToPlayer = visibleToPlayer;
 	}
