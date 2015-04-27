@@ -87,8 +87,7 @@ public class WinGameState extends GameState{
 		// g.getFontMetrics().stringWidth(exitMessage)) / 2, 0);
 		g.drawString( exitMessage , ( Game.W_WIDTH - g.getFontMetrics().stringWidth( exitMessage ) ) / 2 , linePosition );
 		linePosition += 16;
-		g.drawString( "Play again?" , ( Game.W_WIDTH - g.getFontMetrics().stringWidth( "Play again?" ) ) / 2 ,
-				linePosition );
+		g.drawString( "Play again?" , ( Game.W_WIDTH - g.getFontMetrics().stringWidth( "Play again?" ) ) / 2 , linePosition );
 		linePosition += 16;
 		for ( int i = 0 ; i < choices.length ; i++ ){
 			if ( i == choice ){
@@ -96,8 +95,7 @@ public class WinGameState extends GameState{
 			}else{
 				g.setColor( Color.WHITE );
 			}
-			g.drawString( choices[i] , ( Game.W_WIDTH - g.getFontMetrics().stringWidth( choices[i] ) ) / 2 ,
-					linePosition );
+			g.drawString( choices[i] , ( Game.W_WIDTH - g.getFontMetrics().stringWidth( choices[i] ) ) / 2 , linePosition );
 			linePosition += 16;
 		}
 	}

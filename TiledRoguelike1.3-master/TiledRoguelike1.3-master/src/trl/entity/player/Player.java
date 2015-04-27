@@ -316,8 +316,7 @@ public abstract class Player extends Actor{
 
 			boolean isPathSizeAndInitialEqualsOne = path.size() == 1 && initialPathSize == 1;
 			boolean isNodePathCkecksZero = getNextPathNode().checkEntityByID( (byte) 0 );
-			boolean pathLowerInitialAndPathEntity = ( path.size() < initialPathSize )
-					&& getNextPathNode().checkEntityByID( (byte) 0 );
+			boolean pathLowerInitialAndPathEntity = ( path.size() < initialPathSize ) && getNextPathNode().checkEntityByID( (byte) 0 );
 
 			boolean pathAndInitialPathEqualsOne = path.size() == 1 && initialPathSize == 1;
 			boolean nextPathNodeGetFeatureClose = getNextPathNode().getFeature() instanceof trl.map.feature.DoorClosed;
@@ -638,9 +637,9 @@ public abstract class Player extends Actor{
 		System.out.println( "Player at " + getX() + "," + getY() );
 
 		for ( Enemy enemy : GameplayState.getEnemyGroup().getEnemies() ){
-			String enemyPrint = enemy.toString().substring( enemy.toString().lastIndexOf( '.' ) ) + " at "
-					+ enemy.getX() + "," + enemy.getY() + " v2p=" + enemy.getVisibleToPlayer() + " ,aop="
-					+ enemy.awareOfPlayer() + ", sbp=" + enemy.seenByPlayer();
+			String enemyPrint = enemy.toString().substring( enemy.toString().lastIndexOf( '.' ) ) + " at " + enemy.getX() + ","
+					+ enemy.getY() + " v2p=" + enemy.getVisibleToPlayer() + " ,aop=" + enemy.awareOfPlayer() + ", sbp="
+					+ enemy.seenByPlayer();
 
 			System.out.println( enemyPrint );
 		}
@@ -962,8 +961,7 @@ public abstract class Player extends Actor{
 
 			for ( int y = startY ; y < startY + Game.W_ROWS ; y++ ){
 
-				boolean isNodeNullAndNodeCheckedID = map.getNode( x , y ) != null
-						&& map.getNode( x , y ).checkEntityByID( (byte) 0 );
+				boolean isNodeNullAndNodeCheckedID = map.getNode( x , y ) != null && map.getNode( x , y ).checkEntityByID( (byte) 0 );
 
 				if ( isNodeNullAndNodeCheckedID ){
 

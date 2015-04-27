@@ -1,4 +1,3 @@
-
 // Import the packages for using the classes in them into the program.
 
 import javax.swing.*;
@@ -10,83 +9,84 @@ import java.awt.event.ActionListener;
  * A public class
  */
 public class SearchBooksAndMembers extends JInternalFrame{
+
 	/***************************************************************************
 	 *** declaration of the private variables used in the program ***
 	 ***************************************************************************/
 
 	// For creating the North Panel.
 	private JPanel northPanel = new JPanel();
-	
+
 	// For creating the label.
-	private JLabel title = new JLabel("Search for Books and Members");
+	private JLabel title = new JLabel( "Search for Books and Members" );
 
 	// For creating the center.
 	private JPanel center = new JPanel();
 
 	// For creating the Center Panel.
 	private JPanel centerBooksPanel = new JPanel();
-	
+
 	// For creating an Internal Panel in the center panel.
 	private JPanel searchBooksPanel = new JPanel();
-	
+
 	// For creating an Internal Panel in the center panel.
 	private JPanel searchBooksButtonPanel = new JPanel();
 
 	// For creating the table.
-	private JLabel searchBooksLabel = new JLabel(" Search by: ");
-	
+	private JLabel searchBooksLabel = new JLabel( " Search by: " );
+
 	// For creating JComboBox.
 	private JComboBox searchBooksTypes;
-	
+
 	// For creating String[].
-	private String[] booksTypes = { "BookID", "Subject", "Title", "Author", "Publisher", "ISBN" };
-	
+	private String[] booksTypes = { "BookID" , "Subject" , "Title" , "Author" , "Publisher" , "ISBN" };
+
 	// For creating the label.
-	private JLabel booksKey = new JLabel(" Write the Keyword: ");
-	
+	private JLabel booksKey = new JLabel( " Write the Keyword: " );
+
 	// For cearting the text field.
 	private JTextField booksKeyTextField = new JTextField();
-	
+
 	// For creating the button.
-	private JButton searchBooksButton = new JButton("Search");
+	private JButton searchBooksButton = new JButton( "Search" );
 
 	// For creating the Center Panel.
 	private JPanel centerMembersPanel = new JPanel();
-	
+
 	// For creating an Internal Panel in the center panel.
 	private JPanel searchMembersPanel = new JPanel();
-	
+
 	// For creating an Internal Panel in the center panel.
 	private JPanel searchMembersButtonPanel = new JPanel();
 
 	// For creating the table.
-	private JLabel searchMembersLabel = new JLabel(" Search by: ");
-	
+	private JLabel searchMembersLabel = new JLabel( " Search by: " );
+
 	// For creating JComboBox.
 	private JComboBox searchMembersTypes;
-	
+
 	// For creating String[].
-	private String[] membersTypes = { "MemberID", "Name", "E-Mail", "Major" };
-	
+	private String[] membersTypes = { "MemberID" , "Name" , "E-Mail" , "Major" };
+
 	// For creating the label.
-	private JLabel membersKey = new JLabel(" Write the Keyword: ");
-	
+	private JLabel membersKey = new JLabel( " Write the Keyword: " );
+
 	// For cearting the text field.
 	private JTextField membersKeyTextField = new JTextField();
-	
+
 	// For creating the button.
-	private JButton searchMembersButton = new JButton("Search");
+	private JButton searchMembersButton = new JButton( "Search" );
 
 	// For creating the south panel.
 	private JPanel southPanel = new JPanel();
-	
+
 	// For creating the button.
-	private JButton cancelButton = new JButton("Cancel");
+	private JButton cancelButton = new JButton( "Cancel" );
 
 	// For creating an array of string to store the data.
 	private String[] booksData;
 	private String[] membersData;
-	
+
 	// Create objects from another classes for using them in the ActionListener.
 	private ListSearchBooks listBooks;
 	private ListSearchMembers listMembers;
@@ -94,17 +94,18 @@ public class SearchBooksAndMembers extends JInternalFrame{
 	private Members member;
 
 	// For checking the information from the text field.
-	public boolean isBooksDataCorrect(){
+	public boolean isBooksDataCorrect (){
+
 		booksData = new String[2];
 		booksData[0] = searchBooksTypes.getSelectedItem().toString();
-		
+
 		for ( int i = 1 ; i < booksData.length ; i++ ){
-			if ( !booksKeyTextField.getText().equals("") ){
-				
-				if ( searchBooksTypes.getSelectedItem().toString().equals("BookID") ){
-					
+			if ( !booksKeyTextField.getText().equals( "" ) ){
+
+				if ( searchBooksTypes.getSelectedItem().toString().equals( "BookID" ) ){
+
 					booksData[i] = booksKeyTextField.getText();
-					
+
 				}else{
 					booksData[i] = "'%" + booksKeyTextField.getText() + "%'";
 				}
@@ -116,13 +117,14 @@ public class SearchBooksAndMembers extends JInternalFrame{
 	}
 
 	// For checking the information from the text field.
-	public boolean isMembersDataCorrect(){
+	public boolean isMembersDataCorrect (){
+
 		membersData = new String[2];
 		membersData[0] = searchMembersTypes.getSelectedItem().toString();
-		
+
 		for ( int i = 1 ; i < membersData.length ; i++ ){
-			if ( !membersKeyTextField.getText().equals("") ){
-				if ( searchMembersTypes.getSelectedItem().toString().equals("MemberID") ){
+			if ( !membersKeyTextField.getText().equals( "" ) ){
+				if ( searchMembersTypes.getSelectedItem().toString().equals( "MemberID" ) ){
 					membersData[i] = membersKeyTextField.getText();
 				}else
 					membersData[i] = "'%" + membersKeyTextField.getText() + "%'";
@@ -133,213 +135,217 @@ public class SearchBooksAndMembers extends JInternalFrame{
 	}
 
 	// Constructor of searchBooksAndMembers.
-	public SearchBooksAndMembers() {
+	public SearchBooksAndMembers (){
+
 		// For setting the title for the internal frame.
-		super("Search", false, true, false, true);
-		
+		super( "Search" , false , true , false , true );
+
 		// For setting the icon.
-		setFrameIcon(new ImageIcon(ClassLoader.getSystemResource("images/Find16.gif")));
-		
+		setFrameIcon( new ImageIcon( ClassLoader.getSystemResource( "images/Find16.gif" ) ) );
+
 		// For getting the graphical user interface components display area.
 		Container cp = getContentPane();
 
 		// For setting the layout.
-		northPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
-		
+		northPanel.setLayout( new FlowLayout( FlowLayout.CENTER ) );
+
 		// For setting the font.
-		title.setFont(new Font("Tahoma", Font.BOLD, 14));
-		
+		title.setFont( new Font( "Tahoma" , Font.BOLD , 14 ) );
+
 		// For adding the label.
-		northPanel.add(title);
-		
+		northPanel.add( title );
+
 		// For adding the north panel to the container.
-		cp.add("North", northPanel);
+		cp.add( "North" , northPanel );
 
 		// For setting the layout.
-		center.setLayout(new BorderLayout());
+		center.setLayout( new BorderLayout() );
 
 		// For setting the layout.
-		centerBooksPanel.setLayout(new BorderLayout());
-		
+		centerBooksPanel.setLayout( new BorderLayout() );
+
 		// For setting the layout.
-		searchBooksPanel.setLayout(new GridLayout(2, 2, 1, 1));
-		
+		searchBooksPanel.setLayout( new GridLayout( 2 , 2 , 1 , 1 ) );
+
 		// For adding the label.
-		searchBooksPanel.add(searchBooksLabel);
-		
+		searchBooksPanel.add( searchBooksLabel );
+
 		// For adding the JComboBos[].
-		searchBooksPanel.add(searchBooksTypes = new JComboBox(booksTypes));
-		
+		searchBooksPanel.add( searchBooksTypes = new JComboBox( booksTypes ) );
+
 		// For adding the label.
-		searchBooksPanel.add(booksKey);
-		
+		searchBooksPanel.add( booksKey );
+
 		// For adding the text field.
-		searchBooksPanel.add(booksKeyTextField);
-		
+		searchBooksPanel.add( booksKeyTextField );
+
 		// For adding the internal panel to the panel.
-		centerBooksPanel.add("North", searchBooksPanel);
+		centerBooksPanel.add( "North" , searchBooksPanel );
 
 		// For setting the layout.
-		searchBooksButtonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
-		
+		searchBooksButtonPanel.setLayout( new FlowLayout( FlowLayout.RIGHT ) );
+
 		// For adding the button.
-		searchBooksButtonPanel.add(searchBooksButton);
-		
+		searchBooksButtonPanel.add( searchBooksButton );
+
 		// For adding the internal panel to the center panel.
-		centerBooksPanel.add("South", searchBooksButtonPanel);
-		
+		centerBooksPanel.add( "South" , searchBooksButtonPanel );
+
 		// For setting the border.
-		centerBooksPanel.setBorder(BorderFactory.createTitledBorder("Search for a books:"));
-		
+		centerBooksPanel.setBorder( BorderFactory.createTitledBorder( "Search for a books:" ) );
+
 		// For adding center panel to the center.
-		center.add("West", centerBooksPanel);
+		center.add( "West" , centerBooksPanel );
 
 		// For setting the layout.
-		centerMembersPanel.setLayout(new BorderLayout());
-		
+		centerMembersPanel.setLayout( new BorderLayout() );
+
 		// For setting the layout.
-		searchMembersPanel.setLayout(new GridLayout(2, 2, 1, 1));
-		
+		searchMembersPanel.setLayout( new GridLayout( 2 , 2 , 1 , 1 ) );
+
 		// For adding the label.
-		searchMembersPanel.add(searchMembersLabel);
-		
+		searchMembersPanel.add( searchMembersLabel );
+
 		// For adding the JComboBos[].
-		searchMembersPanel.add(searchMembersTypes = new JComboBox(membersTypes));
-		
+		searchMembersPanel.add( searchMembersTypes = new JComboBox( membersTypes ) );
+
 		// For adding the label.
-		searchMembersPanel.add(membersKey);
-		
+		searchMembersPanel.add( membersKey );
+
 		// For adding the text field.
-		searchMembersPanel.add(membersKeyTextField);
-		
+		searchMembersPanel.add( membersKeyTextField );
+
 		// For adding the internal panel to the panel.
-		centerMembersPanel.add("North", searchMembersPanel);
+		centerMembersPanel.add( "North" , searchMembersPanel );
 
 		// For setting the layout.
-		searchMembersButtonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
-		
+		searchMembersButtonPanel.setLayout( new FlowLayout( FlowLayout.RIGHT ) );
+
 		// For adding the button.
-		searchMembersButtonPanel.add(searchMembersButton);
-		
+		searchMembersButtonPanel.add( searchMembersButton );
+
 		// For adding the internal panel to the center panel.
-		centerMembersPanel.add("South", searchMembersButtonPanel);
-		
+		centerMembersPanel.add( "South" , searchMembersButtonPanel );
+
 		// For setting the border.
-		centerMembersPanel.setBorder(BorderFactory.createTitledBorder("Search for a members:"));
-		
+		centerMembersPanel.setBorder( BorderFactory.createTitledBorder( "Search for a members:" ) );
+
 		// For adding center panel to the center.
-		center.add("East", centerMembersPanel);
+		center.add( "East" , centerMembersPanel );
 
 		// For adding the center to the container.
-		cp.add("Center", center);
+		cp.add( "Center" , center );
 
 		/**
 		 * for setting the font to the lables & buttons
 		 */
-		searchBooksLabel.setFont(new Font("Tahoma", Font.BOLD, 11));
-		searchBooksTypes.setFont(new Font("Tahoma", Font.BOLD, 11));
-		booksKey.setFont(new Font("Tahoma", Font.BOLD, 11));
-		booksKeyTextField.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		searchBooksButton.setFont(new Font("Tahoma", Font.BOLD, 11));
-		cancelButton.setFont(new Font("Tahoma", Font.BOLD, 11));
-		searchMembersLabel.setFont(new Font("Tahoma", Font.BOLD, 11));
-		searchMembersTypes.setFont(new Font("Tahoma", Font.BOLD, 11));
-		membersKey.setFont(new Font("Tahoma", Font.BOLD, 11));
-		membersKeyTextField.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		searchMembersButton.setFont(new Font("Tahoma", Font.BOLD, 11));
-		cancelButton.setFont(new Font("Tahoma", Font.BOLD, 11));
+		searchBooksLabel.setFont( new Font( "Tahoma" , Font.BOLD , 11 ) );
+		searchBooksTypes.setFont( new Font( "Tahoma" , Font.BOLD , 11 ) );
+		booksKey.setFont( new Font( "Tahoma" , Font.BOLD , 11 ) );
+		booksKeyTextField.setFont( new Font( "Tahoma" , Font.PLAIN , 11 ) );
+		searchBooksButton.setFont( new Font( "Tahoma" , Font.BOLD , 11 ) );
+		cancelButton.setFont( new Font( "Tahoma" , Font.BOLD , 11 ) );
+		searchMembersLabel.setFont( new Font( "Tahoma" , Font.BOLD , 11 ) );
+		searchMembersTypes.setFont( new Font( "Tahoma" , Font.BOLD , 11 ) );
+		membersKey.setFont( new Font( "Tahoma" , Font.BOLD , 11 ) );
+		membersKeyTextField.setFont( new Font( "Tahoma" , Font.PLAIN , 11 ) );
+		searchMembersButton.setFont( new Font( "Tahoma" , Font.BOLD , 11 ) );
+		cancelButton.setFont( new Font( "Tahoma" , Font.BOLD , 11 ) );
 
 		// For setting the layout.
-		southPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
-		
+		southPanel.setLayout( new FlowLayout( FlowLayout.RIGHT ) );
+
 		// For adding the button.
-		southPanel.add(cancelButton);
-		
+		southPanel.add( cancelButton );
+
 		// For setting the border.
-		southPanel.setBorder(BorderFactory.createEtchedBorder());
-		
+		southPanel.setBorder( BorderFactory.createEtchedBorder() );
+
 		// For adding the south panel to the container.
-		cp.add("South", southPanel);
+		cp.add( "South" , southPanel );
 
 		/***********************************************************************
 		 * for adding the action listener to the button,first the text will be *
 		 * taken from the JTextField and passing them to listSearchBooks object*
 		 ***********************************************************************/
-		searchBooksButton.addActionListener(new ActionListener(){
-			public void actionPerformed( ActionEvent ae ){
-				
+		searchBooksButton.addActionListener( new ActionListener(){
+
+			public void actionPerformed ( ActionEvent ae ){
+
 				// For checking if there is a missing information.
 				if ( isBooksDataCorrect() ){
 					book = new Books();
 					String bookQuery = "SELECT BookID, Subject, Title, Author, Publisher,"
-							+ "Copyright, Edition, Pages, NumberOfBooks,ISBN,Library,Availble,ShelfNo FROM Books"
-							+ " WHERE " + booksData[0] + " LIKE " + booksData[1];
-					
-					book.connection(bookQuery);
-					
+							+ "Copyright, Edition, Pages, NumberOfBooks,ISBN,Library,Availble,ShelfNo FROM Books" + " WHERE "
+							+ booksData[0] + " LIKE " + booksData[1];
+
+					book.connection( bookQuery );
+
 					int bookID = book.getBookID();
 					if ( bookID != 0 ){
-						listBooks = new ListSearchBooks(bookQuery);
-						getParent().add(listBooks);
+						listBooks = new ListSearchBooks( bookQuery );
+						getParent().add( listBooks );
 						try{
-							listBooks.setSelected(true);
-						}catch (java.beans.PropertyVetoException e){
+							listBooks.setSelected( true );
+						}catch ( java.beans.PropertyVetoException e ){
 						}
 						dispose();
 					}else{
-						JOptionPane.showMessageDialog(null, "No Match(es)", "Error", JOptionPane.ERROR_MESSAGE);
-						booksKeyTextField.setText(null);
+						JOptionPane.showMessageDialog( null , "No Match(es)" , "Error" , JOptionPane.ERROR_MESSAGE );
+						booksKeyTextField.setText( null );
 					}
 				}else{
-					JOptionPane.showMessageDialog(null, "Please, complete the information", "Warning",
-							JOptionPane.WARNING_MESSAGE);
+					JOptionPane.showMessageDialog( null , "Please, complete the information" , "Warning" , JOptionPane.WARNING_MESSAGE );
 				}
 			}
-		});
-		
+		} );
+
 		/***********************************************************************
 		 * for adding the action listener to the button,first the text will be *
 		 * taken from the JTextField and passing them to listSearchBooks object*
 		 ***********************************************************************/
-		searchMembersButton.addActionListener(new ActionListener(){
-			public void actionPerformed( ActionEvent ae ){
+		searchMembersButton.addActionListener( new ActionListener(){
+
+			public void actionPerformed ( ActionEvent ae ){
+
 				if ( isMembersDataCorrect() ){
-					
+
 					member = new Members();
-					String memberQuery = "SELECT MemberID, ID, Name, EMail, Major, Expired" + " FROM Members WHERE "
-							+ membersData[0] + " LIKE " + membersData[1];
-					member.connection(memberQuery);
+					String memberQuery = "SELECT MemberID, ID, Name, EMail, Major, Expired" + " FROM Members WHERE " + membersData[0]
+							+ " LIKE " + membersData[1];
+					member.connection( memberQuery );
 					int memberID = member.getMemberID();
-					
+
 					if ( memberID != 0 ){
-						
-						listMembers = new ListSearchMembers(memberQuery);
-						getParent().add(listMembers);
-						
+
+						listMembers = new ListSearchMembers( memberQuery );
+						getParent().add( listMembers );
+
 						try{
-							listMembers.setSelected(true);
-						}catch (java.beans.PropertyVetoException e){
+							listMembers.setSelected( true );
+						}catch ( java.beans.PropertyVetoException e ){
 						}
 						dispose();
 					}else{
-						JOptionPane.showMessageDialog(null, "No Match(es)", "Error", JOptionPane.ERROR_MESSAGE);
-						membersKeyTextField.setText(null);
+						JOptionPane.showMessageDialog( null , "No Match(es)" , "Error" , JOptionPane.ERROR_MESSAGE );
+						membersKeyTextField.setText( null );
 					}
 				}else{
-					JOptionPane.showMessageDialog(null, "Please, complete the information", "Warning",
-							JOptionPane.WARNING_MESSAGE);
+					JOptionPane.showMessageDialog( null , "Please, complete the information" , "Warning" , JOptionPane.WARNING_MESSAGE );
 				}
 			}
-		});
-		
+		} );
+
 		// For adding the action listener for the button to dispose the frame.
-		cancelButton.addActionListener(new ActionListener(){
-			public void actionPerformed( ActionEvent ae ){
+		cancelButton.addActionListener( new ActionListener(){
+
+			public void actionPerformed ( ActionEvent ae ){
+
 				dispose();
 			}
-		});
+		} );
 		// For setting the visible to true.
-		setVisible(true);
+		setVisible( true );
 		// Show the internal frame.
 		pack();
 	}

@@ -119,8 +119,7 @@ public class Map{
 
 						if ( closedList.contains( candidate ) ){
 							{
-								if ( candidate.getGScore() < closedList.get( closedList.indexOf( candidate ) )
-										.getGScore() ){
+								if ( candidate.getGScore() < closedList.get( closedList.indexOf( candidate ) ).getGScore() ){
 									openList.remove( candidate );
 									openList.add( candidate );
 								}else{
@@ -196,8 +195,7 @@ public class Map{
 
 						if ( closedList.contains( candidate ) ){
 							{
-								if ( candidate.getGScore() < closedList.get( closedList.indexOf( candidate ) )
-										.getGScore() ){
+								if ( candidate.getGScore() < closedList.get( closedList.indexOf( candidate ) ).getGScore() ){
 									openList.remove( candidate );
 									openList.add( candidate );
 								}else{
@@ -283,8 +281,7 @@ public class Map{
 			for ( int y = 0 ; y < mapGrid[0].length ; y++ ){
 
 				if ( mapGrid[x][y] != null ){
-					if ( mapGrid[x][y].getFeature().isPassable()
-							|| mapGrid[x][y].getFeature() instanceof trl.map.feature.DoorClosed ){
+					if ( mapGrid[x][y].getFeature().isPassable() || mapGrid[x][y].getFeature() instanceof trl.map.feature.DoorClosed ){
 						if ( mapGrid[x][y].getFeature() instanceof trl.map.feature.DoorOpen ){
 							// Nothing
 						}else{
@@ -436,17 +433,14 @@ public class Map{
 		for ( int column = 0 ; column < rooms.length ; column++ ){
 			for ( int row = 0 ; row < rooms[column].length ; row++ ){
 				for ( int x = rooms[column][row].getX() ; x < rooms[column][row].getX() + rooms[column][row].getWidth() ; x++ ){
-					for ( int y = rooms[column][row].getY() ; y < rooms[column][row].getY()
-							+ rooms[column][row].getHeight() ; y++ ){
+					for ( int y = rooms[column][row].getY() ; y < rooms[column][row].getY() + rooms[column][row].getHeight() ; y++ ){
 						/*
 						 * Create a new node at x and y. If x and y aren't in
 						 * boundary nodes, make them floor.
 						 */
 						createNode( x , y );
-						if ( x != rooms[column][row].getX()
-								&& x != rooms[column][row].getX() + rooms[column][row].getWidth() - 1
-								&& y != rooms[column][row].getY()
-								&& y != rooms[column][row].getY() + rooms[column][row].getHeight() - 1 ){
+						if ( x != rooms[column][row].getX() && x != rooms[column][row].getX() + rooms[column][row].getWidth() - 1
+								&& y != rooms[column][row].getY() && y != rooms[column][row].getY() + rooms[column][row].getHeight() - 1 ){
 							getNode( x , y ).makeFloor();
 						}
 						// Else make them walls.
@@ -465,8 +459,7 @@ public class Map{
 		List<Node> aoe = new ArrayList<Node>();
 		for ( int x = origin.getX() - radius ; x <= origin.getX() + radius ; x++ ){
 			for ( int y = origin.getY() - radius ; y <= origin.getY() + radius ; y++ ){
-				if ( mapGrid[x][y] != null && mapGrid[x][y].getFeature().isPassable()
-						&& isVisibleToPlayer( mapGrid[x][y] ) ){
+				if ( mapGrid[x][y] != null && mapGrid[x][y].getFeature().isPassable() && isVisibleToPlayer( mapGrid[x][y] ) ){
 					aoe.add( mapGrid[x][y] );
 				}else{
 					// Nothing
@@ -477,10 +470,11 @@ public class Map{
 	}
 
 	public Node getBestFScore ( List<Node> openList ){ // Returns node with
+
 														// lowest
 
-														// F score from open
-														// list
+		// F score from open
+		// list
 		int bestF = 0;
 		int currentF = 0;
 		Node bestNode = null;
@@ -749,8 +743,7 @@ public class Map{
 		while ( !gotNode ){
 			int x = (int) ( r.nextDouble() * hSize );
 			int y = (int) ( r.nextDouble() * vSize );
-			if ( x > room.getX() && x < room.getX() + room.getWidth() && y > room.getY()
-					&& y < room.getY() + room.getHeight() ){
+			if ( x > room.getX() && x < room.getX() + room.getWidth() && y > room.getY() && y < room.getY() + room.getHeight() ){
 				// Using isFLoor() prevents entities from spawning in open
 				// doorways
 				if ( getNode( x , y ) != null && getNode( x , y ).isFloor() ){
@@ -861,8 +854,7 @@ public class Map{
 				if ( mapGrid[x][y] != null && mapGrid[x][y].isFloor() ){
 					for ( int neighborX = x - 1 ; neighborX <= x + 1 ; neighborX++ ){
 						for ( int neighborY = y - 1 ; neighborY <= y + 1 ; neighborY++ ){
-							if ( neighborX >= 0 && neighborY >= 0 && neighborX < mapGrid.length
-									&& neighborY < mapGrid[0].length ){
+							if ( neighborX >= 0 && neighborY >= 0 && neighborX < mapGrid.length && neighborY < mapGrid[0].length ){
 								if ( mapGrid[neighborX][neighborY] == null ){
 									Node neighbor = new Node( neighborX , neighborY , this );
 									createNode( neighbor );
@@ -943,19 +935,17 @@ public class Map{
 				// Skip null (void) nodes
 				if ( imageMap[x][y] != null ){
 					// Draw features
-					g.drawImage( imageMap[x][y] , x * Game.SCALED_TILE_SIZE , ( Game.W_HEIGHT - Game.SCALED_TILE_SIZE )
-							- y * Game.SCALED_TILE_SIZE , Game.SCALED_TILE_SIZE , Game.SCALED_TILE_SIZE , null );
+					g.drawImage( imageMap[x][y] , x * Game.SCALED_TILE_SIZE , ( Game.W_HEIGHT - Game.SCALED_TILE_SIZE ) - y
+							* Game.SCALED_TILE_SIZE , Game.SCALED_TILE_SIZE , Game.SCALED_TILE_SIZE , null );
 					// Draw entities
 					if ( visibleToPlayer.contains( displayedNodes[x][y] ) ){
-						if ( displayedNodes[x][y].getEntities() != null
-								&& displayedNodes[x][y].getEntities().size() > 0 ){
+						if ( displayedNodes[x][y].getEntities() != null && displayedNodes[x][y].getEntities().size() > 0 ){
 							for ( Entity entity : displayedNodes[x][y].getEntities() ){
 								// Skip actors. They are drawn in their
 								// Respective classes.
 								if ( !( entity instanceof trl.entity.actor.Actor ) ){
-									g.drawImage( entity.getImage() , x * Game.SCALED_TILE_SIZE ,
-											( Game.W_HEIGHT - Game.SCALED_TILE_SIZE ) - y * Game.SCALED_TILE_SIZE ,
-											Game.SCALED_TILE_SIZE , Game.SCALED_TILE_SIZE , null );
+									g.drawImage( entity.getImage() , x * Game.SCALED_TILE_SIZE , ( Game.W_HEIGHT - Game.SCALED_TILE_SIZE )
+											- y * Game.SCALED_TILE_SIZE , Game.SCALED_TILE_SIZE , Game.SCALED_TILE_SIZE , null );
 								}else{
 									// Nothing
 								}

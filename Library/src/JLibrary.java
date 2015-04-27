@@ -15,29 +15,29 @@ public class JLibrary extends JFrame implements ActionListener{
 	 ***************************************************************************/
 
 	// For creating the JPanel
-	private JPanel searchPanel = new JPanel ();
-	
+	private JPanel searchPanel = new JPanel();
+
 	// For creating the JToolBar for the program
-	private JToolBar searchToolBar = new JToolBar ();
-	
+	private JToolBar searchToolBar = new JToolBar();
+
 	// For creating the label
-	private JLabel searchLabel = new JLabel ( "Book title: " );
-	
+	private JLabel searchLabel = new JLabel( "Book title: " );
+
 	// For creating the JTextField to use it on the searchToolBar
-	private JTextField searchTextField = new JTextField ( 15 );
-	
+	private JTextField searchTextField = new JTextField( 15 );
+
 	// For creating the JButton to use it on the searchToolBar
-	private JButton goButton = new JButton ( "Go" );
-	
+	private JButton goButton = new JButton( "Go" );
+
 	// Variable to add objects from others classes
-	private JDesktopPane desktop = new JDesktopPane ();
-	
+	private JDesktopPane desktop = new JDesktopPane();
+
 	// Does nothing...
 	private JSplitPane splitPane;
-	
+
 	// Does nothing...
 	private JScrollPane desktopScrollPane;
-	
+
 	// Does nothing...
 	private JScrollPane treeScrollPane;
 
@@ -47,123 +47,122 @@ public class JLibrary extends JFrame implements ActionListener{
 	 ***************************************************************************/
 	// To create the menubar
 	private Menubar menu;
-	
+
 	// To create a toolbar
 	private Toolbar toolbar;
-	
+
 	// To create a statusbar
-	private StatusBar statusbar = new StatusBar ();
-	
+	private StatusBar statusbar = new StatusBar();
+
 	// To list the books
 	private ListBooks listBooks;
-	
+
 	// To add books
 	private AddBooks addBooks;
-	
+
 	// To borrow books
 	private BorrowBooks borrowBooks;
-	
+
 	// To return books
-	private ReturnBooks returnBooks; 
-	
+	private ReturnBooks returnBooks;
+
 	// To add members
-	private AddMembers addMembers; 
-	
+	private AddMembers addMembers;
+
 	// To list members
 	private ListMembers listMembers;
-	
+
 	// To search books
-	private SearchBooksAndMembers search; 
+	private SearchBooksAndMembers search;
 
 	// Constructor of JLibrary
 	public JLibrary (){
 
 		// For setting the title for the frame
-		super ( "Library System" );
+		super( "Library System" );
 
 		// For setting the size
-		Dimension screenSize = java.awt.Toolkit.getDefaultToolkit ()
-				.getScreenSize ();
+		Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
 
-		setExtendedState ( JFrame.MAXIMIZED_BOTH );
+		setExtendedState( JFrame.MAXIMIZED_BOTH );
 
-		Toolkit kit = Toolkit.getDefaultToolkit ();
-		Image image = kit.getImage ( ClassLoader.getSystemResource ( "images/Host16.gif" ) );
-		setIconImage ( image );
+		Toolkit kit = Toolkit.getDefaultToolkit();
+		Image image = kit.getImage( ClassLoader.getSystemResource( "images/Host16.gif" ) );
+		setIconImage( image );
 
 		// Creating a Menubar and a Toolbar
-		menu = new Menubar ();
-		toolbar = new Toolbar ();
+		menu = new Menubar();
+		toolbar = new Toolbar();
 
 		// Menu bar Action.........
-		setJMenuBar ( menu );
-		menu.exit.addActionListener ( this );
-		menu.addBook.addActionListener ( this );
-		menu.listBook.addActionListener ( this );
-		menu.addMember.addActionListener ( this );
-		menu.listMember.addActionListener ( this );
-		menu.searchBooksAndMembers.addActionListener ( this );
-		menu.borrowBook.addActionListener ( this );
-		menu.returnBook.addActionListener ( this );
+		setJMenuBar( menu );
+		menu.exit.addActionListener( this );
+		menu.addBook.addActionListener( this );
+		menu.listBook.addActionListener( this );
+		menu.addMember.addActionListener( this );
+		menu.listMember.addActionListener( this );
+		menu.searchBooksAndMembers.addActionListener( this );
+		menu.borrowBook.addActionListener( this );
+		menu.returnBook.addActionListener( this );
 
 		// Get the graphical user interface components display the desktop
-		Container cp = getContentPane ();
+		Container cp = getContentPane();
 
-		desktop.setBackground ( Color.GRAY );
+		desktop.setBackground( Color.GRAY );
 
-		cp.add ( "Center" , desktop );
-
-		// For setting the font
-		searchLabel.setFont ( new Font ( "Tahoma" , Font.BOLD , 11 ) );
+		cp.add( "Center" , desktop );
 
 		// For setting the font
-		searchTextField.setFont ( new Font ( "Tahoma" , Font.PLAIN , 12 ) );
+		searchLabel.setFont( new Font( "Tahoma" , Font.BOLD , 11 ) );
 
-		goButton.setFont ( new Font ( "Tahoma" , Font.BOLD , 9 ) );
+		// For setting the font
+		searchTextField.setFont( new Font( "Tahoma" , Font.PLAIN , 12 ) );
+
+		goButton.setFont( new Font( "Tahoma" , Font.BOLD , 9 ) );
 
 		// For adding the searchLable to the searchToolBar
-		searchToolBar.add ( searchLabel );
+		searchToolBar.add( searchLabel );
 
 		// For adding the searchTextField to searchToolBar
-		searchToolBar.add ( searchTextField );
+		searchToolBar.add( searchTextField );
 
 		// For adding the goButton to searchToolBar
-		searchToolBar.add ( goButton );
+		searchToolBar.add( goButton );
 
 		// For adding listenerAction for the button
-		goButton.addActionListener ( this );
+		goButton.addActionListener( this );
 
 		// For setting the layout
-		searchPanel.setLayout ( new BorderLayout () );
+		searchPanel.setLayout( new BorderLayout() );
 
 		// For adding the toolBar to the searchPanel
-		searchPanel.add ( "Center" , toolbar );
+		searchPanel.add( "Center" , toolbar );
 
 		// For adding the searchPanel to the Container
-		cp.add ( "North" , searchPanel );
+		cp.add( "North" , searchPanel );
 
 		// For adding the statusbar to the Container
-		cp.add ( "South" , statusbar );
+		cp.add( "South" , statusbar );
 
-		for ( int i = 0 ; i< toolbar.imageName24.length ; i++ ){
+		for ( int i = 0 ; i < toolbar.imageName24.length ; i++ ){
 
 			// For adding the action to the button
-			toolbar.button[i].addActionListener ( this );
+			toolbar.button[i].addActionListener( this );
 
 		}
 
 		// For adding WindowListener to the program
-		addWindowListener ( new WindowAdapter (){
+		addWindowListener( new WindowAdapter(){
 
-			public void windowClosing( WindowEvent e ){
+			public void windowClosing ( WindowEvent e ){
 
-				System.exit ( 0 );
+				System.exit( 0 );
 
 			}
 		} );
 
 		// Show the program
-		show ();
+		show();
 	}
 
 	/**
@@ -172,158 +171,158 @@ public class JLibrary extends JFrame implements ActionListener{
 	 * @param ae
 	 *            the action event.
 	 */
-	public void actionPerformed( ActionEvent ae ){
+	public void actionPerformed ( ActionEvent ae ){
 
-		if ( ae.getSource ()== menu.addBook || ae.getSource ()== toolbar.button[0] ){
+		if ( ae.getSource() == menu.addBook || ae.getSource() == toolbar.button[0] ){
 
-			Thread runner = new Thread (){
+			Thread runner = new Thread(){
 
-				public void run(){
+				public void run (){
 
-					addBooks = new AddBooks ();
-					desktop.add ( addBooks );
-
-					try{
-
-						addBooks.setSelected ( true );
-
-					}catch ( java.beans.PropertyVetoException e ){
-						
-						// Do nothing
-						
-					}
-				}
-			};
-			runner.start ();
-		}else if ( ae.getSource ()== menu.listBook || ae.getSource ()== toolbar.button[1] ){
-
-			Thread runner = new Thread (){
-
-				public void run(){
-
-					listBooks = new ListBooks ();
-					desktop.add ( listBooks );
+					addBooks = new AddBooks();
+					desktop.add( addBooks );
 
 					try{
 
-						listBooks.setSelected ( true );
+						addBooks.setSelected( true );
 
 					}catch ( java.beans.PropertyVetoException e ){
-						
+
 						// Do nothing
-						
+
 					}
 				}
 			};
-			runner.start ();
-		}else if ( ae.getSource ()== menu.addMember || ae.getSource ()== toolbar.button[2] ){
+			runner.start();
+		}else if ( ae.getSource() == menu.listBook || ae.getSource() == toolbar.button[1] ){
 
-			Thread runner = new Thread (){
+			Thread runner = new Thread(){
 
-				public void run(){
+				public void run (){
 
-					addMembers = new AddMembers ();
-					desktop.add ( addMembers );
+					listBooks = new ListBooks();
+					desktop.add( listBooks );
 
 					try{
 
-						addMembers.setSelected ( true );
+						listBooks.setSelected( true );
 
 					}catch ( java.beans.PropertyVetoException e ){
-						
+
 						// Do nothing
-						
+
 					}
 				}
 			};
-			runner.start ();
+			runner.start();
+		}else if ( ae.getSource() == menu.addMember || ae.getSource() == toolbar.button[2] ){
+
+			Thread runner = new Thread(){
+
+				public void run (){
+
+					addMembers = new AddMembers();
+					desktop.add( addMembers );
+
+					try{
+
+						addMembers.setSelected( true );
+
+					}catch ( java.beans.PropertyVetoException e ){
+
+						// Do nothing
+
+					}
+				}
+			};
+			runner.start();
 		}
 
-		else if ( ae.getSource ()== menu.listMember || ae.getSource ()== toolbar.button[3] ){
+		else if ( ae.getSource() == menu.listMember || ae.getSource() == toolbar.button[3] ){
 
-			Thread runner = new Thread (){
+			Thread runner = new Thread(){
 
-				public void run(){
+				public void run (){
 
-					listMembers = new ListMembers ();
-					desktop.add ( listMembers );
+					listMembers = new ListMembers();
+					desktop.add( listMembers );
 
 					try{
 
-						listMembers.setSelected ( true );
+						listMembers.setSelected( true );
 
 					}catch ( java.beans.PropertyVetoException e ){
-						
+
 						// Do nothing
-						
+
 					}
 				}
 			};
-			runner.start ();
+			runner.start();
 		}
-		if ( ae.getSource ()== menu.searchBooksAndMembers || ae.getSource ()== toolbar.button[4] ){
-			Thread runner = new Thread (){
+		if ( ae.getSource() == menu.searchBooksAndMembers || ae.getSource() == toolbar.button[4] ){
+			Thread runner = new Thread(){
 
-				public void run(){
+				public void run (){
 
-					search = new SearchBooksAndMembers ();
-					desktop.add ( search );
+					search = new SearchBooksAndMembers();
+					desktop.add( search );
 					try{
-						search.setSelected ( true );
+						search.setSelected( true );
 					}catch ( java.beans.PropertyVetoException e ){
-						
+
 						// Do nothing
-						
+
 					}
 				}
 			};
-			runner.start ();
-		}else if ( ae.getSource ()== menu.borrowBook || ae.getSource ()== toolbar.button[5] ){
+			runner.start();
+		}else if ( ae.getSource() == menu.borrowBook || ae.getSource() == toolbar.button[5] ){
 
-			Thread runner = new Thread (){
+			Thread runner = new Thread(){
 
-				public void run(){
+				public void run (){
 
-					borrowBooks = new BorrowBooks ();
-					desktop.add ( borrowBooks );
-
-					try{
-
-						borrowBooks.setSelected ( true );
-
-					}catch ( java.beans.PropertyVetoException e ){
-						
-						// Do nothing
-						
-					}
-				}
-			};
-			runner.start ();
-		}else if ( ae.getSource ()== menu.returnBook || ae.getSource ()== toolbar.button[6] ){
-
-			Thread runner = new Thread (){
-
-				public void run(){
-
-					returnBooks = new ReturnBooks ();
-					desktop.add ( returnBooks );
+					borrowBooks = new BorrowBooks();
+					desktop.add( borrowBooks );
 
 					try{
 
-						returnBooks.setSelected ( true );
+						borrowBooks.setSelected( true );
 
 					}catch ( java.beans.PropertyVetoException e ){
-						
+
 						// Do nothing
-						
+
 					}
 				}
 			};
-			runner.start ();
-		}else if ( ae.getSource ()== menu.exit || ae.getSource ()== toolbar.button[7] ){
+			runner.start();
+		}else if ( ae.getSource() == menu.returnBook || ae.getSource() == toolbar.button[6] ){
 
-			dispose ();
-			System.exit ( 0 );
+			Thread runner = new Thread(){
+
+				public void run (){
+
+					returnBooks = new ReturnBooks();
+					desktop.add( returnBooks );
+
+					try{
+
+						returnBooks.setSelected( true );
+
+					}catch ( java.beans.PropertyVetoException e ){
+
+						// Do nothing
+
+					}
+				}
+			};
+			runner.start();
+		}else if ( ae.getSource() == menu.exit || ae.getSource() == toolbar.button[7] ){
+
+			dispose();
+			System.exit( 0 );
 
 		}else{
 			// No action

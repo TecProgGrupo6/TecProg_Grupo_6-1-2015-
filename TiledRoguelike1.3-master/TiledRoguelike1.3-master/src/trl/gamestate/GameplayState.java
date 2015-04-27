@@ -146,8 +146,7 @@ public class GameplayState extends GameState{
 		tickTimer = 0;
 		System.out.println( "Player turns on level = " + player.getTurnsOnLevel() );
 		int maxEnemies = dungeonLevel + ( GameplayState.getPlayer().getTurnsOnLevel() / GameplayState.addEnemyInterval );
-		System.out.println( "Max enemies: " + dungeonLevel + " + (" + player.getTurnsOnLevel() + " / "
-				+ addEnemyInterval + ")" );
+		System.out.println( "Max enemies: " + dungeonLevel + " + (" + player.getTurnsOnLevel() + " / " + addEnemyInterval + ")" );
 		// System.out.println("Enemy group size = " +
 		// enemyGroup.getEnemies().size());
 		// System.out.println("Actor queue size = ");
@@ -235,8 +234,7 @@ public class GameplayState extends GameState{
 				g.drawString( "(e) Explode" , 200 , Game.W_HEIGHT + 2 * g.getFont().getSize() + 2 );
 			}else{
 				g.setColor( Color.red );
-				g.drawString( "(e) Explode (" + player.getTimers()[1] + ")" , 200 , Game.W_HEIGHT + 2
-						* g.getFont().getSize() + 2 );
+				g.drawString( "(e) Explode (" + player.getTimers()[1] + ")" , 200 , Game.W_HEIGHT + 2 * g.getFont().getSize() + 2 );
 			}
 
 			if ( player.getTimers()[2] <= 0 ){
@@ -248,8 +246,7 @@ public class GameplayState extends GameState{
 				g.drawString( "(q) Quicken" , 200 , Game.W_HEIGHT + 3 * g.getFont().getSize() + 2 );
 			}else{
 				g.setColor( Color.red );
-				g.drawString( "(q) Quicken (" + player.getTimers()[2] + ")" , 200 , Game.W_HEIGHT + 3
-						* g.getFont().getSize() + 2 );
+				g.drawString( "(q) Quicken (" + player.getTimers()[2] + ")" , 200 , Game.W_HEIGHT + 3 * g.getFont().getSize() + 2 );
 			}
 		}else{
 			// nothing

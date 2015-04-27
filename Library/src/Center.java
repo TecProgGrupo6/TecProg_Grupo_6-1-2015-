@@ -3,23 +3,23 @@
 import java.awt.*;
 
 /**
- *A PUBLIC CLASS FOR CENTER.JAVA
+ * A PUBLIC CLASS FOR CENTER.JAVA
  */
-public class Center {
-	
-	JLibrary l; //For using the class in JLibrary.java
+public class Center{
 
-	public Center( JLibrary l ) {
-		
+	JLibrary l; // For using the class in JLibrary.java
+
+	public Center ( JLibrary l ){
+
 		this.l = l;
-		
+
 	}
 
-	//For centering the window
-	public void LibraryCenter() {
-		
+	// For centering the window
+	public void LibraryCenter (){
+
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		l.setLocation(( screenSize.width - l.getWidth()) / 2, (screenSize.height - l.getHeight()) / 2 );
-		
+		l.setLocation( ( screenSize.width - l.getWidth() ) / 2 , ( screenSize.height - l.getHeight() ) / 2 );
+
 	}
 }

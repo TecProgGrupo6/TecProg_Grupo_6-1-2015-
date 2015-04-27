@@ -72,8 +72,7 @@ public class MenuState extends GameState{
 			}else{
 				g.setColor( Color.WHITE );
 			}
-			g.drawString( menuOptions[i] , ( Game.W_WIDTH - fm.stringWidth( menuOptions[i] ) ) / 2 , i * FONT_SIZE + 2
-					* FONT_SIZE );
+			g.drawString( menuOptions[i] , ( Game.W_WIDTH - fm.stringWidth( menuOptions[i] ) ) / 2 , i * FONT_SIZE + 2 * FONT_SIZE );
 		}
 		BufferedImage classImage = null;
 		g.setColor( Color.WHITE );
@@ -132,11 +131,10 @@ public class MenuState extends GameState{
 		}
 		}
 		g.setColor( Color.LIGHT_GRAY );
-		g.fillRect( ( Game.W_WIDTH / 2 ) - ( ( Game.TILE_SIZE * 4 + Game.TILE_SIZE ) / 2 ) , 200 , Game.TILE_SIZE * 4
-				+ Game.TILE_SIZE , Game.TILE_SIZE * 4 + Game.TILE_SIZE );
-		g.drawImage( classImage , ( Game.W_WIDTH / 2 ) - ( ( Game.TILE_SIZE * 4 + Game.TILE_SIZE ) / 2 )
-				+ ( Game.TILE_SIZE / 2 ) , 200 + ( Game.TILE_SIZE / 2 ) , Game.TILE_SIZE * 4 , Game.TILE_SIZE * 4 ,
-				null );
+		g.fillRect( ( Game.W_WIDTH / 2 ) - ( ( Game.TILE_SIZE * 4 + Game.TILE_SIZE ) / 2 ) , 200 , Game.TILE_SIZE * 4 + Game.TILE_SIZE ,
+				Game.TILE_SIZE * 4 + Game.TILE_SIZE );
+		g.drawImage( classImage , ( Game.W_WIDTH / 2 ) - ( ( Game.TILE_SIZE * 4 + Game.TILE_SIZE ) / 2 ) + ( Game.TILE_SIZE / 2 ) ,
+				200 + ( Game.TILE_SIZE / 2 ) , Game.TILE_SIZE * 4 , Game.TILE_SIZE * 4 , null );
 
 	}
 

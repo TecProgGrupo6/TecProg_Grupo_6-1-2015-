@@ -1,4 +1,3 @@
-
 // Import the packages for using the classes in them into the program.
 
 import javax.swing.*;
@@ -11,193 +10,195 @@ import java.util.StringTokenizer;
 import java.util.Vector;
 
 public class PrintingMembers extends JInternalFrame implements Printable{
+
 	/***************************************************************************
 	 *** declaration of the private variables used in the program ***
 	 ***************************************************************************/
 
 	// For setting the connection and statement.
-	
-	
-	//Connection status
+
+	// Connection status
 	private Connection connection = null;
-	
-	//Creating the statement
+
+	// Creating the statement
 	private Statement statement = null;
-	
-	//Resultset from the statement which comes from the data base
+
+	// Resultset from the statement which comes from the data base
 	private ResultSet resultset = null;
-	
-	//Constant of the URL from the database
+
+	// Constant of the URL from the database
 	private String URL = "jdbc:odbc:JLibrary";
 
 	// For creating the text area.
 	private JTextArea textArea = new JTextArea();
-	
+
 	// For creating the vector to use it in the print.
 	private Vector lines;
-	
-	//Constant to check number os spaces in the Vector method
+
+	// Constant to check number os spaces in the Vector method
 	public static final int TAB_SIZE = 10;
 
 	// Constructor of JLibrary.
-	public PrintingMembers(String query){
-		super("Printing Members", false, true, false, true);
-		
+	public PrintingMembers ( String query ){
+
+		super( "Printing Members" , false , true , false , true );
+
 		// For getting the graphical user interface components display area.
 		Container cp = getContentPane();
-		
+
 		// For setting the font.
-		textArea.setFont(new Font("Tahoma", Font.PLAIN, 9));
-		
+		textArea.setFont( new Font( "Tahoma" , Font.PLAIN , 9 ) );
+
 		// For adding the text area to the container.
-		cp.add(textArea);
+		cp.add( textArea );
 		try{
-			
-			Class.forName("sun.jdbc.odbc.JdbcOdbcDriver");
-		}catch (ClassNotFoundException ea){
-			
-			System.out.println(ea.toString());
-		}catch (Exception e){
-			
-			System.out.println(e.toString());
+
+			Class.forName( "sun.jdbc.odbc.JdbcOdbcDriver" );
+		}catch ( ClassNotFoundException ea ){
+
+			System.out.println( ea.toString() );
+		}catch ( Exception e ){
+
+			System.out.println( e.toString() );
 		}
-		
+
 		/***************************************************************
 		 * For making the connection,creating the statement and update * the
 		 * table in the database. After that,closing the statmenet * and
 		 * connection. There is catch block SQLException for error *
 		 ***************************************************************/
 		try{
-			connection = DriverManager.getConnection(URL);
+			connection = DriverManager.getConnection( URL );
 			statement = connection.createStatement();
-			resultset = statement.executeQuery(query);
-			textArea.append("=============== Members Information ===============\n\n");
-			
+			resultset = statement.executeQuery( query );
+			textArea.append( "=============== Members Information ===============\n\n" );
+
 			while ( resultset.next() ){
-				textArea.append("Member ID: " + resultset.getString("ID") + "\n" + "Name: "
-						+ resultset.getString("Name") + "\n" + "Major: " + resultset.getString("Major") + "\n"
-						+ "Expired: " + resultset.getString("Expired") + "\n\n");
+				textArea.append( "Member ID: " + resultset.getString( "ID" ) + "\n" + "Name: " + resultset.getString( "Name" ) + "\n"
+						+ "Major: " + resultset.getString( "Major" ) + "\n" + "Expired: " + resultset.getString( "Expired" ) + "\n\n" );
 			}
-			
-			textArea.append("=============== Members Information ===============");
+
+			textArea.append( "=============== Members Information ===============" );
 			resultset.close();
 			statement.close();
 			connection.close();
-			
-		}catch (SQLException SQLe){
-			
-			System.out.println(SQLe.toString());
+
+		}catch ( SQLException SQLe ){
+
+			System.out.println( SQLe.toString() );
 		}
 		// For setting the visible to true.
-		setVisible(true);
-		
+		setVisible( true );
+
 		// To show the frame.
 		pack();
 	}
 
-	public int print( Graphics pg, PageFormat pageFormat, int pageIndex ) throws PrinterException{
-		pg.translate((int) pageFormat.getImageableX(), (int) pageFormat.getImageableY());
+	public int print ( Graphics pg , PageFormat pageFormat , int pageIndex ) throws PrinterException{
+
+		pg.translate( (int) pageFormat.getImageableX() , (int) pageFormat.getImageableY() );
 		int wPage = (int) pageFormat.getImageableWidth();
 		int hPage = (int) pageFormat.getImageableHeight();
-		pg.setClip(0, 0, wPage, hPage);
+		pg.setClip( 0 , 0 , wPage , hPage );
 
-		pg.setColor(textArea.getBackground());
-		pg.fillRect(0, 0, wPage, hPage);
-		pg.setColor(textArea.getForeground());
+		pg.setColor( textArea.getBackground() );
+		pg.fillRect( 0 , 0 , wPage , hPage );
+		pg.setColor( textArea.getForeground() );
 
 		Font font = textArea.getFont();
-		pg.setFont(font);
+		pg.setFont( font );
 		FontMetrics fm = pg.getFontMetrics();
 		int hLine = fm.getHeight();
 
 		if ( lines == null ){
-			
-			lines = getLines(fm, wPage);
-			
+
+			lines = getLines( fm , wPage );
+
 		}else{
-			
-			//Nothing to do
-			
+
+			// Nothing to do
+
 		}
 
 		int numLines = lines.size();
-		int linesPerPage = Math.max(hPage / hLine, 1);
-		int numPages = (int) Math.ceil((double) numLines / (double) linesPerPage);
-		
+		int linesPerPage = Math.max( hPage / hLine , 1 );
+		int numPages = (int) Math.ceil( (double) numLines / (double) linesPerPage );
+
 		if ( pageIndex >= numPages ){
 			lines = null;
 			return NO_SUCH_PAGE;
 		}
-		
+
 		int x = 0;
 		int y = fm.getAscent();
 		int lineIndex = linesPerPage * pageIndex;
-		
+
 		while ( lineIndex < lines.size() && y < hPage ){
-			
-			String str = (String) lines.get(lineIndex);
-			pg.drawString(str, x, y);
+
+			String str = (String) lines.get( lineIndex );
+			pg.drawString( str , x , y );
 			y += hLine;
 			lineIndex++;
-			
+
 		}
 		return PAGE_EXISTS;
 	}
 
-	protected Vector getLines( FontMetrics fm, int wPage ){
+	protected Vector getLines ( FontMetrics fm , int wPage ){
+
 		Vector v = new Vector();
 
 		String text = textArea.getText();
 		String prevToken = "";
-		StringTokenizer st = new StringTokenizer(text, "\n\r", true);
-		
+		StringTokenizer st = new StringTokenizer( text , "\n\r" , true );
+
 		while ( st.hasMoreTokens() ){
 			String line = st.nextToken();
-			
-			if ( line.equals("\r") ){
-				continue;
-			}else{
-				// Nothing to do
-			}
-			
-			/*
-			 *  StringTokenizer will ignore empty lines, so it's a bit tricky to
-			 *  get them...
-			 */
-			if ( line.equals("\n") && prevToken.equals("\n") ){
-				v.add("");
-			}else{
-				// Nothing to do
-			}
-			prevToken = line;
-			if ( line.equals("\n") ){
+
+			if ( line.equals( "\r" ) ){
 				continue;
 			}else{
 				// Nothing to do
 			}
 
-			StringTokenizer st2 = new StringTokenizer(line, " \t", true);
+			/*
+			 * StringTokenizer will ignore empty lines, so it's a bit tricky to
+			 * get them...
+			 */
+			if ( line.equals( "\n" ) && prevToken.equals( "\n" ) ){
+				v.add( "" );
+			}else{
+				// Nothing to do
+			}
+			prevToken = line;
+			if ( line.equals( "\n" ) ){
+				continue;
+			}else{
+				// Nothing to do
+			}
+
+			StringTokenizer st2 = new StringTokenizer( line , " \t" , true );
 			String line2 = "";
-			
+
 			while ( st2.hasMoreTokens() ){
 				String token = st2.nextToken();
-				
-				if ( token.equals("\t") ){
-					
+
+				if ( token.equals( "\t" ) ){
+
 					int numSpaces = TAB_SIZE - line2.length() % TAB_SIZE;
 					token = "";
-					
+
 					for ( int k = 0 ; k < numSpaces ; k++ )
 						token += " ";
 				}else{
 					// Nothing to do
 				}
-				
-				int lineLength = fm.stringWidth(line2 + token);
-				
+
+				int lineLength = fm.stringWidth( line2 + token );
+
 				if ( lineLength > wPage && line2.length() > 0 ){
-					
-					v.add(line2);
+
+					v.add( line2 );
 					line2 = token.trim();
 					continue;
 				}else{
@@ -205,7 +206,7 @@ public class PrintingMembers extends JInternalFrame implements Printable{
 				}
 				line2 += token;
 			}
-			v.add(line2);
+			v.add( line2 );
 		}
 		return v;
 	}

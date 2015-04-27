@@ -484,8 +484,7 @@ public abstract class Actor extends Entity{
 		// Blast radius
 		int r = 0;
 
-		boolean wizzardAndTimerGreaterZero = this instanceof trl.entity.player.Wizard && this.timers[1] > 0
-				&& Game.tickTimer > 0;
+		boolean wizzardAndTimerGreaterZero = this instanceof trl.entity.player.Wizard && this.timers[1] > 0 && Game.tickTimer > 0;
 
 		if ( wizzardAndTimerGreaterZero ){
 
@@ -509,13 +508,11 @@ public abstract class Actor extends Entity{
 
 			for ( Node node : blastArea ){
 
-				int gameSizeY = ( Game.W_HEIGHT - Game.SCALED_TILE_SIZE )
-						- ( map.getDisplayedY( node ) * Game.SCALED_TILE_SIZE );
+				int gameSizeY = ( Game.W_HEIGHT - Game.SCALED_TILE_SIZE ) - ( map.getDisplayedY( node ) * Game.SCALED_TILE_SIZE );
 
 				int gameSizeX = map.getDisplayedX( node ) * Game.SCALED_TILE_SIZE;
 
-				g.drawImage( Game.getImageManager().fire , gameSizeX , gameSizeY , Game.SCALED_TILE_SIZE ,
-						Game.SCALED_TILE_SIZE , null );
+				g.drawImage( Game.getImageManager().fire , gameSizeX , gameSizeY , Game.SCALED_TILE_SIZE , Game.SCALED_TILE_SIZE , null );
 			}
 		}
 	}

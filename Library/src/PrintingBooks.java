@@ -17,50 +17,50 @@ public class PrintingBooks extends JInternalFrame implements Printable{
 
 	// Connection status
 	private Connection connection = null;
-	
+
 	// Creating the statement
 	private Statement statement = null;
-	
+
 	// Resultset from the statement which comes from the data base
 	private ResultSet resultset = null;
-	
+
 	// Constant of the URL from the database
 	private String URL = "jdbc:odbc:JLibrary";
-	
+
 	// For creating the text area
-	private JTextArea textArea = new JTextArea ();
-	
+	private JTextArea textArea = new JTextArea();
+
 	// For creating the vector to use it in the print
 	private Vector lines;
-	
+
 	// Tab size
 	public static final int TAB_SIZE = 5;
 
 	// Constructor of JLibrary
 	public PrintingBooks ( String query ){
 
-		super ( "Printing Books" , false , true , false , true );
+		super( "Printing Books" , false , true , false , true );
 
 		// For getting the graphical user interface components display area
-		Container cp = getContentPane ();
+		Container cp = getContentPane();
 
 		// For setting the font
-		textArea.setFont ( new Font ( "Tahoma" , Font.PLAIN , 9 ) );
+		textArea.setFont( new Font( "Tahoma" , Font.PLAIN , 9 ) );
 
 		// For adding the textarea to the container
-		cp.add ( textArea );
+		cp.add( textArea );
 
 		try{
 
-			Class.forName ( "sun.jdbc.odbc.JdbcOdbcDriver" );
+			Class.forName( "sun.jdbc.odbc.JdbcOdbcDriver" );
 
 		}catch ( ClassNotFoundException ea ){
 
-			System.out.println ( ea.toString () );
+			System.out.println( ea.toString() );
 
 		}catch ( Exception e ){
 
-			System.out.println ( e.toString () );
+			System.out.println( e.toString() );
 
 		}
 
@@ -72,67 +72,66 @@ public class PrintingBooks extends JInternalFrame implements Printable{
 
 		try{
 
-			connection = DriverManager.getConnection ( URL );
-			statement = connection.createStatement ();
-			resultset = statement.executeQuery ( query );
-			textArea.append ( "=============== Books Information ===============\n\n" );
+			connection = DriverManager.getConnection( URL );
+			statement = connection.createStatement();
+			resultset = statement.executeQuery( query );
+			textArea.append( "=============== Books Information ===============\n\n" );
 
-			while ( resultset.next () ){
+			while ( resultset.next() ){
 
-				textArea.append ( "Subject: "+ resultset.getString ( "Subject" )+ "\n"+ "Title: "
-						+ resultset.getString ( "Title" )+ "\n"+ "Author(s): "+ resultset.getString ( "Author" )+ "\n"
-						+ "Copyright: "+ resultset.getString ( "Copyright" )+ "\n"+ "Edition: "
-						+ resultset.getString ( "Edition" )+ "\n"+ "ISBN: "+ resultset.getString ( "ISBN" )+ "\n"
-						+ "Library: "+ resultset.getString ( "Library" )+ "\n\n" );
+				textArea.append( "Subject: " + resultset.getString( "Subject" ) + "\n" + "Title: " + resultset.getString( "Title" ) + "\n"
+						+ "Author(s): " + resultset.getString( "Author" ) + "\n" + "Copyright: " + resultset.getString( "Copyright" )
+						+ "\n" + "Edition: " + resultset.getString( "Edition" ) + "\n" + "ISBN: " + resultset.getString( "ISBN" ) + "\n"
+						+ "Library: " + resultset.getString( "Library" ) + "\n\n" );
 
 			}
 
-			textArea.append ( "=============== Books Information ===============" );
-			resultset.close ();
-			statement.close ();
-			connection.close ();
+			textArea.append( "=============== Books Information ===============" );
+			resultset.close();
+			statement.close();
+			connection.close();
 
 		}catch ( SQLException SQLe ){
-			System.out.println ( SQLe.toString () );
+			System.out.println( SQLe.toString() );
 		}
 		// For setting the visible to true
-		setVisible ( true );
-		
+		setVisible( true );
+
 		// To show the frame
-		pack ();
+		pack();
 	}
 
-	//Printing books
-	public int print( Graphics pg , PageFormat pageFormat , int pageIndex ) throws PrinterException{
+	// Printing books
+	public int print ( Graphics pg , PageFormat pageFormat , int pageIndex ) throws PrinterException{
 
-		pg.translate ( (int) pageFormat.getImageableX () , (int) pageFormat.getImageableY () );
+		pg.translate( (int) pageFormat.getImageableX() , (int) pageFormat.getImageableY() );
 
-		int wPage = (int) pageFormat.getImageableWidth ();
-		int hPage = (int) pageFormat.getImageableHeight ();
-		pg.setClip ( 0 , 0 , wPage , hPage );
+		int wPage = (int) pageFormat.getImageableWidth();
+		int hPage = (int) pageFormat.getImageableHeight();
+		pg.setClip( 0 , 0 , wPage , hPage );
 
-		pg.setColor ( textArea.getBackground () );
-		pg.fillRect ( 0 , 0 , wPage , hPage );
-		pg.setColor ( textArea.getForeground () );
+		pg.setColor( textArea.getBackground() );
+		pg.fillRect( 0 , 0 , wPage , hPage );
+		pg.setColor( textArea.getForeground() );
 
-		Font font = textArea.getFont ();
-		pg.setFont ( font );
-		FontMetrics fm = pg.getFontMetrics ();
-		int hLine = fm.getHeight ();
+		Font font = textArea.getFont();
+		pg.setFont( font );
+		FontMetrics fm = pg.getFontMetrics();
+		int hLine = fm.getHeight();
 
-		if ( lines== null ){
+		if ( lines == null ){
 
-			lines = getLines ( fm , wPage );
+			lines = getLines( fm , wPage );
 
 		}else{
 			// No action
 		}
 
-		int numLines = lines.size ();
-		int linesPerPage = Math.max ( hPage/ hLine , 1 );
-		int numPages = (int) Math.ceil ( (double) numLines/ (double) linesPerPage );
+		int numLines = lines.size();
+		int linesPerPage = Math.max( hPage / hLine , 1 );
+		int numPages = (int) Math.ceil( (double) numLines / (double) linesPerPage );
 
-		if ( pageIndex>= numPages ){
+		if ( pageIndex >= numPages ){
 			lines = null;
 			return NO_SUCH_PAGE;
 		}else{
@@ -140,13 +139,13 @@ public class PrintingBooks extends JInternalFrame implements Printable{
 		}
 
 		int x = 0;
-		int y = fm.getAscent ();
-		int lineIndex = linesPerPage* pageIndex;
+		int y = fm.getAscent();
+		int lineIndex = linesPerPage * pageIndex;
 
-		while ( lineIndex< lines.size ()&& y< hPage ){
+		while ( lineIndex < lines.size() && y < hPage ){
 
-			String str = (String) lines.get ( lineIndex );
-			pg.drawString ( str , x , y );
+			String str = (String) lines.get( lineIndex );
+			pg.drawString( str , x , y );
 			y += hLine;
 			lineIndex++;
 
@@ -154,28 +153,28 @@ public class PrintingBooks extends JInternalFrame implements Printable{
 		return PAGE_EXISTS;
 	}
 
-	protected Vector getLines( FontMetrics fm , int wPage ){
+	protected Vector getLines ( FontMetrics fm , int wPage ){
 
-		Vector v = new Vector ();
+		Vector v = new Vector();
 
-		String text = textArea.getText ();
+		String text = textArea.getText();
 		String prevToken = "";
-		StringTokenizer st = new StringTokenizer ( text , "\n\r" , true );
+		StringTokenizer st = new StringTokenizer( text , "\n\r" , true );
 
-		while ( st.hasMoreTokens () ){
+		while ( st.hasMoreTokens() ){
 
-			String line = st.nextToken ();
+			String line = st.nextToken();
 
-			if ( line.equals ( "\r" ) ){
+			if ( line.equals( "\r" ) ){
 
 				continue;
 			}
 
 			// StringTokenizer will ignore empty lines, so it's a bit tricky to
 			// get them...
-			if ( line.equals ( "\n" )&& prevToken.equals ( "\n" ) ){
+			if ( line.equals( "\n" ) && prevToken.equals( "\n" ) ){
 
-				v.add ( "" );
+				v.add( "" );
 
 			}else{
 				// No action
@@ -183,7 +182,7 @@ public class PrintingBooks extends JInternalFrame implements Printable{
 
 			prevToken = line;
 
-			if ( line.equals ( "\n" ) ){
+			if ( line.equals( "\n" ) ){
 
 				continue;
 
@@ -191,28 +190,28 @@ public class PrintingBooks extends JInternalFrame implements Printable{
 				// No action
 			}
 
-			StringTokenizer st2 = new StringTokenizer ( line , " \t" , true );
+			StringTokenizer st2 = new StringTokenizer( line , " \t" , true );
 			String line2 = "";
 
-			while ( st2.hasMoreTokens () ){
+			while ( st2.hasMoreTokens() ){
 
-				String token = st2.nextToken ();
+				String token = st2.nextToken();
 
-				if ( token.equals ( "\t" ) ){
-					int numSpaces = TAB_SIZE- line2.length ()% TAB_SIZE;
+				if ( token.equals( "\t" ) ){
+					int numSpaces = TAB_SIZE - line2.length() % TAB_SIZE;
 					token = "";
-					for ( int k = 0 ; k< numSpaces ; k++ )
+					for ( int k = 0 ; k < numSpaces ; k++ )
 						token += " ";
 				}else{
 					// No action
 				}
 
-				int lineLength = fm.stringWidth ( line2+ token );
+				int lineLength = fm.stringWidth( line2 + token );
 
-				if ( lineLength> wPage&& line2.length ()> 0 ){
+				if ( lineLength > wPage && line2.length() > 0 ){
 
-					v.add ( line2 );
-					line2 = token.trim ();
+					v.add( line2 );
+					line2 = token.trim();
 					continue;
 
 				}else{
@@ -220,7 +219,7 @@ public class PrintingBooks extends JInternalFrame implements Printable{
 				}
 				line2 += token;
 			}
-			v.add ( line2 );
+			v.add( line2 );
 		}
 		return v;
 	}

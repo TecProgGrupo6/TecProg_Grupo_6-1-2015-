@@ -1,5 +1,3 @@
-
-
 //import the packages for using the classes in them into the program
 
 import javax.swing.*;
@@ -7,23 +5,23 @@ import javax.swing.border.SoftBevelBorder;
 import java.awt.*;
 
 /**
- *A public class
+ * A public class
  */
 
-public class StatusBar extends JPanel {
-	
+public class StatusBar extends JPanel{
+
 	/***************************************************************************
-	 ***      declaration of the private variables used in the program       ***
+	 *** declaration of the private variables used in the program ***
 	 ***************************************************************************/
-	
-	private JLabel statusBar = new JLabel("  ");
+
+	private JLabel statusBar = new JLabel( "  " );
 
 	// Constructor of StatusBar
-	public StatusBar() {
-		
-		statusBar.setFont(new Font( "Tahoma", Font.BOLD, 9) );
+	public StatusBar (){
+
+		statusBar.setFont( new Font( "Tahoma" , Font.BOLD , 9 ) );
 		this.add( statusBar );
-		this.setBorder( new SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED) );
-		
+		this.setBorder( new SoftBevelBorder( javax.swing.border.BevelBorder.LOWERED ) );
+
 	}
 }
