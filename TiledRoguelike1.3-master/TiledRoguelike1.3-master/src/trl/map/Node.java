@@ -16,10 +16,10 @@ import trl.map.feature.Wall;
 public class Node{
 
 	// Coordinate x
-	private int x;
+	private int axisX;
 
 	// Coordinate y
-	private int y;
+	private int axisY;
 
 	// Representetion of the parent node
 	private Node parentNode;
@@ -80,8 +80,8 @@ public class Node{
 
 	public Node ( int x, int y, Map map ){
 
-		this.x = x;
-		this.y = y;
+		this.axisX = x;
+		this.axisY = y;
 		init();
 		this.map = map;
 	}
@@ -114,14 +114,14 @@ public class Node{
 		return false;
 	}
 
-	public int getX (){
+	public int getAxisX (){
 
-		return x;
+		return axisX;
 	}
 
-	public int getY (){
+	public int getAxisY (){
 
-		return y;
+		return axisY;
 	}
 
 	public List<Entity> getEntities (){
@@ -176,7 +176,7 @@ public class Node{
 	public void setGScore (){
 
 		// Check for diagonal movement. G score = 14.
-		if ( x != getParent().getX() && y != getParent().getY() ){
+		if ( axisX != getParent().getAxisX() && axisY != getParent().getAxisY() ){
 			gScore = getParent().getGScore() + 14;
 		}
 		// Orthogonal movement cost = 10
@@ -184,8 +184,8 @@ public class Node{
 			gScore = getParent().getGScore() + 10;
 		}
 		// Check map node at this node's coords for enemy occupation
-		if ( map.getNode( x , y ) != null ){
-			if ( map.getNode( x , y ).checkEntityByID( (byte) 0 ) ){
+		if ( map.getNode( axisX , axisY ) != null ){
+			if ( map.getNode( axisX , axisY ).checkEntityByID( (byte) 0 ) ){
 				gScore += 70;
 			}else{
 				// Nothing
@@ -213,7 +213,7 @@ public class Node{
 	public int getGScore (){
 
 		// Check for diagonal movement. G score = 14.
-		if ( this.x != this.parentNode.x && this.y != this.parentNode.y ){
+		if ( this.axisX != this.parentNode.axisX && this.axisY != this.parentNode.axisY ){
 			return this.parentNode.gScore + 14;
 		}else{
 			return this.parentNode.gScore + 10;
@@ -222,7 +222,7 @@ public class Node{
 
 	public void setHScore ( Node endNode ){
 
-		this.hScore = 10 * ( Math.abs( x - endNode.getX() ) + Math.abs( y - endNode.getY() ) );
+		this.hScore = 10 * ( Math.abs( axisX - endNode.getAxisX() ) + Math.abs( axisY - endNode.getAxisY() ) );
 	}
 
 	public int getHScore (){
@@ -247,8 +247,8 @@ public class Node{
 
 	public boolean adjacent ( Node node ){
 
-		if ( this.x == node.x || this.x == node.x - 1 || this.x == node.x + 1 ){
-			if ( this.y == node.y || this.y == node.y - 1 || this.y == node.y + 1 ){
+		if ( this.axisX == node.axisX || this.axisX == node.axisX - 1 || this.axisX == node.axisX + 1 ){
+			if ( this.axisY == node.axisY || this.axisY == node.axisY - 1 || this.axisY == node.axisY + 1 ){
 				return true;
 			}else{
 				// Nothing
@@ -564,12 +564,13 @@ public class Node{
 	public boolean equals ( Object other ){
 
 		Node node = (Node) other;
-		return ( this.x == node.x && this.y == node.y );
+		return ( this.axisX == node.axisX && this.axisY == node.axisY );
 	}
 
 	@Override
 	public int hashCode (){
 
-		return ( ( this.x + 3 ) * 31 ) ^ ( ( this.y + 7 ) * 43 );
+		return ( ( this.axisX + 3 ) * 31 ) ^ ( ( this.axisY + 7 ) * 43 );
 	}
+
 }

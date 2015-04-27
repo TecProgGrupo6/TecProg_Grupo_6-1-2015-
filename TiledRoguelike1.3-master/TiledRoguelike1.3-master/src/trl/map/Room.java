@@ -263,7 +263,7 @@ public class Room{
 	public Room getOccupiedRoom ( Node node ){
 
 		Room[][] rooms = map.getRooms();
-		Point position = new Point( node.getX() , node.getY() );
+		Point position = new Point( node.getAxisX() , node.getAxisY() );
 		for ( int x = 0 ; x < rooms.length ; x++ ){
 			for ( int y = 0 ; y < rooms[0].length ; y++ ){
 				if ( rooms[x][y].boundary.contains( position ) ){

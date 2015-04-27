@@ -111,8 +111,8 @@ public abstract class Player extends Actor{
 
 				if ( xCoordinateAndColumns && yCoordinateAndRows ){
 
-					int summX = getX() + x;
-					int summY = getY() + y;
+					int summX = getAxisX() + x;
+					int summY = getAxisY() + y;
 					Node adjacent = map.getNode( summX , summY );
 
 					if ( adjacent != null ){
@@ -634,11 +634,11 @@ public abstract class Player extends Actor{
 	public void printEnemiesList (){
 
 		System.out.println( "=== Enemies ===" );
-		System.out.println( "Player at " + getX() + "," + getY() );
+		System.out.println( "Player at " + getAxisX() + "," + getAxisY() );
 
 		for ( Enemy enemy : GameplayState.getEnemyGroup().getEnemies() ){
-			String enemyPrint = enemy.toString().substring( enemy.toString().lastIndexOf( '.' ) ) + " at " + enemy.getX() + ","
-					+ enemy.getY() + " v2p=" + enemy.getVisibleToPlayer() + " ,aop=" + enemy.awareOfPlayer() + ", sbp="
+			String enemyPrint = enemy.toString().substring( enemy.toString().lastIndexOf( '.' ) ) + " at " + enemy.getAxisX() + ","
+					+ enemy.getAxisY() + " v2p=" + enemy.getVisibleToPlayer() + " ,aop=" + enemy.awareOfPlayer() + ", sbp="
 					+ enemy.seenByPlayer();
 
 			System.out.println( enemyPrint );
@@ -698,81 +698,81 @@ public abstract class Player extends Actor{
 
 		Node nextNode = null;
 
-		if ( upDirection && getY() < Game.ROWS - 1 ){
+		if ( upDirection && getAxisY() < Game.ROWS - 1 ){
 
 			upDirection = false;
-			nextNode = map.getNode( getX() , getY() + 1 );
+			nextNode = map.getNode( getAxisX() , getAxisY() + 1 );
 		}else{
 
 			// Nothing to do
 		}
 
-		if ( downDirection && getY() >= 1 ){
+		if ( downDirection && getAxisY() >= 1 ){
 
 			downDirection = false;
-			nextNode = map.getNode( getX() , getY() - 1 );
+			nextNode = map.getNode( getAxisX() , getAxisY() - 1 );
 		}else{
 
 			// Nothing to do
 		}
 
-		if ( leftDirection && getX() >= 1 ){
+		if ( leftDirection && getAxisX() >= 1 ){
 
 			leftDirection = false;
-			nextNode = map.getNode( getX() - 1 , getY() );
+			nextNode = map.getNode( getAxisX() - 1 , getAxisY() );
 		}else{
 
 			// Nothing to do
 		}
 
-		if ( rightDirection && getX() < Game.COLUMNS - 1 ){
+		if ( rightDirection && getAxisX() < Game.COLUMNS - 1 ){
 
 			rightDirection = false;
-			nextNode = map.getNode( getX() + 1 , getY() );
+			nextNode = map.getNode( getAxisX() + 1 , getAxisY() );
 		}else{
 
 			// Nothing to do
 		}
 
-		boolean upRightYRowsColumns = upRightDirection && getY() < Game.ROWS - 1 && getX() < Game.COLUMNS - 1;
+		boolean upRightYRowsColumns = upRightDirection && getAxisY() < Game.ROWS - 1 && getAxisX() < Game.COLUMNS - 1;
 
 		if ( upRightYRowsColumns ){
 
 			upRightDirection = false;
-			nextNode = map.getNode( getX() + 1 , getY() + 1 );
+			nextNode = map.getNode( getAxisX() + 1 , getAxisY() + 1 );
 		}else{
 
 			// Nothing to do
 		}
 
-		boolean downRightYXColumns = downRightDirection && getY() >= 1 && getX() < Game.COLUMNS - 1;
+		boolean downRightYXColumns = downRightDirection && getAxisY() >= 1 && getAxisX() < Game.COLUMNS - 1;
 
 		if ( downRightYXColumns ){
 
 			downRightDirection = false;
-			nextNode = map.getNode( getX() + 1 , getY() - 1 );
+			nextNode = map.getNode( getAxisX() + 1 , getAxisY() - 1 );
 		}else{
 
 			// Nothing to do
 		}
 
-		boolean downLeftYX = downLeftDirection && getY() >= 1 && getX() >= 1;
+		boolean downLeftYX = downLeftDirection && getAxisY() >= 1 && getAxisX() >= 1;
 
 		if ( downLeftYX ){
 
 			downLeftDirection = false;
-			nextNode = map.getNode( getX() - 1 , getY() - 1 );
+			nextNode = map.getNode( getAxisX() - 1 , getAxisY() - 1 );
 		}else{
 
 			// Nothing to do
 		}
 
-		boolean upLeftYRowsX = upLeftDirection && getY() < Game.ROWS - 1 && getX() >= 1;
+		boolean upLeftYRowsX = upLeftDirection && getAxisY() < Game.ROWS - 1 && getAxisX() >= 1;
 
 		if ( upLeftYRowsX ){
 
 			upLeftDirection = false;
-			nextNode = map.getNode( getX() - 1 , getY() + 1 );
+			nextNode = map.getNode( getAxisX() - 1 , getAxisY() + 1 );
 		}else{
 
 			// Nothing to do
@@ -961,7 +961,8 @@ public abstract class Player extends Actor{
 
 			for ( int y = startY ; y < startY + Game.W_ROWS ; y++ ){
 
-				boolean isNodeNullAndNodeCheckedID = map.getNode( x , y ) != null && map.getNode( x , y ).checkEntityByID( (byte) 0 );
+				boolean isNodeNullAndNodeCheckedID = map.getNode( x , y ) != null && map.getNode( x , y )
+													.checkEntityByID( (byte) 0 );
 
 				if ( isNodeNullAndNodeCheckedID ){
 

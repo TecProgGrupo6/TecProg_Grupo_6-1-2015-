@@ -45,14 +45,14 @@ public class Entity{
 		return this.image;
 	}
 
-	public int getX (){
+	public int getAxisX (){
 
-		return this.loc.getX();
+		return this.loc.getAxisX();
 	}
 
-	public int getY (){
+	public int getAxisY (){
 
-		return loc.getY();
+		return loc.getAxisY();
 	}
 
 	/*
@@ -61,11 +61,11 @@ public class Entity{
 	 */
 	public boolean inDisplayedNodes (){
 
-		int x = Map.displayedNodesMinX;
-		int y = Map.displayedNodesMinY;
+		int axisX = Map.displayedNodesMinX;
+		int axisY = Map.displayedNodesMinY;
 
-		boolean inXrange = getX() >= x && getX() < x + Game.W_COLS;
-		boolean inYrange = getY() >= y && getY() < y + Game.W_ROWS;
+		boolean inXrange = getAxisX() >= axisX && getAxisX() < axisX + Game.W_COLS;
+		boolean inYrange = getAxisY() >= axisY && getAxisY() < axisY + Game.W_ROWS;
 
 		if ( inXrange && inYrange ){
 
@@ -90,7 +90,7 @@ public class Entity{
 	public Room getOccupiedRoom ( Node node ){
 
 		Room[][] rooms = map.getRooms();
-		Point position = new Point( node.getX() , node.getY() );
+		Point position = new Point( node.getAxisX() , node.getAxisY() );
 
 		for ( int x = 0 ; x < rooms.length ; x++ ){
 

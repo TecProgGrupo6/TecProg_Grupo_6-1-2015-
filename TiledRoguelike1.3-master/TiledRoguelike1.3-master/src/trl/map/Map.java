@@ -81,8 +81,8 @@ public class Map{
 		// Determine adjacent nodes to argument node
 		for ( int x = -1 ; x <= 1 ; x++ ){
 			for ( int y = 1 ; y >= -1 ; y-- ){
-				int candXPos = node.getX() + x;
-				int candYPos = node.getY() + y;
+				int candXPos = node.getAxisX() + x;
+				int candYPos = node.getAxisY() + y;
 				if ( ( candXPos >= 0 && candXPos < Game.COLUMNS ) && ( candYPos >= 0 && candYPos < Game.ROWS ) ){
 					/*
 					 * New node at coordinates if it is within bounds of the map
@@ -94,9 +94,9 @@ public class Map{
 					 * Make sure candidate node is not obstructed or in the
 					 * closed list
 					 */
-					if ( isLegalCell( getNode( candidate.getX() , candidate.getY() ) )
-							|| getNode( candidate.getX() , candidate.getY() ).getFeature() instanceof trl.map.feature.DoorClosed
-							|| getNode( candidate.getX() , candidate.getY() ).getFeature() instanceof trl.map.feature.DoorOpen ){
+					if ( isLegalCell( getNode( candidate.getAxisX() , candidate.getAxisY() ) )
+							|| getNode( candidate.getAxisX() , candidate.getAxisY() ).getFeature() instanceof trl.map.feature.DoorClosed
+							|| getNode( candidate.getAxisX() , candidate.getAxisY() ).getFeature() instanceof trl.map.feature.DoorOpen ){
 
 						candidate.setParent( node );
 						candidate.setGScore();
@@ -157,8 +157,8 @@ public class Map{
 			for ( int y = 1 ; y >= -1 ; y-- ){
 				if ( ( x == 0 && y == 1 ) || ( x == 0 && y == -1 ) || ( x == -1 && y == 0 ) || ( x == 1 && y == 0 ) ){
 
-					int candXPos = node.getX() + x;
-					int candYPos = node.getY() + y;
+					int candXPos = node.getAxisX() + x;
+					int candYPos = node.getAxisY() + y;
 					if ( ( candXPos >= 0 && candXPos < Game.COLUMNS ) && ( candYPos >= 0 && candYPos < Game.ROWS ) ){
 						/*
 						 * New node at coordinates if it is within bounds of the
@@ -173,7 +173,7 @@ public class Map{
 						 * candidate.getY()))) {
 						 */
 
-						getNode( candidate.getX() , candidate.getY() );
+						getNode( candidate.getAxisX() , candidate.getAxisY() );
 						candidate.setParent( node );
 						candidate.setGScore();
 						candidate.setHScore( endNode );
@@ -235,8 +235,8 @@ public class Map{
 			Node toCheck = itChecking.next();
 			for ( int x = -1 ; x <= 1 ; x++ ){
 				for ( int y = 1 ; y >= -1 ; y-- ){
-					int candXPos = toCheck.getX() + x;
-					int candYPos = toCheck.getY() + y;
+					int candXPos = toCheck.getAxisX() + x;
+					int candYPos = toCheck.getAxisY() + y;
 					if ( ( candXPos >= 0 && candXPos < hSize ) && ( candYPos >= 0 && candYPos < vSize ) ){
 						/*
 						 * Get node at coordinates if it is within bounds of the
@@ -341,10 +341,10 @@ public class Map{
 		List<Node> closedList = new ArrayList<Node>();
 		endNodeFound = false;
 
-		Node startNode = new Node( start.getX() , start.getY() , this );
+		Node startNode = new Node( start.getAxisX() , start.getAxisY() , this );
 		startNode.setParent( startNode );
 
-		Node endNode = new Node( end.getX() , end.getY() , this );
+		Node endNode = new Node( end.getAxisX() , end.getAxisY() , this );
 		startNode.setGScore( 0 );
 		startNode.setHScore( endNode );
 		startNode.setFScore();
@@ -375,10 +375,10 @@ public class Map{
 		List<Node> closedList = new ArrayList<Node>();
 		endNodeFound = false;
 
-		Node startNode = new Node( start.getX() , start.getY() , this );
+		Node startNode = new Node( start.getAxisX() , start.getAxisY() , this );
 		startNode.setParent( startNode );
 
-		Node endNode = new Node( end.getX() , end.getY() , this );
+		Node endNode = new Node( end.getAxisX() , end.getAxisY() , this );
 		startNode.setGScore( 0 );
 		startNode.setHScore( endNode );
 		startNode.setFScore();
@@ -457,8 +457,8 @@ public class Map{
 	public List<Node> getAoENodes ( Node origin , int radius ){
 
 		List<Node> aoe = new ArrayList<Node>();
-		for ( int x = origin.getX() - radius ; x <= origin.getX() + radius ; x++ ){
-			for ( int y = origin.getY() - radius ; y <= origin.getY() + radius ; y++ ){
+		for ( int x = origin.getAxisX() - radius ; x <= origin.getAxisX() + radius ; x++ ){
+			for ( int y = origin.getAxisY() - radius ; y <= origin.getAxisY() + radius ; y++ ){
 				if ( mapGrid[x][y] != null && mapGrid[x][y].getFeature().isPassable() && isVisibleToPlayer( mapGrid[x][y] ) ){
 					aoe.add( mapGrid[x][y] );
 				}else{
@@ -546,7 +546,7 @@ public class Map{
 			for ( x = 0 ; x < Game.W_COLS ; x++ ){
 				for ( y = 0 ; y < Game.W_ROWS ; y++ ){
 					if ( displayedNodes[x][y] != null ){
-						return new Node( displayedNodes[x][y].getX() - x , displayedNodes[x][y].getY() - y , this );
+						return new Node( displayedNodes[x][y].getAxisX() - x , displayedNodes[x][y].getAxisY() - y , this );
 					}else{
 						// Nothing
 					}
@@ -570,7 +570,7 @@ public class Map{
 		 * The method call will handle the possibility that the origin node is
 		 * null.
 		 */
-		return node.getX() - displayedNodesMinX;
+		return node.getAxisX() - displayedNodesMinX;
 	}
 
 	public int getDisplayedY ( Node node ){
@@ -580,16 +580,16 @@ public class Map{
 		 * node list's origin y. This should be the relative column in the game
 		 * window. return node.getY() - displayedNodes[0][0].getY();
 		 */
-		return node.getY() - displayedNodesMinY;
+		return node.getAxisY() - displayedNodesMinY;
 	}
 
 	public List<Node> getRoomConnection ( Node start , Node end ){
 
 		List<Node> line = new ArrayList<Node>();
-		int x0 = start.getX();
-		int y0 = start.getY();
-		int x1 = end.getX();
-		int y1 = end.getY();
+		int x0 = start.getAxisX();
+		int y0 = start.getAxisY();
+		int x1 = end.getAxisX();
+		int y1 = end.getAxisY();
 		int dx = Math.abs( x1 - x0 );
 		int dy = Math.abs( y1 - y0 );
 
@@ -625,10 +625,10 @@ public class Map{
 	public List<Node> getLine ( Node start , Node end ){
 
 		List<Node> line = new ArrayList<Node>();
-		int x0 = start.getX();
-		int y0 = start.getY();
-		int x1 = end.getX();
-		int y1 = end.getY();
+		int x0 = start.getAxisX();
+		int y0 = start.getAxisY();
+		int x1 = end.getAxisX();
+		int y1 = end.getAxisY();
 		int dx = Math.abs( x1 - x0 );
 		int dy = Math.abs( y1 - y0 );
 
@@ -697,7 +697,7 @@ public class Map{
 		int i = 0;
 
 		while ( !current.getParent().equals( current ) ){
-			path.add( i , getNode( current.getX() , current.getY() ) );
+			path.add( i , getNode( current.getAxisX() , current.getAxisY() ) );
 			current = current.getParent();
 			i++;
 		}
@@ -811,8 +811,8 @@ public class Map{
 
 	public boolean isLegalCell ( Node node ){
 
-		if ( node.getX() >= 0 && node.getX() < Game.COLUMNS ){
-			if ( node.getY() >= 0 && node.getY() < Game.ROWS ){
+		if ( node.getAxisX() >= 0 && node.getAxisX() < Game.COLUMNS ){
+			if ( node.getAxisY() >= 0 && node.getAxisY() < Game.ROWS ){
 				if ( node.getFeature().isPassable() ){
 					return true;
 				}else{
@@ -994,19 +994,19 @@ public class Map{
 		 */
 
 		int startX = 0 , startY = 0;
-		if ( GameplayState.getPlayer().getX() <= Game.W_COLS / 2 ){
+		if ( GameplayState.getPlayer().getAxisX() <= Game.W_COLS / 2 ){
 			startX = 0;
-		}else if ( GameplayState.getPlayer().getX() + ( Game.W_COLS / 2 ) >= Game.COLUMNS ){
+		}else if ( GameplayState.getPlayer().getAxisX() + ( Game.W_COLS / 2 ) >= Game.COLUMNS ){
 			startX = Game.COLUMNS - Game.W_COLS;
 		}else{
-			startX = GameplayState.getPlayer().getX() - (int) ( Game.W_COLS / 2 );
+			startX = GameplayState.getPlayer().getAxisX() - (int) ( Game.W_COLS / 2 );
 		}
-		if ( GameplayState.getPlayer().getY() <= Game.W_ROWS / 2 ){
+		if ( GameplayState.getPlayer().getAxisY() <= Game.W_ROWS / 2 ){
 			startY = 0;
-		}else if ( GameplayState.getPlayer().getY() + (int) ( Game.W_ROWS / 2 ) >= Game.COLUMNS ){
+		}else if ( GameplayState.getPlayer().getAxisY() + (int) ( Game.W_ROWS / 2 ) >= Game.COLUMNS ){
 			startY = Game.COLUMNS - Game.W_COLS;
 		}else{
-			startY = GameplayState.getPlayer().getY() - Game.W_ROWS / 2;
+			startY = GameplayState.getPlayer().getAxisY() - Game.W_ROWS / 2;
 		}
 
 		for ( int x = 0 ; x < Game.W_COLS ; x++ ){
@@ -1179,7 +1179,7 @@ public class Map{
 		}else{
 			// Nothing
 		}
-		mapGrid[node.getX()][node.getY()] = node;
+		mapGrid[node.getAxisX()][node.getAxisY()] = node;
 	}
 
 	public void setDisplayedNodesMinX (){
@@ -1199,7 +1199,7 @@ public class Map{
 				for ( y = 0 ; y < Game.W_ROWS ; y++ ){
 					if ( displayedNodes[x][y] != null ){
 
-						displayedNodesMinX = displayedNodes[x][y].getX() - x;
+						displayedNodesMinX = displayedNodes[x][y].getAxisX() - x;
 						nonNullFound = true;
 						break;
 					}else{
@@ -1214,7 +1214,7 @@ public class Map{
 			}
 		}else{
 			// If origin node is non-null, just return its x value
-			displayedNodesMinX = displayedNodes[0][0].getX();
+			displayedNodesMinX = displayedNodes[0][0].getAxisX();
 		}
 	}
 
@@ -1234,7 +1234,7 @@ public class Map{
 			for ( x = 0 ; x < Game.W_COLS ; x++ ){
 				for ( y = 0 ; y < Game.W_ROWS ; y++ ){
 					if ( displayedNodes[x][y] != null ){
-						displayedNodesMinY = displayedNodes[x][y].getY() - y;
+						displayedNodesMinY = displayedNodes[x][y].getAxisY() - y;
 						nonNullFound = true;
 						break;
 					}else{
@@ -1249,7 +1249,7 @@ public class Map{
 			}
 		}else{
 			// If origin node non-null, return its y value
-			displayedNodesMinY = displayedNodes[0][0].getY();
+			displayedNodesMinY = displayedNodes[0][0].getAxisY();
 		}
 	}
 
@@ -1285,7 +1285,7 @@ public class Map{
 
 	public boolean inRoom ( Node node ){
 
-		Point loc = new Point( node.getX() , node.getY() );
+		Point loc = new Point( node.getAxisX() , node.getAxisY() );
 		for ( int x = 0 ; x < rooms.length ; x++ ){
 			for ( int y = 0 ; y < rooms[0].length ; y++ ){
 				if ( rooms[x][y].getBoundary().contains( loc ) ){
