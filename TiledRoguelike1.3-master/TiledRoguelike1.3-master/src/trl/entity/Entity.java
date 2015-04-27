@@ -64,7 +64,10 @@ public class Entity{
 		int x = Map.displayedNodesMinX;
 		int y = Map.displayedNodesMinY;
 
-		if ( getX ()>= x&& getX ()< x+ Game.W_COLS&& getY ()>= y&& getY ()< y+ Game.W_ROWS ){
+		boolean inXrange = getX() >= x && getX() < x+ Game.W_COLS;
+		boolean inYrange = getY() >= y && getY() < y+ Game.W_ROWS;
+		
+		if ( inXrange && inYrange ){
 
 			return true;
 		}else{
