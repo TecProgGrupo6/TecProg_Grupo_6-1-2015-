@@ -91,8 +91,8 @@ public class Borrow {
 		}
 	}
 
-	//Updating the borrowing
-	public void update( String Query ) {
+	//Executing the class
+	public void executeClass(){
 		try {
 			Class.forName("sun.jdbc.odbc.JdbcOdbcDriver");
 		}
@@ -103,11 +103,17 @@ public class Borrow {
 			System.out.println("Borrow.java\n" + e.toString());
 		}
 		
-		/***************************************************************
-		 * for making the connection,creating the statement and update *
-		 * the table in the database. After that,closing the statmenet *
-		 * and connection. There is catch block SQLException for error *
-		 ***************************************************************/
+	}
+	
+	/***************************************************************
+	 * for making the connection,creating the statement and update *
+	 * the table in the database. After that,closing the statmenet *
+	 * and connection. There is catch block SQLException for error *
+	 ***************************************************************/
+	//Updating the borrowing
+	public void update( String Query ) {
+		executeClass();
+
 		try {
 			
 			connection = DriverManager.getConnection(URL);
