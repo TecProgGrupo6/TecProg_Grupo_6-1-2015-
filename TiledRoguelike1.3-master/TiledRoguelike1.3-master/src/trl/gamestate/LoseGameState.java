@@ -27,40 +27,59 @@ public class LoseGameState extends GameState{
 	public void tick (){
 
 		if ( up ){
+			
 			if ( choice == 0 ){
+				
 				choice = 1;
 			}else{
+				
 				choice = 0;
 			}
+			
 			up = false;
 		}else{
+			
 			// nothing
 		}
 		if ( down ){
+			
 			if ( choice == 1 ){
+				
 				choice = 0;
 			}else{
+				
 				choice = 1;
 			}
+			
 			down = false;
 		}else{
+			
 			// nothing
 		}
 		if ( enter ){
+			
 			if ( choice == 0 ){
+				
 				Game.getGameStateManager().removeGameState( 0 );
 				Game.getGameStateManager().addGameState( 0 , new MenuState() );
 				Game.getGameStateManager().setGameState( 0 );
+				
 			}else{
+				
 				// nothing
 			}
+			
 			if ( choice == 1 ){
+				
 				Game.running = false;
 			}else{
+				
 				// nothing
 			}
+			
 			enter = false;
 		}else{
+			
 			// nothing
 		}
 
@@ -68,30 +87,44 @@ public class LoseGameState extends GameState{
 
 	public void render ( Graphics g ){
 
-		int originX = Game.W_WIDTH / 4;
-		int originY = Game.W_HEIGHT / 4;
-		int width = Game.W_WIDTH / 2;
-		int height = Game.W_HEIGHT / 2;
+		final int QUARTER = 4;
+		final int HALF = 2;
+		
+		int originX = Game.W_WIDTH / QUARTER;
+		int originY = Game.W_HEIGHT / QUARTER;
+		int width = Game.W_WIDTH / HALF;
+		int height = Game.W_HEIGHT / HALF;
+		
 		g.setColor( Color.BLACK );
 		g.fillRect( originX , originY , width , height );
+		
 		int linePosition = originY;
-		linePosition += 16;
+		linePosition = linePosition + 16;
+		
 		String exitMessage = "You were defeated after killing " + enemiesDefeated + " enemies";
+		
 		g.setColor( Color.WHITE );
 		// g.drawString(exitMessage, (Game.W_WIDTH -
 		// g.getFontMetrics().stringWidth(exitMessage)) / 2, 0);
-		g.drawString( exitMessage , ( Game.W_WIDTH - g.getFontMetrics().stringWidth( exitMessage ) ) / 2 , linePosition );
-		linePosition += 16;
-		g.drawString( "Play again?" , ( Game.W_WIDTH - g.getFontMetrics().stringWidth( "Play again?" ) ) / 2 , linePosition );
-		linePosition += 16;
+		
+		g.drawString( exitMessage , ( Game.W_WIDTH - g.getFontMetrics().stringWidth( exitMessage ) ) / HALF , linePosition );
+		linePosition = linePosition + 16;
+		
+		g.drawString( "Play again?" , ( Game.W_WIDTH - g.getFontMetrics().stringWidth( "Play again?" ) ) / HALF , linePosition );
+		linePosition = linePosition + 16;
+		
 		for ( int i = 0 ; i < choices.length ; i++ ){
+			
 			if ( i == choice ){
+				
 				g.setColor( Color.YELLOW );
 			}else{
+				
 				g.setColor( Color.WHITE );
 			}
-			g.drawString( choices[i] , ( Game.W_WIDTH - g.getFontMetrics().stringWidth( choices[i] ) ) / 2 , linePosition );
-			linePosition += 16;
+			
+			g.drawString( choices[i] , ( Game.W_WIDTH - g.getFontMetrics().stringWidth( choices[i] ) ) / HALF , linePosition );
+			linePosition = linePosition + 16;
 		}
 	}
 }
