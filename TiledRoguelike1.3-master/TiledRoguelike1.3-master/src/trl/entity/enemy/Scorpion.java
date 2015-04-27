@@ -7,16 +7,16 @@ public class Scorpion extends Enemy{
 
 	public Scorpion ( Map map ){
 
-		super ( map );
-		init ();
+		super( map );
+		init();
 	}
 
 	// Initiliaze Scorpion
-	public void init(){
+	public void init (){
 
 		maxHP = 12;
 		attack = 5;
-		image = Game.getImageManager ().scorpion;
+		image = Game.getImageManager().scorpion;
 		hp = maxHP;
 		xpReward = 6;
 		level = 6;

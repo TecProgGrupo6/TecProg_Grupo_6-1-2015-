@@ -18,13 +18,14 @@ import trl.graphics.ImageManager;
 import trl.graphics.SpriteSheet;
 import trl.map.Map;
 
-public class Game extends Canvas implements Runnable, MouseListener{
+public class Game extends Canvas implements Runnable , MouseListener{
+
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	public static final int ROWS = 40, COLUMNS = 40; // Map rows and columns
-	public static final int W_ROWS = 11, W_COLS = 11; // Displayed nodes
+	public static final int ROWS = 40 , COLUMNS = 40; // Map rows and columns
+	public static final int W_ROWS = 11 , W_COLS = 11; // Displayed nodes
 	public static int SCALE = 2;
 	public static final int TILE_SIZE = 30;
 	public static final int SCALED_TILE_SIZE = TILE_SIZE * SCALE;
@@ -47,90 +48,94 @@ public class Game extends Canvas implements Runnable, MouseListener{
 	public static int turnCounter;
 	private static GameStateManager gsm;
 
-	public void init(){
+	public void init (){
+
 		ImageLoader loader = new ImageLoader();
-		spriteSheet = loader.load("/tiled_roguelike_sheet.png");
-		SpriteSheet ss = new SpriteSheet(spriteSheet);
-		im = new ImageManager(ss);
+		spriteSheet = loader.load( "/tiled_roguelike_sheet.png" );
+		SpriteSheet ss = new SpriteSheet( spriteSheet );
+		im = new ImageManager( ss );
 		gsm = new GameStateManager();
-		gsm.setGameState(GameStateManager.MENU_STATE);
-		this.addKeyListener(new KeyManager(gsm));
-		this.addMouseListener(this);
+		gsm.setGameState( GameStateManager.MENU_STATE );
+		this.addKeyListener( new KeyManager( gsm ) );
+		this.addMouseListener( this );
 		tickTimer = 0;
 	}
 
-	public synchronized void start(){
-		if(running){
+	public synchronized void start (){
+
+		if ( running ){
 			return;
-		} else{
+		}else{
 			// Nothing
 		}
 		running = true;
-		gameThread = new Thread(this);
+		gameThread = new Thread( this );
 		gameThread.start();
 	}
 
-	public synchronized void stop(){
-		if(!running){
+	public synchronized void stop (){
+
+		if ( !running ){
 			return;
-		} else{
+		}else{
 			// Nothing
 		}
 		running = false;
 		try{
 			gameThread.join();
-		} catch (InterruptedException e){
+		}catch ( InterruptedException e ){
 			e.printStackTrace();
 		}
 	}
 
-	public void run(){
+	public void run (){
+
 		init();
-		long beforeTime, afterTime, timeDiff, sleepTime;
+		long beforeTime , afterTime , timeDiff , sleepTime;
 		long overSleepTime = 0L;
 		int noDelays = 0;
 		long excess = 0L;
 
 		beforeTime = System.nanoTime();
 		running = true;
-		int period = (1000 / TARGET_FPS) * 1000000;
+		int period = ( 1000 / TARGET_FPS ) * 1000000;
 		long elapsed = 0;
 		long lastElapsed = 0;
 		// long maxTime = 0;
 
-		while (running){
+		while ( running ){
 			gameUpdate();
 			gameRender();
 			// paintScreen();
 
 			afterTime = System.nanoTime();
 			timeDiff = afterTime - beforeTime;
-			sleepTime = (period - timeDiff) - overSleepTime;
+			sleepTime = ( period - timeDiff ) - overSleepTime;
 
-			if(sleepTime > 0){
+			if ( sleepTime > 0 ){
 				// System.out.println("Sleep time > 0");
 				try{
-					Thread.sleep(sleepTime / 1000000L);
-				} catch (InterruptedException e){
+					Thread.sleep( sleepTime / 1000000L );
+				}catch ( InterruptedException e ){
 				}
 
-				overSleepTime = (System.nanoTime() - afterTime) - sleepTime;
-			} else{
+				overSleepTime = ( System.nanoTime() - afterTime ) - sleepTime;
+			}else{
 				// System.out.println("No sleep time.");
 				excess -= sleepTime;
 				overSleepTime = 0L;
 
-				if(++noDelays >= NO_DELAYS_PER_YIELD){
+				if ( ++noDelays >= NO_DELAYS_PER_YIELD ){
 					// System.out.println("Forced yield thread.");
 					Thread.yield();
 					noDelays = 0;
-				} else{
+				}else{
 					// Nothing
 				}
 			}
 
 			int skips = 0;
-			while (excess > period && skips < MAX_FRAME_SKIPS){
+			while ( excess > period && skips < MAX_FRAME_SKIPS ){
 				// System.out.println("Skipping frame. " + skips);
 				excess -= period;
 				gameUpdate();
@@ -138,111 +143,115 @@ public class Game extends Canvas implements Runnable, MouseListener{
 			}
 
 			elapsed = System.nanoTime() - beforeTime;
-			if(elapsed / 1000000 > maxUpdateTime){
+			if ( elapsed / 1000000 > maxUpdateTime ){
 				maxUpdateTime = elapsed / 1000000;
-			} else{
+			}else{
 				// Nothing
 			}
 
-			fps = (1 / ((.5d * elapsed + .5d * lastElapsed) / 1000000)) * 1000;
+			fps = ( 1 / ( ( .5d * elapsed + .5d * lastElapsed ) / 1000000 ) ) * 1000;
 			lastElapsed = elapsed;
 			beforeTime = System.nanoTime();
 		}
 	}
 
-	public void gameUpdate(){
-		if(tickTimer > 0){
+	public void gameUpdate (){
+
+		if ( tickTimer > 0 ){
 			tickTimer--;
-		} else{
+		}else{
 			// Nothing
 		}
 		gsm.tick();
 	}
 
-	public void gameRender(){
+	public void gameRender (){
+
 		BufferStrategy bs = this.getBufferStrategy();
-		if(bs == null){
-			createBufferStrategy(3);
+		if ( bs == null ){
+			createBufferStrategy( 3 );
 			return;
-		} else{
+		}else{
 			// Nothing
 		}
 		Graphics g = bs.getDrawGraphics();
-		g.setColor(Color.WHITE);
+		g.setColor( Color.WHITE );
 
-		gsm.render(g);
-		g.drawString(Double.toString(fps), 0, 16);
-		g.drawString(Double.toString(maxUpdateTime), 0, 32);
+		gsm.render( g );
+		g.drawString( Double.toString( fps ) , 0 , 16 );
+		g.drawString( Double.toString( maxUpdateTime ) , 0 , 32 );
 		// END RENDER
 		g.dispose();
 		bs.show();
 	}
 
-	public static void main(String[] args){
+	public static void main ( String[] args ){
+
 		Game game = new Game();
-		game.setPreferredSize(new Dimension(W_WIDTH, W_HEIGHT));
-		game.setMaximumSize(new Dimension(W_WIDTH, W_HEIGHT));
-		game.setMinimumSize(new Dimension(W_WIDTH, W_HEIGHT));
-		JFrame frame = new JFrame("Tiled Roguelike 1.3");
-		frame.setSize(W_WIDTH, (W_HEIGHT + ROWS) + (MSG_HEIGHT));
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setResizable(false);
-		frame.add(game);
-		frame.setVisible(true);
-		game.setFocusable(true);
+		game.setPreferredSize( new Dimension( W_WIDTH , W_HEIGHT ) );
+		game.setMaximumSize( new Dimension( W_WIDTH , W_HEIGHT ) );
+		game.setMinimumSize( new Dimension( W_WIDTH , W_HEIGHT ) );
+		JFrame frame = new JFrame( "Tiled Roguelike 1.3" );
+		frame.setSize( W_WIDTH , ( W_HEIGHT + ROWS ) + ( MSG_HEIGHT ) );
+		frame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
+		frame.setResizable( false );
+		frame.add( game );
+		frame.setVisible( true );
+		game.setFocusable( true );
 		game.requestFocus();
 
 		game.start();
 	}
 
-	public static ImageManager getImageManager(){
+	public static ImageManager getImageManager (){
+
 		return im;
 	}
 
-	public void mousePressed(MouseEvent e){
+	public void mousePressed ( MouseEvent e ){
+
 	}
 
-	public void mouseEntered(MouseEvent e){
+	public void mouseEntered ( MouseEvent e ){
+
 	}
 
-	public void mouseClicked(MouseEvent e){
-		if(gsm.getGameState() == 1){
+	public void mouseClicked ( MouseEvent e ){
+
+		if ( gsm.getGameState() == 1 ){
 			int x = e.getX() / SCALED_TILE_SIZE;
-			int y = -((e.getY() / SCALED_TILE_SIZE) - W_HEIGHT
-					/ SCALED_TILE_SIZE + 1);
+			int y = -( ( e.getY() / SCALED_TILE_SIZE ) - W_HEIGHT / SCALED_TILE_SIZE + 1 );
 			int relX = Map.displayedNodesMinX + x;
 			int relY = Map.displayedNodesMinY + y;
-			if(GameplayState.getMap().getNode(relX, relY) != null){
-				if(GameplayState.getMap().getNode(relX, relY).getFeature()
-						.isPassable()
-						|| GameplayState.getMap().getNode(relX, relY)
-								.getFeature() instanceof trl.map.feature.DoorClosed){
-					if(GameplayState.getPlayer().getLoc()
-							.equals(GameplayState.getMap().getNode(relX, relY))){
+			if ( GameplayState.getMap().getNode( relX , relY ) != null ){
+				if ( GameplayState.getMap().getNode( relX , relY ).getFeature().isPassable()
+						|| GameplayState.getMap().getNode( relX , relY ).getFeature() instanceof trl.map.feature.DoorClosed ){
+					if ( GameplayState.getPlayer().getLoc().equals( GameplayState.getMap().getNode( relX , relY ) ) ){
 						GameplayState.getPlayer().wait = true;
-					} else{
+					}else{
 						GameplayState.getPlayer().setPath(
-								GameplayState.getMap().findPath(
-										GameplayState.getPlayer().getLoc(),
-										GameplayState.getMap().getNode(relX,
-												relY)));
+								GameplayState.getMap().findPath( GameplayState.getPlayer().getLoc() ,
+										GameplayState.getMap().getNode( relX , relY ) ) );
 					}
-				} else{
+				}else{
 					// Nothing
 				}
-			} else{
+			}else{
 				// Nothing
 			}
 		}
 	}
 
-	public void mouseExited(MouseEvent e){
+	public void mouseExited ( MouseEvent e ){
+
 	}
 
-	public void mouseReleased(MouseEvent e){
+	public void mouseReleased ( MouseEvent e ){
+
 	}
 
-	public static GameStateManager getGameStateManager(){
+	public static GameStateManager getGameStateManager (){
+
 		return gsm;
 	}
 }

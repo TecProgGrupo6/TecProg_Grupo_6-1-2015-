@@ -7,14 +7,14 @@ public class Hammer extends Item{
 
 	public Hammer ( Map map ){
 
-		super ( map );
-		init ();
+		super( map );
+		init();
 	}
 
 	// Initiliaze Hammer
-	public void init(){
+	public void init (){
 
-		this.image = Game.getImageManager ().hammer;
-		this.loc = map.placeEntity ( this , map.getRandomNodeInRoom () );
+		this.image = Game.getImageManager().hammer;
+		this.loc = map.placeEntity( this , map.getRandomNodeInRoom() );
 	}
 }

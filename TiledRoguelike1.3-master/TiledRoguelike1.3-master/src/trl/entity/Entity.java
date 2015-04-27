@@ -12,12 +12,12 @@ public class Entity{
 
 	// Represent on place in the map
 	protected Node loc;
-	
+
 	// Represent the map
-	protected Map map; 
+	protected Map map;
 
 	// Image in buffered
-	protected BufferedImage image; 
+	protected BufferedImage image;
 
 	// Describe if the player can see or not
 	protected boolean seenByPlayer;
@@ -30,43 +30,43 @@ public class Entity{
 		this.map = map;
 	}
 
-	public void setLoc( Node node ){
+	public void setLoc ( Node node ){
 
 		this.loc = node;
 	}
 
-	public Node getLoc(){
+	public Node getLoc (){
 
 		return this.loc;
 	}
 
-	public BufferedImage getImage(){
+	public BufferedImage getImage (){
 
 		return this.image;
 	}
 
-	public int getX(){
+	public int getX (){
 
-		return this.loc.getX ();
+		return this.loc.getX();
 	}
 
-	public int getY(){
+	public int getY (){
 
-		return loc.getY ();
+		return loc.getY();
 	}
 
 	/*
 	 * This could be part of the issue with enemies becoming aware of the player
 	 * when it seems like they should not.
 	 */
-	public boolean inDisplayedNodes(){
+	public boolean inDisplayedNodes (){
 
 		int x = Map.displayedNodesMinX;
 		int y = Map.displayedNodesMinY;
 
-		boolean inXrange = getX() >= x && getX() < x+ Game.W_COLS;
-		boolean inYrange = getY() >= y && getY() < y+ Game.W_ROWS;
-		
+		boolean inXrange = getX() >= x && getX() < x + Game.W_COLS;
+		boolean inYrange = getY() >= y && getY() < y + Game.W_ROWS;
+
 		if ( inXrange && inYrange ){
 
 			return true;
@@ -77,49 +77,49 @@ public class Entity{
 
 	}
 
-	public boolean seenByPlayer(){
+	public boolean seenByPlayer (){
 
 		return seenByPlayer;
 	}
 
-	public void setSeenByPlayer( boolean seen ){
+	public void setSeenByPlayer ( boolean seen ){
 
 		this.seenByPlayer = seen;
 	}
 
-	public Room getOccupiedRoom( Node node ){
+	public Room getOccupiedRoom ( Node node ){
 
-		Room[][] rooms = map.getRooms ();
-		Point position = new Point ( node.getX () , node.getY () );
+		Room[][] rooms = map.getRooms();
+		Point position = new Point( node.getX() , node.getY() );
 
-		for ( int x = 0 ; x< rooms.length ; x++ ){
+		for ( int x = 0 ; x < rooms.length ; x++ ){
 
-			for ( int y = 0 ; y< rooms[0].length ; y++ ){
+			for ( int y = 0 ; y < rooms[0].length ; y++ ){
 
-				if ( rooms[x][y].getBoundary ().contains ( position ) ){
+				if ( rooms[x][y].getBoundary().contains( position ) ){
 
 					return rooms[x][y];
 				}else{
-					
+
 					// Nothing to do
-					
+
 				}
 			}
 		}
 		return null;
 	}
 
-	public boolean getSeenByPlayer(){
+	public boolean getSeenByPlayer (){
 
 		return seenByPlayer;
 	}
 
-	public boolean getVisibleToPlayer(){
+	public boolean getVisibleToPlayer (){
 
 		return visibleToPlayer;
 	}
 
-	public void setVisibleToPlayer( boolean visibleToPlayer ){
+	public void setVisibleToPlayer ( boolean visibleToPlayer ){
 
 		this.visibleToPlayer = visibleToPlayer;
 	}

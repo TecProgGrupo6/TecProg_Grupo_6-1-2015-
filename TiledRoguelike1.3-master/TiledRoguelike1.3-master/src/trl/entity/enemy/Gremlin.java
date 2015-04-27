@@ -7,16 +7,16 @@ public class Gremlin extends Enemy{
 
 	public Gremlin ( Map map ){
 
-		super ( map );
-		init ();
+		super( map );
+		init();
 	}
 
 	// Initiliaze Gremlin
-	public void init(){
+	public void init (){
 
 		maxHP = 24;
 		attack = 5;
-		image = Game.getImageManager ().gremlin;
+		image = Game.getImageManager().gremlin;
 		hp = maxHP;
 		xpReward = 12;
 		level = 12;

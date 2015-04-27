@@ -7,14 +7,14 @@ public class Potion extends Item{
 
 	public Potion ( Map map ){
 
-		super ( map );
-		init ();
+		super( map );
+		init();
 	}
 
 	// Initializes Potion
-	public void init(){
+	public void init (){
 
-		this.image = Game.getImageManager ().potion;
-		this.loc = map.placeEntity ( this , map.getRandomNodeInRoom () );
+		this.image = Game.getImageManager().potion;
+		this.loc = map.placeEntity( this , map.getRandomNodeInRoom() );
 	}
 }

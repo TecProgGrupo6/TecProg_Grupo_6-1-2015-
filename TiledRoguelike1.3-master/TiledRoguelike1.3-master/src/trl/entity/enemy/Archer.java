@@ -7,16 +7,16 @@ public class Archer extends Enemy{
 
 	public Archer ( Map map ){
 
-		super ( map );
-		init ();
+		super( map );
+		init();
 	}
 
 	// Initiliaze archer
-	public void init(){
+	public void init (){
 
 		maxHP = 5;
 		attack = 5;
-		image = Game.getImageManager ().archer;
+		image = Game.getImageManager().archer;
 		hp = maxHP;
 		xpReward = 1;
 		level = 1;

@@ -7,16 +7,16 @@ public class FrogKnight extends Enemy{
 
 	public FrogKnight ( Map map ){
 
-		super ( map );
-		init ();
+		super( map );
+		init();
 	}
 
 	// Initialize a frog knight
-	public void init(){
+	public void init (){
 
 		maxHP = 10;
 		attack = 8;
-		image = Game.getImageManager ().frogKnight;
+		image = Game.getImageManager().frogKnight;
 		hp = maxHP;
 		level = 1;
 		xpReward = 1;

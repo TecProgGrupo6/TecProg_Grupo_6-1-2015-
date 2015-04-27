@@ -7,16 +7,16 @@ public class Worm extends Enemy{
 
 	public Worm ( Map map ){
 
-		super ( map );
-		init ();
+		super( map );
+		init();
 	}
 
 	// Initiliaze Worm
-	public void init(){
+	public void init (){
 
 		maxHP = 5;
 		attack = 5;
-		image = Game.getImageManager ().worm;
+		image = Game.getImageManager().worm;
 		hp = maxHP;
 		xpReward = 1;
 		level = 1;

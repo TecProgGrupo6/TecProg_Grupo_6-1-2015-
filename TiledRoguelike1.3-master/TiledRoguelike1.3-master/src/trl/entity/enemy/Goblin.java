@@ -7,16 +7,16 @@ public class Goblin extends Enemy{
 
 	public Goblin ( Map map ){
 
-		super ( map );
-		init ();
+		super( map );
+		init();
 	}
 
 	// Initiliaze Goblin
-	public void init(){
+	public void init (){
 
 		maxHP = 16;
 		attack = 5;
-		image = Game.getImageManager ().goblin;
+		image = Game.getImageManager().goblin;
 		hp = maxHP;
 		xpReward = 8;
 		level = 8;

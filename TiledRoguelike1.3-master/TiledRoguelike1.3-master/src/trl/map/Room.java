@@ -31,7 +31,7 @@ public class Room{
 	// Representation of the boundarie of the map
 	private Rectangle boundary;
 
-	public Room(Map map, int row, int column) {
+	public Room ( Map map, int row, int column ){
 
 		this.row = row;
 		this.column = column;
@@ -40,11 +40,11 @@ public class Room{
 		init();
 	}
 
-	public void init(){
+	public void init (){
 
 		Random r = new Random();
-		this.width = (int) (r.nextDouble() * Map.MAX_ROOM_WIDTH);
-		this.height = (int) (r.nextDouble() * Map.MAX_ROOM_HEIGHT);
+		this.width = (int) ( r.nextDouble() * Map.MAX_ROOM_WIDTH );
+		this.height = (int) ( r.nextDouble() * Map.MAX_ROOM_HEIGHT );
 		if ( width < Map.MIN_ROOM_WIDTH ){
 
 			width = Map.MIN_ROOM_WIDTH;
@@ -53,18 +53,18 @@ public class Room{
 
 			height = Map.MIN_ROOM_HEIGHT;
 		}
-		x = (column * Map.MAX_ROOM_WIDTH) + (Map.MAX_ROOM_WIDTH - width) / 2;
-		y = (row * Map.MAX_ROOM_HEIGHT) + (Map.MAX_ROOM_HEIGHT - height) / 2;
-		boundary = new Rectangle(x, y, width, height);
+		x = ( column * Map.MAX_ROOM_WIDTH ) + ( Map.MAX_ROOM_WIDTH - width ) / 2;
+		y = ( row * Map.MAX_ROOM_HEIGHT ) + ( Map.MAX_ROOM_HEIGHT - height ) / 2;
+		boundary = new Rectangle( x , y , width , height );
 		connectedTo = new ArrayList<Room>();
 	}
 
-	public void connect( Room room ){
+	public void connect ( Room room ){
 
-		String relationship = getRelationship(room);
+		String relationship = getRelationship( room );
 		// System.out.println("Room relationship = " + relationship);
 		List<Node> connection = new ArrayList<Node>();
-		if ( !relationship.equals("") && !this.connectedTo(room) ){
+		if ( !relationship.equals( "" ) && !this.connectedTo( room ) ){
 			// System.out.println("Connecting rooms.");
 			/*
 			 * StartX, startY should be the node in the outer wall of the
@@ -75,140 +75,140 @@ public class Room{
 			 * to go.
 			 */
 
-			int startX = 0, startY = 0, endX = 0, endY = 0;
+			int startX = 0 , startY = 0 , endX = 0 , endY = 0;
 			// switch(re/ationship) {
-			if ( relationship.equals("above") ){
+			if ( relationship.equals( "above" ) ){
 				startY = this.y;
 				endY = room.y + room.height - 1;
 				startX = this.getCenterX();
 				endX = room.getCenterX();
-				map.getNode(startX, startY).setFeature(rollDoor());
-				map.getNode(endX, endY).setFeature(rollDoor());
+				map.getNode( startX , startY ).setFeature( rollDoor() );
+				map.getNode( endX , endY ).setFeature( rollDoor() );
 				startY -= 1;
 				endY += 1;
 			}else{
 				// Nothing
 			}
-			if ( relationship.equals("below") ){
+			if ( relationship.equals( "below" ) ){
 				startY = this.y + this.height - 1;
 				endY = room.y;
 				startX = this.getCenterX();
 				endX = room.getCenterX();
-				map.getNode(startX, startY).setFeature(rollDoor());
-				map.getNode(endX, endY).setFeature(rollDoor());
+				map.getNode( startX , startY ).setFeature( rollDoor() );
+				map.getNode( endX , endY ).setFeature( rollDoor() );
 				startY += 1;
 				endY -= 1;
 			}else{
 				// Nothing
 			}
-			if ( relationship.equals("left") ){
+			if ( relationship.equals( "left" ) ){
 				startX = this.x + this.width - 1;
 				endX = room.x;
 				startY = this.getCenterY();
 				endY = room.getCenterY();
-				map.getNode(startX, startY).setFeature(rollDoor());
-				map.getNode(endX, endY).setFeature(rollDoor());
+				map.getNode( startX , startY ).setFeature( rollDoor() );
+				map.getNode( endX , endY ).setFeature( rollDoor() );
 				startX += 1;
 				endX -= 1;
 			}else{
 				// Nothing
 			}
-			if ( relationship.equals("right") ){
+			if ( relationship.equals( "right" ) ){
 				startX = this.x;
 				endX = room.x + room.width - 1;
 				startY = this.getCenterY();
 				endY = room.getCenterY();
-				map.getNode(startX, startY).setFeature(rollDoor());
-				map.getNode(endX, endY).setFeature(rollDoor());
+				map.getNode( startX , startY ).setFeature( rollDoor() );
+				map.getNode( endX , endY ).setFeature( rollDoor() );
 				startX -= 1;
 				endX += 1;
 			}else{
 				// Nothing
 			}
 			// }
-			Node start = new Node(startX, startY, map);
-			map.createNode(start);
-			Node end = new Node(endX, endY, map);
-			map.createNode(end);
+			Node start = new Node( startX , startY , map );
+			map.createNode( start );
+			Node end = new Node( endX , endY , map );
+			map.createNode( end );
 
 			/*
 			 * If the connection between nodes is longer than a single node,
 			 * find connection
 			 */
-			if ( !start.equals(end) ){
+			if ( !start.equals( end ) ){
 				// System.out.println("Connecting rooms with path > 1");
-				start = new Node(startX, startY, map);
-				map.createNode(start);
+				start = new Node( startX , startY , map );
+				map.createNode( start );
 				start.makeFloor();
-				end = new Node(endX, endY, map);
-				map.createNode(end);
+				end = new Node( endX , endY , map );
+				map.createNode( end );
 				end.makeFloor();
-				connection = map.findRoomConnection(start, end);
+				connection = map.findRoomConnection( start , end );
 			}
 			// Connection start and end nodes are the same.
 			else{
-				map.createNode(startX, startY);
-				map.getNode(startX, startY).makeFloor();
-				connection.add(map.getNode(startX, startY));
+				map.createNode( startX , startY );
+				map.getNode( startX , startY ).makeFloor();
+				connection.add( map.getNode( startX , startY ) );
 			}
 			// System.out.println("Connection list size = " +
 			// connection.size());
 			// System.out.println("Connecting " + startX + "," + startY + " to "
 			// + endX + "," + endY + " via:");
 			for ( Node node : connection ){
-				map.createNode(node);
+				map.createNode( node );
 				node.makeFloor();
 			}
 			// System.out.println("Connected " + this.column + "," + this.row +
 			// " to " + room.column + "," + room.row + " path size " +
 			// connection.size());
-			connectedTo.add(room);
-			room.connectedTo.add(this);
+			connectedTo.add( room );
+			room.connectedTo.add( this );
 		}else{
 			// Nothing
 		}
 	}
 
-	public int getX(){
+	public int getX (){
 
 		return x;
 	}
 
-	public int getY(){
+	public int getY (){
 
 		return y;
 	}
 
-	public int getHeight(){
+	public int getHeight (){
 
 		return height;
 	}
 
-	public int getCenterX(){
+	public int getCenterX (){
 
-		return x + (width / 2);
+		return x + ( width / 2 );
 	}
 
-	public int getCenterY(){
+	public int getCenterY (){
 
-		return y + (height / 2);
+		return y + ( height / 2 );
 
 	}
 
-	public int getWidth(){
+	public int getWidth (){
 
 		return width;
 	}
 
-	public boolean isConnected(){
+	public boolean isConnected (){
 
 		return connected;
 	}
 
-	public boolean connectedTo( Room room ){
+	public boolean connectedTo ( Room room ){
 
 		if ( connectedTo != null && connectedTo.size() > 0 ){
-			if ( connectedTo.contains(room) ){
+			if ( connectedTo.contains( room ) ){
 				// System.out.println(this.toString() + " connected to " +
 				// room.toString());
 				return true;
@@ -221,7 +221,7 @@ public class Room{
 		return false;
 	}
 
-	public String getRelationship( Room room ){
+	public String getRelationship ( Room room ){
 
 		if ( this.column == room.column && this.row == room.row + 1 ){
 			return "above";
@@ -246,7 +246,7 @@ public class Room{
 		return "";
 	}
 
-	public Feature rollDoor(){
+	public Feature rollDoor (){
 
 		Random r = new Random();
 		double doorRoll = r.nextDouble();
@@ -260,13 +260,13 @@ public class Room{
 		return door;
 	}
 
-	public Room getOccupiedRoom( Node node ){
+	public Room getOccupiedRoom ( Node node ){
 
 		Room[][] rooms = map.getRooms();
-		Point position = new Point(node.getX(), node.getY());
+		Point position = new Point( node.getX() , node.getY() );
 		for ( int x = 0 ; x < rooms.length ; x++ ){
 			for ( int y = 0 ; y < rooms[0].length ; y++ ){
-				if ( rooms[x][y].boundary.contains(position) ){
+				if ( rooms[x][y].boundary.contains( position ) ){
 					return rooms[x][y];
 				}else{
 					// Nothing
@@ -276,58 +276,58 @@ public class Room{
 		return null;
 	}
 
-	public Room getRandomConnectedRoom(){
+	public Room getRandomConnectedRoom (){
 
 		Random random = new Random();
-		int randomRoomIndex = (int) (connectedTo.size() * random.nextDouble());
+		int randomRoomIndex = (int) ( connectedTo.size() * random.nextDouble() );
 		// System.out.println("connected rooms size = " + connectedTo.size());
 		// System.out.println("connected rooms index = " + randomRoomIndex);
-		Room connectedRoom = connectedTo.get(randomRoomIndex);
+		Room connectedRoom = connectedTo.get( randomRoomIndex );
 		// System.out.println("getRandomConnectedRoom: current room = " +
 		// this.toString() + ", next = " + connectedRoom.toString());
-		return connectedTo.get(randomRoomIndex);
+		return connectedTo.get( randomRoomIndex );
 	}
 
-	public Rectangle getBoundary(){
+	public Rectangle getBoundary (){
 
 		return boundary;
 	}
 
-	public Node getRandomNodeInRoom(){
+	public Node getRandomNodeInRoom (){
 
 		Random random = new Random();
 		// int x = (int)(random.nextDouble() * ((boundary.getMinX() + 1) +
 		// boundary.getMaxX()));
-		int minX = 0, maxX = 0, minY = 0, maxY = 0, x = 0, y = 0;
+		int minX = 0 , maxX = 0 , minY = 0 , maxY = 0 , x = 0 , y = 0;
 		boolean nodePicked = false;
 		while ( !nodePicked ){
 			minX = (int) boundary.getMinX() + 1;
 			maxX = (int) boundary.getMaxX();
 			minY = (int) boundary.getMinY() + 1;
 			maxY = (int) boundary.getMaxY();
-			x = minX + (int) (random.nextDouble() * (maxX - minX));
-			y = minY + (int) (random.nextDouble() * (maxY - minY));
-			if ( map.getNode(x, y).isFloor() ){
+			x = minX + (int) ( random.nextDouble() * ( maxX - minX ) );
+			y = minY + (int) ( random.nextDouble() * ( maxY - minY ) );
+			if ( map.getNode( x , y ).isFloor() ){
 				nodePicked = true;
 				break;
 			}else{
 				// Nothing
 			}
 		}
-		return map.getNode(x, y);
+		return map.getNode( x , y );
 	}
 
-	public List<Room> getConnectedTo(){
+	public List<Room> getConnectedTo (){
 
 		return connectedTo;
 	}
 
-	public int getRow(){
+	public int getRow (){
 
 		return row;
 	}
 
-	public int getColumn(){
+	public int getColumn (){
 
 		return column;
 	}

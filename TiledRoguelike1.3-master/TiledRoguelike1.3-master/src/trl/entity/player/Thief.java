@@ -7,19 +7,19 @@ public class Thief extends Player{
 
 	public Thief ( Map map ){
 
-		super ( map );
+		super( map );
 		this.maxHP = 40;
 		this.attack = 7;
-		this.image = Game.getImageManager ().thief;
-		init ();
+		this.image = Game.getImageManager().thief;
+		init();
 	}
 
 	// Initialize Thief
-	public void init(){
+	public void init (){
 
 		this.hp = maxHP;
 		this.myTurn = true;
-		map.revealAll ();
+		map.revealAll();
 		timers = new int[0];
 	}
 }

@@ -16,6 +16,7 @@ import trl.map.Map;
 import trl.map.Node;
 
 public class GameplayState extends GameState{
+
 	// public static final int ROWS = 40, COLUMNS = 40; //Map rows and columns
 	// public static final int W_ROWS = 11, W_COLS =11; //Displayed nodes
 	// public static int SCALE = 2;
@@ -34,60 +35,63 @@ public class GameplayState extends GameState{
 	private int classChoice;
 	public static int turnCounter;
 	public static int dungeonLevel;
-	public static int addEnemyInterval = 70; /* Number of turns on each level
-												 after which an enemy is
-												 added. */
+	public static int addEnemyInterval = 70; /*
+											 * Number of turns on each level
+											 * after which an enemy is added.
+											 */
 	public static boolean tickEnemies;
 
-	public GameplayState(int classChoice){
+	public GameplayState ( int classChoice ){
+
 		this.classChoice = classChoice;
 		dungeonLevel = 1;
 		init();
 	}
 
-	public void init(){
+	public void init (){
+
 		// If we're building the state from scratch
-		if(dungeonLevel == 1){
+		if ( dungeonLevel == 1 ){
 			map = new Map();
-			enemyGroup = new EnemyGroup(map);
+			enemyGroup = new EnemyGroup( map );
 			actorQueue = new ActorQueue();
-			switch (classChoice){
+			switch ( classChoice ) {
 
 			case 0:{
 
-				player = new Barbarian(map);
+				player = new Barbarian( map );
 				break;
 
 			}
 			case 1:{
 
-				player = new Thief(map);
+				player = new Thief( map );
 				break;
 
 			}
 			case 2:{
 
-				player = new Wizard(map);
+				player = new Wizard( map );
 				break;
 
 			}
 			case 3:{
 
-				player = new Ranger(map);
+				player = new Ranger( map );
 				break;
 
 			}
 			}
-			actorQueue.addActor(player);
+			actorQueue.addActor( player );
 			enemyGroup.spawnEnemies();
-		} else if(dungeonLevel == 5){
+		}else if ( dungeonLevel == 5 ){
 			map.init();
 			// map = new Map();
 			enemyGroup.flush();
-			enemyGroup = new EnemyGroup(map);
+			enemyGroup = new EnemyGroup( map );
 			actorQueue = new ActorQueue();
 			player.refresh();
-			actorQueue.addActor(player);
+			actorQueue.addActor( player );
 			enemyGroup.spawnEnemies();
 			/*
 			 * For now, we will randomly place the player in the newly created
@@ -99,25 +103,25 @@ public class GameplayState extends GameState{
 			 */
 			player.initActor();
 			player.refresh();
-			if(player instanceof trl.entity.player.Thief){
+			if ( player instanceof trl.entity.player.Thief ){
 				map.revealAll();
-			} else{
+			}else{
 				// nothing
 			}
-			player.endTurn(actorQueue.getActor(0));
-		} else{
+			player.endTurn( actorQueue.getActor( 0 ) );
+		}else{
 			// map = new Map();
-			System.out.println("Refresh dungeon level " + dungeonLevel + ".");
+			System.out.println( "Refresh dungeon level " + dungeonLevel + "." );
 			enemyGroup.flush();
 			enemyGroup = null;
 			actorQueue.flush();
 			actorQueue = null;
 			map.init();
-			enemyGroup = new EnemyGroup(map);
+			enemyGroup = new EnemyGroup( map );
 			actorQueue = new ActorQueue();
 			// Set turns on level to zero before spawning enemies.
 			// player.setTurnsOnLevel(0);
-			actorQueue.addActor(player);
+			actorQueue.addActor( player );
 			enemyGroup.spawnEnemies();
 			/*
 			 * For now, we will randomly place the player in the newly created
@@ -129,23 +133,21 @@ public class GameplayState extends GameState{
 			 */
 			player.initActor();
 			player.refresh();
-			if(player instanceof trl.entity.player.Thief){
+			if ( player instanceof trl.entity.player.Thief ){
 				map.revealAll();
-			} else{
+			}else{
 				// nothing
 			}
-			player.endTurn(actorQueue.getActor(0));
+			player.endTurn( actorQueue.getActor( 0 ) );
 		}
 		map.updateDisplayedNodes();
 		map.updateVisibleToPlayer();
 		map.updateImageMap();
 		tickTimer = 0;
-		System.out.println("Player turns on level = "
-				+ player.getTurnsOnLevel());
-		int maxEnemies = dungeonLevel
-				+ (GameplayState.getPlayer().getTurnsOnLevel() / GameplayState.addEnemyInterval);
-		System.out.println("Max enemies: " + dungeonLevel + " + ("
-				+ player.getTurnsOnLevel() + " / " + addEnemyInterval + ")");
+		System.out.println( "Player turns on level = " + player.getTurnsOnLevel() );
+		int maxEnemies = dungeonLevel + ( GameplayState.getPlayer().getTurnsOnLevel() / GameplayState.addEnemyInterval );
+		System.out.println( "Max enemies: " + dungeonLevel + " + (" + player.getTurnsOnLevel() + " / "
+				+ addEnemyInterval + ")" );
 		// System.out.println("Enemy group size = " +
 		// enemyGroup.getEnemies().size());
 		// System.out.println("Actor queue size = ");
@@ -153,69 +155,65 @@ public class GameplayState extends GameState{
 
 	}
 
-	public void tick(){
-		if(tickEnemies){
+	public void tick (){
+
+		if ( tickEnemies ){
 			tickEnemies = false;
-		} else{
+		}else{
 			tickEnemies = true;
 		}
-		if(!player.isAlive()){
-			Game.getGameStateManager().addGameState(2,
-					new LoseGameState(player.getEnemiesDefeated()));
-			Game.getGameStateManager().setGameState(2);
-		} else{
+		if ( !player.isAlive() ){
+			Game.getGameStateManager().addGameState( 2 , new LoseGameState( player.getEnemiesDefeated() ) );
+			Game.getGameStateManager().setGameState( 2 );
+		}else{
 			// nothing
 		}
 		actorQueue.tick();
 	}
 
-	public void render(Graphics g){
-		map.render(g);
-		player.render(g);
-		enemyGroup.render(g);
-		drawStatus(g);
-		drawMiniMap(g);
+	public void render ( Graphics g ){
+
+		map.render( g );
+		player.render( g );
+		enemyGroup.render( g );
+		drawStatus( g );
+		drawMiniMap( g );
 	}
 
-	public static Player getPlayer(){
+	public static Player getPlayer (){
+
 		return player;
 	}
 
-	public static ActorQueue getActorQueue(){
+	public static ActorQueue getActorQueue (){
+
 		return actorQueue;
 	}
 
-	public void drawStatus(Graphics g){
-		g.setColor(Color.black);
-		g.fillRect(0, Game.W_HEIGHT + Game.SCALE, Game.W_WIDTH, Game.MSG_HEIGHT);
-		g.setColor(Color.yellow);
-		g.drawString("Level:" + player.getLevel(), 0, Game.W_HEIGHT
-				+ g.getFont().getSize());
-		g.drawString("Player HP: " + player.getHP(), 0, Game.W_HEIGHT + 2
-				* g.getFont().getSize() + 2);
-		g.drawString("Dungeon Level: " + dungeonLevel, 0, Game.W_HEIGHT + 3
-				* g.getFont().getSize() + 2);
-		g.drawString("Player XP: " + player.getXPEarned(), 0, Game.W_HEIGHT + 4
-				* g.getFont().getSize() + 2);
-		g.drawString("Enemies: " + player.getEnemiesDefeated(), 0,
-				Game.W_HEIGHT + 5 * g.getFont().getSize() + 2);
+	public void drawStatus ( Graphics g ){
 
-		if(player instanceof trl.entity.player.Barbarian){
-			if(player.getTimers()[0] <= 0){
-				g.setColor(Color.green);
-				g.drawString("(s) Shout", 200, Game.W_HEIGHT
-						+ g.getFont().getSize());
-			} else{
-				g.setColor(Color.red);
-				g.drawString("(s) Shout (" + player.getTimers()[0] + ")", 200,
-						Game.W_HEIGHT + g.getFont().getSize());
+		g.setColor( Color.black );
+		g.fillRect( 0 , Game.W_HEIGHT + Game.SCALE , Game.W_WIDTH , Game.MSG_HEIGHT );
+		g.setColor( Color.yellow );
+		g.drawString( "Level:" + player.getLevel() , 0 , Game.W_HEIGHT + g.getFont().getSize() );
+		g.drawString( "Player HP: " + player.getHP() , 0 , Game.W_HEIGHT + 2 * g.getFont().getSize() + 2 );
+		g.drawString( "Dungeon Level: " + dungeonLevel , 0 , Game.W_HEIGHT + 3 * g.getFont().getSize() + 2 );
+		g.drawString( "Player XP: " + player.getXPEarned() , 0 , Game.W_HEIGHT + 4 * g.getFont().getSize() + 2 );
+		g.drawString( "Enemies: " + player.getEnemiesDefeated() , 0 , Game.W_HEIGHT + 5 * g.getFont().getSize() + 2 );
+
+		if ( player instanceof trl.entity.player.Barbarian ){
+			if ( player.getTimers()[0] <= 0 ){
+				g.setColor( Color.green );
+				g.drawString( "(s) Shout" , 200 , Game.W_HEIGHT + g.getFont().getSize() );
+			}else{
+				g.setColor( Color.red );
+				g.drawString( "(s) Shout (" + player.getTimers()[0] + ")" , 200 , Game.W_HEIGHT + g.getFont().getSize() );
 			}
 		}
-		if(player instanceof trl.entity.player.Ranger){
+		if ( player instanceof trl.entity.player.Ranger ){
 			// if (player.getTimers()[0] <= 0) {
-			g.setColor(Color.green);
-			g.drawString("(f) Fire Arrow", 200, Game.W_HEIGHT
-					+ g.getFont().getSize());
+			g.setColor( Color.green );
+			g.drawString( "(f) Fire Arrow" , 200 , Game.W_HEIGHT + g.getFont().getSize() );
 			// }
 			// else {
 			// g.setColor(Color.red);
@@ -223,135 +221,127 @@ public class GameplayState extends GameState{
 			// 200, Game.W_HEIGHT + 16);
 			// }
 		}
-		if(player instanceof trl.entity.player.Wizard){
-			if(player.getTimers()[0] <= 0){
-				g.setColor(Color.green);
-				g.drawString("(b) Blink", 200, Game.W_HEIGHT
-						+ g.getFont().getSize());
-			} else{
-				g.setColor(Color.red);
-				g.drawString("(b) Blink (" + player.getTimers()[0] + ")", 200,
-						Game.W_HEIGHT + g.getFont().getSize());
+		if ( player instanceof trl.entity.player.Wizard ){
+			if ( player.getTimers()[0] <= 0 ){
+				g.setColor( Color.green );
+				g.drawString( "(b) Blink" , 200 , Game.W_HEIGHT + g.getFont().getSize() );
+			}else{
+				g.setColor( Color.red );
+				g.drawString( "(b) Blink (" + player.getTimers()[0] + ")" , 200 , Game.W_HEIGHT + g.getFont().getSize() );
 			}
 
-			if(player.getTimers()[1] <= 0){
-				g.setColor(Color.green);
-				g.drawString("(e) Explode", 200, Game.W_HEIGHT + 2
-						* g.getFont().getSize() + 2);
-			} else{
-				g.setColor(Color.red);
-				g.drawString("(e) Explode (" + player.getTimers()[1] + ")",
-						200, Game.W_HEIGHT + 2 * g.getFont().getSize() + 2);
+			if ( player.getTimers()[1] <= 0 ){
+				g.setColor( Color.green );
+				g.drawString( "(e) Explode" , 200 , Game.W_HEIGHT + 2 * g.getFont().getSize() + 2 );
+			}else{
+				g.setColor( Color.red );
+				g.drawString( "(e) Explode (" + player.getTimers()[1] + ")" , 200 , Game.W_HEIGHT + 2
+						* g.getFont().getSize() + 2 );
 			}
 
-			if(player.getTimers()[2] <= 0){
-				if(player.getHP() > 4){
-					g.setColor(Color.green);
-				} else{
-					g.setColor(Color.red);
+			if ( player.getTimers()[2] <= 0 ){
+				if ( player.getHP() > 4 ){
+					g.setColor( Color.green );
+				}else{
+					g.setColor( Color.red );
 				}
-				g.drawString("(q) Quicken", 200, Game.W_HEIGHT + 3
-						* g.getFont().getSize() + 2);
-			} else{
-				g.setColor(Color.red);
-				g.drawString("(q) Quicken (" + player.getTimers()[2] + ")",
-						200, Game.W_HEIGHT + 3 * g.getFont().getSize() + 2);
+				g.drawString( "(q) Quicken" , 200 , Game.W_HEIGHT + 3 * g.getFont().getSize() + 2 );
+			}else{
+				g.setColor( Color.red );
+				g.drawString( "(q) Quicken (" + player.getTimers()[2] + ")" , 200 , Game.W_HEIGHT + 3
+						* g.getFont().getSize() + 2 );
 			}
-		} else{
+		}else{
 			// nothing
 		}
-		g.setColor(Color.green);
-		g.drawString("(c) Close Door", 300, Game.W_HEIGHT
-				+ g.getFont().getSize());
+		g.setColor( Color.green );
+		g.drawString( "(c) Close Door" , 300 , Game.W_HEIGHT + g.getFont().getSize() );
 
-		if(player.getHasKey() && !player.getOpenedLock()){
-			g.drawImage(Game.getImageManager().key, 400, Game.W_HEIGHT,
-					Game.TILE_SIZE, Game.TILE_SIZE, null);
-		} else{
+		if ( player.getHasKey() && !player.getOpenedLock() ){
+			g.drawImage( Game.getImageManager().key , 400 , Game.W_HEIGHT , Game.TILE_SIZE , Game.TILE_SIZE , null );
+		}else{
 			// nothing
 		}
-		if(player.getOpenedLock()){
-			g.drawImage(Game.getImageManager().lockOpen, 400, Game.W_HEIGHT,
-					Game.TILE_SIZE, Game.TILE_SIZE, null);
-		} else{
+		if ( player.getOpenedLock() ){
+			g.drawImage( Game.getImageManager().lockOpen , 400 , Game.W_HEIGHT , Game.TILE_SIZE , Game.TILE_SIZE , null );
+		}else{
 			// nothing
 		}
 
 	}
 
-	public void drawMiniMap(Graphics g){
-		Color trBlack = new Color(0, 0, 0, 64);
-		Color trGray = new Color(128, 128, 128, 196);
-		Color trWhite = new Color(255, 255, 255, 196);
-		Color brown = new Color(128, 69, 19);
-		int scale = 3;
-		int startX = Game.W_WIDTH - (Game.COLUMNS * scale) - Game.W_ROWS;
+	public void drawMiniMap ( Graphics g ){
 
-		for (int x = 0; x < Game.COLUMNS; x++){
-			for (int y = 0; y < Game.ROWS; y++){
+		Color trBlack = new Color( 0 , 0 , 0 , 64 );
+		Color trGray = new Color( 128 , 128 , 128 , 196 );
+		Color trWhite = new Color( 255 , 255 , 255 , 196 );
+		Color brown = new Color( 128 , 69 , 19 );
+		int scale = 3;
+		int startX = Game.W_WIDTH - ( Game.COLUMNS * scale ) - Game.W_ROWS;
+
+		for ( int x = 0 ; x < Game.COLUMNS ; x++ ){
+			for ( int y = 0 ; y < Game.ROWS ; y++ ){
 				// Default color. Carries through if no other condition matches
-				g.setColor(trBlack);
+				g.setColor( trBlack );
 
 				// Set borders white
-				if(x == 0 || y == 0 || x == Game.COLUMNS - 1
-						|| y == Game.ROWS - 1){
-					g.setColor(trWhite);
-				} else{
+				if ( x == 0 || y == 0 || x == Game.COLUMNS - 1 || y == Game.ROWS - 1 ){
+					g.setColor( trWhite );
+				}else{
 					// nothing
 				}
-				Node node = map.getNode(x, y);
-				if(node != null){
-					if(node.seenByPlayer()){
-						if(node.getFeature().isPassable()){
-							g.setColor(trGray);
-						} else{
+				Node node = map.getNode( x , y );
+				if ( node != null ){
+					if ( node.seenByPlayer() ){
+						if ( node.getFeature().isPassable() ){
+							g.setColor( trGray );
+						}else{
 							// nothing
 						}
-						if(node.isStairDown()){
-							g.setColor(Color.PINK);
-						} else{
+						if ( node.isStairDown() ){
+							g.setColor( Color.PINK );
+						}else{
 							// nothing
 						}
-						if(node.isClosedDoor()){
-							g.setColor(brown);
-						} else{
+						if ( node.isClosedDoor() ){
+							g.setColor( brown );
+						}else{
 							// nothing
 						}
-						if(node.getEntities() != null
-								&& node.getEntities().size() > 0){
-							for (Entity entity : node.getEntities()){
-								if(entity.seenByPlayer()){
-									if(entity instanceof trl.entity.item.Potion){
-										g.setColor(Color.GREEN);
-									} else{
+						if ( node.getEntities() != null && node.getEntities().size() > 0 ){
+							for ( Entity entity : node.getEntities() ){
+								if ( entity.seenByPlayer() ){
+									if ( entity instanceof trl.entity.item.Potion ){
+										g.setColor( Color.GREEN );
+									}else{
 										// nothing
 									}
-									if(entity instanceof trl.entity.player.Player){
-										g.setColor(Color.WHITE);
-									} else{
+									if ( entity instanceof trl.entity.player.Player ){
+										g.setColor( Color.WHITE );
+									}else{
 										// nothing
 									}
-									if(entity instanceof trl.entity.enemy.Enemy){
-										g.setColor(Color.RED);
-									} else{
+									if ( entity instanceof trl.entity.enemy.Enemy ){
+										g.setColor( Color.RED );
+									}else{
 										// nothing
 									}
-									if(entity instanceof trl.entity.item.Hammer){
-										g.setColor(Color.GREEN);
-									} else{
+									if ( entity instanceof trl.entity.item.Hammer ){
+										g.setColor( Color.GREEN );
+									}else{
 										// nothing
 									}
-									if(entity instanceof trl.entity.item.Key){
-										g.setColor(Color.YELLOW);
-									} else{
+									if ( entity instanceof trl.entity.item.Key ){
+										g.setColor( Color.YELLOW );
+									}else{
 										// nothing
 									}
-									if(entity instanceof trl.entity.item.Lock){
-										g.setColor(Color.YELLOW);
-									} else{
+									if ( entity instanceof trl.entity.item.Lock ){
+										g.setColor( Color.YELLOW );
+									}else{
 										// nothing
 									}
-								} else{
+								}else{
 									// nothing
 								}
 							}
@@ -362,17 +352,18 @@ public class GameplayState extends GameState{
 				// System.out.println("Color NULL");
 				// g.setColor(trBlack);
 				// }
-				g.fillRect(startX + (x * scale), (Game.ROWS * scale) - y
-						* scale, scale, scale);
+				g.fillRect( startX + ( x * scale ) , ( Game.ROWS * scale ) - y * scale , scale , scale );
 			}
 		}
 	}
 
-	public static EnemyGroup getEnemyGroup(){
+	public static EnemyGroup getEnemyGroup (){
+
 		return enemyGroup;
 	}
 
-	public static Map getMap(){
+	public static Map getMap (){
+
 		return map;
 	}
 
@@ -380,11 +371,13 @@ public class GameplayState extends GameState{
 	// return im;
 	// }
 
-	public int getDungeonLevel(){
+	public int getDungeonLevel (){
+
 		return dungeonLevel;
 	}
 
-	public void setDungeonLevel(int dungeonLevel){
+	public void setDungeonLevel ( int dungeonLevel ){
+
 		this.dungeonLevel = dungeonLevel;
 	}
 }

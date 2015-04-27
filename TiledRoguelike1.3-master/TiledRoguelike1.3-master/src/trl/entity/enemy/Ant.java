@@ -7,16 +7,16 @@ public class Ant extends Enemy{
 
 	public Ant ( Map map ){
 
-		super ( map );
-		init ();
+		super( map );
+		init();
 	}
 
 	// Initiliaze an ant
-	public void init(){
+	public void init (){
 
 		maxHP = 8;
 		attack = 5;
-		image = Game.getImageManager ().ant;
+		image = Game.getImageManager().ant;
 		hp = maxHP;
 		xpReward = 4;
 		level = 4;

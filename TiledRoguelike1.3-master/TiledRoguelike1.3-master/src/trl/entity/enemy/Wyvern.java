@@ -7,16 +7,16 @@ public class Wyvern extends Enemy{
 
 	public Wyvern ( Map map ){
 
-		super ( map );
-		init ();
+		super( map );
+		init();
 	}
 
 	// Initiliaze Wyvern
-	public void init(){
+	public void init (){
 
 		maxHP = 22;
 		attack = 5;
-		image = Game.getImageManager ().wyvern;
+		image = Game.getImageManager().wyvern;
 		hp = maxHP;
 		xpReward = 11;
 		level = 11;

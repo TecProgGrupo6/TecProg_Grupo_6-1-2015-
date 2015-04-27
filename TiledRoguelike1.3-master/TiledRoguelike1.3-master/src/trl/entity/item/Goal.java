@@ -7,14 +7,14 @@ public class Goal extends Item{
 
 	public Goal ( Map map ){
 
-		super ( map );
-		init ();
+		super( map );
+		init();
 	}
 
 	// Initiliaze Goal
-	public void init(){
+	public void init (){
 
-		this.image = Game.getImageManager ().goal;
-		this.loc = map.placeEntity ( this , map.getRandomNodeInRoom () );
+		this.image = Game.getImageManager().goal;
+		this.loc = map.placeEntity( this , map.getRandomNodeInRoom() );
 	}
 }

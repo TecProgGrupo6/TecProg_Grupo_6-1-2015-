@@ -16,41 +16,41 @@ public class Ranger extends Player{
 
 	public Ranger ( Map map ){
 
-		super ( map );
+		super( map );
 		this.maxHP = 40;
 		this.attack = 7;
-		this.image = Game.getImageManager ().ranger;
-		init ();
+		this.image = Game.getImageManager().ranger;
+		init();
 	}
 
 	// Initializes Ranger
-	public void init(){
+	public void init (){
 
 		this.hp = maxHP;
 		this.myTurn = true;
 		timers = new int[1];
-		targets = new ArrayList<Enemy> ();
+		targets = new ArrayList<Enemy>();
 	}
 
-	public List<Enemy> getTargets(){
+	public List<Enemy> getTargets (){
 
 		/*
 		 * For each node in visibleNodes, look through entities list. If an
 		 * enemy is found, add to enemies list, then return the list.
 		 */
-		targets.clear ();
-		List<Enemy> enemies = new ArrayList<Enemy> ();
+		targets.clear();
+		List<Enemy> enemies = new ArrayList<Enemy>();
 		List<Entity> entities = null;
-		for ( Node node : map.getVisibleToPlayer () ){
+		for ( Node node : map.getVisibleToPlayer() ){
 
-			if ( node.getEntities ()!= null ){
+			if ( node.getEntities() != null ){
 
-				entities = new ArrayList<Entity> ( node.getEntities () );
+				entities = new ArrayList<Entity>( node.getEntities() );
 				for ( Entity entity : entities ){
 
 					if ( entity instanceof trl.entity.enemy.Enemy ){
 
-						enemies.add ( (Enemy) entity );
+						enemies.add( (Enemy) entity );
 					}else{
 
 						// Nothing to do
@@ -68,19 +68,19 @@ public class Ranger extends Player{
 	}
 
 	// Action to enemy
-	public void fireArrow( Enemy target ){
+	public void fireArrow ( Enemy target ){
 
 		int damage = 4;
 
-		if ( getLevel ()> 4 ){
+		if ( getLevel() > 4 ){
 
-			damage = getLevel ();
+			damage = getLevel();
 		}else{
 
 			// Nothing to do
 		}
 
-		if ( damage> 10 ){
+		if ( damage > 10 ){
 
 			damage = 10;
 		}else{
@@ -88,11 +88,11 @@ public class Ranger extends Player{
 			// Nothing to do
 		}
 
-		target.setHP ( target.getHP ()- damage );
+		target.setHP( target.getHP() - damage );
 		damageDealt = damage;
-		target.setDamageTaken ( damage );
-		setStance ( false , false , false , true );
-		target.setStance ( false , false , true , false );
+		target.setDamageTaken( damage );
+		setStance( false , false , false , true );
+		target.setStance( false , false , true , false );
 		fireArrow = false;
 		// attacked = true;
 	}

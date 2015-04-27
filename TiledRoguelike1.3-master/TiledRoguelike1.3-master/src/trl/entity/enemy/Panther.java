@@ -7,16 +7,16 @@ public class Panther extends Enemy{
 
 	public Panther ( Map map ){
 
-		super ( map );
-		init ();
+		super( map );
+		init();
 	}
 
 	// Initiliaze Panther
-	public void init(){
+	public void init (){
 
 		maxHP = 18;
 		attack = 5;
-		image = Game.getImageManager ().panther;
+		image = Game.getImageManager().panther;
 		hp = maxHP;
 		xpReward = 9;
 		level = 9;

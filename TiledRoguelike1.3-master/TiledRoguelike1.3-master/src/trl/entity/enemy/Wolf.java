@@ -7,16 +7,16 @@ public class Wolf extends Enemy{
 
 	public Wolf ( Map map ){
 
-		super ( map );
-		init ();
+		super( map );
+		init();
 	}
 
 	// Initiliaze Wolf
-	public void init(){
+	public void init (){
 
 		maxHP = 20;
 		attack = 5;
-		image = Game.getImageManager ().wolf;
+		image = Game.getImageManager().wolf;
 		hp = maxHP;
 		xpReward = 10;
 		level = 10;

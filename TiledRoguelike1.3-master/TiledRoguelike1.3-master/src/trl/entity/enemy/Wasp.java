@@ -7,16 +7,16 @@ public class Wasp extends Enemy{
 
 	public Wasp ( Map map ){
 
-		super ( map );
-		init ();
+		super( map );
+		init();
 	}
 
 	// Initiliaze Wasp
-	public void init(){
+	public void init (){
 
 		maxHP = 10;
 		attack = 5;
-		image = Game.getImageManager ().wasp;
+		image = Game.getImageManager().wasp;
 		hp = maxHP;
 		xpReward = 5;
 		level = 5;

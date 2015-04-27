@@ -2,7 +2,8 @@ package trl.map.feature;
 
 public class DoorOpen extends Feature{
 
-	public DoorOpen(){
+	public DoorOpen (){
+
 		passable = true;
 	}
 }

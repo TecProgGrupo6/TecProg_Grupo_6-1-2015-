@@ -7,14 +7,14 @@ public class Key extends Item{
 
 	public Key ( Map map ){
 
-		super ( map );
-		init ();
+		super( map );
+		init();
 	}
 
 	// Initiliaze Key
-	public void init(){
+	public void init (){
 
-		this.image = Game.getImageManager ().key;
-		this.loc = map.placeEntity ( this , map.getRandomNodeInRoom () );
+		this.image = Game.getImageManager().key;
+		this.loc = map.placeEntity( this , map.getRandomNodeInRoom() );
 	}
 }

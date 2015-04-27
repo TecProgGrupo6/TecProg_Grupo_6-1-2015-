@@ -7,16 +7,16 @@ public class Demon extends Enemy{
 
 	public Demon ( Map map ){
 
-		super ( map );
-		init ();
+		super( map );
+		init();
 	}
 
 	// Initiliaze demon
-	public void init(){
+	public void init (){
 
 		maxHP = 15;
 		attack = 10;
-		image = Game.getImageManager ().demon;
+		image = Game.getImageManager().demon;
 		hp = maxHP;
 		level = 1;
 		xpReward = 1;

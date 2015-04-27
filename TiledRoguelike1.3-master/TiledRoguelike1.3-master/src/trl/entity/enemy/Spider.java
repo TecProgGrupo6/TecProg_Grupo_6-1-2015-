@@ -7,16 +7,16 @@ public class Spider extends Enemy{
 
 	public Spider ( Map map ){
 
-		super ( map );
-		init ();
+		super( map );
+		init();
 	}
 
 	// Initiliaze Spider
-	public void init(){
+	public void init (){
 
 		maxHP = 7;
 		attack = 5;
-		image = Game.getImageManager ().spider;
+		image = Game.getImageManager().spider;
 		hp = maxHP;
 		level = 2;
 		xpReward = 2;

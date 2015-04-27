@@ -10,17 +10,21 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 public class SoundManager{
+
 	private Clip[] sounds;
 
-	public SoundManager(){
+	public SoundManager (){
+
 		init();
 	}
 
-	public void init(){
+	public void init (){
+
 		sounds = new Clip[1];
 	}
 
-	public void playSound(String sound){
+	public void playSound ( String sound ){
+
 		// String file;
 		// switch (sound) {
 		// case "strike": {

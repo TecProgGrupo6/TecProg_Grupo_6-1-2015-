@@ -2,7 +2,8 @@ package trl.map.feature;
 
 public class Wall extends Feature{
 
-	public Wall(){
+	public Wall (){
+
 		passable = false;
 	}
 }
