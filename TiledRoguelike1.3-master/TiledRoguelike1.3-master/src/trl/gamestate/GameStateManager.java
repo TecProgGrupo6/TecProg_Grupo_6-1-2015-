@@ -10,7 +10,7 @@ public class GameStateManager{
 	private List<GameState> gameStates;
 	public static final int MENU_STATE = 0;
 	public static final int GAMEPLAY_STATE = 1;
-	private GameState current;
+	private GameState currentGameState;
 
 	public GameStateManager (){
 
@@ -20,28 +20,28 @@ public class GameStateManager{
 	public void init (){
 
 		gameStates = new ArrayList<GameState>();
-		gameStates.add( 0 , new MenuState() );
-		current = gameStates.get( 0 );
+		gameStates.add( 0 , new MenuState() ); // Add menu state in the first position of list.
+		currentGameState = gameStates.get( 0 ); // Get the first game state of list.
 	}
 
 	public void tick (){
 
-		current.tick();
+		currentGameState.tick();
 	}
 
 	public void render ( Graphics g ){
 
-		current.render( g );
+		currentGameState.render( g );
 	}
 
-	public void setGameState ( int state ){
+	public void setGameState ( int indexState ){
 
-		current = gameStates.get( state );
+		currentGameState = gameStates.get( indexState );
 	}
 
 	public int getGameState (){
 
-		return gameStates.indexOf( current );
+		return gameStates.indexOf( currentGameState );
 	}
 
 	public GameState getGameState ( int index ){
@@ -49,18 +49,19 @@ public class GameStateManager{
 		return gameStates.get( index );
 	}
 
-	public void addGameState ( int index , GameState state ){
+	public void addGameState ( int index , GameState gameState ){
 
-		gameStates.add( index , state );
+		gameStates.add( index , gameState );
 	}
 
-	public void removeGameState ( int index ){
+	public void removeGameState ( int indexGameState ){
 
 		int i = 0;
-		for ( Iterator<GameState> itGS = gameStates.iterator() ; itGS.hasNext() ; ){
-			GameState gs = itGS.next();
-			if ( i == index ){
-				itGS.remove();
+		for ( Iterator<GameState> iteratorGameState = gameStates.iterator() ; iteratorGameState.hasNext() ; ){
+			GameState nextGameState = iteratorGameState.next();
+			if ( i == indexGameState ){
+				iteratorGameState.remove();
+				
 			}else{
 				// nothing
 			}
