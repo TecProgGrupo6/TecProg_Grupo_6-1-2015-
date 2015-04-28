@@ -21,55 +21,82 @@ public abstract class Player extends Actor{
 
 	// Counts the total of enemies defeated
 	protected int enemiesDefeated;
+	
 	// Checks if the player has the key
 	protected boolean hasKey = false;
+	
 	// Represents the enemies visible
-	protected boolean newEnemies = false; // if new enemy became visible, set
-											// true
+	protected boolean newEnemies = false; // if new enemy became visible, set true
+	
 	// Checks if a lock is opened
 	protected boolean openedLock = false;
+	
 	// Represents the enemy which the player can interect
 	protected Enemy target;
+	
 	// Represents the list of enemies
 	protected List<Enemy> targets;
+	
 	// Represents the regen of the health
 	protected int turnsOnLevel;
+	
 	// Represents the regen on battle of the barbarian character
 	protected int turnsSinceCombat;
 
 	public boolean upDirection = false;
+	
 	public boolean downDirection = false;
+	
 	public boolean leftDirection = false;
+	
 	public boolean rightDirection = false;
+	
 	public boolean upRightDirection = false;
+	
 	public boolean downRightDirection = false;
+	
 	public boolean downLeftDirection = false;
+	
 	public boolean upLeftDirection = false;
+	
 	// Represents the ending of turn witout action
 	public boolean wait = false;
+	
 	// Shout action of the player
 	public boolean shout = false;
+	
 	// Represents blink state of the player
 	public boolean blink = false;
+	
 	// Action from the wizzard character
 	public boolean explode = false;
+	
 	// Represents the action to close
 	public boolean close = false;
+	
 	// Action from the wizzard character
 	public boolean quicken = false;
+	
 	public boolean targetEnemy = false;
+	
 	// Action of the the ranger character
 	public boolean fireArrow = false;
+	
 	// Target got
 	public boolean gotTargets = false;
+	
 	// Represents the order of the actions on the targets
 	public boolean nextTarget = false;
+	
 	// Represents the order of the actions on the targets
 	public boolean previousTarget = false;
+	
 	// Action to interect with target
 	public boolean getTargets = false;
+	
 	// Represents cancel state ( action on target ) of the player
 	public boolean cancel = false;
+	
 	// Represents the total amount of xp from the player
 	protected double xpEarned;
 
@@ -134,10 +161,8 @@ public abstract class Player extends Actor{
 		nextTarget = false;
 		previousTarget = false;
 		getTargets = false;
-		// if (targets != null) { //Will be null if player hasn't targeted
-		// anything before
 		targets = null;
-		// }
+		
 		if ( target!= null ){
 
 			target.setTargeted ( false );
@@ -209,9 +234,9 @@ public abstract class Player extends Actor{
 			hasKey = true;
 			loc.removeEntityByID ( (byte) 5 );
 
-			// Lock lock = new Lock(map);
 			Node randomNode = map.getRandomNodeInRoom ();
 			map.placeEntity ( new Lock ( map ) , randomNode );
+			
 			if ( this instanceof trl.entity.player.Thief ){
 
 				for ( Entity entity : randomNode.getEntities () ){
@@ -258,6 +283,7 @@ public abstract class Player extends Actor{
 			GameplayState.getEnemyGroup ().listEnemies ();
 			gameState.setDungeonLevel ( gameState.getDungeonLevel ()+ 1 );
 			gameState.init ();
+			
 		}else{
 
 			// Nothing to do
@@ -267,6 +293,7 @@ public abstract class Player extends Actor{
 
 			Game.getGameStateManager ().addGameState ( 2 , new WinGameState () );
 			Game.getGameStateManager ().setGameState ( 2 );
+			
 		}else{
 
 			// Nothing to do
@@ -280,26 +307,24 @@ public abstract class Player extends Actor{
 		// Ignore all this if path is empty
 		if ( path!= null&& path.size ()> 0 ){
 
-			// System.out.println("Path size=" + path.size() +
-			// ", initial path size=" + initialPathSize);
-			// Path size == 1 and initial path size == 1 and enemy in next node.
 			// Consider this a deliberate attempt to attack enemy.
-			if ( path.size ()== 1&& initialPathSize== 1&& getNextPathNode ().checkEntityByID ( (byte) 0 ) ){
+			if ( path.size ()== 1 && initialPathSize== 1 && getNextPathNode ().checkEntityByID ( (byte) 0 ) ){
 
-				// System.out.println("Attacking.");
+				System.out.println("Attacking.");
 				attack ( GameplayState.getEnemyGroup ().getEnemy ( getNextPathNode () ) );
 				GameplayState.getEnemyGroup ().getEnemy ( path.get ( 0 ) ).setDamageTaken ( damageDealt );
-				// path.remove(0);
+				
 				path.clear ();
 				attacked = true;
 			}
 
-			// Path size less than initial path size and enemy in next node.
-			// This looks like the player ran into
-			// the enemy while traveling a longer path. Don't consider this a
-			// deliberate attack
+			/* Path size less than initial path size and enemy in next node.
+			 * This looks like the player ran into
+			 * the enemy while traveling a longer path. Don't consider this a
+			 * deliberate attack
+			 */
 			else if ( path.size ()< initialPathSize&& getNextPathNode ().checkEntityByID ( (byte) 0 ) ){
-				// System.out.println("Blocked by enemy/forgetting path.");
+				System.out.println("Blocked by enemy/forgetting path.");
 				path.clear ();
 				acted = true;
 			}
@@ -312,7 +337,7 @@ public abstract class Player extends Actor{
 					&& getNextPathNode ().getFeature () instanceof trl.map.feature.DoorClosed ){
 
 				openDoor ( getNextPathNode () );
-				// System.out.println("Opening door.");
+				System.out.println("Opening door.");
 				path.clear ();
 				moved = true;
 			}
@@ -325,7 +350,7 @@ public abstract class Player extends Actor{
 			 */
 			else if ( path.size ()>= 1&& path.size ()< initialPathSize
 					&& getNextPathNode ().getFeature () instanceof trl.map.feature.DoorClosed ){
-				// System.out.println("Blocked by door/forgetting path.");
+				System.out.println("Blocked by door/forgetting path.");
 				path.clear ();
 				acted = true;
 			}
@@ -351,7 +376,7 @@ public abstract class Player extends Actor{
 			// Move to next node
 			else{
 
-				// System.out.println("Moving.");
+				System.out.println("Moving.");
 				move ( getNextPathNode () );
 				moved = true;
 			}
@@ -432,28 +457,28 @@ public abstract class Player extends Actor{
 			// Nothing to do
 		}
 
-		// if (!adjacentEnemy()) {
-		// If KeyManager says we're supposed to look for targets (getTargets),
-		// but haven't yet (!gotTargets)
-
+		/* If KeyManager says we're supposed to look for targets (getTargets),
+		 * but haven't yet (!gotTargets)
+		 */
 		if ( getTargets&& !gotTargets ){
 
 			if ( !adjacentEnemy () ){
 
-				targets = ( (Ranger) this ).getTargets (); // Returns 0-size
-															// list if no
-															// targets found,
-															// not null!
-				// targets list size = 0, clear all flags. Should continue turn
-				// as normal.
+				/* Returns 0-size list if no targets found, not null!
+				 * targets list size = 0, clear all flags. Should continue turn
+				 * as normal.
+				 */
+				targets = ( (Ranger) this ).getTargets ();
+				
 				if ( targets.size ()== 0 ){
 
 					System.out.println ( "Targets list size = 0. No targets found. Canceling targeting." );
 					clearAllTargetingFlags ();
 				}
-				// targets list size != 0, so we found at least one target. Stop
-				// looking (getTargets = false) and
-				// allow target switching(gotTargets = true)
+				/* targets list size != 0, so we found at least one target. Stop
+				 * looking (getTargets = false) and
+				 * allow target switching(gotTargets = true)
+				 */
 				else{
 
 					getTargets = false;
@@ -738,7 +763,7 @@ public abstract class Player extends Actor{
 	// Tick function, gameplay related
 	public void tick(){
 
-		Node nextNode; // = null; //prospective node for movement/action
+		Node nextNode; //prospective node for movement/action
 		Enemy enemy; // prospective enemy in nextNode
 
 		// Clear activity flags
@@ -765,7 +790,7 @@ public abstract class Player extends Actor{
 			 */
 			nextNode = setDirection ();
 
-			/* If not null, add node to path */
+			// If not null, add node to path 
 			if ( nextNode!= null&& !( nextNode.isWall () ) ){
 
 				path.clear ();
