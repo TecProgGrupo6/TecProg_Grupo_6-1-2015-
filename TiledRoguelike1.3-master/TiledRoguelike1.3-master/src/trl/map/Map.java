@@ -90,18 +90,13 @@ public class Map{
 					 */
 					Node candidate = new Node( candXPos , candYPos , this );
 
-
 					/*
 					 * Make sure candidate node is not obstructed or in the
 					 * closed list
 					 */
-					int candidateX = candidate.getAxisX();
-					int candidateY = candidate.getAxisY();
-					Node getNode = getNode( candidateX , candidateY );
-					
-					if ( isLegalCell( getNode )
-							|| getNode.getFeature() instanceof trl.map.feature.DoorClosed
-							|| getNode.getFeature() instanceof trl.map.feature.DoorOpen ){
+					if ( isLegalCell( getNode( candidate.getAxisX() , candidate.getAxisY() ) )
+							|| getNode( candidate.getAxisX() , candidate.getAxisY() ).getFeature() instanceof trl.map.feature.DoorClosed
+							|| getNode( candidate.getAxisX() , candidate.getAxisY() ).getFeature() instanceof trl.map.feature.DoorOpen ){
 
 						candidate.setParent( node );
 						candidate.setGScore();
@@ -109,14 +104,9 @@ public class Map{
 						candidate.setFScore();
 
 						// If not on openList, add it.
-						int candidateScore = candidate.getGScore();
-						Node getList = openList.get( openList.indexOf( candidate ) );
-						int getScoreList = getList.getGScore();
-						
-						boolean openningList= openList.contains( candidate );
-						if ( openningList ){
+						if ( openList.contains( candidate ) ){
 							{
-								if ( candidateScore < getScoreList ){
+								if ( candidate.getGScore() < openList.get( openList.indexOf( candidate ) ).getGScore() ){
 									openList.remove( candidate );
 									openList.add( candidate );
 								}else{
@@ -129,7 +119,7 @@ public class Map{
 
 						if ( closedList.contains( candidate ) ){
 							{
-								if ( candidateScore < closedList.get( closedList.indexOf( candidate ) ).getGScore() ){
+								if ( candidate.getGScore() < closedList.get( closedList.indexOf( candidate ) ).getGScore() ){
 									openList.remove( candidate );
 									openList.add( candidate );
 								}else{
@@ -149,10 +139,6 @@ public class Map{
 					}else{
 						// Nothing
 					}
-
-					candidateIsObstructed( candidate, openList, closedList, tempList, endNode, node );
-					
-					
 				}else{
 					// Nothing
 				}
@@ -160,59 +146,6 @@ public class Map{
 		}
 		openList.addAll( tempList );
 		tempList.clear();
-	}
-	
-	/*
-	 * Make sure candidate node is not obstructed or in the
-	 * closed list
-	 */
-	public void candidateIsObstructed(Node candidate, List<Node> openList , List<Node> closedList, Set<Node> tempList, Node endNode , Node node ){
-		
-		if ( isLegalCell( getNode( candidate.getAxisX() , candidate.getAxisY() ) )
-				|| getNode( candidate.getAxisX() , candidate.getAxisY() ).getFeature() instanceof trl.map.feature.DoorClosed
-				|| getNode( candidate.getAxisX() , candidate.getAxisY() ).getFeature() instanceof trl.map.feature.DoorOpen ){
-
-			candidate.setParent( node );
-			candidate.setGScore();
-			candidate.setHScore( endNode );
-			candidate.setFScore();
-
-			// If not on openList, add it.
-			if ( openList.contains( candidate ) ){
-				{
-					if ( candidate.getGScore() < openList.get( openList.indexOf( candidate ) ).getGScore() ){
-						openList.remove( candidate );
-						openList.add( candidate );
-					}else{
-						// Nothing
-					}
-				}
-			}else{
-				// Nothing
-			}
-
-			if ( closedList.contains( candidate ) ){
-				{
-					if ( candidate.getGScore() < closedList.get( closedList.indexOf( candidate ) ).getGScore() ){
-						openList.remove( candidate );
-						openList.add( candidate );
-					}else{
-						// Nothing
-					}
-				}
-			}else{
-				// Nothing
-			}
-
-			if ( !openList.contains( candidate ) && !closedList.contains( candidate ) ){
-				tempList.add( candidate );
-			}else{
-				// Nothing
-			}
-
-		}else{
-			// Nothing
-		}
 	}
 
 	public void addRectAdjacents ( List<Node> openList , List<Node> closedList , Node endNode , Node node ){
