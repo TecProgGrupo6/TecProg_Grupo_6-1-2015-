@@ -10,121 +10,118 @@ import trl.main.Game;
 
 public class ActorQueue{
 
-	// Represent the queue of the Actors
+	//Represent the queue of the Actors
 	private List<Actor> queue;
 
-	public ActorQueue (){
+	public ActorQueue(){
 
-		init();
+		init ();
 	}
 
-	public void init (){
+	public void init(){
 
-		queue = new ArrayList<Actor>();
+		queue = new ArrayList<Actor> ();
 	}
 
-	public void addActor ( Actor actor ){
+	public void addActor(Actor actor){
 
 		// Add actor at beginning of queue
-		queue.add( 0 , actor );
+		queue.add ( 0 , actor );
 	}
 
-	public void render ( Graphics g ){
+	public void render(Graphics g){
 
 		for ( Actor actor : queue ){
-
-			actor.render( g );
+			
+			actor.render ( g );
 		}
 	}
-
-	public void tick (){
+	
+	public void tick(){
 
 		Actor actor;
-		// Start tick loop
-		for ( Iterator<Actor> itQueue = queue.iterator() ; itQueue.hasNext() ; ){
-			actor = itQueue.next();
-
-			actor.tick();
+		// Start tick loop 
+		for ( Iterator<Actor> itQueue = queue.iterator () ; itQueue.hasNext () ; ){
+			actor = itQueue.next ();
+			
+			actor.tick ();
 
 			// If actor was enemy..
 			if ( actor instanceof trl.entity.enemy.Enemy ){
-
-				if ( !actor.isAlive() && Game.tickTimer > 0 ){
-
-					GameplayState.getPlayer().incrementEnemiesDefeated( 1 );
+				
+				if ( !actor.isAlive ()&& Game.tickTimer> 0 ){
+					
+					GameplayState.getPlayer ().incrementEnemiesDefeated ( 1 );
 					// Calc xp gain for dead enemy
-					double levelDiff = GameplayState.getPlayer().getLevel() - actor.getLevel();
-					if ( levelDiff <= 0.0d ){
-
+					double levelDiff = GameplayState.getPlayer ().getLevel ()
+							- actor.getLevel ();
+					if ( levelDiff<= 0.0d ){
+						
 						levelDiff = 1.0d;
 					}else{
-
-						// Nothing to do
+						
+						//nothing to do
 					}
-
-					double percentXP = ( 1.0d / levelDiff ) * (double) actor.getLevel();
-					if ( percentXP > 1.0 ){
+					
+					double percentXP = ( 1.0d/ levelDiff )
+							* (double) actor.getLevel ();
+					if ( percentXP> 1.0 ){
 						percentXP = 1.0;
 					}else{
-
-						// Nothing to do
+						
+						//nothing to do
 					}
-
-					double xp = percentXP * (double) actor.getLevel();
-					GameplayState.getPlayer().gainXP( xp );
-					itQueue.remove();
-					GameplayState.getEnemyGroup().removeEnemy( actor );
+					
+					double xp = percentXP* (double) actor.getLevel ();
+					GameplayState.getPlayer ().gainXP ( xp );
+					itQueue.remove ();
+					GameplayState.getEnemyGroup ().removeEnemy ( actor );
 
 					// If it's a dead enemy's turn, pass turn to next actor
-					if ( actor.getTurn() ){
-
-						int getQueueParams = queue.indexOf( actor ) + 1;
-
-						actor.endTurn( queue.get( getQueueParams ) );
+					if ( actor.getTurn () ){
+						
+						actor.endTurn ( queue.get ( queue.indexOf ( actor )+ 1 ) );
 					}else{
-
-						// Nothing to do
+						
+						//nothing to do
 					}
-
+					
 				}else{
-
-					// Nothing to do
+					
+					//nothing to do
 				}
-
+				
 			}else{
-
-				// Nothing to do
+				
+				//nothing to do
 			}
 
-			// If actor acted on its turn, determine next actor...
-			if ( actor.getTurn() ){
-
-				if ( actor.getActed() ){
-
-					GameplayState.getMap().updateVisibleToPlayer();
-					GameplayState.getMap().updateImageMap();
-					/*
+			// If actor acted on its turn, determine next actor... 
+			if ( actor.getTurn () ){
+				
+				if ( actor.getActed () ){
+					
+					GameplayState.getMap ().updateVisibleToPlayer ();
+					GameplayState.getMap ().updateImageMap ();
+					/* 
 					 * If there's another actor in queue, hand turn to that
 					 * actor
 					 */
-					if ( itQueue.hasNext() ){
-
-						/*
-						 * Get next actor by index (current + 1) instead of
-						 * moving iterator
+					if ( itQueue.hasNext () ){
+						
+						/* Get next actor by index (current + 1) instead of
+						 *  moving iterator
 						 */
-
-						int getQueueParams = queue.indexOf( actor ) + 1;
-
-						actor.endTurn( queue.get( getQueueParams ) );
+						
+						actor.endTurn ( queue.get ( queue.indexOf ( actor )+ 1 ) );
 					}
 					// Hand turn to first actor in queue
 					else{
-
-						actor.endTurn( queue.get( 0 ) );
+						
+						actor.endTurn ( queue.get ( 0 ) );
 					}
-				}else{
-
+				} else{
+					
 					// If actor did not act. Not currently implemented
 				}
 			}
@@ -132,19 +129,18 @@ public class ActorQueue{
 		}
 		// End tick loop
 
-		GameplayState.getEnemyGroup().spawnEnemies();
+		GameplayState.getEnemyGroup ().spawnEnemies ();
 	}
 
-	public Actor getActor ( int index ){
+	public Actor getActor(int index){
 
-		return queue.get( index );
+		return queue.get ( index );
 	}
 
-	public void flush (){
+	public void flush(){
 
-		for ( @SuppressWarnings ( "unused" )
-		Actor actor : queue ){
-
+		for ( @SuppressWarnings("unused") Actor actor : queue ){
+			
 			actor = null;
 		}
 	}
