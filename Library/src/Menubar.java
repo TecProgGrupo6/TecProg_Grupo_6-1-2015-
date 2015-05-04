@@ -37,21 +37,33 @@ public class Menubar extends JMenuBar{
 
 	};
 
-	public Menubar (){
-
-		// For adding book, member, search, loan & help Menus to the menu bar.
+	// For adding book, member, search, loan & help Menus to the menu bar.
+	void addOptionsToMenuBar(){
+		
 		this.add( fileMenu = new JMenu( "File" ) );
 		this.add( bookMenu = new JMenu( "Books" ) );
 		this.add( memberMenu = new JMenu( "Members" ) );
 		this.add( searchMenu = new JMenu( "Search" ) );
+		
 		this.add( loanMenu = new JMenu( "Loan" ) );
-
-		// For setting the Mnemonic
+	}
+	
+	// For setting the Mnemonic
+	void settingMnemonics(){
+		
 		fileMenu.setMnemonic( 'f' );
 		bookMenu.setMnemonic( 'b' );
 		memberMenu.setMnemonic( 'm' );
 		searchMenu.setMnemonic( 's' );
 		loanMenu.setMnemonic( 'l' );
+	
+	}
+	
+	public Menubar (){
+
+		addOptionsToMenuBar();
+
+		settingMnemonics();
 
 		// For setting the image icons.
 		icons = new ImageIcon[12];
