@@ -107,6 +107,33 @@ public class AddBooks extends JInternalFrame{
 		}
 		txtShelfNo.setText( null );
 	}
+	
+	
+	void settingTheLayoutForThePanel( Container cp){
+	
+		/***********************************************************************
+		 * for setting the layout for the panel,setting the font for the button*
+		 * and adding the button to the panel. * finally adding the panel to the
+		 * container *
+		 ***********************************************************************/
+		insertInformationButtonPanel.setLayout( new FlowLayout( FlowLayout.RIGHT ) );
+		insertInformationButton.setFont( new Font( "Tahoma" , Font.BOLD , 11 ) );
+		insertInformationButtonPanel.add( insertInformationButton );
+		centerPanel.add( "South" , insertInformationButtonPanel );
+		cp.add( "Center" , centerPanel );
+	
+		/***********************************************************************
+		 * for setting the layout for the panel,setting the font for the button*
+		 * adding the button to the panel & setting the border. * finally adding
+		 * the panel to the container *
+		 ***********************************************************************/
+		southPanel.setLayout( new FlowLayout( FlowLayout.RIGHT ) );
+		OKButton.setFont( new Font( "Tahoma" , Font.BOLD , 11 ) );
+		southPanel.add( OKButton );
+		southPanel.setBorder( BorderFactory.createEtchedBorder() );
+		cp.add( "South" , southPanel );
+	
+	}
 
 	// Constructor of addBooks.
 	public AddBooks (){
@@ -172,27 +199,7 @@ public class AddBooks extends JInternalFrame{
 		informationTextFieldPanel.add( txtShelfNo );
 		centerPanel.add( "East" , informationTextFieldPanel );
 
-		/***********************************************************************
-		 * for setting the layout for the panel,setting the font for the button*
-		 * and adding the button to the panel. * finally adding the panel to the
-		 * container *
-		 ***********************************************************************/
-		insertInformationButtonPanel.setLayout( new FlowLayout( FlowLayout.RIGHT ) );
-		insertInformationButton.setFont( new Font( "Tahoma" , Font.BOLD , 11 ) );
-		insertInformationButtonPanel.add( insertInformationButton );
-		centerPanel.add( "South" , insertInformationButtonPanel );
-		cp.add( "Center" , centerPanel );
-
-		/***********************************************************************
-		 * for setting the layout for the panel,setting the font for the button*
-		 * adding the button to the panel & setting the border. * finally adding
-		 * the panel to the container *
-		 ***********************************************************************/
-		southPanel.setLayout( new FlowLayout( FlowLayout.RIGHT ) );
-		OKButton.setFont( new Font( "Tahoma" , Font.BOLD , 11 ) );
-		southPanel.add( OKButton );
-		southPanel.setBorder( BorderFactory.createEtchedBorder() );
-		cp.add( "South" , southPanel );
+		settingTheLayoutForThePanel(cp);
 
 		/***********************************************************************
 		 * for adding the action listener to the button,first the text will be *
