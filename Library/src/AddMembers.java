@@ -147,6 +147,40 @@ public class AddMembers extends JInternalFrame{
 			}
 		}
 	}
+	
+	
+	/***********************************************************************
+	 * for adding the JTextField and JPasswordField to the panel and *
+	 * setting the font to the JTextField and JPasswordField. Finally *
+	 * adding the panel to the centerPanel *
+	 ***********************************************************************/
+	void addFieldsToThePanel(){
+
+		for ( int i = 0 ; i < informationLabel.length ; i++ ){
+			if ( i == 1 || i == 2 ){
+
+				informationTextFieldPanel.add( informationPasswordField[i - 1] = new JPasswordField( 25 ) );
+				informationPasswordField[i - 1].setFont( new Font( "Tahoma" , Font.PLAIN , 11 ) );
+
+			}
+			if ( i == 0 ){
+
+				informationTextFieldPanel.add( informationTextField[i] = new JTextField( 25 ) );
+				informationTextField[i].setFont( new Font( "Tahoma" , Font.PLAIN , 11 ) );
+
+			}
+			if ( i == 3 || i == 4 || i == 5 || i == 6 ){
+
+				informationTextFieldPanel.add( informationTextField[i - 2] = new JTextField( 25 ) );
+				informationTextField[i - 2].setFont( new Font( "Tahoma" , Font.PLAIN , 11 ) );
+
+			}
+		}
+	
+	}
+	
+	
+	
 
 	// Constructor of addMembers.
 	public AddMembers (){
@@ -198,32 +232,9 @@ public class AddMembers extends JInternalFrame{
 
 		// For adding the panel to the centerPanel.
 		centerPanel.add( "West" , informationLabelPanel );
-
-		/***********************************************************************
-		 * for adding the JTextField and JPasswordField to the panel and *
-		 * setting the font to the JTextField and JPasswordField. Finally *
-		 * adding the panel to the centerPanel *
-		 ***********************************************************************/
-		for ( int i = 0 ; i < informationLabel.length ; i++ ){
-			if ( i == 1 || i == 2 ){
-
-				informationTextFieldPanel.add( informationPasswordField[i - 1] = new JPasswordField( 25 ) );
-				informationPasswordField[i - 1].setFont( new Font( "Tahoma" , Font.PLAIN , 11 ) );
-
-			}
-			if ( i == 0 ){
-
-				informationTextFieldPanel.add( informationTextField[i] = new JTextField( 25 ) );
-				informationTextField[i].setFont( new Font( "Tahoma" , Font.PLAIN , 11 ) );
-
-			}
-			if ( i == 3 || i == 4 || i == 5 || i == 6 ){
-
-				informationTextFieldPanel.add( informationTextField[i - 2] = new JTextField( 25 ) );
-				informationTextField[i - 2].setFont( new Font( "Tahoma" , Font.PLAIN , 11 ) );
-
-			}
-		}
+		
+		addFieldsToThePanel();
+		
 		centerPanel.add( "East" , informationTextFieldPanel );
 
 		/***********************************************************************
