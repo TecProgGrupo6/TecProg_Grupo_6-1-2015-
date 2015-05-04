@@ -133,6 +133,26 @@ public class SearchBooksAndMembers extends JInternalFrame{
 		}
 		return true;
 	}
+	
+	void settingTheFonts(){
+	
+		/**
+		 * for setting the font to the lables & buttons
+		 */
+		searchBooksLabel.setFont( new Font( "Tahoma" , Font.BOLD , 11 ) );
+		searchBooksTypes.setFont( new Font( "Tahoma" , Font.BOLD , 11 ) );
+		booksKey.setFont( new Font( "Tahoma" , Font.BOLD , 11 ) );
+		booksKeyTextField.setFont( new Font( "Tahoma" , Font.PLAIN , 11 ) );
+		searchBooksButton.setFont( new Font( "Tahoma" , Font.BOLD , 11 ) );
+		cancelButton.setFont( new Font( "Tahoma" , Font.BOLD , 11 ) );
+		searchMembersLabel.setFont( new Font( "Tahoma" , Font.BOLD , 11 ) );
+		searchMembersTypes.setFont( new Font( "Tahoma" , Font.BOLD , 11 ) );
+		membersKey.setFont( new Font( "Tahoma" , Font.BOLD , 11 ) );
+		membersKeyTextField.setFont( new Font( "Tahoma" , Font.PLAIN , 11 ) );
+		searchMembersButton.setFont( new Font( "Tahoma" , Font.BOLD , 11 ) );
+		cancelButton.setFont( new Font( "Tahoma" , Font.BOLD , 11 ) );
+		
+	}
 
 	// Constructor of searchBooksAndMembers.
 	public SearchBooksAndMembers (){
@@ -236,22 +256,8 @@ public class SearchBooksAndMembers extends JInternalFrame{
 		// For adding the center to the container.
 		cp.add( "Center" , center );
 
-		/**
-		 * for setting the font to the lables & buttons
-		 */
-		searchBooksLabel.setFont( new Font( "Tahoma" , Font.BOLD , 11 ) );
-		searchBooksTypes.setFont( new Font( "Tahoma" , Font.BOLD , 11 ) );
-		booksKey.setFont( new Font( "Tahoma" , Font.BOLD , 11 ) );
-		booksKeyTextField.setFont( new Font( "Tahoma" , Font.PLAIN , 11 ) );
-		searchBooksButton.setFont( new Font( "Tahoma" , Font.BOLD , 11 ) );
-		cancelButton.setFont( new Font( "Tahoma" , Font.BOLD , 11 ) );
-		searchMembersLabel.setFont( new Font( "Tahoma" , Font.BOLD , 11 ) );
-		searchMembersTypes.setFont( new Font( "Tahoma" , Font.BOLD , 11 ) );
-		membersKey.setFont( new Font( "Tahoma" , Font.BOLD , 11 ) );
-		membersKeyTextField.setFont( new Font( "Tahoma" , Font.PLAIN , 11 ) );
-		searchMembersButton.setFont( new Font( "Tahoma" , Font.BOLD , 11 ) );
-		cancelButton.setFont( new Font( "Tahoma" , Font.BOLD , 11 ) );
-
+		settingTheFonts();
+		
 		// For setting the layout.
 		southPanel.setLayout( new FlowLayout( FlowLayout.RIGHT ) );
 
