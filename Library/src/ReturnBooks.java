@@ -104,6 +104,33 @@ public class ReturnBooks extends JInternalFrame implements ActionListener{
 		}
 	}
 
+	void addStringsAndSettingFonts(){
+	
+		/***********************************************************************
+		 * For adding the strings to the labels, for setting the font * and
+		 * adding these labels to the panel. * finally adding the panel to the
+		 * container *
+		 ***********************************************************************/
+	
+		for ( int i = 0 ; i < informationLabel.length ; i++ ){
+	
+			informationPanel.add( informationLabel[i] = new JLabel( informationString[i] ) );
+			informationLabel[i].setFont( new Font( "Tahoma" , Font.BOLD , 11 ) );
+			informationPanel.add( informationTextField[i] = new JTextField() );
+			informationTextField[i].setFont( new Font( "Tahoma" , Font.PLAIN , 11 ) );
+	
+		}
+	
+		informationPanel.add( lblFinePerDay );
+		informationPanel.add( txtFinePerDay );
+		informationPanel.add( lblTotalFineAmt );
+		informationPanel.add( txtTotalFineAmt );
+		txtTotalFineAmt.setEditable( false );
+		txtFinePerDay.addKeyListener( new keyListener() );
+		centerPanel.add( "Center" , informationPanel );
+	
+	}
+	
 	// Constructor of returnBooks
 	public ReturnBooks (){
 
@@ -134,28 +161,7 @@ public class ReturnBooks extends JInternalFrame implements ActionListener{
 		// For setting the layout for the internal panel
 		informationPanel.setLayout( new GridLayout( 4 , 2 , 1 , 1 ) );
 
-		/***********************************************************************
-		 * For adding the strings to the labels, for setting the font * and
-		 * adding these labels to the panel. * finally adding the panel to the
-		 * container *
-		 ***********************************************************************/
-
-		for ( int i = 0 ; i < informationLabel.length ; i++ ){
-
-			informationPanel.add( informationLabel[i] = new JLabel( informationString[i] ) );
-			informationLabel[i].setFont( new Font( "Tahoma" , Font.BOLD , 11 ) );
-			informationPanel.add( informationTextField[i] = new JTextField() );
-			informationTextField[i].setFont( new Font( "Tahoma" , Font.PLAIN , 11 ) );
-
-		}
-
-		informationPanel.add( lblFinePerDay );
-		informationPanel.add( txtFinePerDay );
-		informationPanel.add( lblTotalFineAmt );
-		informationPanel.add( txtTotalFineAmt );
-		txtTotalFineAmt.setEditable( false );
-		txtFinePerDay.addKeyListener( new keyListener() );
-		centerPanel.add( "Center" , informationPanel );
+		addStringsAndSettingFonts();
 
 		// For setting the layout
 		returnButtonPanel.setLayout( new FlowLayout( FlowLayout.RIGHT ) );
