@@ -102,6 +102,32 @@ public class BorrowBooks extends JInternalFrame{
 				// No action
 			}
 	}
+	
+	void addingTheStringsToTheLabels(){
+		
+		/***********************************************************************
+		 * for adding the strings to the labels, for setting the font * and
+		 * adding these labels to the panel. * finally adding the panel to the
+		 * container *
+		 ***********************************************************************/
+		for ( int i = 0 ; i < informationLabel.length ; i++ ){
+	
+			informationPanel.add( informationLabel[i] = new JLabel( informationString[i] ) );
+			informationLabel[i].setFont( new Font( "Tahoma" , Font.BOLD , 11 ) );
+	
+			if ( i == 2 ){
+	
+				informationPanel.add( informationTextField[i] = new JTextField( date ) );
+				informationTextField[i].setFont( new Font( "Tahoma" , Font.PLAIN , 11 ) );
+				informationTextField[i].setEnabled( false );
+	
+			}else{
+	
+				informationPanel.add( informationTextField[i] = new JTextField() );
+				informationTextField[i].setFont( new Font( "Tahoma" , Font.PLAIN , 11 ) );
+			}
+		}
+	}
 
 	// Constructor of borrowBooks.
 	public BorrowBooks (){
@@ -133,28 +159,8 @@ public class BorrowBooks extends JInternalFrame{
 		// For setting the layout for the internal panel.
 		informationPanel.setLayout( new GridLayout( 4 , 2 , 1 , 1 ) );
 
-		/***********************************************************************
-		 * for adding the strings to the labels, for setting the font * and
-		 * adding these labels to the panel. * finally adding the panel to the
-		 * container *
-		 ***********************************************************************/
-		for ( int i = 0 ; i < informationLabel.length ; i++ ){
-
-			informationPanel.add( informationLabel[i] = new JLabel( informationString[i] ) );
-			informationLabel[i].setFont( new Font( "Tahoma" , Font.BOLD , 11 ) );
-
-			if ( i == 2 ){
-
-				informationPanel.add( informationTextField[i] = new JTextField( date ) );
-				informationTextField[i].setFont( new Font( "Tahoma" , Font.PLAIN , 11 ) );
-				informationTextField[i].setEnabled( false );
-
-			}else{
-
-				informationPanel.add( informationTextField[i] = new JTextField() );
-				informationTextField[i].setFont( new Font( "Tahoma" , Font.PLAIN , 11 ) );
-			}
-		}
+		addingTheStringsToTheLabels();
+		
 		centerPanel.add( "Center" , informationPanel );
 
 		// For setting the layout.
