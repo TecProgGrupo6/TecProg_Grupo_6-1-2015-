@@ -74,7 +74,22 @@ public class JLibrary extends JFrame implements ActionListener{
 
 	// To search books
 	private SearchBooksAndMembers search;
+	
+	
+	void setMenu(Menubar menu){
+	
+		// Menu bar Action.........
+		setJMenuBar( menu );
+		menu.exit.addActionListener( this );
+		menu.addBook.addActionListener( this );
+		menu.listBook.addActionListener( this );
+		menu.addMember.addActionListener( this );
+		menu.listMember.addActionListener( this );
+		menu.searchBooksAndMembers.addActionListener( this );
+		menu.borrowBook.addActionListener( this );
+		menu.returnBook.addActionListener( this );
 
+	}
 	// Constructor of JLibrary
 	public JLibrary (){
 
@@ -94,16 +109,7 @@ public class JLibrary extends JFrame implements ActionListener{
 		menu = new Menubar();
 		toolbar = new Toolbar();
 
-		// Menu bar Action.........
-		setJMenuBar( menu );
-		menu.exit.addActionListener( this );
-		menu.addBook.addActionListener( this );
-		menu.listBook.addActionListener( this );
-		menu.addMember.addActionListener( this );
-		menu.listMember.addActionListener( this );
-		menu.searchBooksAndMembers.addActionListener( this );
-		menu.borrowBook.addActionListener( this );
-		menu.returnBook.addActionListener( this );
+		setMenu(menu);
 
 		// Get the graphical user interface components display the desktop
 		Container cp = getContentPane();
