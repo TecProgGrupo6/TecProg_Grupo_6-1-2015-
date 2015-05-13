@@ -44,13 +44,13 @@ public class PrintingMembers extends JInternalFrame implements Printable{
 		super( "Printing Members" , false , true , false , true );
 
 		// For getting the graphical user interface components display area.
-		Container cp = getContentPane();
+		Container container = getContentPane();
 
 		// For setting the font.
 		textArea.setFont( new Font( "Tahoma" , Font.PLAIN , 9 ) );
 
 		// For adding the text area to the container.
-		cp.add( textArea );
+		container.add( textArea );
 		try{
 
 			Class.forName( "sun.jdbc.odbc.JdbcOdbcDriver" );
@@ -94,25 +94,25 @@ public class PrintingMembers extends JInternalFrame implements Printable{
 		pack();
 	}
 
-	public int print ( Graphics pg , PageFormat pageFormat , int pageIndex ) throws PrinterException{
+	public int print ( Graphics graphics , PageFormat pageFormat , int pageIndex ) throws PrinterException{
 
-		pg.translate( (int) pageFormat.getImageableX() , (int) pageFormat.getImageableY() );
+		graphics.translate( (int) pageFormat.getImageableX() , (int) pageFormat.getImageableY() );
 		int wPage = (int) pageFormat.getImageableWidth();
 		int hPage = (int) pageFormat.getImageableHeight();
-		pg.setClip( 0 , 0 , wPage , hPage );
+		graphics.setClip( 0 , 0 , wPage , hPage );
 
-		pg.setColor( textArea.getBackground() );
-		pg.fillRect( 0 , 0 , wPage , hPage );
-		pg.setColor( textArea.getForeground() );
+		graphics.setColor( textArea.getBackground() );
+		graphics.fillRect( 0 , 0 , wPage , hPage );
+		graphics.setColor( textArea.getForeground() );
 
 		Font font = textArea.getFont();
-		pg.setFont( font );
-		FontMetrics fm = pg.getFontMetrics();
-		int hLine = fm.getHeight();
+		graphics.setFont( font );
+		FontMetrics fontMetrics = graphics.getFontMetrics();
+		int hLine = fontMetrics.getHeight();
 
 		if ( lines == null ){
 
-			lines = getLines( fm , wPage );
+			lines = getLines( fontMetrics , wPage );
 
 		}else{
 
@@ -129,31 +129,31 @@ public class PrintingMembers extends JInternalFrame implements Printable{
 			return NO_SUCH_PAGE;
 		}
 
-		int x = 0;
-		int y = fm.getAscent();
+		int xAxis = 0;
+		int yAxis = fontMetrics.getAscent();
 		int lineIndex = linesPerPage * pageIndex;
 
-		while ( lineIndex < lines.size() && y < hPage ){
+		while ( lineIndex < lines.size() && yAxis < hPage ){
 
-			String str = (String) lines.get( lineIndex );
-			pg.drawString( str , x , y );
-			y += hLine;
+			String string = (String) lines.get( lineIndex );
+			graphics.drawString( string , xAxis , yAxis );
+			yAxis += hLine;
 			lineIndex++;
 
 		}
 		return PAGE_EXISTS;
 	}
 
-	protected Vector getLines ( FontMetrics fm , int wPage ){
+	protected Vector getLines ( FontMetrics fontMetrics , int wPage ){
 
-		Vector v = new Vector();
+		Vector vector = new Vector();
 
 		String text = textArea.getText();
 		String prevToken = "";
-		StringTokenizer st = new StringTokenizer( text , "\n\r" , true );
+		StringTokenizer stringTokenizer = new StringTokenizer( text , "\n\r" , true );
 
-		while ( st.hasMoreTokens() ){
-			String line = st.nextToken();
+		while ( stringTokenizer.hasMoreTokens() ){
+			String line = stringTokenizer.nextToken();
 
 			if ( line.equals( "\r" ) ){
 				continue;
@@ -166,7 +166,7 @@ public class PrintingMembers extends JInternalFrame implements Printable{
 			 * get them...
 			 */
 			if ( line.equals( "\n" ) && prevToken.equals( "\n" ) ){
-				v.add( "" );
+				vector.add( "" );
 			}else{
 				// Nothing to do
 			}
@@ -177,11 +177,11 @@ public class PrintingMembers extends JInternalFrame implements Printable{
 				// Nothing to do
 			}
 
-			StringTokenizer st2 = new StringTokenizer( line , " \t" , true );
+			StringTokenizer stringTokenizer2 = new StringTokenizer( line , " \t" , true );
 			String line2 = "";
 
-			while ( st2.hasMoreTokens() ){
-				String token = st2.nextToken();
+			while ( stringTokenizer2.hasMoreTokens() ){
+				String token = stringTokenizer2.nextToken();
 
 				if ( token.equals( "\t" ) ){
 
@@ -194,11 +194,11 @@ public class PrintingMembers extends JInternalFrame implements Printable{
 					// Nothing to do
 				}
 
-				int lineLength = fm.stringWidth( line2 + token );
+				int lineLength = fontMetrics.stringWidth( line2 + token );
 
 				if ( lineLength > wPage && line2.length() > 0 ){
 
-					v.add( line2 );
+					vector.add( line2 );
 					line2 = token.trim();
 					continue;
 				}else{
@@ -206,8 +206,8 @@ public class PrintingMembers extends JInternalFrame implements Printable{
 				}
 				line2 += token;
 			}
-			v.add( line2 );
+			vector.add( line2 );
 		}
-		return v;
+		return vector;
 	}
 }
