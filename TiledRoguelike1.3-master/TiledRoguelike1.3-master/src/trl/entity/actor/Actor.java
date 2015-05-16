@@ -84,8 +84,8 @@ public abstract class Actor extends Entity{
 	// Initiliaze player
 	public void initActor (){
 		
-		LOGGER.setLevel( Level.INFO );
-		LOGGER.info("Actor intialized");
+		//LOGGER.setLevel( Level.INFO );
+		//LOGGER.info("Actor intialized");
 		
 		this.loc = map.placeEntity( this , map.getRandomNodeInRoom() );
 		this.path = new ArrayList<Node>();
