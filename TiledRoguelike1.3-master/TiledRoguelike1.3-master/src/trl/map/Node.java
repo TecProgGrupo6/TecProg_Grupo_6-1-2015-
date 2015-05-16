@@ -4,8 +4,11 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import trl.entity.Entity;
+import trl.entity.actor.Actor;
 import trl.map.feature.DoorClosed;
 import trl.map.feature.DoorOpen;
 import trl.map.feature.Feature;
@@ -77,6 +80,8 @@ public class Node{
 
 	// Representation of the floor space
 	public static Feature floor = new Floor();
+	
+	private final static Logger LOGGER = Logger.getLogger( Actor.class.getName() );
 
 	public Node ( int x, int y, Map map ){
 
@@ -490,11 +495,17 @@ public class Node{
 	}
 
 	public void makeOpenDoor (){
+		
+		LOGGER.setLevel( Level.INFO );
+		LOGGER.info("Door Succesfully opened");
 
 		feature = openDoor;
 	}
 
 	public void makeClosedDoor (){
+		
+		LOGGER.setLevel( Level.INFO );
+		LOGGER.info("Door Closed Successfully");
 
 		feature = closedDoor;
 	}

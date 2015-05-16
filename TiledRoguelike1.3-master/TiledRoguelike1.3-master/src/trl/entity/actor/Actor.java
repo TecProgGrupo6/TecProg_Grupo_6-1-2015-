@@ -6,6 +6,8 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import trl.entity.Entity;
 import trl.entity.enemy.Enemy;
@@ -69,6 +71,9 @@ public abstract class Actor extends Entity{
 
 	// Turns on node
 	protected int turnsOnNode;
+	
+	private final static Logger LOGGER = Logger.getLogger( Actor.class.getName() );
+	
 
 	public Actor ( Map map ){
 
@@ -78,17 +83,23 @@ public abstract class Actor extends Entity{
 
 	// Initiliaze player
 	public void initActor (){
-
+		
+		LOGGER.setLevel( Level.INFO );
+		LOGGER.info("Actor intialized");
+		
 		this.loc = map.placeEntity( this , map.getRandomNodeInRoom() );
 		this.path = new ArrayList<Node>();
 		stance = new boolean[] { true , false , false , false };
 	}
-
+	
+	
+	// Returns the player HP at frame-enter event
 	public int getHP (){
 
 		return hp;
 	}
-
+	
+	// Sets the player HP at frame-enter event
 	public void setHP ( int hp ){
 
 		this.hp = hp;
@@ -99,12 +110,14 @@ public abstract class Actor extends Entity{
 
 		return hp > 0;
 	}
-
+	
+	// Checks the damage taken at frame-enter event
 	public int getDamageTaken (){
-
+		
 		return damageTaken;
 	}
-
+	
+	// Sets the damage taken at frame-enter event
 	public void setDamageTaken ( int damageTaken ){
 
 		this.damageTaken = damageTaken;
@@ -117,20 +130,26 @@ public abstract class Actor extends Entity{
 		double random_attack = r.nextDouble() * attack;
 
 		damageDealt = (int) Math.round( random_attack ) + level;
-
+		
+		
 		if ( damageDealt > attack ){
-
+			
 			damageDealt = attack;
 		}else{
 
 			// Nothing to do
 		}
-
+		
+		
+		// makes the calculation of new hp from enemies
 		defender.setHP( defender.getHP() - damageDealt );
 		defender.setDamageTaken( damageDealt );
 		this.setStance( false , true , false , false );
 
 		if ( damageDealt > 0 ){
+			
+			LOGGER.setLevel( Level.INFO );
+			LOGGER.info("Attacking Enemmy");
 
 			defender.setStance( false , false , true , false );
 		}else{
@@ -139,6 +158,7 @@ public abstract class Actor extends Entity{
 		}
 	}
 
+	// set image at frame-inter event
 	public void setImage ( BufferedImage image ){
 
 		this.image = image;
@@ -236,6 +256,9 @@ public abstract class Actor extends Entity{
 	protected void playSound (){
 
 		if ( attacked && damageDealt > 0 ){
+			
+			LOGGER.setLevel( Level.INFO );
+			LOGGER.info("Strike sound played");
 
 			soundManager.playSound( "strike" );
 		}else{
@@ -244,6 +267,9 @@ public abstract class Actor extends Entity{
 		}
 
 		if ( attacked && damageDealt == 0 ){
+			
+			LOGGER.setLevel( Level.INFO );
+			LOGGER.info("Miss sound played");
 
 			soundManager.playSound( "miss" );
 		}else{
