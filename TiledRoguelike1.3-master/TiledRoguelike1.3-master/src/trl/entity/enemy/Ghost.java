@@ -1,5 +1,9 @@
 package trl.entity.enemy;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import trl.entity.actor.Actor;
 import trl.map.Map;
 
 public class Ghost extends Enemy{
@@ -9,9 +13,15 @@ public class Ghost extends Enemy{
 		super( map );
 		init();
 	}
+	
+	// Log system from Ghost Class
+	private final static Logger LOGGER = Logger.getLogger( Ghost.class.getName() );
 
 	// Initiliaze Ghost
 	public void init (){
+		
+		LOGGER.setLevel( Level.INFO );
+		LOGGER.info("Ghost intialized");
 
 		maxHP = 5;
 		attack = 5;
