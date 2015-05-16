@@ -1,5 +1,8 @@
 package trl.entity.enemy;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import trl.main.Game;
 import trl.map.Map;
 
@@ -10,9 +13,15 @@ public class Worm extends Enemy{
 		super( map );
 		init();
 	}
+	
+	// Log system from Worm Class
+	private final static Logger LOGGER = Logger.getLogger( Worm.class.getName() );
 
 	// Initiliaze Worm
 	public void init (){
+		
+		LOGGER.setLevel( Level.INFO );
+		LOGGER.info("Worm intialized");
 
 		maxHP = 5;
 		attack = 5;
