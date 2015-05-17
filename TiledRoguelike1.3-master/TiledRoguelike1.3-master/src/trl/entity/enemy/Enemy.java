@@ -1,5 +1,8 @@
 package trl.entity.enemy;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import trl.entity.actor.Actor;
 import trl.gamestate.GameplayState;
 import trl.main.Game;
@@ -17,6 +20,9 @@ public abstract class Enemy extends Actor{
 
 		super( map );
 	}
+	
+	// Log system from Enemy Class
+	private final static Logger LOGGER = Logger.getLogger( Enemy.class.getName() );
 
 	// Initialize enemy
 	public void init (){
@@ -55,9 +61,9 @@ public abstract class Enemy extends Actor{
 			// If enemy is aware of player, attack or update path to player
 			else{
 				// If adjacent to player, attack.
-				
+
 				enemyAware();
-				
+
 			}
 
 			/*
@@ -77,14 +83,14 @@ public abstract class Enemy extends Actor{
 
 		}
 	}
-	
+
 	// returns zero damage to the player
-	public void enemyNotAttacked(){
-		
+	public void enemyNotAttacked (){
+
 		previousNode = loc;
 		move( getNextPathNode() );
 		moved = true;
-		
+
 		if ( loc.equals( previousNode ) ){
 
 			turnsOnNode++;
@@ -92,14 +98,14 @@ public abstract class Enemy extends Actor{
 
 			turnsOnNode = 0;
 		}
-		
+
 		GameplayState.getPlayer().setDamageTaken( 0 );
-		
+
 	}
-	
+
 	// If enemy is aware of player, attack or update path to player
-	public void enemyAware(){
-		
+	public void enemyAware (){
+
 		if ( this.loc.adjacent( GameplayState.getPlayer().getLoc() ) ){
 
 			attack( GameplayState.getPlayer() );
@@ -110,12 +116,12 @@ public abstract class Enemy extends Actor{
 			// Set path to player's location
 			setPathTo( GameplayState.getPlayer().getLoc() );
 		}
-		
+
 	}
-	
+
 	// If enemy is not aware, changes the path
-	public void enemyNotAware(){
-		
+	public void enemyNotAware (){
+
 		if ( path.size() == 0 || turnsOnNode >= 3 ){
 
 			// setPathTo(map.getRandomNode());
@@ -124,7 +130,7 @@ public abstract class Enemy extends Actor{
 
 			// Nothing to do
 		}
-		
+
 	}
 
 	public int getXP (){
