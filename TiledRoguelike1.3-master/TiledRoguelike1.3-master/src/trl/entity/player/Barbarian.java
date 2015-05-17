@@ -1,5 +1,8 @@
 package trl.entity.player;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import trl.entity.enemy.Enemy;
 import trl.gamestate.GameplayState;
 import trl.main.Game;
@@ -15,9 +18,14 @@ public class Barbarian extends Player{
 		this.image = Game.getImageManager().barbarian;
 		init();
 	}
+	
+	private final static Logger LOGGER = Logger.getLogger( Barbarian.class.getName() );
 
 	// Initializes Barbarian
 	public void init (){
+		
+		LOGGER.setLevel( Level.INFO );
+		LOGGER.info("Barbarian intialized");
 
 		this.hp = maxHP;
 		this.myTurn = true;
@@ -26,6 +34,9 @@ public class Barbarian extends Player{
 
 	// Action to shout
 	public void shout (){
+		
+		LOGGER.setLevel( Level.INFO );
+		LOGGER.info("Barbarian has shouted");
 
 		// Cause all enemies to set path to node occupied by player
 		for ( Enemy enemy : GameplayState.getEnemyGroup().getEnemies() ){
