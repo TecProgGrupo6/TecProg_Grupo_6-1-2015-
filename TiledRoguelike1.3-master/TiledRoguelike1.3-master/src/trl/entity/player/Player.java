@@ -2,6 +2,8 @@ package trl.entity.player;
 
 import java.util.List;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import trl.entity.Entity;
 import trl.entity.actor.Actor;
@@ -100,6 +102,9 @@ public abstract class Player extends Actor{
 
 	// Represents the total amount of xp from the player
 	protected double xpEarned;
+	
+	// Log system from Player Class
+	private final static Logger LOGGER = Logger.getLogger( Player.class.getName() );
 
 	public Player ( Map map ){
 
@@ -129,15 +134,15 @@ public abstract class Player extends Actor{
 					if ( adjacent != null ){
 
 						if ( adjacent.checkEntityByID( (byte) 0 ) ){
-
-							System.out.println( "Adjacent enemy. Can't shoot." );
+							
+							LOGGER.setLevel( Level.INFO );
+							LOGGER.info("Adjacent enemy. Can't shoot.");
 
 							adjacentEnemy = true;
 						}else{
 
 							adjacentEnemy = false;
 
-							System.out.println( "No adjacent enemies found." );
 						}
 					}
 				}
@@ -155,6 +160,7 @@ public abstract class Player extends Actor{
 			if ( map.isVisibleToPlayer( enemy.getLoc() ) ){
 
 				enemy.setAwareOfPlayer( true );
+				
 			}else{
 
 				// Nothing to do
@@ -220,6 +226,9 @@ public abstract class Player extends Actor{
 
 		// If potion in this node, consume and remove
 		if ( loc.checkEntityByID( (byte) 1 ) ){
+			
+			LOGGER.setLevel( Level.INFO );
+			LOGGER.info("Potion has been used");
 
 			loc.removeEntityByID( (byte) 1 );
 			hp = maxHP;
@@ -230,6 +239,9 @@ public abstract class Player extends Actor{
 
 		// If hammer in this node, consume and remove
 		if ( loc.checkEntityByID( (byte) 2 ) ){
+			
+			LOGGER.setLevel( Level.INFO );
+			LOGGER.info("Hammer has been used");
 
 			useHammer();
 			loc.removeEntityByID( (byte) 2 );
@@ -240,6 +252,9 @@ public abstract class Player extends Actor{
 
 		// If key in this node, pick it up and spawn lock.
 		if ( loc.checkEntityByID( (byte) 5 ) ){
+			
+			LOGGER.setLevel( Level.INFO );
+			LOGGER.info("Key has been found");
 
 			hasKey = true;
 			loc.removeEntityByID( (byte) 5 );
@@ -265,6 +280,9 @@ public abstract class Player extends Actor{
 
 		// If lock in this node, remove it and spawn stair (or goal).
 		if ( loc.checkEntityByID( (byte) 6 ) ){
+			
+			LOGGER.setLevel( Level.INFO );
+			LOGGER.info("Stair's been spawned");
 
 			openedLock = true;
 			loc.removeEntityByID( (byte) 6 );
@@ -333,7 +351,9 @@ public abstract class Player extends Actor{
 			// Consider this a deliberate attempt to attack enemy.
 			if ( isPathSizeAndInitialEqualsOne && isNodePathCkecksZero ){
 
-				System.out.println( "Attacking." );
+				LOGGER.setLevel( Level.FINE );
+				LOGGER.fine("Attacking enemy!!!");
+				
 				attack( GameplayState.getEnemyGroup().getEnemy( getNextPathNode() ) );
 				GameplayState.getEnemyGroup().getEnemy( path.get( 0 ) ).setDamageTaken( damageDealt );
 
@@ -348,7 +368,10 @@ public abstract class Player extends Actor{
 			 */
 
 			else if ( pathLowerInitialAndPathEntity ){
-				System.out.println( "Blocked by enemy/forgetting path." );
+				
+				LOGGER.setLevel( Level.INFO );
+				LOGGER.info("Blocked by enemy/forgetting path.");
+				
 				path.clear();
 				acted = true;
 			}
@@ -358,9 +381,11 @@ public abstract class Player extends Actor{
 			 * node. consider this a deliberate attempt to open the door.
 			 */
 			else if ( pathAndInitialPathEqualsOne && nextPathNodeGetFeatureClose ){
+				
+				LOGGER.setLevel( Level.FINE );
+				LOGGER.fine("Moving.");
 
 				openDoor( getNextPathNode() );
-				System.out.println( "Opening door." );
 				path.clear();
 				moved = true;
 			}
@@ -372,7 +397,10 @@ public abstract class Player extends Actor{
 			 * to open the door.
 			 */
 			else if ( pathSizeGreaterOneAndPathLowerIniticial && nextPathNodeGetFeatureClose ){
-				System.out.println( "Blocked by door/forgetting path." );
+				
+				LOGGER.setLevel( Level.INFO );
+				LOGGER.info("Blocked by door/forgetting path.");
+				
 				path.clear();
 				acted = true;
 			}
@@ -398,7 +426,6 @@ public abstract class Player extends Actor{
 			// Move to next node
 			else{
 
-				System.out.println( "Moving." );
 				move( getNextPathNode() );
 				moved = true;
 			}
@@ -628,6 +655,9 @@ public abstract class Player extends Actor{
 
 	// Check level
 	public void levelUp (){
+		
+		LOGGER.setLevel( Level.INFO );
+		LOGGER.info("Level up!");
 
 		double percentHealth = (double) hp / (double) maxHP;
 		// System.out.println("Percent health = " + percentHealth);
