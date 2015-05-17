@@ -1,6 +1,8 @@
 package trl.entity.player;
 
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import trl.entity.enemy.Enemy;
 import trl.gamestate.GameplayState;
@@ -18,9 +20,15 @@ public class Wizard extends Player{
 		this.image = Game.getImageManager().wizard;
 		init();
 	}
+	
+	// Log system from Wizard Class
+	private final static Logger LOGGER = Logger.getLogger( Wizard.class.getName() );
 
 	// Initialize Wizard
 	public void init (){
+		
+		LOGGER.setLevel( Level.INFO );
+		LOGGER.info("Wizard intialized");
 
 		this.hp = maxHP;
 		this.myTurn = true;
@@ -34,6 +42,9 @@ public class Wizard extends Player{
 
 	// Magic action
 	public void quicken (){
+		
+		LOGGER.setLevel( Level.INFO );
+		LOGGER.info("Wizard has used quicken magic");
 
 		this.hp = (int) ( (double) hp * .75 );
 		timers[2] = 3;
@@ -42,6 +53,9 @@ public class Wizard extends Player{
 
 	// Magic action
 	public void explode (){
+		
+		LOGGER.setLevel( Level.INFO );
+		LOGGER.info("Wizard has used explode magic");
 
 		List<Node> blastArea = map.getAoENodes( loc , 2 );
 		int blastDamage = (int) ( Math.ceil( 6.0 + (double) ( GameplayState.getPlayer().getLevel() / 1.1 ) ) );
@@ -64,6 +78,9 @@ public class Wizard extends Player{
 
 	// Magic action
 	public void blink (){
+		
+		LOGGER.setLevel( Level.INFO );
+		LOGGER.info("Wizzard has blinked");
 
 		// Move to random node, make enemies forget player and player forget
 		// enemies
