@@ -2,6 +2,8 @@ package trl.entity.player;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import trl.entity.Entity;
 import trl.entity.enemy.Enemy;
@@ -22,9 +24,15 @@ public class Ranger extends Player{
 		this.image = Game.getImageManager().ranger;
 		init();
 	}
+	
+	// Log system from Ranger Class
+	private final static Logger LOGGER = Logger.getLogger( Ranger.class.getName() );
 
 	// Initializes Ranger
 	public void init (){
+		
+		LOGGER.setLevel( Level.INFO );
+		LOGGER.info("Ranger intialized");
 
 		this.hp = maxHP;
 		this.myTurn = true;
@@ -78,6 +86,9 @@ public class Ranger extends Player{
 
 	// Action to enemy
 	public void fireArrow ( Enemy target ){
+		
+		LOGGER.setLevel( Level.INFO );
+		LOGGER.info("Ranger has fired arrow");
 
 		int damage = 4;
 
