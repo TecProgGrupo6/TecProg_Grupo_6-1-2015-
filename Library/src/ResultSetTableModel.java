@@ -1,5 +1,8 @@
 import javax.swing.table.AbstractTableModel;
+
 import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * ResultSet rows and columns are counted from 1 and JTable rows and columns are
@@ -9,6 +12,9 @@ import java.sql.*;
  * and JTable row 0 is ResultSet row 1)
  */
 public class ResultSetTableModel extends AbstractTableModel{
+	
+	// Log system from ResultSetTableModel class
+	private final static Logger LOGGER = Logger.getLogger( ResultSetTableModel.class.getName() );
 
 	// Connection status
 	private Connection connection;
@@ -189,6 +195,9 @@ public class ResultSetTableModel extends AbstractTableModel{
 	// Close Statement and Connection.
 	public void disconnectFromDatabase (){
 
+		LOGGER.setLevel( Level.INFO );
+		LOGGER.info("Disconected from data base");
+		
 		// Close Statement and Connection.
 		try{
 			statement.close();
