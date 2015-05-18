@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -19,10 +20,20 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+
+
+
+
 /**
  * A public class
  */
 public class AddBooks extends JInternalFrame{
+	
+	// Log system from AddBooks Class
+	private final static Logger LOGGER = Logger.getLogger( AddBooks.class.getName() );
 
 	/***************************************************************************
 	 *** declaration of the private variables used in the program ***
@@ -88,6 +99,9 @@ public class AddBooks extends JInternalFrame{
 			if ( !informationTextField[i].getText().equals( "" ) ){
 
 				data[i] = informationTextField[i].getText();
+				
+				LOGGER.setLevel( Level.INFO );
+				LOGGER.info("Information is Correct");
 
 			}else{
 				return false;
@@ -132,6 +146,11 @@ public class AddBooks extends JInternalFrame{
 		southPanel.add( OKButton );
 		southPanel.setBorder( BorderFactory.createEtchedBorder() );
 		cp.add( "South" , southPanel );
+		
+
+		LOGGER.setLevel( Level.INFO );
+		LOGGER.info("Layout setted");
+
 	
 	}
 
@@ -297,5 +316,10 @@ public class AddBooks extends JInternalFrame{
 
 		// Show the internal frame.
 		pack();
+		
+
+		LOGGER.setLevel( Level.INFO );
+		LOGGER.info("Book added");
+
 	}
 }
