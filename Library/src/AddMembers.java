@@ -19,10 +19,17 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  * A public class
  */
 public class AddMembers extends JInternalFrame{
+	
+	
+	// Log system from AddBooks Class
+	private final static Logger LOGGER = Logger.getLogger( AddMembers.class.getName() );
 
 	/***************************************************************************
 	 *** declaration of the private variables used in the program ***
@@ -80,8 +87,15 @@ public class AddMembers extends JInternalFrame{
 		if ( informationPasswordField[0].getText().equals( informationPasswordField[1].getText() ) ){
 
 			data[1] = informationPasswordField[1].getText();
+			
+			LOGGER.setLevel( Level.INFO );
+			LOGGER.info("Password Correct");
 
 		}else if ( !informationPasswordField[0].getText().equals( informationPasswordField[1].getText() ) ){
+			
+			LOGGER.setLevel( Level.INFO );
+			LOGGER.info("Information is incorrect");
+			
 			return false;
 		}
 
@@ -123,6 +137,10 @@ public class AddMembers extends JInternalFrame{
 				}
 			}
 		}
+		
+		LOGGER.setLevel( Level.INFO );
+		LOGGER.info("Information is Correct");
+		
 		return true;
 	}
 
@@ -146,6 +164,9 @@ public class AddMembers extends JInternalFrame{
 
 			}
 		}
+		
+		LOGGER.setLevel( Level.INFO );
+		LOGGER.info("TextField is clear");
 	}
 	
 	
@@ -176,6 +197,9 @@ public class AddMembers extends JInternalFrame{
 
 			}
 		}
+		
+		LOGGER.setLevel( Level.INFO );
+		LOGGER.info("Fields added to the panel");
 	
 	}
 	
@@ -203,6 +227,9 @@ public class AddMembers extends JInternalFrame{
 		southPanel.add( OKButton );
 		southPanel.setBorder( BorderFactory.createEtchedBorder() );
 		cp.add( "South" , southPanel );
+		
+		LOGGER.setLevel( Level.INFO );
+		LOGGER.info("Layout setted");
 		
 	}
 	
@@ -332,5 +359,10 @@ public class AddMembers extends JInternalFrame{
 
 		// Show the internal frame.
 		pack();
+		
+		LOGGER.setLevel( Level.INFO );
+		LOGGER.info("Members added");
 	}
+	
+
 }
