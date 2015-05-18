@@ -53,7 +53,7 @@ public class ReturnBooks extends JInternalFrame implements ActionListener{
 	// For creating an Internal Panel in the center panel
 	private JPanel returnButtonPanel = new JPanel();
 
-	// For creating the buton
+	// For creating the button
 	private JButton returnButton = new JButton( "Return" );
 
 	// For creating the panel

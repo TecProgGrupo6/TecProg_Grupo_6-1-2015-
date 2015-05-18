@@ -131,7 +131,7 @@ public class ResultSetTableModel extends AbstractTableModel{
 		if ( !connectedToDatabase ){
 			throw new IllegalStateException( "Not Connected to Database" );
 		}else{
-
+			//No action
 		}
 		return numberOfRows;
 	}
@@ -143,7 +143,7 @@ public class ResultSetTableModel extends AbstractTableModel{
 		if ( !connectedToDatabase ){
 			throw new IllegalStateException( "Not Connected to Database" );
 		}else{
-
+			//No action
 		}
 
 		// Obtain a value at specified ResultSet row and column.

@@ -1,15 +1,21 @@
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.logging.Logger;
+import java.util.logging.Level;
 
 /**
  * A public class
  */
 public class JLibrary extends JFrame implements ActionListener{
 
+	// Log system from AddBooks Class
+	private final static Logger LOGGER = Logger.getLogger( AddBooks.class.getName() );
+		
 	/***************************************************************************
 	 *** declaration of the private variables used in the program ***
 	 ***************************************************************************/
@@ -88,6 +94,9 @@ public class JLibrary extends JFrame implements ActionListener{
 		menu.searchBooksAndMembers.addActionListener( this );
 		menu.borrowBook.addActionListener( this );
 		menu.returnBook.addActionListener( this );
+		
+		LOGGER.setLevel( Level.INFO );
+		LOGGER.info("Menubar created");
 
 	}
 	// Constructor of JLibrary
@@ -169,6 +178,9 @@ public class JLibrary extends JFrame implements ActionListener{
 
 		// Show the program
 		show();
+		
+		LOGGER.setLevel( Level.INFO );
+		LOGGER.info("JLibrary created");
 	}
 
 	/**
