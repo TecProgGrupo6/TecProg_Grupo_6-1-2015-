@@ -12,11 +12,16 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.GregorianCalendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * A public class
  */
 public class ReturnBooks extends JInternalFrame implements ActionListener{
+	
+	// Log system from ReturnBooks class
+	private final static Logger LOGGER = Logger.getLogger( ReturnBooks.class.getName() );
 
 	/***************************************************************************
 	 *** declaration of the private variables used in the program ***
@@ -136,6 +141,9 @@ public class ReturnBooks extends JInternalFrame implements ActionListener{
 
 		// For setting the title for the internal frame
 		super( "Return books" , false , true , false , true );
+		
+		LOGGER.setLevel( Level.INFO );
+		LOGGER.info("ReturnBooks was used.");
 
 		// For setting the icon
 		setFrameIcon( new ImageIcon( ClassLoader.getSystemResource( "images/Import16.gif" ) ) );
