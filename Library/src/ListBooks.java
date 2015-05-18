@@ -2,18 +2,24 @@
 
 import javax.swing.*;
 import javax.swing.table.TableColumn;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
 import java.sql.SQLException;
+import java.util.logging.Logger;
+import java.util.logging.Level;
 
 /**
  * A public class
  */
 public class ListBooks extends JInternalFrame{
 
+	// Log system from AddBooks Class
+	private final static Logger LOGGER = Logger.getLogger( AddBooks.class.getName() );
+		
 	/***************************************************************************
 	 *** Declaration of the private variables used in the program ***
 	 ***************************************************************************/
@@ -73,6 +79,10 @@ public class ListBooks extends JInternalFrame{
 		// Object.
 		try{
 			tableModel = new ResultSetTableModel( JDBC_DRIVER , DATABASE_URL , DEFAULT_QUERY );
+			
+			LOGGER.setLevel( Level.INFO );
+			LOGGER.info("tableModel created");
+			
 			// For setting the Query.
 			try{
 				tableModel.setQuery( DEFAULT_QUERY );
@@ -245,5 +255,8 @@ public class ListBooks extends JInternalFrame{
 
 		// To show the frame.
 		pack();
+		
+		LOGGER.setLevel( Level.INFO );
+		LOGGER.info("Books Listed");
 	}
 }
