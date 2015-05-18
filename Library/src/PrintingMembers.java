@@ -1,6 +1,7 @@
 // Import the packages for using the classes in them into the program.
 
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.print.PageFormat;
 import java.awt.print.Printable;
@@ -8,8 +9,13 @@ import java.awt.print.PrinterException;
 import java.sql.*;
 import java.util.StringTokenizer;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class PrintingMembers extends JInternalFrame implements Printable{
+	
+	// Log system from PrintingMembers class
+	private final static Logger LOGGER = Logger.getLogger( PrintingMembers.class.getName() );
 
 	/***************************************************************************
 	 *** declaration of the private variables used in the program ***
@@ -42,6 +48,9 @@ public class PrintingMembers extends JInternalFrame implements Printable{
 	public PrintingMembers ( String query ){
 
 		super( "Printing Members" , false , true , false , true );
+		
+		LOGGER.setLevel( Level.INFO );
+		LOGGER.info("Members were printed");
 
 		// For getting the graphical user interface components display area.
 		Container container = getContentPane();
