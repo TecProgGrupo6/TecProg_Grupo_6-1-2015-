@@ -9,6 +9,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
+import java.util.logging.Logger;
+import java.util.logging.Level;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -24,6 +26,9 @@ import javax.swing.JTextField;
  */
 public class BorrowBooks extends JInternalFrame{
 
+	// Log system from AddBooks Class
+	private final static Logger LOGGER = Logger.getLogger( AddBooks.class.getName() );
+			
 	/***************************************************************************
 	 *** declaration of the private variables used in the program ***
 	 ***************************************************************************/
@@ -82,8 +87,15 @@ public class BorrowBooks extends JInternalFrame{
 			if ( !informationTextField[i].getText().equals( "" ) ){
 
 				data[i] = informationTextField[i].getText();
+				
+				LOGGER.setLevel( Level.INFO );
+				LOGGER.info("Is correct");
 
 			}else{
+				
+				LOGGER.setLevel( Level.INFO );
+				LOGGER.info("Is not correct");
+				
 				return false;
 			}
 		}
@@ -127,6 +139,10 @@ public class BorrowBooks extends JInternalFrame{
 				informationTextField[i].setFont( new Font( "Tahoma" , Font.PLAIN , 11 ) );
 			}
 		}
+		
+		LOGGER.setLevel( Level.INFO );
+		LOGGER.info("String added");
+		
 	}
 
 	// Constructor of borrowBooks.
@@ -233,6 +249,9 @@ public class BorrowBooks extends JInternalFrame{
 
 								borrow.update( "INSERT INTO Borrow (BookID, MemberID, DayOfBorrowed, DayOfReturn) VALUES (" + data[0] + ","
 										+ data[1] + ",'" + data[2] + "','" + data[3] + "')" );
+								
+								LOGGER.setLevel( Level.INFO );
+								LOGGER.info("Informations updated");
 
 								// For setting the array of JTextField to null
 								clearTextField();
@@ -252,6 +271,9 @@ public class BorrowBooks extends JInternalFrame{
 								JOptionPane.showMessageDialog( null , "The book is Successfully borrowed" , "Success" ,
 										JOptionPane.INFORMATION_MESSAGE );
 								clearTextField();
+								
+								LOGGER.setLevel( Level.INFO );
+								LOGGER.info("Informations updated");
 
 							}else{
 								JOptionPane
@@ -280,5 +302,9 @@ public class BorrowBooks extends JInternalFrame{
 		setVisible( true );
 		// Show the internal frame.
 		pack();
+		
+		LOGGER.setLevel( Level.INFO );
+		LOGGER.info("Book Borrowed");
+		
 	}
 }
