@@ -1,9 +1,14 @@
 //import the packages for using the classes in them into the program
 
 import javax.swing.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Toolbar extends JToolBar{
 
+	// Log system from Toolbar class
+		private final static Logger LOGGER = Logger.getLogger( Toolbar.class.getName() );
+	
 	/***************************************************************************
 	 *** declaration of the private variables used in the program ***
 	 ***************************************************************************/
@@ -25,6 +30,9 @@ public class Toolbar extends JToolBar{
 	// Creating a toolbar
 	public Toolbar (){
 
+		LOGGER.setLevel( Level.INFO );
+		LOGGER.info("Toolbar created.");
+		
 		button = new JButton[19];
 
 		for ( int i = 0 ; i < imageName24.length ; i++ ){
