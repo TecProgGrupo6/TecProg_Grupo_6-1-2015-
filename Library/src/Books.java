@@ -1,9 +1,14 @@
 //import the packages for using the classes in them into the program
 
 import java.sql.*;
+import java.util.logging.Logger;
+import java.util.logging.Level;
 
 public class Books{
 
+	// Log system from AddBooks Class
+	private final static Logger LOGGER = Logger.getLogger( AddBooks.class.getName() );
+		
 	/***************************************************************************
 	 *** declaration of the private variables used in the program ***
 	 ***************************************************************************/
@@ -135,6 +140,9 @@ public class Books{
 		try{
 
 			Class.forName( "sun.jdbc.odbc.JdbcOdbcDriver" );
+			
+			LOGGER.setLevel( Level.INFO );
+			LOGGER.info("Connected");
 
 		}catch ( ClassNotFoundException cnfe ){
 
@@ -177,6 +185,9 @@ public class Books{
 				availble = resultSet.getBoolean( 14 );
 
 			}
+			
+			LOGGER.setLevel( Level.INFO );
+			LOGGER.info("Connection established");
 
 			resultSet.close();
 			statement.close();
@@ -222,6 +233,9 @@ public class Books{
 			statement.executeUpdate( Query );
 			statement.close();
 			connection.close();
+			
+			LOGGER.setLevel( Level.INFO );
+			LOGGER.info("Updated");
 
 		}catch ( SQLException SQLe ){
 
