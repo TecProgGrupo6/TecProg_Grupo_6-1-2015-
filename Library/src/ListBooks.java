@@ -18,7 +18,7 @@ import java.util.logging.Level;
 public class ListBooks extends JInternalFrame{
 
 	// Log system from AddBooks Class
-	private final static Logger LOGGER = Logger.getLogger( AddBooks.class.getName() );
+	private final static Logger LOGGER = Logger.getLogger( ListBooks.class.getName() );
 		
 	/***************************************************************************
 	 *** Declaration of the private variables used in the program ***

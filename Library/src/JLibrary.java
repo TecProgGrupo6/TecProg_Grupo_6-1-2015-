@@ -14,7 +14,7 @@ import java.util.logging.Level;
 public class JLibrary extends JFrame implements ActionListener{
 
 	// Log system from AddBooks Class
-	private final static Logger LOGGER = Logger.getLogger( AddBooks.class.getName() );
+	private final static Logger LOGGER = Logger.getLogger( JLibrary.class.getName() );
 		
 	/***************************************************************************
 	 *** declaration of the private variables used in the program ***

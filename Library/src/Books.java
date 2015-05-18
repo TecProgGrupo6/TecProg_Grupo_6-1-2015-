@@ -7,7 +7,7 @@ import java.util.logging.Level;
 public class Books{
 
 	// Log system from AddBooks Class
-	private final static Logger LOGGER = Logger.getLogger( AddBooks.class.getName() );
+	private final static Logger LOGGER = Logger.getLogger( Books.class.getName() );
 		
 	/***************************************************************************
 	 *** declaration of the private variables used in the program ***

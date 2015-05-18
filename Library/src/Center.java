@@ -10,7 +10,7 @@ import java.util.logging.Level;
 public class Center{
 
 	// Log system from AddBooks Class
-	private final static Logger LOGGER = Logger.getLogger( AddBooks.class.getName() );
+	private final static Logger LOGGER = Logger.getLogger( Center.class.getName() );
 		
 	JLibrary l; // For using the class in JLibrary.java
 
