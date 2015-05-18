@@ -1,9 +1,14 @@
 //import the packages for using the classes in them into the program
 
 import java.sql.*;
+import java.util.logging.Logger;
+import java.util.logging.Level;
 
 public class Borrow{
 
+	// Log system from AddBooks Class
+	private final static Logger LOGGER = Logger.getLogger( AddBooks.class.getName() );
+		
 	/***************************************************************************
 	 *** declaration of the private variables used in the program ***
 	 ***************************************************************************/
@@ -83,6 +88,9 @@ public class Borrow{
 				dayOfReturn = resultSet.getDate( 4 );
 
 			}
+			
+			LOGGER.setLevel( Level.INFO );
+			LOGGER.info("Connection established");
 
 			resultSet.close();
 			statement.close();
@@ -123,6 +131,9 @@ public class Borrow{
 			statement.executeUpdate( Query );
 			statement.close();
 			connection.close();
+			
+			LOGGER.setLevel( Level.INFO );
+			LOGGER.info("Updated");
 
 		}catch ( SQLException SQLe ){
 			System.out.println( "Borrow.java\n" + SQLe.toString() );
