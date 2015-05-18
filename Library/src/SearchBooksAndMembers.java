@@ -1,14 +1,20 @@
 // Import the packages for using the classes in them into the program.
 
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * A public class
  */
 public class SearchBooksAndMembers extends JInternalFrame{
+	
+	// Log system from SearchBooksAndMembers class
+	private final static Logger LOGGER = Logger.getLogger( SearchBooksAndMembers.class.getName() );
 
 	/***************************************************************************
 	 *** declaration of the private variables used in the program ***
@@ -96,6 +102,9 @@ public class SearchBooksAndMembers extends JInternalFrame{
 	// For checking the information from the text field.
 	public boolean isBooksDataCorrect (){
 
+		LOGGER.setLevel( Level.INFO );
+		LOGGER.info("Checked information from book text field");
+		
 		booksData = new String[2];
 		booksData[0] = searchBooksTypes.getSelectedItem().toString();
 
@@ -119,6 +128,9 @@ public class SearchBooksAndMembers extends JInternalFrame{
 	// For checking the information from the text field.
 	public boolean isMembersDataCorrect (){
 
+		LOGGER.setLevel( Level.INFO );
+		LOGGER.info("Checked information from member text field");
+		
 		membersData = new String[2];
 		membersData[0] = searchMembersTypes.getSelectedItem().toString();
 
@@ -159,6 +171,9 @@ public class SearchBooksAndMembers extends JInternalFrame{
 
 		// For setting the title for the internal frame.
 		super( "Search" , false , true , false , true );
+		
+		LOGGER.setLevel( Level.INFO );
+		LOGGER.info("SearchBooksAndMembers was created.");
 
 		// For setting the icon.
 		setFrameIcon( new ImageIcon( ClassLoader.getSystemResource( "images/Find16.gif" ) ) );
