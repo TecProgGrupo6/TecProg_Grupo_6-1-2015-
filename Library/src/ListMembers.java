@@ -2,17 +2,23 @@
 
 import javax.swing.*;
 import javax.swing.table.TableColumn;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * A public class
  */
 public class ListMembers extends JInternalFrame{
+	
+	// Log system from ListMembers class
+	private final static Logger LOGGER = Logger.getLogger( ListMembers.class.getName() );
 
 	/***************************************************************************
 	 *** declaration of the private variables used in the program ***
@@ -54,6 +60,9 @@ public class ListMembers extends JInternalFrame{
 
 		// For setting the title for the internal frame
 		super( "Members" , false , true , false , true );
+		
+		LOGGER.setLevel( Level.INFO );
+		LOGGER.info("ListMembers was created.");
 
 		// For setting the icon
 		setFrameIcon( new ImageIcon( ClassLoader.getSystemResource( "images/List16.gif" ) ) );

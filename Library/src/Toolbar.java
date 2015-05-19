@@ -7,7 +7,7 @@ import java.util.logging.Logger;
 public class Toolbar extends JToolBar{
 
 	// Log system from Toolbar class
-		private final static Logger LOGGER = Logger.getLogger( Toolbar.class.getName() );
+	private final static Logger LOGGER = Logger.getLogger( Toolbar.class.getName() );
 	
 	/***************************************************************************
 	 *** declaration of the private variables used in the program ***
