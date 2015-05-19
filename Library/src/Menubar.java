@@ -1,10 +1,18 @@
 // Import the packages for using the classes in them into the program.
 import javax.swing.*;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+
 import javax.management.JMException;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class Menubar extends JMenuBar{
+	
+	// Log system from Menubar class
+	private final static Logger LOGGER = Logger.getLogger( Menubar.class.getName() );
 
 	/***************************************************************************
 	 *** declaration of the private variables used in the program ***
@@ -40,6 +48,9 @@ public class Menubar extends JMenuBar{
 	// For adding book, member, search, loan & help Menus to the menu bar.
 	void addOptionsToMenuBar(){
 		
+		LOGGER.setLevel( Level.INFO );
+		LOGGER.info("Options were added to menu bar");
+		
 		this.add( fileMenu = new JMenu( "File" ) );
 		this.add( bookMenu = new JMenu( "Books" ) );
 		this.add( memberMenu = new JMenu( "Members" ) );
@@ -51,6 +62,9 @@ public class Menubar extends JMenuBar{
 	// For setting the Mnemonic
 	void settingMnemonics(){
 		
+		LOGGER.setLevel( Level.INFO );
+		LOGGER.info("Mnemonics were setted");
+		
 		fileMenu.setMnemonic( 'f' );
 		bookMenu.setMnemonic( 'b' );
 		memberMenu.setMnemonic( 'm' );
@@ -60,6 +74,9 @@ public class Menubar extends JMenuBar{
 	}
 	
 	public Menubar (){
+		
+		LOGGER.setLevel( Level.INFO );
+		LOGGER.info("Menubar created.");
 
 		addOptionsToMenuBar();
 
