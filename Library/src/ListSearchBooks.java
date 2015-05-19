@@ -2,18 +2,24 @@
 
 import javax.swing.*;
 import javax.swing.table.TableColumn;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * A public class
  */
 public class ListSearchBooks extends JInternalFrame{
 
+	// Log system from ListSearchBooks class
+	private final static Logger LOGGER = Logger.getLogger( ListSearchBooks.class.getName() );
+	
 	/***************************************************************************
 	 *** declaration of the private variables used in the program ***
 	 ***************************************************************************/
@@ -47,6 +53,9 @@ public class ListSearchBooks extends JInternalFrame{
 
 		// For setting the title for the internal frame.
 		super( "Searched Books" , false , true , false , true );
+		
+		LOGGER.setLevel( Level.INFO );
+		LOGGER.info("ListSearchBooks was called.");
 
 		// For setting the icon.
 		setFrameIcon( new ImageIcon( ClassLoader.getSystemResource( "images/List16.gif" ) ) );
