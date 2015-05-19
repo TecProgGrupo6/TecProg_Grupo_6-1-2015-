@@ -1,8 +1,13 @@
 //import the packages for using the classes in them into the program
 
 import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Members{
+	
+	// Log system from Members class
+	private final static Logger LOGGER = Logger.getLogger( Members.class.getName() );
 
 	/***************************************************************************
 	 *** declaration of the private variables used in the program ***
@@ -97,7 +102,7 @@ public class Members{
 
 	// Establishing an connection
 	public void connection ( String Query ){
-
+		
 		try{
 
 			Class.forName( "sun.jdbc.odbc.JdbcOdbcDriver" );
@@ -122,6 +127,9 @@ public class Members{
 			connection = DriverManager.getConnection( URL );
 			statement = connection.createStatement();
 			resultSet = statement.executeQuery( Query );
+			
+			LOGGER.setLevel( Level.INFO );
+			LOGGER.info("Connection stablished");
 
 			while ( resultSet.next() ){
 
@@ -140,6 +148,10 @@ public class Members{
 			resultSet.close();
 			statement.close();
 			connection.close();
+			
+			LOGGER.setLevel( Level.INFO );
+			LOGGER.info("Connection closed");
+
 		}catch ( SQLException SQLe ){
 
 			System.out.println( "Members.java\n" + SQLe.toString() );
@@ -179,5 +191,9 @@ public class Members{
 
 			System.out.println( "Members.java\n" + SQLe.toString() );
 		}
+		
+		LOGGER.setLevel( Level.INFO );
+		LOGGER.info("Updated member");
+
 	}
 }
