@@ -2,6 +2,8 @@ package trl.gamestate;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import trl.entity.Entity;
 import trl.entity.actor.ActorQueue;
@@ -41,6 +43,9 @@ public class GameplayState extends GameState{
 											 */
 	public static boolean tickEnemies;
 
+	// Log system from GameplayState Class
+	private final static Logger LOGGER = Logger.getLogger( GameplayState.class.getName() );
+
 	public GameplayState ( int classChoice ){
 
 		this.classChoice = classChoice;
@@ -58,11 +63,14 @@ public class GameplayState extends GameState{
 		map.updateImageMap();
 		tickTimer = 0;
 
-		System.out.println( "Player turns on level = " + player.getTurnsOnLevel() );
+		LOGGER.setLevel( Level.INFO );
+		LOGGER.info( "Player turns on level = " + player.getTurnsOnLevel() );
 
 		int maxEnemies = dungeonLevel + ( GameplayState.getPlayer().getTurnsOnLevel() / GameplayState.addEnemyInterval );
 
-		System.out.println( "Max enemies: " + dungeonLevel + " + (" + player.getTurnsOnLevel() + " / " + addEnemyInterval + ")" );
+		LOGGER.setLevel( Level.INFO );
+		LOGGER.info( "Max enemies: " + dungeonLevel + " + (" + player.getTurnsOnLevel() + " / " + addEnemyInterval + ")" );
+
 		// System.out.println("Enemy group size = " +
 		// enemyGroup.getEnemies().size());
 		// System.out.println("Actor queue size = ");
@@ -81,11 +89,17 @@ public class GameplayState extends GameState{
 
 			case 0:{
 
+				LOGGER.setLevel( Level.FINE );
+				LOGGER.fine( "Player chose barbarian" );
+
 				player = new Barbarian( map );
 				break;
 
 			}
 			case 1:{
+
+				LOGGER.setLevel( Level.FINE );
+				LOGGER.fine( "Player chose Thief" );
 
 				player = new Thief( map );
 				break;
@@ -93,11 +107,17 @@ public class GameplayState extends GameState{
 			}
 			case 2:{
 
+				LOGGER.setLevel( Level.FINE );
+				LOGGER.fine( "Player chose wizzard" );
+
 				player = new Wizard( map );
 				break;
 
 			}
 			case 3:{
+
+				LOGGER.setLevel( Level.FINE );
+				LOGGER.fine( "Player chose ranger" );
 
 				player = new Ranger( map );
 				break;
@@ -140,7 +160,10 @@ public class GameplayState extends GameState{
 			player.endTurn( actorQueue.getActor( 0 ) );
 		}else{
 			// map = new Map();
-			System.out.println( "Refresh dungeon level " + dungeonLevel + "." );
+
+			LOGGER.setLevel( Level.INFO );
+			LOGGER.info( "Refresh dungeon level " + dungeonLevel + "." );
+
 			enemyGroup.flush();
 			enemyGroup = null;
 			actorQueue.flush();
@@ -251,7 +274,7 @@ public class GameplayState extends GameState{
 
 			// Nothing to do
 		}
-		
+
 		g.setColor( Color.green );
 		g.drawString( "(c) Close Door" , 300 , Game.W_HEIGHT + g.getFont().getSize() );
 
@@ -269,7 +292,7 @@ public class GameplayState extends GameState{
 
 			g.drawImage( Game.getImageManager().lockOpen , 400 , Game.W_HEIGHT , Game.TILE_SIZE , Game.TILE_SIZE , null );
 		}else{
-			
+
 			// Nothing to do
 		}
 
@@ -389,7 +412,7 @@ public class GameplayState extends GameState{
 
 			// Nothing to do
 		}
-		
+
 		if ( node.isStairDown() ){
 
 			g.setColor( Color.PINK );
@@ -397,7 +420,7 @@ public class GameplayState extends GameState{
 
 			// Nothing to do
 		}
-		
+
 		if ( node.isClosedDoor() ){
 
 			g.setColor( brown );
@@ -405,7 +428,7 @@ public class GameplayState extends GameState{
 
 			// Nothing to do
 		}
-		
+
 		if ( node.getEntities() != null && node.getEntities().size() > 0 ){
 
 			for ( Entity entity : node.getEntities() ){
