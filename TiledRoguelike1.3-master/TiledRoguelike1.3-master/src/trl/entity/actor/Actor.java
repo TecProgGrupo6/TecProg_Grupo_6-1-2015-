@@ -133,7 +133,6 @@ public abstract class Actor extends Entity{
 		
 		
 		if ( damageDealt > attack ){
-			
 			damageDealt = attack;
 		}else{
 
@@ -149,8 +148,8 @@ public abstract class Actor extends Entity{
 		if ( damageDealt > 0 ){
 			
 			LOGGER.setLevel( Level.INFO );
-			LOGGER.info("Attacking Enemmy");
-
+			LOGGER.info("Battling Enemmy. Damage =" + damageDealt);
+			
 			defender.setStance( false , false , true , false );
 		}else{
 
@@ -167,6 +166,9 @@ public abstract class Actor extends Entity{
 	// Ends the turn of action
 	public void endTurn ( Actor nextActor ){
 
+		LOGGER.setLevel( Level.CONFIG );
+		LOGGER.config("End Turn");
+		
 		myTurn = false;
 		nextActor.setTurn( true );
 
@@ -232,13 +234,19 @@ public abstract class Actor extends Entity{
 		boolean isFeaturePassableAndHasNoEnemy = node.getFeature().isPassable() && !node.hasEnemy();
 
 		if ( isFeaturePassableAndHasNoEnemy ){
+			
+			LOGGER.setLevel( Level.CONFIG);
+			LOGGER.config("Moving. No Enemy blocking.");
 
 			loc.removeEntity( this );
 			loc = node;
 			loc.addEntity( this );
 			damageDealt = 0;
 			path.remove( node );
+			
 		}else{
+			LOGGER.setLevel( Level.INFO );
+			LOGGER.info("Enemy blocking move.");
 
 			// nothing to do
 		}
