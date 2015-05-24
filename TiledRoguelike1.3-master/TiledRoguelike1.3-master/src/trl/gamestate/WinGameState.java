@@ -2,6 +2,8 @@ package trl.gamestate;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import trl.main.Game;
 
@@ -12,6 +14,7 @@ public class WinGameState extends GameState{
 	private String[] choices;
 	public static boolean up = false , down = false , enter = false;
 	private int choice;
+	private final static Logger LOGGER = Logger.getLogger( WinGameState.class.getName() );
 
 	// public WinGameState(int enemiesDefeated, int turns) {
 	public WinGameState (){
@@ -26,6 +29,9 @@ public class WinGameState extends GameState{
 		choice = 0;
 		enemiesDefeated = GameplayState.getPlayer().getEnemiesDefeated();
 		turns = Game.turnCounter;
+		LOGGER.setLevel( Level.INFO );
+		LOGGER.info("Initializing choice array after win.");
+		
 	}
 
 	public void tick (){
@@ -55,10 +61,14 @@ public class WinGameState extends GameState{
 				Game.getGameStateManager().removeGameState( 0 );
 				Game.getGameStateManager().addGameState( 0 , new MenuState() );
 				Game.getGameStateManager().setGameState( 0 );
+				LOGGER.setLevel( Level.INFO );
+				LOGGER.info("Option 'YES' choiced");
 			}else{
 				// Nothing
 			}
 			if ( choice == 1 ){
+				LOGGER.setLevel( Level.INFO );
+				LOGGER.info("Option 'NO' choiced");
 				Game.running = false;
 			}else{
 				// Nothing
@@ -89,6 +99,8 @@ public class WinGameState extends GameState{
 		linePosition += 16;
 		g.drawString( "Play again?" , ( Game.W_WIDTH - g.getFontMetrics().stringWidth( "Play again?" ) ) / 2 , linePosition );
 		linePosition += 16;
+		LOGGER.setLevel( Level.CONFIG );
+		LOGGER.config("Rendering graph game");
 		for ( int i = 0 ; i < choices.length ; i++ ){
 			if ( i == choice ){
 				g.setColor( Color.YELLOW );
