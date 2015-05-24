@@ -2,6 +2,8 @@ package trl.main;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import trl.entity.player.Ranger;
 import trl.gamestate.GameStateManager;
@@ -13,6 +15,7 @@ public class KeyManager implements KeyListener{
 
 	// Controller of the game in the Key Manager class
 	private GameStateManager gsm;
+	private final static Logger LOGGER = Logger.getLogger( KeyManager.class.getName() );
 
 	public KeyManager ( GameStateManager gsm ){
 
@@ -21,6 +24,8 @@ public class KeyManager implements KeyListener{
 
 	// Action event from the keyboard
 	public void keyPressed ( KeyEvent e ){
+		LOGGER.setLevel( Level.CONFIG );
+		LOGGER.config("Key pressed");
 
 		if ( gsm.getGameState() == 0 ){
 
@@ -70,6 +75,8 @@ public class KeyManager implements KeyListener{
 	}
 
 	public void keyReleased ( KeyEvent e ){
+		LOGGER.setLevel( Level.CONFIG );
+		LOGGER.config("Key released");
 
 		if ( gsm.getGameState() == 1 && Game.tickTimer <= 0 ){
 

@@ -7,8 +7,6 @@ import java.util.logging.Logger;
 
 import javax.imageio.ImageIO;
 
-import trl.gamestate.GameStateManager;
-
 public class ImageLoader{
 
 	private final static Logger LOGGER = Logger.getLogger( ImageLoader.class.getName() );
