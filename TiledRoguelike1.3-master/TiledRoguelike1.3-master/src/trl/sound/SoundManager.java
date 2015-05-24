@@ -1,15 +1,14 @@
 package trl.sound;
 
-import java.io.File;
-import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
 
 public class SoundManager{
+	
+	private final static Logger LOGGER = Logger.getLogger( SoundManager.class.getName() );
+
 
 	private Clip[] sounds;
 
@@ -24,6 +23,9 @@ public class SoundManager{
 	}
 
 	public void playSound ( String sound ){
+		
+		LOGGER.setLevel( Level.CONFIG );
+		LOGGER.config("Playing sound");
 
 		// String file;
 		// switch (sound) {
