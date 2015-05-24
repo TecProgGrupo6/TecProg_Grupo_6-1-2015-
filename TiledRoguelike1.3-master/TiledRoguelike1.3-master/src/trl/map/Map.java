@@ -11,9 +11,12 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import trl.entity.Entity;
 import trl.entity.enemy.Enemy;
+import trl.entity.enemy.Wolf;
 import trl.entity.item.Key;
 import trl.gamestate.GameplayState;
 import trl.main.Game;
@@ -67,15 +70,24 @@ public class Map{
 
 	// Nodes that the pleyer can see
 	private List<Node> visibleToPlayer;
+	
+	private final static Logger LOGGER = Logger.getLogger( Wolf.class.getName() );
+
 
 	public Map (){
 
+		LOGGER.setLevel( Level.INFO );
+		LOGGER.info("Map Initialized");
+		
 		this.hSize = Game.COLUMNS;
 		this.vSize = Game.ROWS;
 		init();
 	}
 
 	public void addAdjacents ( List<Node> openList , List<Node> closedList , Node endNode , Node node ){
+		
+		LOGGER.setLevel( Level.CONFIG );
+		LOGGER.config("Adding adjacents nodes");
 
 		Set<Node> tempList = new HashSet<Node>();
 		// Determine adjacent nodes to argument node
@@ -149,6 +161,9 @@ public class Map{
 	}
 
 	public void addRectAdjacents ( List<Node> openList , List<Node> closedList , Node endNode , Node node ){
+		
+		LOGGER.setLevel( Level.CONFIG );
+		LOGGER.config("Adding initial adjacents nodes");
 
 		Set<Node> tempList = new HashSet<Node>();
 
@@ -226,6 +241,9 @@ public class Map{
 	}
 
 	public void addWalkableAdjacents ( List<Node> checked , List<Node> checking ){
+		
+		LOGGER.setLevel( Level.CONFIG );
+		LOGGER.config("Adding walkable initial adjacents nodes");
 
 		Set<Node> tempList = new HashSet<Node>();
 
@@ -275,6 +293,9 @@ public class Map{
 	}
 
 	public boolean allNodesWalkable (){
+		
+		LOGGER.setLevel( Level.CONFIG );
+		LOGGER.config("Adding all walkable adjacents nodes");
 
 		int walkableNodes = 0;
 		for ( int x = 0 ; x < mapGrid.length ; x++ ){
@@ -319,6 +340,9 @@ public class Map{
 	}
 
 	public void connectRooms (){
+		
+		LOGGER.setLevel( Level.CONFIG );
+		LOGGER.config("Possibiliting connect rooms");
 
 		/*
 		 * Check if all nodes walkable. If not, select two rooms at random and
@@ -336,6 +360,9 @@ public class Map{
 	}
 
 	public List<Node> findPath ( Node start , Node end ){
+		
+		LOGGER.setLevel( Level.CONFIG );
+		LOGGER.config("Finding paths");
 
 		List<Node> openList = new ArrayList<Node>();
 		List<Node> closedList = new ArrayList<Node>();
@@ -370,6 +397,9 @@ public class Map{
 	}
 
 	public List<Node> findRoomConnection ( Node start , Node end ){
+		
+		LOGGER.setLevel( Level.CONFIG );
+		LOGGER.config("Finding room connection");
 
 		List<Node> openList = new ArrayList<Node>();
 		List<Node> closedList = new ArrayList<Node>();
@@ -403,6 +433,9 @@ public class Map{
 	}
 
 	public void generateMap (){
+		
+		LOGGER.setLevel( Level.INFO );
+		LOGGER.info("Generating map");
 
 		generateRooms();
 
@@ -417,6 +450,9 @@ public class Map{
 	}
 
 	public void generateRooms (){
+		
+		LOGGER.setLevel( Level.INFO );
+		LOGGER.info("Generating rooms");
 
 		/*
 		 * Divide map into cells and generate a room of random width/height
