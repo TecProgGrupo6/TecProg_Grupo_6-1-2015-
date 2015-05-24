@@ -25,6 +25,8 @@ public class LoseGameState extends GameState{
 
 		choices = new String[] { "Yes" , "No" };
 		choice = 0;
+		LOGGER.setLevel( Level.INFO );
+		LOGGER.info("Initializing choice array after lose.");
 	}
 
 	public void tick (){
