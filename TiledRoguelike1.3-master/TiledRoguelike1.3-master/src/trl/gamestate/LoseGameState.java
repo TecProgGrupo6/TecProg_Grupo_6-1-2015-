@@ -2,6 +2,8 @@ package trl.gamestate;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import trl.main.Game;
 
@@ -11,6 +13,7 @@ public class LoseGameState extends GameState{
 	private String[] choices;
 	public static boolean up = false , down = false , enter = false;
 	private int choice;
+	private final static Logger LOGGER = Logger.getLogger( LoseGameState.class.getName() );
 
 	public LoseGameState ( int enemiesDefeated ){
 
@@ -63,6 +66,8 @@ public class LoseGameState extends GameState{
 				Game.getGameStateManager().removeGameState( 0 );
 				Game.getGameStateManager().addGameState( 0 , new MenuState() );
 				Game.getGameStateManager().setGameState( 0 );
+				LOGGER.setLevel( Level.INFO );
+				LOGGER.info("Option 'YES' choiced");
 				
 			}else{
 				
@@ -70,7 +75,8 @@ public class LoseGameState extends GameState{
 			}
 			
 			if ( choice == 1 ){
-				
+				LOGGER.setLevel( Level.INFO );
+				LOGGER.info("Option 'NO' choiced");
 				Game.running = false;
 			}else{
 				
@@ -82,7 +88,7 @@ public class LoseGameState extends GameState{
 			
 			// nothing
 		}
-
+		
 	}
 
 	public void render ( Graphics g ){
@@ -97,6 +103,9 @@ public class LoseGameState extends GameState{
 		
 		g.setColor( Color.BLACK );
 		g.fillRect( originX , originY , width , height );
+		
+		LOGGER.setLevel( Level.CONFIG );
+		LOGGER.config("Rendering graph game");
 		
 		int linePosition = originY;
 		linePosition = linePosition + 16;
@@ -125,6 +134,8 @@ public class LoseGameState extends GameState{
 			
 			g.drawString( choices[i] , ( Game.W_WIDTH - g.getFontMetrics().stringWidth( choices[i] ) ) / HALF , linePosition );
 			linePosition = linePosition + 16;
+			
+			
 		}
 	}
 }
