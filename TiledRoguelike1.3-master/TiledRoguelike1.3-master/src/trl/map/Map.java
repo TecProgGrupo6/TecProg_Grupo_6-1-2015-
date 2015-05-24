@@ -76,9 +76,6 @@ public class Map{
 
 	public Map (){
 
-		LOGGER.setLevel( Level.INFO );
-		LOGGER.info("Map Initialized");
-		
 		this.hSize = Game.COLUMNS;
 		this.vSize = Game.ROWS;
 		init();
@@ -491,6 +488,9 @@ public class Map{
 	}
 
 	public List<Node> getAoENodes ( Node origin , int radius ){
+		
+		LOGGER.setLevel( Level.CONFIG );
+		LOGGER.config("Get AeO Nodes");
 
 		List<Node> aoe = new ArrayList<Node>();
 		for ( int x = origin.getAxisX() - radius ; x <= origin.getAxisX() + radius ; x++ ){
@@ -504,13 +504,16 @@ public class Map{
 		}
 		return aoe;
 	}
+	
+	/*
+	  Returns node with F score from open
+	  list lowest
+	*/
+	public Node getBestFScore ( List<Node> openList ){ 
 
-	public Node getBestFScore ( List<Node> openList ){ // Returns node with
-
-														// lowest
-
-		// F score from open
-		// list
+		LOGGER.setLevel( Level.CONFIG );
+		LOGGER.config("Get best F score");
+		
 		int bestF = 0;
 		int currentF = 0;
 		Node bestNode = null;
@@ -530,6 +533,9 @@ public class Map{
 	}
 
 	public Node getBestGScore ( ArrayList<Node> openList ){
+		
+		LOGGER.setLevel( Level.CONFIG );
+		LOGGER.config("Get best G score");
 
 		Node bestNode = null;
 		for ( Node node : openList ){
@@ -548,6 +554,9 @@ public class Map{
 	}
 
 	public List<Node> getConnection ( Node startNode , Node endNode , List<Node> closedList ){
+		
+		LOGGER.setLevel( Level.CONFIG );
+		LOGGER.config("Getting connection");
 
 		// Start with last item in list. should be destination.
 
@@ -567,11 +576,16 @@ public class Map{
 	}
 
 	public Node[][] getDisplayedNodes (){
-
+		LOGGER.setLevel( Level.CONFIG );
+		LOGGER.config("Getting display nodes");
+		
 		return displayedNodes;
 	}
 
 	public Node getDisplayedNodesOrigin (){
+
+		LOGGER.setLevel( Level.CONFIG );
+		LOGGER.config("Getting display nodes origin");
 
 		// Returns origin node for drawing game window
 		int x = 0 , y = 0;
@@ -593,6 +607,9 @@ public class Map{
 	}
 
 	public int getDisplayedX ( Node node ){
+		
+		LOGGER.setLevel( Level.CONFIG );
+		LOGGER.config("Getting displayed X");
 
 		/*
 		 * Return difference between supplied node's x position and the visible
@@ -610,6 +627,9 @@ public class Map{
 	}
 
 	public int getDisplayedY ( Node node ){
+		
+		LOGGER.setLevel( Level.CONFIG );
+		LOGGER.config("Getting displayed Y");
 
 		/*
 		 * Return difference between supplied node's y position and the visible
@@ -620,6 +640,9 @@ public class Map{
 	}
 
 	public List<Node> getRoomConnection ( Node start , Node end ){
+		
+		LOGGER.setLevel( Level.CONFIG );
+		LOGGER.config("Getting room connection");
 
 		List<Node> line = new ArrayList<Node>();
 		int x0 = start.getAxisX();
@@ -659,6 +682,9 @@ public class Map{
 	}
 
 	public List<Node> getLine ( Node start , Node end ){
+		
+		LOGGER.setLevel( Level.CONFIG );
+		LOGGER.config("Getting line");
 
 		List<Node> line = new ArrayList<Node>();
 		int x0 = start.getAxisX();
@@ -698,6 +724,9 @@ public class Map{
 	}
 
 	public Node getNode ( int x , int y ){
+		
+		LOGGER.setLevel( Level.CONFIG );
+		LOGGER.config("Getting node");
 
 		if ( x >= 0 && x < Game.COLUMNS && y >= 0 && y < Game.ROWS ){
 			return mapGrid[x][y];
@@ -707,6 +736,9 @@ public class Map{
 	}
 
 	public Node getNodeWith ( Entity entity ){
+		
+		LOGGER.setLevel( Level.CONFIG );
+		LOGGER.config("Getting node with one entity");
 
 		for ( int x = 0 ; x < Game.ROWS ; x++ ){
 			for ( int y = 0 ; y < Game.COLUMNS ; y++ ){
@@ -725,6 +757,9 @@ public class Map{
 	}
 
 	public List<Node> getPath ( Node startNode , Node endNode , List<Node> closedList ){
+		
+		LOGGER.setLevel( Level.CONFIG );
+		LOGGER.config("Getting path");
 
 		// start with last item in list. should be destination.
 		// System.out.println("Closed list size = " + closedList.size());
@@ -742,6 +777,9 @@ public class Map{
 	}
 
 	public Node getRandomNode (){
+		
+		LOGGER.setLevel( Level.CONFIG );
+		LOGGER.config("Getting random node");
 
 		// Returns a random, unoccupied floor node.
 		Random r = new Random();
@@ -765,6 +803,9 @@ public class Map{
 	}
 
 	public Node getRandomNodeInRoom (){
+		
+		LOGGER.setLevel( Level.CONFIG );
+		LOGGER.config("Getting random node in room");
 
 		/*
 		 * Returns a random, unoccupied floor node. Checks to make sure node is
@@ -800,6 +841,9 @@ public class Map{
 	}
 
 	public Room getRandomRoom (){
+		
+		LOGGER.setLevel( Level.CONFIG );
+		LOGGER.config("Getting random room");
 
 		Random r = new Random();
 		int roomColumn = (int) ( r.nextDouble() * rooms.length );
@@ -813,6 +857,9 @@ public class Map{
 	}
 
 	public boolean hammerOnMap (){
+		
+		LOGGER.setLevel( Level.INFO );
+		LOGGER.info("Verifing if contains one hammer on map");
 
 		for ( int x = 0 ; x < Game.ROWS ; x++ ){
 			for ( int y = 0 ; y < Game.COLUMNS ; y++ ){
@@ -820,6 +867,8 @@ public class Map{
 					if ( mapGrid[x][y].checkEntityByID( (byte) 4 ) ){
 						for ( Entity entity : mapGrid[x][y].getEntities() ){
 							if ( entity instanceof trl.entity.item.Hammer ){
+								LOGGER.setLevel( Level.INFO );
+								LOGGER.info("Hammer found");
 								return true;
 							}else{
 								// Nothing
@@ -833,10 +882,15 @@ public class Map{
 				}
 			}
 		}
+		LOGGER.setLevel( Level.INFO );
+		LOGGER.info("Hammer not found");
 		return false;
 	}
 
 	public void init (){
+		
+		LOGGER.setLevel( Level.INFO );
+		LOGGER.info("Initializing map");
 
 		mapGrid = new Node[vSize][hSize];
 		displayedNodes = new Node[Game.W_ROWS][Game.W_COLS];
