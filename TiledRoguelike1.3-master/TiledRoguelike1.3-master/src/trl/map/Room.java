@@ -5,7 +5,10 @@ import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
+import trl.entity.enemy.Wolf;
 import trl.map.feature.Feature;
 
 public class Room{
@@ -30,6 +33,9 @@ public class Room{
 	private List<Room> connectedTo;
 	// Representation of the boundarie of the map
 	private Rectangle boundary;
+	
+	private final static Logger LOGGER = Logger.getLogger( Room.class.getName() );
+
 
 	public Room ( Map map, int row, int column ){
 
@@ -41,6 +47,9 @@ public class Room{
 	}
 
 	public void init (){
+		
+		LOGGER.setLevel( Level.CONFIG );
+		LOGGER.config("Room intialized");
 
 		Random r = new Random();
 		this.width = (int) ( r.nextDouble() * Map.MAX_ROOM_WIDTH );
@@ -60,6 +69,9 @@ public class Room{
 	}
 
 	public void connect ( Room room ){
+		
+		LOGGER.setLevel( Level.CONFIG );
+		LOGGER.config("Connecting room");
 
 		String relationship = getRelationship( room );
 		// System.out.println("Room relationship = " + relationship);
@@ -206,6 +218,9 @@ public class Room{
 	}
 
 	public boolean connectedTo ( Room room ){
+		
+		LOGGER.setLevel( Level.CONFIG );
+		LOGGER.config("Verifying connectability with room");
 
 		if ( connectedTo != null && connectedTo.size() > 0 ){
 			if ( connectedTo.contains( room ) ){
@@ -222,6 +237,9 @@ public class Room{
 	}
 
 	public String getRelationship ( Room room ){
+		
+		LOGGER.setLevel( Level.CONFIG );
+		LOGGER.config("Getting relationship with room");
 
 		if ( this.column == room.column && this.row == room.row + 1 ){
 			return "above";
@@ -261,6 +279,9 @@ public class Room{
 	}
 
 	public Room getOccupiedRoom ( Node node ){
+		
+		LOGGER.setLevel( Level.CONFIG );
+		LOGGER.config("Getting occupied room with node");
 
 		Room[][] rooms = map.getRooms();
 		Point position = new Point( node.getAxisX() , node.getAxisY() );
@@ -277,6 +298,9 @@ public class Room{
 	}
 
 	public Room getRandomConnectedRoom (){
+		
+		LOGGER.setLevel( Level.CONFIG );
+		LOGGER.config("Getting random connected room");
 
 		Random random = new Random();
 		int randomRoomIndex = (int) ( connectedTo.size() * random.nextDouble() );
@@ -294,6 +318,9 @@ public class Room{
 	}
 
 	public Node getRandomNodeInRoom (){
+		
+		LOGGER.setLevel( Level.CONFIG );
+		LOGGER.config("Getting random node in room");
 
 		Random random = new Random();
 		// int x = (int)(random.nextDouble() * ((boundary.getMinX() + 1) +
