@@ -111,20 +111,21 @@ public class MenuState extends GameState{
 		case 0:{
 
 			classImage = renderBarbarian( g , linePosition , classImage );
-
+			
 			break;
 
 		}
 		case 1:{
 
 			classImage = renderThief( g , linePosition , classImage );
-
+			
 			break;
 
 		}
 		case 2:{
 
 			classImage = renderWizard( g , linePosition , classImage );
+			
 
 			break;
 
@@ -132,6 +133,7 @@ public class MenuState extends GameState{
 		case 3:{
 
 			classImage = renderRanger( g , linePosition , classImage );
+			
 
 		}
 		}
@@ -165,6 +167,8 @@ public class MenuState extends GameState{
 		linePosition += g.getFont().getSize();
 		g.drawString( "to his current position." , 0 , linePosition );
 
+		LOGGER.setLevel( Level.CONFIG );
+		LOGGER.config( "Rendering Barbarian image." );
 		return classImage;
 
 	}
@@ -177,6 +181,8 @@ public class MenuState extends GameState{
 		linePosition += g.getFont().getSize();
 		g.drawString( "of all map features and entities. (Pretty awesome.)" , 0 , linePosition );
 
+		LOGGER.setLevel( Level.CONFIG);
+		LOGGER.config( "Rendering Thief image." );
 		return classImage;
 
 	}
@@ -195,6 +201,8 @@ public class MenuState extends GameState{
 		linePosition += g.getFont().getSize();
 		g.drawString( "again to fire. Not well tested, so expect weirdness." , 0 , linePosition );
 
+		LOGGER.setLevel( Level.CONFIG);
+		LOGGER.config( "Rendering Ranger image." );
 		return classImage;
 
 	}
@@ -213,6 +221,8 @@ public class MenuState extends GameState{
 		linePosition += g.getFont().getSize();
 		g.drawString( "current health." , 0 , linePosition );
 
+		LOGGER.setLevel( Level.CONFIG);
+		LOGGER.config( "Rendering Wizard image." );
 		return classImage;
 
 	}
