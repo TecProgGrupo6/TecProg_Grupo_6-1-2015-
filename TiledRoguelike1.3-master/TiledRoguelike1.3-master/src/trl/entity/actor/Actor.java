@@ -11,7 +11,6 @@ import java.util.logging.Logger;
 
 import trl.entity.Entity;
 import trl.entity.enemy.Enemy;
-import trl.entity.player.Player;
 import trl.gamestate.GameplayState;
 import trl.main.Game;
 import trl.map.Map;
@@ -245,9 +244,6 @@ public abstract class Actor extends Entity{
 			path.remove( node );
 			
 		}else{
-			LOGGER.setLevel( Level.INFO );
-			LOGGER.info("Enemy blocking move.");
-
 			// nothing to do
 		}
 	}

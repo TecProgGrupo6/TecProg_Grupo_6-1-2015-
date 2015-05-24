@@ -900,10 +900,15 @@ public class Map{
 	}
 
 	public boolean isLegalCell ( Node node ){
+		
+		LOGGER.setLevel( Level.CONFIG );
+		LOGGER.config("Verifying if is a legal cell");
 
 		if ( node.getAxisX() >= 0 && node.getAxisX() < Game.COLUMNS ){
 			if ( node.getAxisY() >= 0 && node.getAxisY() < Game.ROWS ){
 				if ( node.getFeature().isPassable() ){
+					LOGGER.setLevel( Level.CONFIG);
+					LOGGER.config("Is a legal cell");
 					return true;
 				}else{
 					// Nothing
@@ -914,17 +919,23 @@ public class Map{
 		}else{
 			// Nothing
 		}
+		LOGGER.setLevel( Level.CONFIG);
+		LOGGER.config("Isn't a legal cell");
 		return false;
 	}
 
 	public boolean isVisibleToPlayer ( Node node ){
 
 		if ( visibleToPlayer.contains( node ) ){
+			LOGGER.setLevel( Level.CONFIG);
+			LOGGER.config("Node visible to player");
 			return true;
 		}else{
-			// Nothing
+			LOGGER.setLevel( Level.CONFIG);
+			LOGGER.config("Node isn't visible to player");
+			return false;
 		}
-		return false;
+		
 	}
 
 	public Node placeEntity ( Entity entity , Node node ){
@@ -934,6 +945,9 @@ public class Map{
 	}
 
 	public void placeHallwayWalls (){
+		
+		LOGGER.setLevel( Level.INFO);
+		LOGGER.info("Placing hallway walls");
 
 		/*
 		 * Check for newly created hallways that border on void nodes. Change
@@ -965,6 +979,9 @@ public class Map{
 	}
 
 	public boolean potionOnMap (){
+		
+		LOGGER.setLevel( Level.INFO);
+		LOGGER.info("Verifying if have potion on map");
 
 		for ( int x = 0 ; x < Game.ROWS ; x++ ){
 			for ( int y = 0 ; y < Game.COLUMNS ; y++ ){
@@ -972,6 +989,8 @@ public class Map{
 					if ( mapGrid[x][y].checkEntityByID( (byte) 4 ) ){
 						for ( Entity entity : mapGrid[x][y].getEntities() ){
 							if ( entity instanceof trl.entity.item.Potion ){
+								LOGGER.setLevel( Level.INFO);
+								LOGGER.info("Have potion on map");
 								return true;
 							}else{
 								// Nothing
@@ -985,11 +1004,16 @@ public class Map{
 				}
 			}
 		}
+		LOGGER.setLevel( Level.INFO);
+		LOGGER.info("Have not potion on map");
 		return false;
 	}
 
 	public void printFeatureList (){
 
+		LOGGER.setLevel( Level.INFO);
+		LOGGER.info("Printing feature list");
+		
 		for ( int x = 0 ; x < hSize ; x++ ){
 			for ( int y = 0 ; y < vSize ; y++ ){
 				System.out.println( x + "," + y + ": " + getNode( x , y ).getFeature().toString() + ", passable = "
@@ -1000,6 +1024,9 @@ public class Map{
 
 	public void processOpenList ( List<Node> openList , List<Node> closedList , Node endNode , boolean diagAllowed ){
 
+		LOGGER.setLevel( Level.CONFIG);
+		LOGGER.config("Processing open list");
+		
 		Node bestNode = getBestFScore( openList );
 
 		openList.remove( bestNode );
@@ -1017,6 +1044,9 @@ public class Map{
 	}
 
 	public void render ( Graphics g ){
+		
+		LOGGER.setLevel( Level.CONFIG);
+		LOGGER.config("Rendering graph");
 
 		g.setColor( Color.BLACK );
 		g.fillRect( 0 , 0 , Game.W_WIDTH , Game.W_HEIGHT );
@@ -1074,6 +1104,9 @@ public class Map{
 	}
 
 	public void updateDisplayedNodes (){
+		
+		LOGGER.setLevel( Level.CONFIG);
+		LOGGER.config("Updating displayed nodes");
 
 		// Can't be called until player is instantiated
 
@@ -1112,6 +1145,9 @@ public class Map{
 	}
 
 	public void updateImageMap (){
+		
+		LOGGER.setLevel( Level.CONFIG);
+		LOGGER.config("Updating image map");
 
 		for ( int x = 0 ; x < displayedNodes.length ; x++ ){
 			for ( int y = 0 ; y < displayedNodes[0].length ; y++ ){
@@ -1174,6 +1210,9 @@ public class Map{
 	}
 
 	public void updateVisibleToPlayer (){
+		
+		LOGGER.setLevel( Level.CONFIG);
+		LOGGER.config("Updating if is visible to player");
 
 		/*
 		 * New strategy: Just clear visibleToPlayer and set all enemieseach time
@@ -1252,12 +1291,18 @@ public class Map{
 	}
 
 	public void createNode ( int x , int y ){
+		
+		LOGGER.setLevel( Level.CONFIG);
+		LOGGER.config("Creating one node");
 
 		mapGrid[x][y] = new Node( x , y , this );
 		mapGrid[x][y].makeFloor();
 	}
 
 	public void createNode ( Node node ){
+		
+		LOGGER.setLevel( Level.CONFIG);
+		LOGGER.config("Creating one node");
 
 		if ( mapGrid == null ){
 			// System.out.println("mapGrid NULL");
@@ -1273,6 +1318,9 @@ public class Map{
 	}
 
 	public void setDisplayedNodesMinX (){
+		
+		LOGGER.setLevel( Level.CONFIG);
+		LOGGER.config("Set displayed nodes (Min X)");
 
 		/*
 		 * Return x value of origin node in displayedNodes. Since
@@ -1309,6 +1357,9 @@ public class Map{
 	}
 
 	public void setDisplayedNodesMinY (){
+		
+		LOGGER.setLevel( Level.CONFIG);
+		LOGGER.config("Set displayed nodes (Min Y)");
 
 		/*
 		 * Return y value of origin node in displayedNodes. Since
@@ -1344,16 +1395,25 @@ public class Map{
 	}
 
 	public void setDisplayedNodesMaxX (){
+		
+		LOGGER.setLevel( Level.CONFIG);
+		LOGGER.config("Set displayed nodes (Max X)");
 
 		displayedNodesMaxX = displayedNodesMinX + Game.W_COLS;
 	}
 
 	public void setDisplayedNodesMaxY (){
+		
+		LOGGER.setLevel( Level.CONFIG);
+		LOGGER.config("Set displayed nodes (Max Y)");
 
 		displayedNodesMaxY = displayedNodesMinY + Game.W_ROWS;
 	}
 
 	public int getNonNullNodeCount (){
+		
+		LOGGER.setLevel( Level.CONFIG);
+		LOGGER.config("Getting non null node count");
 
 		int count = 0;
 		for ( int x = 0 ; x < Game.COLUMNS ; x++ ){
@@ -1370,10 +1430,15 @@ public class Map{
 
 	public Room[][] getRooms (){
 
+		LOGGER.setLevel( Level.CONFIG);
+		LOGGER.config("Getting rooms");
 		return rooms;
 	}
 
 	public boolean inRoom ( Node node ){
+		
+		LOGGER.setLevel( Level.CONFIG);
+		LOGGER.config("Verifying if node is in a room");
 
 		Point loc = new Point( node.getAxisX() , node.getAxisY() );
 		for ( int x = 0 ; x < rooms.length ; x++ ){
@@ -1389,6 +1454,10 @@ public class Map{
 	}
 
 	public Room getNearestRoom ( Node loc ){
+		
+		LOGGER.setLevel( Level.CONFIG);
+		LOGGER.config("Getting nearest room");
+
 
 		int roomColumn = Game.COLUMNS / MAX_ROOM_WIDTH - 1;
 		int roomRow = Game.ROWS / MAX_ROOM_HEIGHT - 1;
