@@ -8,6 +8,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.JFrame;
 
@@ -23,6 +25,7 @@ public class Game extends Canvas implements Runnable , MouseListener{
 	/**
 	 * 
 	 */
+	private final static Logger LOGGER = Logger.getLogger( Game.class.getName() );
 	private static final long serialVersionUID = 1L;
 	public static final int ROWS = 40 , COLUMNS = 40; // Map rows and columns
 	public static final int W_ROWS = 11 , W_COLS = 11; // Displayed nodes
@@ -50,6 +53,8 @@ public class Game extends Canvas implements Runnable , MouseListener{
 
 	public void init (){
 
+		LOGGER.setLevel( Level.INFO );
+		LOGGER.info("Initializing game");
 		ImageLoader loader = new ImageLoader();
 		spriteSheet = loader.load( "/tiled_roguelike_sheet.png" );
 		SpriteSheet ss = new SpriteSheet( spriteSheet );
@@ -101,6 +106,9 @@ public class Game extends Canvas implements Runnable , MouseListener{
 		int period = ( 1000 / TARGET_FPS ) * 1000000;
 		long elapsed = 0;
 		long lastElapsed = 0;
+		
+		LOGGER.setLevel( Level.INFO );
+		LOGGER.info("Run game initialized");
 		// long maxTime = 0;
 
 		while ( running ){
@@ -156,6 +164,9 @@ public class Game extends Canvas implements Runnable , MouseListener{
 	}
 
 	public void gameUpdate (){
+		
+		LOGGER.setLevel( Level.CONFIG );
+		LOGGER.config("Game updated");
 
 		if ( tickTimer > 0 ){
 			tickTimer--;
@@ -177,6 +188,9 @@ public class Game extends Canvas implements Runnable , MouseListener{
 		Graphics g = bs.getDrawGraphics();
 		g.setColor( Color.WHITE );
 
+		LOGGER.setLevel( Level.CONFIG );
+		LOGGER.config("Game rendered");
+		
 		gsm.render( g );
 		g.drawString( Double.toString( fps ) , 0 , 16 );
 		g.drawString( Double.toString( maxUpdateTime ) , 0 , 32 );
@@ -200,6 +214,8 @@ public class Game extends Canvas implements Runnable , MouseListener{
 		game.setFocusable( true );
 		game.requestFocus();
 
+		LOGGER.setLevel( Level.CONFIG );
+		LOGGER.config("START");
 		game.start();
 	}
 
@@ -219,6 +235,8 @@ public class Game extends Canvas implements Runnable , MouseListener{
 	public void mouseClicked ( MouseEvent e ){
 
 		if ( gsm.getGameState() == 1 ){
+			LOGGER.setLevel( Level.CONFIG );
+			LOGGER.config("Moved by mouse");
 			int x = e.getX() / SCALED_TILE_SIZE;
 			int y = -( ( e.getY() / SCALED_TILE_SIZE ) - W_HEIGHT / SCALED_TILE_SIZE + 1 );
 			int relX = Map.displayedNodesMinX + x;
