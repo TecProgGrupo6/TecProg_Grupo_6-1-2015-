@@ -81,7 +81,7 @@ public class Node{
 	// Representation of the floor space
 	public static Feature floor = new Floor();
 	
-	private final static Logger LOGGER = Logger.getLogger( Actor.class.getName() );
+	private final static Logger LOGGER = Logger.getLogger( Node.class.getName() );
 
 	public Node ( int x, int y, Map map ){
 
@@ -96,6 +96,9 @@ public class Node{
 	}
 
 	public void init (){
+		
+		LOGGER.setLevel( Level.CONFIG );
+		LOGGER.config("Initializing node");
 
 		seenByPlayer = false;
 		isFloor = false;
@@ -104,6 +107,10 @@ public class Node{
 	}
 
 	public boolean isWall (){
+		
+		LOGGER.setLevel( Level.CONFIG );
+		LOGGER.config("Verifying if node is a wall");
+
 
 		if ( feature instanceof trl.map.feature.Wall ){
 			return true;
@@ -112,6 +119,9 @@ public class Node{
 	}
 
 	public boolean isFloor (){
+		
+		LOGGER.setLevel( Level.CONFIG );
+		LOGGER.config("Verifying if node is a floor");
 
 		if ( feature instanceof trl.map.feature.Floor ){
 			return true;
@@ -130,6 +140,9 @@ public class Node{
 	}
 
 	public List<Entity> getEntities (){
+		
+		LOGGER.setLevel( Level.CONFIG );
+		LOGGER.config("Getting entities");
 
 		if ( entities.size() > 0 ){
 			return entities;
@@ -139,6 +152,9 @@ public class Node{
 	}
 
 	public boolean nodeContains ( Entity entityToFind ){
+		
+		LOGGER.setLevel( Level.CONFIG );
+		LOGGER.config("Verifying if the Entity contains a node");
 
 		if ( entities.size() > 0 ){
 			for ( Entity entity : entities ){
@@ -155,6 +171,9 @@ public class Node{
 	}
 
 	public void addEntity ( Entity entity ){
+		
+		LOGGER.setLevel( Level.CONFIG );
+		LOGGER.config("Adding " + entity.getClass().toString());
 
 		if ( entity instanceof trl.entity.actor.Actor && entities.size() > 0 ){
 			entities.add( entities.size() - 1 , entity );
@@ -164,6 +183,9 @@ public class Node{
 	}
 
 	public void removeEntity ( Entity entity ){
+		
+		LOGGER.setLevel( Level.CONFIG );
+		LOGGER.config("Remove an Entity");
 
 		entities.remove( entity );
 	}
@@ -251,6 +273,9 @@ public class Node{
 	}
 
 	public boolean adjacent ( Node node ){
+		
+		LOGGER.setLevel( Level.CONFIG );
+		LOGGER.config("Verifying if node have one adjacent");
 
 		if ( this.axisX == node.axisX || this.axisX == node.axisX - 1 || this.axisX == node.axisX + 1 ){
 			if ( this.axisY == node.axisY || this.axisY == node.axisY - 1 || this.axisY == node.axisY + 1 ){
@@ -265,6 +290,9 @@ public class Node{
 	}
 
 	public boolean checkEntityByID ( byte entityID ){
+		
+		LOGGER.setLevel( Level.CONFIG );
+		LOGGER.config("Checking entity by id");
 
 		if ( entities == null ){
 			// System.out.println("entities NULL");
@@ -364,6 +392,8 @@ public class Node{
 	}
 
 	public void removeEntityByID ( byte entityID ){
+		LOGGER.setLevel( Level.CONFIG );
+		LOGGER.config("Removing entity by ID");
 
 		Iterator<Entity> entity = entities.iterator();
 		while ( entity.hasNext() ){
