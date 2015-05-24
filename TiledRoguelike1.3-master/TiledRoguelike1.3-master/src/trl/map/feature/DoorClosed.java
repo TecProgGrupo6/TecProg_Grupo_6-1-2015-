@@ -8,7 +8,7 @@ public class DoorClosed extends Feature{
 	private final static Logger LOGGER = Logger.getLogger( DoorClosed.class.getName() );
 	public DoorClosed (){
 		LOGGER.setLevel( Level.INFO );
-		LOGGER.info("Retuned clodes door");
+		LOGGER.info("Returned closed door");
 
 		passable = false;
 	}
