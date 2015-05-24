@@ -5,6 +5,8 @@ import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import trl.main.Game;
 
@@ -14,6 +16,7 @@ public class MenuState extends GameState{
 	public static boolean up = false , down = false , enter = false;
 	private int classChoice;
 	private static final int FONT_SIZE = 24;
+	private final static Logger LOGGER = Logger.getLogger( GameStateManager.class.getName() );
 
 	public MenuState (){
 
@@ -23,6 +26,8 @@ public class MenuState extends GameState{
 	public void init (){
 
 		menuOptions = new String[] { "Barbarian" , "Thief" , "Wizard" , "Ranger" };
+		LOGGER.setLevel( Level.INFO );
+		LOGGER.info( "Initializing player's options" );
 	}
 
 	public void tick (){
@@ -60,7 +65,10 @@ public class MenuState extends GameState{
 
 			Game.getGameStateManager().addGameState( 1 , new GameplayState( classChoice ) );
 			Game.getGameStateManager().setGameState( 1 );
+			LOGGER.setLevel( Level.INFO );
+			LOGGER.info( "Option '" + menuOptions[classChoice] + "' chosen" );
 			enter = false;
+			
 		}else{
 
 			// nothing
