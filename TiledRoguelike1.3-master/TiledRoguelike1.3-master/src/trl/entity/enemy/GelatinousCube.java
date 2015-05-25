@@ -3,7 +3,6 @@ package trl.entity.enemy;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import trl.entity.actor.Actor;
 import trl.main.Game;
 import trl.map.Map;
 
@@ -19,16 +18,17 @@ public class GelatinousCube extends Enemy{
 	private final static Logger LOGGER = Logger.getLogger( GelatinousCube.class.getName() );
 
 	// Iniitliaze Geletinous Cube
+	@Override
 	public void init (){
 		
 		LOGGER.setLevel( Level.INFO );
 		LOGGER.info("Gelatinous Cube intialized");
 
-		maxHP = 14;
-		attack = 5;
-		image = Game.getImageManager().gelatinousCube;
-		hp = maxHP;
-		xpReward = 7;
-		level = 7;
+		this.maxHP = 14;
+		this.attack = 5;
+		this.image = Game.getImageManager().gelatinousCube;
+		this.hp = this.maxHP;
+		this.xpReward = 7;
+		this.level = 7;
 	}
 }
