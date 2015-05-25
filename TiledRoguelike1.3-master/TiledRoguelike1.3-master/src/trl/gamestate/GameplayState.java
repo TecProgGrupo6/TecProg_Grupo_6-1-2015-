@@ -53,6 +53,7 @@ public class GameplayState extends GameState{
 		init();
 	}
 
+	@Override
 	public void init (){
 
 		// If we're building the state from scratch
@@ -65,8 +66,6 @@ public class GameplayState extends GameState{
 
 		LOGGER.setLevel( Level.INFO );
 		LOGGER.info( "Player turns on level = " + player.getTurnsOnLevel() );
-
-		int maxEnemies = dungeonLevel + ( GameplayState.getPlayer().getTurnsOnLevel() / GameplayState.addEnemyInterval );
 
 		LOGGER.setLevel( Level.INFO );
 		LOGGER.info( "Max enemies: " + dungeonLevel + " + (" + player.getTurnsOnLevel() + " / " + addEnemyInterval + ")" );
@@ -85,7 +84,8 @@ public class GameplayState extends GameState{
 			map = new Map();
 			enemyGroup = new EnemyGroup( map );
 			actorQueue = new ActorQueue();
-			switch ( classChoice ) {
+			
+			switch ( this.classChoice ) {
 
 			case 0:{
 
@@ -123,11 +123,16 @@ public class GameplayState extends GameState{
 				break;
 
 			}
+			default:
+				
+				// Nothing to do
+				break;
 			}
 			actorQueue.addActor( player );
 
 			enemyGroup.spawnEnemies();
 		}else if ( dungeonLevel == 5 ){
+			
 			map.init();
 			// map = new Map();
 			enemyGroup.flush();
@@ -199,6 +204,7 @@ public class GameplayState extends GameState{
 
 	}
 
+	@Override
 	public void tick (){
 
 		if ( tickEnemies ){
@@ -220,6 +226,7 @@ public class GameplayState extends GameState{
 		actorQueue.tick();
 	}
 
+	@Override
 	public void render ( Graphics g ){
 
 		map.render( g );
@@ -298,6 +305,7 @@ public class GameplayState extends GameState{
 
 	}
 
+	@SuppressWarnings ( "static-method" )
 	public void drawStatusBarbarian ( Graphics g ){
 
 		if ( player.getTimers()[0] <= 0 ){
@@ -312,6 +320,7 @@ public class GameplayState extends GameState{
 
 	}
 
+	@SuppressWarnings ( "static-method" )
 	public void drawStatusWizzard ( Graphics g ){
 
 		if ( player.getTimers()[0] <= 0 ){
@@ -403,6 +412,7 @@ public class GameplayState extends GameState{
 	}
 
 	// Draw mini map as the player walks
+	@SuppressWarnings ( "static-method" )
 	public void drawMiniMapViaPlayer ( Node node , Graphics g , Color trGray , Color brown ){
 
 		if ( node.getFeature().isPassable() ){
@@ -505,11 +515,13 @@ public class GameplayState extends GameState{
 	// return im;
 	// }
 
+	@SuppressWarnings ( "static-method" )
 	public int getDungeonLevel (){
 
 		return dungeonLevel;
 	}
 
+	@SuppressWarnings ( "static-access" )
 	public void setDungeonLevel ( int dungeonLevel ){
 
 		this.dungeonLevel = dungeonLevel;
