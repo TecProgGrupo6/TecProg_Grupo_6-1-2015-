@@ -20,9 +20,12 @@ public class SoundManager{
 
 	public void init (){
 
-		sounds = new Clip[1];
+		this.sounds = new Clip[1];
 	}
 
+	/**
+	 * @param sound  
+	 */
 	public void playSound ( String sound ){
 		
 		LOGGER.setLevel( Level.CONFIG );
