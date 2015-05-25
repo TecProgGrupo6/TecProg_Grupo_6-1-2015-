@@ -18,16 +18,17 @@ public class Wyvern extends Enemy{
 	private final static Logger LOGGER = Logger.getLogger( Wyvern.class.getName() );
 
 	// Initiliaze Wyvern
+	@Override
 	public void init (){
 		
 		LOGGER.setLevel( Level.INFO );
 		LOGGER.info("Wyvern intialized");
 
-		maxHP = 22;
-		attack = 5;
-		image = Game.getImageManager().wyvern;
-		hp = maxHP;
-		xpReward = 11;
-		level = 11;
+		this.maxHP = 22;
+		this.attack = 5;
+		this.image = Game.getImageManager().wyvern;
+		this.hp = this.maxHP;
+		this.xpReward = 11;
+		this.level = 11;
 	}
 }
