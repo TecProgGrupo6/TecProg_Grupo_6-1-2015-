@@ -18,16 +18,17 @@ public class Ogre extends Enemy{
 	private final static Logger LOGGER = Logger.getLogger( Ogre.class.getName() );
 
 	// Initialize Ogre
+	@Override
 	public void init (){
 		
 		LOGGER.setLevel( Level.INFO );
 		LOGGER.info("Ogre intialized");
 
-		maxHP = 28;
-		attack = 5;
-		image = Game.getImageManager().ogre;
-		hp = maxHP;
-		xpReward = 14;
-		level = 14;
+		this.maxHP = 28;
+		this.attack = 5;
+		this.image = Game.getImageManager().ogre;
+		this.hp = this.maxHP;
+		this.xpReward = 14;
+		this.level = 14;
 	}
 }
