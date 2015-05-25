@@ -79,7 +79,7 @@ public class Entity{
 
 	public boolean seenByPlayer (){
 
-		return seenByPlayer;
+		return this.seenByPlayer;
 	}
 
 	public void setSeenByPlayer ( boolean seen ){
@@ -89,7 +89,7 @@ public class Entity{
 
 	public Room getOccupiedRoom ( Node node ){
 
-		Room[][] rooms = map.getRooms();
+		Room[][] rooms = this.map.getRooms();
 		Point position = new Point( node.getAxisX() , node.getAxisY() );
 
 		for ( int x = 0 ; x < rooms.length ; x++ ){
@@ -111,12 +111,12 @@ public class Entity{
 
 	public boolean getSeenByPlayer (){
 
-		return seenByPlayer;
+		return this.seenByPlayer;
 	}
 
 	public boolean getVisibleToPlayer (){
 
-		return visibleToPlayer;
+		return this.visibleToPlayer;
 	}
 
 	public void setVisibleToPlayer ( boolean visibleToPlayer ){
