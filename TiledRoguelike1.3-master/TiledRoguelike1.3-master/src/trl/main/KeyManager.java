@@ -23,11 +23,12 @@ public class KeyManager implements KeyListener{
 	}
 
 	// Action event from the keyboard
+	@Override
 	public void keyPressed ( KeyEvent e ){
 		LOGGER.setLevel( Level.CONFIG );
 		LOGGER.config("Key pressed");
 
-		if ( gsm.getGameState() == 0 ){
+		if ( this.gsm.getGameState() == 0 ){
 
 			if ( e.getKeyCode() == KeyEvent.VK_UP ){
 
@@ -50,7 +51,7 @@ public class KeyManager implements KeyListener{
 		}else{
 			// Nothing
 		}
-		if ( gsm.getGameState() == 2 ){
+		if ( this.gsm.getGameState() == 2 ){
 			if ( e.getKeyCode() == KeyEvent.VK_UP ){
 
 				LoseGameState.up = true;
@@ -74,11 +75,12 @@ public class KeyManager implements KeyListener{
 		}
 	}
 
+	@Override
 	public void keyReleased ( KeyEvent e ){
 		LOGGER.setLevel( Level.CONFIG );
 		LOGGER.config("Key released");
 
-		if ( gsm.getGameState() == 1 && Game.tickTimer <= 0 ){
+		if ( this.gsm.getGameState() == 1 && Game.tickTimer <= 0 ){
 
 			if ( e.getKeyCode() == KeyEvent.VK_NUMPAD8 ){
 
@@ -242,7 +244,7 @@ public class KeyManager implements KeyListener{
 			// Nothing
 		}
 
-		if ( gsm.getGameState() == 0 ){
+		if ( this.gsm.getGameState() == 0 ){
 
 			if ( e.getKeyCode() == KeyEvent.VK_UP ){
 
@@ -265,7 +267,7 @@ public class KeyManager implements KeyListener{
 		}else{
 			// Nothing
 		}
-		if ( gsm.getGameState() == 2 ){
+		if ( this.gsm.getGameState() == 2 ){
 
 			if ( e.getKeyCode() == KeyEvent.VK_UP ){
 
@@ -290,6 +292,7 @@ public class KeyManager implements KeyListener{
 		}
 	}
 
+	@Override
 	public void keyTyped ( KeyEvent e ){
 		
 		// Nothing to do
