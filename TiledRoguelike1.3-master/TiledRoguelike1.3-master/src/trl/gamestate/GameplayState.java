@@ -305,7 +305,6 @@ public class GameplayState extends GameState{
 
 	}
 
-	@SuppressWarnings ( "static-method" )
 	public void drawStatusBarbarian ( Graphics g ){
 
 		if ( player.getTimers()[0] <= 0 ){
@@ -320,7 +319,6 @@ public class GameplayState extends GameState{
 
 	}
 
-	@SuppressWarnings ( "static-method" )
 	public void drawStatusWizzard ( Graphics g ){
 
 		if ( player.getTimers()[0] <= 0 ){
@@ -412,7 +410,6 @@ public class GameplayState extends GameState{
 	}
 
 	// Draw mini map as the player walks
-	@SuppressWarnings ( "static-method" )
 	public void drawMiniMapViaPlayer ( Node node , Graphics g , Color trGray , Color brown ){
 
 		if ( node.getFeature().isPassable() ){
@@ -515,7 +512,6 @@ public class GameplayState extends GameState{
 	// return im;
 	// }
 
-	@SuppressWarnings ( "static-method" )
 	public int getDungeonLevel (){
 
 		return dungeonLevel;
