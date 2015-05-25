@@ -49,6 +49,7 @@ public class EnemyGroup{
 	 * params: the level of the dungeon
 	 */
 	
+	@SuppressWarnings ( "null" )
 	public void randomEnemies( int dungeonLevel ){
 		
 		Random r = new Random();
