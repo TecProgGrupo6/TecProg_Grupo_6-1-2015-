@@ -25,9 +25,9 @@ public class Thief extends Player{
 		LOGGER.setLevel( Level.INFO );
 		LOGGER.info("Thief intialized");
 
-		this.hp = maxHP;
+		this.hp = this.maxHP;
 		this.myTurn = true;
-		map.revealAll();
-		timers = new int[0];
+		this.map.revealAll();
+		this.timers = new int[0];
 	}
 }
