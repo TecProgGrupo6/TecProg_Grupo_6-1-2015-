@@ -18,16 +18,17 @@ public class Panther extends Enemy{
 	private final static Logger LOGGER = Logger.getLogger( Panther.class.getName() );
 
 	// Initiliaze Panther
+	@Override
 	public void init (){
 		
 		LOGGER.setLevel( Level.INFO );
 		LOGGER.info("Panther intialized");
 
-		maxHP = 18;
-		attack = 5;
-		image = Game.getImageManager().panther;
-		hp = maxHP;
-		xpReward = 9;
-		level = 9;
+		this.maxHP = 18;
+		this.attack = 5;
+		this.image = Game.getImageManager().panther;
+		this.hp = this.maxHP;
+		this.xpReward = 9;
+		this.level = 9;
 	}
 }
