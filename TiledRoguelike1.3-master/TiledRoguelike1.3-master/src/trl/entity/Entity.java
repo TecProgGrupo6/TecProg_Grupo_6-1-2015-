@@ -2,6 +2,8 @@ package trl.entity;
 
 import java.awt.Point;
 import java.awt.image.BufferedImage;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import trl.main.Game;
 import trl.map.Map;
@@ -24,6 +26,8 @@ public class Entity{
 
 	// Describe if can be visible for the player or not
 	protected boolean visibleToPlayer;
+	
+	private final static Logger LOGGER = Logger.getLogger( Entity.class.getName() );
 
 	public Entity ( Map map ){
 
@@ -60,6 +64,9 @@ public class Entity{
 	 * when it seems like they should not.
 	 */
 	public boolean inDisplayedNodes (){
+		
+		LOGGER.setLevel( Level.CONFIG );
+		LOGGER.config("Verifying if is an displayed node");
 
 		int axisX = Map.displayedNodesMinX;
 		int axisY = Map.displayedNodesMinY;
@@ -78,6 +85,9 @@ public class Entity{
 	}
 
 	public boolean seenByPlayer (){
+		
+		LOGGER.setLevel( Level.CONFIG );
+		LOGGER.config("Verifying if the entity is seen by player");
 
 		return this.seenByPlayer;
 	}
@@ -88,6 +98,10 @@ public class Entity{
 	}
 
 	public Room getOccupiedRoom ( Node node ){
+		
+		LOGGER.setLevel( Level.CONFIG );
+		LOGGER.config("Getting occupied room");
+
 
 		Room[][] rooms = this.map.getRooms();
 		Point position = new Point( node.getAxisX() , node.getAxisY() );
