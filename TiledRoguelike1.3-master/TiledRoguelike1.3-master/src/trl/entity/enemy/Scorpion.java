@@ -18,16 +18,17 @@ public class Scorpion extends Enemy{
 	private final static Logger LOGGER = Logger.getLogger( Scorpion.class.getName() );
 
 	// Initiliaze Scorpion
+	@Override
 	public void init (){
 		
 		LOGGER.setLevel( Level.INFO );
 		LOGGER.info("Scorpion intialized");
 
-		maxHP = 12;
-		attack = 5;
-		image = Game.getImageManager().scorpion;
-		hp = maxHP;
-		xpReward = 6;
-		level = 6;
+		this.maxHP = 12;
+		this.attack = 5;
+		this.image = Game.getImageManager().scorpion;
+		this.hp = this.maxHP;
+		this.xpReward = 6;
+		this.level = 6;
 	}
 }
