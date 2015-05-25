@@ -24,7 +24,7 @@ public class ActorQueue{
 
 	public void init (){
 
-		queue = new ArrayList<Actor>();
+		this.queue = new ArrayList<Actor>();
 	}
 
 	public void addActor ( Actor actor ){
@@ -33,12 +33,12 @@ public class ActorQueue{
 		LOGGER.config("Adding actor");
 
 		// Add actor at beginning of queue
-		queue.add( 0 , actor );
+		this.queue.add( 0 , actor );
 	}
 
 	public void render ( Graphics g ){
 
-		for ( Actor actor : queue ){
+		for ( Actor actor : this.queue ){
 
 			actor.render( g );
 		}
@@ -48,7 +48,7 @@ public class ActorQueue{
 
 		Actor actor;
 		// Start tick loop
-		for ( Iterator<Actor> itQueue = queue.iterator() ; itQueue.hasNext() ; ){
+		for ( Iterator<Actor> itQueue = this.queue.iterator() ; itQueue.hasNext() ; ){
 			actor = itQueue.next();
 
 			actor.tick();
@@ -69,7 +69,7 @@ public class ActorQueue{
 						// nothing to do
 					}
 
-					double percentXP = ( 1.0d / levelDiff ) * (double) actor.getLevel();
+					double percentXP = ( 1.0d / levelDiff ) * actor.getLevel();
 					
 					if ( percentXP > 1.0 ){
 						
@@ -79,7 +79,7 @@ public class ActorQueue{
 						// nothing to do
 					}
 
-					double xp = percentXP * (double) actor.getLevel();
+					double xp = percentXP * actor.getLevel();
 					GameplayState.getPlayer().gainXP( xp );
 					itQueue.remove();
 					GameplayState.getEnemyGroup().removeEnemy( actor );
@@ -87,7 +87,7 @@ public class ActorQueue{
 					// If it's a dead enemy's turn, pass turn to next actor
 					if ( actor.getTurn() ){
 
-						actor.endTurn( queue.get( queue.indexOf( actor ) + 1 ) );
+						actor.endTurn( this.queue.get( this.queue.indexOf( actor ) + 1 ) );
 					}else{
 
 						// nothing to do
@@ -121,12 +121,12 @@ public class ActorQueue{
 						 * moving iterator
 						 */
 
-						actor.endTurn( queue.get( queue.indexOf( actor ) + 1 ) );
+						actor.endTurn( this.queue.get( this.queue.indexOf( actor ) + 1 ) );
 					}
 					// Hand turn to first actor in queue
 					else{
 
-						actor.endTurn( queue.get( 0 ) );
+						actor.endTurn( this.queue.get( 0 ) );
 					}
 				}else{
 
@@ -142,13 +142,13 @@ public class ActorQueue{
 
 	public Actor getActor ( int index ){
 
-		return queue.get( index );
+		return this.queue.get( index );
 	}
 
 	public void flush (){
 
 		for ( @SuppressWarnings ( "unused" )
-		Actor actor : queue ){
+		Actor actor : this.queue ){
 
 			actor = null;
 		}
