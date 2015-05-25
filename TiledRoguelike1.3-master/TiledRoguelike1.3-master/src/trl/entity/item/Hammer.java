@@ -24,6 +24,6 @@ public class Hammer extends Item{
 		LOGGER.info("Hammer intialized");
 
 		this.image = Game.getImageManager().hammer;
-		this.loc = map.placeEntity( this , map.getRandomNodeInRoom() );
+		this.loc = this.map.placeEntity( this , this.map.getRandomNodeInRoom() );
 	}
 }
