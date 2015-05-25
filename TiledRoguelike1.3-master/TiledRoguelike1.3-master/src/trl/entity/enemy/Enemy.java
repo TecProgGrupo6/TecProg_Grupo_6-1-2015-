@@ -1,7 +1,5 @@
 package trl.entity.enemy;
 
-import java.util.logging.Logger;
-
 import trl.entity.actor.Actor;
 import trl.gamestate.GameplayState;
 import trl.main.Game;
