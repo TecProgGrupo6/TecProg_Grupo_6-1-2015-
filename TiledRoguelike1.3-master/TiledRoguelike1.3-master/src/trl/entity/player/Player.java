@@ -827,7 +827,6 @@ public abstract class Player extends Actor{
 	public void tick (){
 
 		Node nextNode; // prospective node for movement/action
-		Enemy enemy; // prospective enemy in nextNode
 
 		// Clear activity flags
 		clearFlags();
