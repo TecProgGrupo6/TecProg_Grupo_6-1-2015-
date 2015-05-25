@@ -18,16 +18,17 @@ public class Zombie extends Enemy{
 	private final static Logger LOGGER = Logger.getLogger( Zombie.class.getName() );
 
 	// Initiliaze Zombie
+	@Override
 	public void init (){
 		
 		LOGGER.setLevel( Level.INFO );
 		LOGGER.info("Zombie intialized");
 
-		maxHP = 26;
-		attack = 5;
-		image = Game.getImageManager().zombie;
-		hp = maxHP;
-		xpReward = 13;
-		level = 13;
+		this.maxHP = 26;
+		this.attack = 5;
+		this.image = Game.getImageManager().zombie;
+		this.hp = this.maxHP;
+		this.xpReward = 13;
+		this.level = 13;
 	}
 }
