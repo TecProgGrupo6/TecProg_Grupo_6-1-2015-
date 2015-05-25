@@ -8,7 +8,6 @@ import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import trl.entity.enemy.Wolf;
 import trl.map.feature.Feature;
 
 public class Room{
@@ -306,7 +305,7 @@ public class Room{
 		int randomRoomIndex = (int) ( connectedTo.size() * random.nextDouble() );
 		// System.out.println("connected rooms size = " + connectedTo.size());
 		// System.out.println("connected rooms index = " + randomRoomIndex);
-		Room connectedRoom = connectedTo.get( randomRoomIndex );
+		
 		// System.out.println("getRandomConnectedRoom: current room = " +
 		// this.toString() + ", next = " + connectedRoom.toString());
 		return connectedTo.get( randomRoomIndex );
