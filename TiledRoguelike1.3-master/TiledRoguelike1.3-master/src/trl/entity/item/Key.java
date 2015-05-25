@@ -3,7 +3,6 @@ package trl.entity.item;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import trl.entity.enemy.Demon;
 import trl.main.Game;
 import trl.map.Map;
 
