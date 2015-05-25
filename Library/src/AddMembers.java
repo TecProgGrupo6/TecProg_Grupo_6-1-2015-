@@ -25,6 +25,7 @@ import java.util.logging.Logger;
 /**
  * A public class
  */
+@SuppressWarnings ( "serial" )
 public class AddMembers extends JInternalFrame{
 	
 	
@@ -82,16 +83,17 @@ public class AddMembers extends JInternalFrame{
 	private String[] data;
 
 	// For checking the password.
+	@SuppressWarnings ( "deprecation" )
 	public boolean isPasswordCorrect (){
 
-		if ( informationPasswordField[0].getText().equals( informationPasswordField[1].getText() ) ){
+		if ( this.informationPasswordField[0].getText().equals( this.informationPasswordField[1].getText() ) ){
 
-			data[1] = informationPasswordField[1].getText();
+			this.data[1] = this.informationPasswordField[1].getText();
 			
 			LOGGER.setLevel( Level.INFO );
 			LOGGER.info("Password Correct");
 
-		}else if ( !informationPasswordField[0].getText().equals( informationPasswordField[1].getText() ) ){
+		}else if ( !this.informationPasswordField[0].getText().equals( this.informationPasswordField[1].getText() ) ){
 			
 			LOGGER.setLevel( Level.INFO );
 			LOGGER.info("Information is incorrect");
@@ -103,17 +105,18 @@ public class AddMembers extends JInternalFrame{
 	}
 
 	// For checking the information from the text field.
-	double informationLabelLength = informationLabel.length;
+	double informationLabelLength = this.informationLabel.length;
 
+	@SuppressWarnings ( "deprecation" )
 	public boolean isCorrect (){
 
-		data = new String[6];
+		this.data = new String[6];
 
-		for ( int i = 0 ; i < informationLabelLength ; i++ ){
+		for ( int i = 0 ; i < this.informationLabelLength ; i++ ){
 			if ( i == 0 ){
-				if ( !informationTextField[i].getText().equals( "" ) ){
+				if ( !this.informationTextField[i].getText().equals( "" ) ){
 
-					data[i] = informationTextField[i].getText();
+					this.data[i] = this.informationTextField[i].getText();
 
 				}else{
 					return false;
@@ -121,16 +124,16 @@ public class AddMembers extends JInternalFrame{
 			}
 			if ( i == 1 || i == 2 ){
 
-				if ( informationPasswordField[i - 1].getText().equals( "" ) ){
+				if ( this.informationPasswordField[i - 1].getText().equals( "" ) ){
 
 					return false;
 
 				}
 			}
 			if ( i == 3 || i == 4 || i == 5 || i == 6 ){
-				if ( !informationTextField[i - 2].getText().equals( "" ) ){
+				if ( !this.informationTextField[i - 2].getText().equals( "" ) ){
 
-					data[i - 1] = informationTextField[i - 2].getText();
+					this.data[i - 1] = this.informationTextField[i - 2].getText();
 
 				}else{
 					return false;
@@ -147,20 +150,20 @@ public class AddMembers extends JInternalFrame{
 	// For setting the array of JTextField & JPasswordField to null.
 	public void clearTextField (){
 
-		for ( int i = 0 ; i < informationLabelLength ; i++ ){
+		for ( int i = 0 ; i < this.informationLabelLength ; i++ ){
 			if ( i == 0 ){
 
-				informationTextField[i].setText( null );
+				this.informationTextField[i].setText( null );
 
 			}
 			if ( i == 1 || i == 2 ){
 
-				informationPasswordField[i - 1].setText( null );
+				this.informationPasswordField[i - 1].setText( null );
 
 			}
 			if ( i == 3 || i == 4 || i == 5 || i == 6 ){
 
-				informationTextField[i - 2].setText( null );
+				this.informationTextField[i - 2].setText( null );
 
 			}
 		}
@@ -177,23 +180,23 @@ public class AddMembers extends JInternalFrame{
 	 ***********************************************************************/
 	void addFieldsToThePanel(){
 
-		for ( int i = 0 ; i < informationLabel.length ; i++ ){
+		for ( int i = 0 ; i < this.informationLabel.length ; i++ ){
 			if ( i == 1 || i == 2 ){
 
-				informationTextFieldPanel.add( informationPasswordField[i - 1] = new JPasswordField( 25 ) );
-				informationPasswordField[i - 1].setFont( new Font( "Tahoma" , Font.PLAIN , 11 ) );
+				this.informationTextFieldPanel.add( this.informationPasswordField[i - 1] = new JPasswordField( 25 ) );
+				this.informationPasswordField[i - 1].setFont( new Font( "Tahoma" , Font.PLAIN , 11 ) );
 
 			}
 			if ( i == 0 ){
 
-				informationTextFieldPanel.add( informationTextField[i] = new JTextField( 25 ) );
-				informationTextField[i].setFont( new Font( "Tahoma" , Font.PLAIN , 11 ) );
+				this.informationTextFieldPanel.add( this.informationTextField[i] = new JTextField( 25 ) );
+				this.informationTextField[i].setFont( new Font( "Tahoma" , Font.PLAIN , 11 ) );
 
 			}
 			if ( i == 3 || i == 4 || i == 5 || i == 6 ){
 
-				informationTextFieldPanel.add( informationTextField[i - 2] = new JTextField( 25 ) );
-				informationTextField[i - 2].setFont( new Font( "Tahoma" , Font.PLAIN , 11 ) );
+				this.informationTextFieldPanel.add( this.informationTextField[i - 2] = new JTextField( 25 ) );
+				this.informationTextField[i - 2].setFont( new Font( "Tahoma" , Font.PLAIN , 11 ) );
 
 			}
 		}
@@ -211,22 +214,22 @@ public class AddMembers extends JInternalFrame{
 		 * and adding the button to the panel. * finally adding the panel to the
 		 * container *
 		 ***********************************************************************/
-		insertInformationButtonPanel.setLayout( new FlowLayout( FlowLayout.RIGHT ) );
-		insertInformationButton.setFont( new Font( "Tahoma" , Font.BOLD , 11 ) );
-		insertInformationButtonPanel.add( insertInformationButton );
-		centerPanel.add( "South" , insertInformationButtonPanel );
-		cp.add( "Center" , centerPanel );
+		this.insertInformationButtonPanel.setLayout( new FlowLayout( FlowLayout.RIGHT ) );
+		this.insertInformationButton.setFont( new Font( "Tahoma" , Font.BOLD , 11 ) );
+		this.insertInformationButtonPanel.add( this.insertInformationButton );
+		this.centerPanel.add( "South" , this.insertInformationButtonPanel );
+		cp.add( "Center" , this.centerPanel );
 	
 		/***********************************************************************
 		 * for setting the layout for the panel,setting the font for the button*
 		 * adding the button to the panel & setting the border. * finally adding
 		 * the panel to the container *
 		 ***********************************************************************/
-		southPanel.setLayout( new FlowLayout( FlowLayout.RIGHT ) );
-		OKButton.setFont( new Font( "Tahoma" , Font.BOLD , 11 ) );
-		southPanel.add( OKButton );
-		southPanel.setBorder( BorderFactory.createEtchedBorder() );
-		cp.add( "South" , southPanel );
+		this.southPanel.setLayout( new FlowLayout( FlowLayout.RIGHT ) );
+		this.OKButton.setFont( new Font( "Tahoma" , Font.BOLD , 11 ) );
+		this.southPanel.add( this.OKButton );
+		this.southPanel.setBorder( BorderFactory.createEtchedBorder() );
+		cp.add( "South" , this.southPanel );
 		
 		LOGGER.setLevel( Level.INFO );
 		LOGGER.info("Layout setted");
@@ -247,47 +250,47 @@ public class AddMembers extends JInternalFrame{
 		Container cp = getContentPane();
 
 		// For setting the layout.
-		northPanel.setLayout( new FlowLayout( FlowLayout.CENTER ) );
+		this.northPanel.setLayout( new FlowLayout( FlowLayout.CENTER ) );
 
 		// For setting the font.
-		northLabel.setFont( new Font( "Tahoma" , Font.BOLD , 14 ) );
+		this.northLabel.setFont( new Font( "Tahoma" , Font.BOLD , 14 ) );
 
 		// For adding the label to the panel.
-		northPanel.add( northLabel );
+		this.northPanel.add( this.northLabel );
 
 		// For adding the panel to the container.
-		cp.add( "North" , northPanel );
+		cp.add( "North" , this.northPanel );
 
 		// For setting the layout.
-		centerPanel.setLayout( new BorderLayout() );
+		this.centerPanel.setLayout( new BorderLayout() );
 
 		// For setting the border to the panel.
-		centerPanel.setBorder( BorderFactory.createTitledBorder( "Add a new member:" ) );
+		this.centerPanel.setBorder( BorderFactory.createTitledBorder( "Add a new member:" ) );
 
 		// For setting the layout.
-		informationLabelPanel.setLayout( new GridLayout( 7 , 1 , 1 , 1 ) );
+		this.informationLabelPanel.setLayout( new GridLayout( 7 , 1 , 1 , 1 ) );
 
 		// For setting the layout.
-		informationTextFieldPanel.setLayout( new GridLayout( 7 , 1 , 1 , 1 ) );
+		this.informationTextFieldPanel.setLayout( new GridLayout( 7 , 1 , 1 , 1 ) );
 
 		/***********************************************************************
 		 * for adding the strings to the labels, for setting the font * and
 		 * adding these labels to the panel. * finally adding the panel to the
 		 * container *
 		 ***********************************************************************/
-		for ( int i = 0 ; i < informationLabel.length ; i++ ){
+		for ( int i = 0 ; i < this.informationLabel.length ; i++ ){
 
-			informationLabelPanel.add( informationLabel[i] = new JLabel( informaionString[i] ) );
-			informationLabel[i].setFont( new Font( "Tahoma" , Font.BOLD , 11 ) );
+			this.informationLabelPanel.add( this.informationLabel[i] = new JLabel( this.informaionString[i] ) );
+			this.informationLabel[i].setFont( new Font( "Tahoma" , Font.BOLD , 11 ) );
 
 		}
 
 		// For adding the panel to the centerPanel.
-		centerPanel.add( "West" , informationLabelPanel );
+		this.centerPanel.add( "West" , this.informationLabelPanel );
 		
 		addFieldsToThePanel();
 		
-		centerPanel.add( "East" , informationTextFieldPanel );
+		this.centerPanel.add( "East" , this.informationTextFieldPanel );
 
 		settingTheLayoutPanel( cp );
 
@@ -296,8 +299,9 @@ public class AddMembers extends JInternalFrame{
 		 * taken from the JTextField[] and make the connection for database, *
 		 * after that update the table in the database with the new value *
 		 ***********************************************************************/
-		insertInformationButton.addActionListener( new ActionListener(){
+		this.insertInformationButton.addActionListener( new ActionListener(){
 
+			@Override
 			public void actionPerformed ( ActionEvent ae ){
 
 				// For checking if there is a missing information.
@@ -305,20 +309,23 @@ public class AddMembers extends JInternalFrame{
 					if ( isPasswordCorrect() ){
 						Thread runner = new Thread(){
 
+							@SuppressWarnings ( "synthetic-access" )
+							@Override
 							public void run (){
 
-								member = new Members();
+								AddMembers.this.member = new Members();
+								@SuppressWarnings ( "unused" )
 								Date d = new Date();
 
 								// For checking if there is no same information
 								// in the database.
-								member.connection( "SELECT * FROM Members WHERE ID = " + data[0] );
-								int ID = member.getID();
+								AddMembers.this.member.connection( "SELECT * FROM Members WHERE ID = " + AddMembers.this.data[0] );
+								int ID = AddMembers.this.member.getID();
 
-								if ( Integer.parseInt( data[0] ) != ID ){
+								if ( Integer.parseInt( AddMembers.this.data[0] ) != ID ){
 
-									member.update( "INSERT INTO Members (ID,Password,Name,EMail,Major,Expired) VALUES (" + data[0] + ", '"
-											+ data[1] + "','" + data[2] + "','" + data[3] + "','" + data[4] + "','" + data[5] + "')" );
+									AddMembers.this.member.update( "INSERT INTO Members (ID,Password,Name,EMail,Major,Expired) VALUES (" + AddMembers.this.data[0] + ", '"
+											+ AddMembers.this.data[1] + "','" + AddMembers.this.data[2] + "','" + AddMembers.this.data[3] + "','" + AddMembers.this.data[4] + "','" + AddMembers.this.data[5] + "')" );
 
 									// For setting the array of JTextField &
 									// JPasswordField to null.
@@ -346,8 +353,9 @@ public class AddMembers extends JInternalFrame{
 		} );
 
 		// For adding the action listener for the button to dispose the frame.
-		OKButton.addActionListener( new ActionListener(){
+		this.OKButton.addActionListener( new ActionListener(){
 
+			@Override
 			public void actionPerformed ( ActionEvent ae ){
 
 				dispose();
