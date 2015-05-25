@@ -22,30 +22,19 @@ public class Toolbar extends JToolBar{
 	public JButton[] button;
 
 	// For creating the name of the image file 24*24
-	public String[] imageName24 = { "images/Add24.gif" , //$NON-NLS-1$
-									"images/List24.gif" , //$NON-NLS-1$
-									"images/Add24.gif" , //$NON-NLS-1$
-									"images/List24.gif" , //$NON-NLS-1$
-									"images/Find24.gif" ,  //$NON-NLS-1$
-									"images/Export24.gif" ,  //$NON-NLS-1$
-									"images/Import24.gif" , //$NON-NLS-1$
-									"images/Exit24.gif" }; //$NON-NLS-1$
+	public String[] imageName24 = { "images/Add24.gif" , "images/List24.gif" , "images/Add24.gif" , 
+									"images/List24.gif" , "images/Find24.gif" , "images/Export24.gif" ,  
+									"images/Import24.gif" , "images/Exit24.gif" }; 
 
 	// For creating the tipText for the toolbar
-	public String[] tipText = { "Add Books" ,  //$NON-NLS-1$
-								"List All Books" ,  //$NON-NLS-1$
-								"Add Members" ,  //$NON-NLS-1$
-								"List Members" ,  //$NON-NLS-1$
-								"Search" ,  //$NON-NLS-1$
-								"Borrow Books" , //$NON-NLS-1$
-								"Return Books" ,  //$NON-NLS-1$
-								"Exit" }; //$NON-NLS-1$
+	public String[] tipText = { "Add Books" , "List All Books" , "Add Members" , "List Members" , "Search" ,  
+								"Borrow Books" , "Return Books" , "Exit" }; 
 
 	// Creating a toolbar
 	public Toolbar (){
 
 		LOGGER.setLevel( Level.INFO );
-		LOGGER.info("Toolbar created."); //$NON-NLS-1$
+		LOGGER.info("Toolbar created."); 
 		
 		this.button = new JButton[19];
 
