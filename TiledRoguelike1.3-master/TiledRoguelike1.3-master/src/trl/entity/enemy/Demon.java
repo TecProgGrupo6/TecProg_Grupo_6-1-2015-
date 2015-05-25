@@ -3,7 +3,6 @@ package trl.entity.enemy;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import trl.entity.actor.Actor;
 import trl.main.Game;
 import trl.map.Map;
 
@@ -19,16 +18,17 @@ public class Demon extends Enemy{
 	private final static Logger LOGGER = Logger.getLogger( Demon.class.getName() );
 
 	// Initiliaze demon
+	@Override
 	public void init (){
 		
 		LOGGER.setLevel( Level.INFO );
 		LOGGER.info("Demon intialized");
 
-		maxHP = 15;
-		attack = 10;
-		image = Game.getImageManager().demon;
-		hp = maxHP;
-		level = 1;
-		xpReward = 1;
+		this.maxHP = 15;
+		this.attack = 10;
+		this.image = Game.getImageManager().demon;
+		this.hp = this.maxHP;
+		this.level = 1;
+		this.xpReward = 1;
 	}
 }
