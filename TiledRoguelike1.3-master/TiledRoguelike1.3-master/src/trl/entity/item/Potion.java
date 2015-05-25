@@ -24,6 +24,6 @@ public class Potion extends Item{
 		LOGGER.info("Potion intialized");
 
 		this.image = Game.getImageManager().potion;
-		this.loc = map.placeEntity( this , map.getRandomNodeInRoom() );
+		this.loc = this.map.placeEntity( this , this.map.getRandomNodeInRoom() );
 	}
 }
