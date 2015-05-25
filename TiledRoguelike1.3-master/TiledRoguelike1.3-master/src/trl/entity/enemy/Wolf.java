@@ -18,16 +18,17 @@ public class Wolf extends Enemy{
 	private final static Logger LOGGER = Logger.getLogger( Wolf.class.getName() );
 
 	// Initiliaze Wolf
+	@Override
 	public void init (){
 		
 		LOGGER.setLevel( Level.INFO );
 		LOGGER.info("Wolf intialized");
 
-		maxHP = 20;
-		attack = 5;
-		image = Game.getImageManager().wolf;
-		hp = maxHP;
-		xpReward = 10;
-		level = 10;
+		this.maxHP = 20;
+		this.attack = 5;
+		this.image = Game.getImageManager().wolf;
+		this.hp = this.maxHP;
+		this.xpReward = 10;
+		this.level = 10;
 	}
 }
