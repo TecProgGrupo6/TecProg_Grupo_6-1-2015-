@@ -109,7 +109,7 @@ public abstract class Player extends Actor{
 	public Player ( Map map ){
 
 		super( map );
-		level = 1;
+		this.level = 1;
 	}
 
 	// ?
@@ -129,7 +129,7 @@ public abstract class Player extends Actor{
 					int summX = getAxisX() + x;
 					int summY = getAxisY() + y;
 
-					Node adjacent = map.getNode( summX , summY );
+					Node adjacent = this.map.getNode( summX , summY );
 
 					if ( adjacent != null ){
 
@@ -157,7 +157,7 @@ public abstract class Player extends Actor{
 
 		for ( Enemy enemy : GameplayState.getEnemyGroup().getEnemies() ){
 
-			if ( map.isVisibleToPlayer( enemy.getLoc() ) ){
+			if ( this.map.isVisibleToPlayer( enemy.getLoc() ) ){
 
 				enemy.setAwareOfPlayer( true );
 				
@@ -171,96 +171,96 @@ public abstract class Player extends Actor{
 	// Clear All
 	public void clearAllTargetingFlags (){
 
-		targetEnemy = false;
-		fireArrow = false;
-		gotTargets = false;
-		nextTarget = false;
-		previousTarget = false;
-		getTargets = false;
-		targets = null;
+		this.targetEnemy = false;
+		this.fireArrow = false;
+		this.gotTargets = false;
+		this.nextTarget = false;
+		this.previousTarget = false;
+		this.getTargets = false;
+		this.targets = null;
 
-		if ( target != null ){
+		if ( this.target != null ){
 
-			target.setTargeted( false );
+			this.target.setTargeted( false );
 		}else{
 
 			// Nothing to do
 		}
 
-		target = null;
+		this.target = null;
 	}
 
 	// Earning xp
 	public void gainXP ( double xp ){
 
-		xpEarned += xp;
+		this.xpEarned += xp;
 	}
 
 	public int getEnemiesDefeated (){
 
-		return enemiesDefeated;
+		return this.enemiesDefeated;
 	}
 
 	public boolean getHasKey (){
 
-		return hasKey;
+		return this.hasKey;
 	}
 
 	public boolean getOpenedLock (){
 
-		return openedLock;
+		return this.openedLock;
 	}
 
 	public int getTurnsOnLevel (){
 
-		return turnsOnLevel;
+		return this.turnsOnLevel;
 	}
 
 	public double getXPEarned (){
 
-		return xpEarned;
+		return this.xpEarned;
 	}
 
 	// Handle movement by some item
 	public void handleMovementResult (){
 
 		// If potion in this node, consume and remove
-		if ( loc.checkEntityByID( (byte) 1 ) ){
+		if ( this.loc.checkEntityByID( (byte) 1 ) ){
 			
 			LOGGER.setLevel( Level.INFO );
 			LOGGER.info("Potion has been used");
 
-			loc.removeEntityByID( (byte) 1 );
-			hp = maxHP;
+			this.loc.removeEntityByID( (byte) 1 );
+			this.hp = this.maxHP;
 		}else{
 
 			// Nothing to do
 		}
 
 		// If hammer in this node, consume and remove
-		if ( loc.checkEntityByID( (byte) 2 ) ){
+		if ( this.loc.checkEntityByID( (byte) 2 ) ){
 			
 			LOGGER.setLevel( Level.INFO );
 			LOGGER.info("Hammer has been used");
 
 			useHammer();
-			loc.removeEntityByID( (byte) 2 );
+			this.loc.removeEntityByID( (byte) 2 );
 		}else{
 
 			// Nothing to do
 		}
 
 		// If key in this node, pick it up and spawn lock.
-		if ( loc.checkEntityByID( (byte) 5 ) ){
+		if ( this.loc.checkEntityByID( (byte) 5 ) ){
 			
 			LOGGER.setLevel( Level.INFO );
 			LOGGER.info("Key has been found");
 
-			hasKey = true;
-			loc.removeEntityByID( (byte) 5 );
+			this.hasKey = true;
+			this.loc.removeEntityByID( (byte) 5 );
 
-			Node randomNode = map.getRandomNodeInRoom();
-			map.placeEntity( new Lock( map ) , randomNode );
+			Node randomNode = this.map.getRandomNodeInRoom();
+			this.map.placeEntity( new Lock( this.map ) , randomNode );
 
 			if ( this instanceof trl.entity.player.Thief ){
 
@@ -279,16 +279,16 @@ public abstract class Player extends Actor{
 		}
 
 		// If lock in this node, remove it and spawn stair (or goal).
-		if ( loc.checkEntityByID( (byte) 6 ) ){
+		if ( this.loc.checkEntityByID( (byte) 6 ) ){
 			
 			LOGGER.setLevel( Level.INFO );
 			LOGGER.info("Stair's been spawned");
 
-			openedLock = true;
-			loc.removeEntityByID( (byte) 6 );
+			this.openedLock = true;
+			this.loc.removeEntityByID( (byte) 6 );
 			if ( GameplayState.dungeonLevel == 5 ){
 
-				Goal goal = new Goal( map );
+				Goal goal = new Goal( this.map );
 				if ( this instanceof trl.entity.player.Thief ){
 
 					goal.setSeenByPlayer( true );
@@ -299,12 +299,12 @@ public abstract class Player extends Actor{
 
 			}else{
 
-				map.getRandomNodeInRoom().setFeature( new StairDown() );
+				this.map.getRandomNodeInRoom().setFeature( new StairDown() );
 			}
 		}
 
 		// If down stairway on this node, switch level
-		if ( loc.isStairDown() ){
+		if ( this.loc.isStairDown() ){
 
 			GameplayState.getEnemyGroup().getEnemies().clear();
 			GameplayState gameState = (GameplayState) Game.getGameStateManager().getGameState( 1 );
@@ -317,7 +317,7 @@ public abstract class Player extends Actor{
 			// Nothing to do
 		}
 
-		if ( loc.checkEntityByID( (byte) 7 ) ){
+		if ( this.loc.checkEntityByID( (byte) 7 ) ){
 
 			Game.getGameStateManager().addGameState( 2 , new WinGameState() );
 			Game.getGameStateManager().setGameState( 2 );
@@ -334,17 +334,17 @@ public abstract class Player extends Actor{
 
 		// Ignore all this if path is empty
 
-		boolean isPathEmptyAndSizeGreaterZero = ( path != null && path.size() > 0 );
+		boolean isPathEmptyAndSizeGreaterZero = ( this.path != null && this.path.size() > 0 );
 
 		if ( isPathEmptyAndSizeGreaterZero ){
 
-			boolean isPathSizeAndInitialEqualsOne = path.size() == 1 && initialPathSize == 1;
+			boolean isPathSizeAndInitialEqualsOne = this.path.size() == 1 && this.initialPathSize == 1;
 			boolean isNodePathCkecksZero = getNextPathNode().checkEntityByID( (byte) 0 );
-			boolean pathLowerInitialAndPathEntity = ( path.size() < initialPathSize ) && getNextPathNode().checkEntityByID( (byte) 0 );
+			boolean pathLowerInitialAndPathEntity = ( this.path.size() < this.initialPathSize ) && getNextPathNode().checkEntityByID( (byte) 0 );
 
-			boolean pathAndInitialPathEqualsOne = path.size() == 1 && initialPathSize == 1;
+			boolean pathAndInitialPathEqualsOne = this.path.size() == 1 && this.initialPathSize == 1;
 			boolean nextPathNodeGetFeatureClose = getNextPathNode().getFeature() instanceof trl.map.feature.DoorClosed;
-			boolean pathSizeGreaterOneAndPathLowerIniticial = path.size() >= 1 && path.size() < initialPathSize;
+			boolean pathSizeGreaterOneAndPathLowerIniticial = this.path.size() >= 1 && this.path.size() < this.initialPathSize;
 
 			boolean nextPathNodeGetFeatureOpen = getNextPathNode().getFeature() instanceof trl.map.feature.DoorOpen;
 
@@ -355,10 +355,10 @@ public abstract class Player extends Actor{
 				LOGGER.fine("Attacking enemy!!!");
 				
 				attack( GameplayState.getEnemyGroup().getEnemy( getNextPathNode() ) );
-				GameplayState.getEnemyGroup().getEnemy( path.get( 0 ) ).setDamageTaken( damageDealt );
+				GameplayState.getEnemyGroup().getEnemy( this.path.get( 0 ) ).setDamageTaken( this.damageDealt );
 
-				path.clear();
-				attacked = true;
+				this.path.clear();
+				this.attacked = true;
 			}
 
 			/*
@@ -372,8 +372,8 @@ public abstract class Player extends Actor{
 				LOGGER.setLevel( Level.INFO );
 				LOGGER.info("Blocked by enemy/forgetting path.");
 				
-				path.clear();
-				acted = true;
+				this.path.clear();
+				this.acted = true;
 			}
 
 			/*
@@ -386,8 +386,8 @@ public abstract class Player extends Actor{
 				LOGGER.fine("Moving.");
 
 				openDoor( getNextPathNode() );
-				path.clear();
-				moved = true;
+				this.path.clear();
+				this.moved = true;
 			}
 
 			/*
@@ -401,14 +401,14 @@ public abstract class Player extends Actor{
 				LOGGER.setLevel( Level.INFO );
 				LOGGER.info("Blocked by door/forgetting path.");
 				
-				path.clear();
-				acted = true;
+				this.path.clear();
+				this.acted = true;
 			}
 
 			/*
 			 * Player close flag set.
 			 */
-			else if ( close ){
+			else if ( this.close ){
 
 				if ( nextPathNodeGetFeatureOpen ){
 
@@ -418,16 +418,16 @@ public abstract class Player extends Actor{
 					// Nothing to do
 				}
 
-				path.clear();
-				close = false;
-				acted = true;
+				this.path.clear();
+				this.close = false;
+				this.acted = true;
 			}
 
 			// Move to next node
 			else{
 
 				move( getNextPathNode() );
-				moved = true;
+				this.moved = true;
 			}
 		}
 	}
@@ -439,68 +439,68 @@ public abstract class Player extends Actor{
 		 * Methods defined in class files for each player class. Actor is upcast
 		 * for method calls. Should stay safe due to player class checks.
 		 */
-		if ( shout ){
+		if ( this.shout ){
 
-			if ( timers[0] <= 0 ){
+			if ( this.timers[0] <= 0 ){
 
 				( (Barbarian) this ).shout();
-				acted = true;
+				this.acted = true;
 			}else{
 
 				// Nothing to do
 			}
 
-			shout = false;
+			this.shout = false;
 		}else{
 
 			// Nothing to do
 		}
 
-		if ( blink ){
+		if ( this.blink ){
 
-			if ( timers[0] <= 0 ){
+			if ( this.timers[0] <= 0 ){
 
 				( (Wizard) this ).blink();
-				acted = true;
+				this.acted = true;
 			}else{
 
 				// Nothing to do
 			}
 
-			blink = false;
+			this.blink = false;
 		}else{
 
 			// Nothing to do
 		}
 
-		if ( explode ){
+		if ( this.explode ){
 
-			if ( timers[1] <= 0 ){
+			if ( this.timers[1] <= 0 ){
 				( (Wizard) this ).explode();
-				acted = true;
+				this.acted = true;
 			}else{
 
 				// Nothing to do
 			}
 
-			explode = false;
+			this.explode = false;
 		}else{
 
 			// Nothing to do
 		}
 
-		if ( quicken ){
+		if ( this.quicken ){
 
-			if ( timers[2] <= 0 ){
+			if ( this.timers[2] <= 0 ){
 
 				( (Wizard) this ).quicken();
-				acted = true;
+				this.acted = true;
 			}else{
 
 				// Nothing to do
 			}
 
-			quicken = false;
+			this.quicken = false;
 		}else{
 
 			// Nothing to do
@@ -511,7 +511,7 @@ public abstract class Player extends Actor{
 		 * but haven't yet (!gotTargets)
 		 */
 
-		if ( getTargets && !gotTargets ){
+		if ( this.getTargets && !this.gotTargets ){
 
 			if ( !adjacentEnemy() ){
 
@@ -520,9 +520,9 @@ public abstract class Player extends Actor{
 				 * list size = 0, clear all flags. Should continue turn as
 				 * normal.
 				 */
-				targets = ( (Ranger) this ).getTargets();
+				this.targets = ( (Ranger) this ).getTargets();
 
-				if ( targets.size() == 0 ){
+				if ( this.targets.size() == 0 ){
 
 					System.out.println( "Targets list size = 0. No targets found. Canceling targeting." );
 					clearAllTargetingFlags();
@@ -534,8 +534,8 @@ public abstract class Player extends Actor{
 				 */
 				else{
 
-					getTargets = false;
-					gotTargets = true;
+					this.getTargets = false;
+					this.gotTargets = true;
 				}
 			}else{
 
@@ -547,10 +547,10 @@ public abstract class Player extends Actor{
 		}
 
 		// Should only be possible if targets list size > 0
-		if ( !getTargets && gotTargets ){
+		if ( !this.getTargets && this.gotTargets ){
 
 			// Allow player to cancel targeting
-			if ( cancel ){
+			if ( this.cancel ){
 
 				clearAllTargetingFlags();
 			}else{
@@ -562,12 +562,12 @@ public abstract class Player extends Actor{
 				 * lists, since they can never be anything but the first element
 				 * in targets list.
 				 */
-				if ( target == null ){
+				if ( this.target == null ){
 
 					// System.out.println("Target list size = " +
 					// targets.size());
-					target = targets.get( 0 );
-					target.setTargeted( true );
+					this.target = this.targets.get( 0 );
+					this.target.setTargeted( true );
 				}
 				/*
 				 * Target is not null, so we must have passed through at least
@@ -578,51 +578,51 @@ public abstract class Player extends Actor{
 				 */
 				else{
 
-					if ( targets.size() > 1 ){
+					if ( this.targets.size() > 1 ){
 
-						int targetsSizeMinusOne = ( targets.size() - 1 );
+						int targetsSizeMinusOne = ( this.targets.size() - 1 );
 
 						// Targets list size must be > 1. Consider
 						// nextTarget/previousTarget meaningful, but
 						// clear them after each pass.
-						if ( nextTarget ){
+						if ( this.nextTarget ){
 
 							// Changing target, untarget current target
-							target.setTargeted( false );
+							this.target.setTargeted( false );
 							// If not last target in list, target = current
 							// target index + 1
-							if ( targetsSizeMinusOne > targets.indexOf( target ) ){
+							if ( targetsSizeMinusOne > this.targets.indexOf( this.target ) ){
 
-								target = ( targets.get( targets.indexOf( target ) + 1 ) );
+								this.target = ( this.targets.get( this.targets.indexOf( this.target ) + 1 ) );
 							}
 							// Else target wraps around to first target
 							else{
 
-								target = targets.get( 0 );
+								this.target = this.targets.get( 0 );
 							}
 							// Changed target, target new target
-							target.setTargeted( true );
+							this.target.setTargeted( true );
 						}else{
 
 							// Nothing to do
 						}
 
-						if ( previousTarget ){
+						if ( this.previousTarget ){
 
-							target.setTargeted( false );
+							this.target.setTargeted( false );
 							// If not first target, target = current target
 							// index - 1
-							if ( targets.indexOf( target ) > 0 ){
+							if ( this.targets.indexOf( this.target ) > 0 ){
 
-								target = targets.get( targets.indexOf( target ) - 1 );
+								this.target = this.targets.get( this.targets.indexOf( this.target ) - 1 );
 							}
 							// Else target wraps around to last in list
 							else{
 
-								target = targets.get( targetsSizeMinusOne );
+								this.target = this.targets.get( targetsSizeMinusOne );
 							}
 							// Changed target, target new target
-							target.setTargeted( true );
+							this.target.setTargeted( true );
 						}else{
 
 							// Nothing to do
@@ -631,15 +631,15 @@ public abstract class Player extends Actor{
 					}
 				}
 			}
-			previousTarget = false;
-			nextTarget = false;
+			this.previousTarget = false;
+			this.nextTarget = false;
 		}
 
-		if ( fireArrow ){
+		if ( this.fireArrow ){
 
-			( (Ranger) this ).fireArrow( target );
+			( (Ranger) this ).fireArrow( this.target );
 			clearAllTargetingFlags();
-			acted = true;
+			this.acted = true;
 		}else{
 
 			// Nothing to do
@@ -648,9 +648,9 @@ public abstract class Player extends Actor{
 	}
 
 	// Check number of enemies defetead
-	public void incrementEnemiesDefeated ( int enemiesDefeated ){
+	public void incrementEnemiesDefeated ( int enemiesDefeatedParam ){
 
-		this.enemiesDefeated += enemiesDefeated;
+		this.enemiesDefeated += enemiesDefeatedParam;
 	}
 
 	// Check level
@@ -659,12 +659,12 @@ public abstract class Player extends Actor{
 		LOGGER.setLevel( Level.INFO );
 		LOGGER.info("Level up!");
 
-		double percentHealth = (double) hp / (double) maxHP;
+		double percentHealth = (double) this.hp / (double) this.maxHP;
 		// System.out.println("Percent health = " + percentHealth);
-		level++;
-		double exponent = 1 / level;
-		maxHP = maxHP + (int) Math.pow( level , 1.0 + exponent );
-		hp = (int) ( percentHealth * (double) maxHP );
+		this.level++;
+		double exponent = 1 / this.level;
+		this.maxHP = this.maxHP + (int) Math.pow( this.level , 1.0 + exponent );
+		this.hp = (int) ( percentHealth * this.maxHP );
 	}
 
 	// print on screen
@@ -686,9 +686,9 @@ public abstract class Player extends Actor{
 	// refresh screen?
 	public void refresh (){
 
-		hasKey = false;
-		openedLock = false;
-		turnsOnLevel = 0;
+		this.hasKey = false;
+		this.openedLock = false;
+		this.turnsOnLevel = 0;
 	}
 
 	// random function of items
@@ -699,9 +699,9 @@ public abstract class Player extends Actor{
 		double roll = r.nextDouble();
 		if ( roll >= .995 ){
 
-			if ( !map.hammerOnMap() ){
+			if ( !this.map.hammerOnMap() ){
 
-				Hammer hammer = new Hammer( map );
+				Hammer hammer = new Hammer( this.map );
 				if ( GameplayState.getPlayer() instanceof trl.entity.player.Thief ){
 
 					hammer.setSeenByPlayer( true );
@@ -713,9 +713,9 @@ public abstract class Player extends Actor{
 			}
 		}else if ( roll >= .9 ){
 
-			if ( !map.potionOnMap() ){
+			if ( !this.map.potionOnMap() ){
 
-				Potion potion = new Potion( map );
+				Potion potion = new Potion( this.map );
 				if ( GameplayState.getPlayer() instanceof trl.entity.player.Thief ){
 
 					potion.setSeenByPlayer( true );
@@ -738,73 +738,73 @@ public abstract class Player extends Actor{
 
 		final int FIRST_PIXEL = 1;
 
-		if ( upDirection && getAxisY() < Game.ROWS - 1 ){
+		if ( this.upDirection && getAxisY() < Game.ROWS - 1 ){
 
-			upDirection = false;
-			nextNode = map.getNode( getAxisX() , getAxisY() + 1 );
+			this.upDirection = false;
+			nextNode = this.map.getNode( getAxisX() , getAxisY() + 1 );
 		}else{
 
 			// Nothing to do
 		}
 
-		if ( downDirection && getAxisY() >= FIRST_PIXEL ){
+		if ( this.downDirection && getAxisY() >= FIRST_PIXEL ){
 
-			downDirection = false;
-			nextNode = map.getNode( getAxisX() , getAxisY() - 1 );
+			this.downDirection = false;
+			nextNode = this.map.getNode( getAxisX() , getAxisY() - 1 );
 		}else{
 
 			// Nothing to do
 		}
 
-		if ( leftDirection && getAxisX() >= FIRST_PIXEL ){
+		if ( this.leftDirection && getAxisX() >= FIRST_PIXEL ){
 
-			leftDirection = false;
-			nextNode = map.getNode( getAxisX() - 1 , getAxisY() );
+			this.leftDirection = false;
+			nextNode = this.map.getNode( getAxisX() - 1 , getAxisY() );
 		}else{
 
 			// Nothing to do
 		}
 
-		if ( rightDirection && getAxisX() < Game.COLUMNS - 1 ){
+		if ( this.rightDirection && getAxisX() < Game.COLUMNS - 1 ){
 
-			rightDirection = false;
-			nextNode = map.getNode( getAxisX() + 1 , getAxisY() );
+			this.rightDirection = false;
+			nextNode = this.map.getNode( getAxisX() + 1 , getAxisY() );
 		}else{
 
 			// Nothing to do
 		}
 
-		if ( upRightDirection && getAxisY() < Game.ROWS - 1 && getAxisX() < Game.COLUMNS - 1 ){
+		if ( this.upRightDirection && getAxisY() < Game.ROWS - 1 && getAxisX() < Game.COLUMNS - 1 ){
 
-			upRightDirection = false;
-			nextNode = map.getNode( getAxisX() + 1 , getAxisY() + 1 );
+			this.upRightDirection = false;
+			nextNode = this.map.getNode( getAxisX() + 1 , getAxisY() + 1 );
 		}else{
 
 			// Nothing to do
 		}
 
-		if ( downRightDirection && getAxisY() >= 1 && getAxisX() < Game.COLUMNS - 1 ){
+		if ( this.downRightDirection && getAxisY() >= 1 && getAxisX() < Game.COLUMNS - 1 ){
 
-			downRightDirection = false;
-			nextNode = map.getNode( getAxisX() + 1 , getAxisY() - 1 );
+			this.downRightDirection = false;
+			nextNode = this.map.getNode( getAxisX() + 1 , getAxisY() - 1 );
 		}else{
 
 			// Nothing to do
 		}
 
-		if ( downLeftDirection && getAxisY() >= 1 && getAxisX() >= FIRST_PIXEL ){
+		if ( this.downLeftDirection && getAxisY() >= 1 && getAxisX() >= FIRST_PIXEL ){
 
-			downLeftDirection = false;
-			nextNode = map.getNode( getAxisX() - 1 , getAxisY() - 1 );
+			this.downLeftDirection = false;
+			nextNode = this.map.getNode( getAxisX() - 1 , getAxisY() - 1 );
 		}else{
 
 			// Nothing to do
 		}
 
-		if ( upLeftDirection && getAxisY() < Game.ROWS - 1 && getAxisX() >= FIRST_PIXEL ){
+		if ( this.upLeftDirection && getAxisY() < Game.ROWS - 1 && getAxisX() >= FIRST_PIXEL ){
 
-			upLeftDirection = false;
-			nextNode = map.getNode( getAxisX() - 1 , getAxisY() + 1 );
+			this.upLeftDirection = false;
+			nextNode = this.map.getNode( getAxisX() - 1 , getAxisY() + 1 );
 		}else{
 
 			// Nothing to do
@@ -820,10 +820,11 @@ public abstract class Player extends Actor{
 
 	public void setTurnsOnLevel ( int turns ){
 
-		turnsOnLevel = turns;
+		this.turnsOnLevel = turns;
 	}
 
 	// Tick function, gameplay related
+	@Override
 	public void tick (){
 
 		Node nextNode; // prospective node for movement/action
@@ -844,7 +845,7 @@ public abstract class Player extends Actor{
 		alertEnemies();
 
 		// Check for keypresses
-		if ( myTurn && Game.tickTimer == 0 ){
+		if ( this.myTurn && Game.tickTimer == 0 ){
 
 			/*
 			 * Get direction corresponding to keypress. Will be null until
@@ -855,9 +856,9 @@ public abstract class Player extends Actor{
 			// If not null, add node to path
 			if ( nextNode != null && !( nextNode.isWall() ) ){
 
-				path.clear();
-				path.add( nextNode );
-				initialPathSize = 1;
+				this.path.clear();
+				this.path.add( nextNode );
+				this.initialPathSize = 1;
 
 			}else{
 
@@ -878,10 +879,10 @@ public abstract class Player extends Actor{
 			 * End turn without acting. This is equivalent to adding the current
 			 * node to the path.
 			 */
-			if ( wait ){
+			if ( this.wait ){
 
-				wait = false;
-				acted = true;
+				this.wait = false;
+				this.acted = true;
 			}else{
 
 				// Nothing to do
@@ -892,7 +893,7 @@ public abstract class Player extends Actor{
 			// Nothing to do
 		}
 
-		if ( moved ){
+		if ( this.moved ){
 
 			handleMovementResult();
 		}else{
@@ -900,11 +901,11 @@ public abstract class Player extends Actor{
 			// Nothing to do
 		}
 
-		if ( acted || moved || attacked ){
+		if ( this.acted || this.moved || this.attacked ){
 
 			Game.turnCounter++;
-			turnsOnLevel++;
-			if ( !attacked ){
+			this.turnsOnLevel++;
+			if ( !this.attacked ){
 				/*
 				 * If not attacked, set all enemy damageTaken = 0. Prevents
 				 * enemies from displaying damage indicator on subsequent rounds
@@ -924,16 +925,16 @@ public abstract class Player extends Actor{
 			// Health regen for barbarian. Starting 3 turns after last combat,
 			// increment
 			// health by one every other turn.
-			if ( !attacked && getDamageTaken() == 0 ){
+			if ( !this.attacked && getDamageTaken() == 0 ){
 
-				turnsSinceCombat++;
+				this.turnsSinceCombat++;
 				if ( this instanceof trl.entity.player.Barbarian ){
 
-					if ( turnsSinceCombat >= 3 && turnsSinceCombat % 2 == 0 ){
+					if ( this.turnsSinceCombat >= 3 && this.turnsSinceCombat % 2 == 0 ){
 
-						if ( hp < maxHP ){
+						if ( this.hp < this.maxHP ){
 
-							hp += 1;
+							this.hp += 1;
 						}else{
 
 							// Nothing to do
@@ -951,17 +952,17 @@ public abstract class Player extends Actor{
 
 			}else{
 
-				turnsSinceCombat = 0;
+				this.turnsSinceCombat = 0;
 			}
 
 			clearAllTargetingFlags();
 			rollItems();
 			decrementTimers();
-			map.updateDisplayedNodes();
+			this.map.updateDisplayedNodes();
 			// printEnemiesList();
 		}
 
-		if ( xpEarned >= Math.pow( level + 1 , 2 ) ){
+		if ( this.xpEarned >= Math.pow( this.level + 1 , 2 ) ){
 
 			levelUp();
 		}else{
@@ -991,9 +992,9 @@ public abstract class Player extends Actor{
 
 			for ( int y = startY ; y < startY + Game.W_ROWS ; y++ ){
 
-				if ( map.getNode( x , y ) != null && map.getNode( x , y ).checkEntityByID( (byte) 0 ) ){
+				if ( this.map.getNode( x , y ) != null && this.map.getNode( x , y ).checkEntityByID( (byte) 0 ) ){
 
-					GameplayState.getEnemyGroup().getEnemy( map.getNode( x , y ) ).setHP( 0 );
+					GameplayState.getEnemyGroup().getEnemy( this.map.getNode( x , y ) ).setHP( 0 );
 
 				}else{
 
@@ -1006,9 +1007,9 @@ public abstract class Player extends Actor{
 
 		final int HALF_HEALTH_POINTS = 2;
 
-		if ( hp < maxHP / HALF_HEALTH_POINTS ){
+		if ( this.hp < this.maxHP / HALF_HEALTH_POINTS ){
 
-			hp = maxHP / HALF_HEALTH_POINTS;
+			this.hp = this.maxHP / HALF_HEALTH_POINTS;
 		}else{
 
 			// Nothing to do
