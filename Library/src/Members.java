@@ -57,47 +57,47 @@ public class Members{
 
 	public int getMemberID (){
 
-		return memberID;
+		return this.memberID;
 	}
 
 	public int getID (){
 
-		return ID;
+		return this.ID;
 	}
 
 	public String getPassword (){
 
-		return password;
+		return this.password;
 	}
 
 	public String getName (){
 
-		return name;
+		return this.name;
 	}
 
 	public String getEmail (){
 
-		return email;
+		return this.email;
 	}
 
 	public String getMajor (){
 
-		return major;
+		return this.major;
 	}
 
 	public int getNumberOfBooks (){
 
-		return numberOfBooks;
+		return this.numberOfBooks;
 	}
 
 	public int getMony (){
 
-		return mony;
+		return this.mony;
 	}
 
 	public Date getExpired (){
 
-		return expired;
+		return this.expired;
 	}
 
 	// Establishing an connection
@@ -124,30 +124,30 @@ public class Members{
 		 ***************************************************************/
 		try{
 
-			connection = DriverManager.getConnection( URL );
-			statement = connection.createStatement();
-			resultSet = statement.executeQuery( Query );
+			this.connection = DriverManager.getConnection( this.URL );
+			this.statement = this.connection.createStatement();
+			this.resultSet = this.statement.executeQuery( Query );
 			
 			LOGGER.setLevel( Level.INFO );
 			LOGGER.info("Connection stablished");
 
-			while ( resultSet.next() ){
+			while ( this.resultSet.next() ){
 
-				memberID = resultSet.getInt( 1 );
-				ID = resultSet.getInt( 2 );
-				password = resultSet.getString( 3 );
-				name = resultSet.getString( 4 );
-				email = resultSet.getString( 5 );
-				major = resultSet.getString( 6 );
-				numberOfBooks = resultSet.getInt( 7 );
-				mony = resultSet.getInt( 8 );
-				expired = resultSet.getDate( 9 );
+				this.memberID = this.resultSet.getInt( 1 );
+				this.ID = this.resultSet.getInt( 2 );
+				this.password = this.resultSet.getString( 3 );
+				this.name = this.resultSet.getString( 4 );
+				this.email = this.resultSet.getString( 5 );
+				this.major = this.resultSet.getString( 6 );
+				this.numberOfBooks = this.resultSet.getInt( 7 );
+				this.mony = this.resultSet.getInt( 8 );
+				this.expired = this.resultSet.getDate( 9 );
 
 			}
 
-			resultSet.close();
-			statement.close();
-			connection.close();
+			this.resultSet.close();
+			this.statement.close();
+			this.connection.close();
 			
 			LOGGER.setLevel( Level.INFO );
 			LOGGER.info("Connection closed");
@@ -181,11 +181,11 @@ public class Members{
 		 ***************************************************************/
 		try{
 
-			connection = DriverManager.getConnection( URL );
-			statement = connection.createStatement();
-			statement.executeUpdate( Query );
-			statement.close();
-			connection.close();
+			this.connection = DriverManager.getConnection( this.URL );
+			this.statement = this.connection.createStatement();
+			this.statement.executeUpdate( Query );
+			this.statement.close();
+			this.connection.close();
 
 		}catch ( SQLException SQLe ){
 
