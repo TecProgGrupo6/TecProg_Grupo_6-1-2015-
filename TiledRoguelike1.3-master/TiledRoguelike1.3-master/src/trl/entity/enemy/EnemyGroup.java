@@ -48,7 +48,7 @@ public class EnemyGroup{
 	 * Generate a random type of enemy to spawn on the map
 	 * params: the level of the dungeon
 	 */
-	@SuppressWarnings ( "null" )
+	
 	public void randomEnemies( int dungeonLevel ){
 		
 		Random r = new Random();
