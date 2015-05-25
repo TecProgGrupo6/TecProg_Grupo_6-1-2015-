@@ -220,7 +220,6 @@ public class SearchBooksAndMembers extends JInternalFrame{
 		this.searchBooksPanel.add( this.searchBooksLabel );
 
 		// For adding the JComboBos[].
-		Component add = this.searchBooksPanel.add( searchBooksTypes = new JComboBox( booksTypes ) );
 
 		// For adding the label.
 		this.searchBooksPanel.add( this.booksKey );
@@ -256,7 +255,6 @@ public class SearchBooksAndMembers extends JInternalFrame{
 		this.searchMembersPanel.add( this.searchMembersLabel );
 
 		// For adding the JComboBos[].
-		searchMembersPanel.add( searchMembersTypes = new JComboBox( membersTypes ) );
 
 		// For adding the label.
 		this.searchMembersPanel.add( this.membersKey );
