@@ -125,6 +125,8 @@ public class Game extends Canvas implements Runnable , MouseListener{
 				try{
 					Thread.sleep( sleepTime / 1000000L );
 				}catch ( InterruptedException e ){
+					
+					// Nothing to do
 				}
 
 				overSleepTime = ( System.nanoTime() - afterTime ) - sleepTime;
@@ -225,11 +227,13 @@ public class Game extends Canvas implements Runnable , MouseListener{
 	}
 
 	public void mousePressed ( MouseEvent e ){
-
+		
+		// Nothing to do
 	}
 
 	public void mouseEntered ( MouseEvent e ){
-
+		
+		// Nothing to do
 	}
 
 	public void mouseClicked ( MouseEvent e ){
@@ -261,11 +265,13 @@ public class Game extends Canvas implements Runnable , MouseListener{
 	}
 
 	public void mouseExited ( MouseEvent e ){
-
+		
+		// Nothing to do
 	}
 
 	public void mouseReleased ( MouseEvent e ){
-
+		
+		// Nothing to do
 	}
 
 	public static GameStateManager getGameStateManager (){
