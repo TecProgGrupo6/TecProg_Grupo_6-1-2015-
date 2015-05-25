@@ -86,16 +86,16 @@ public abstract class Actor extends Entity{
 		//LOGGER.setLevel( Level.INFO );
 		//LOGGER.info("Actor intialized");
 		
-		this.loc = map.placeEntity( this , map.getRandomNodeInRoom() );
+		this.loc = this.map.placeEntity( this , this.map.getRandomNodeInRoom() );
 		this.path = new ArrayList<Node>();
-		stance = new boolean[] { true , false , false , false };
+		this.stance = new boolean[] { true , false , false , false };
 	}
 	
 	
 	// Returns the player HP at frame-enter event
 	public int getHP (){
 
-		return hp;
+		return this.hp;
 	}
 	
 	// Sets the player HP at frame-enter event
@@ -107,13 +107,13 @@ public abstract class Actor extends Entity{
 	// Checks if the player is still alive
 	public boolean isAlive (){
 
-		return hp > 0;
+		return this.hp > 0;
 	}
 	
 	// Checks the damage taken at frame-enter event
 	public int getDamageTaken (){
 		
-		return damageTaken;
+		return this.damageTaken;
 	}
 	
 	// Sets the damage taken at frame-enter event
@@ -126,13 +126,13 @@ public abstract class Actor extends Entity{
 	protected void attack ( Actor defender ){
 
 		Random r = new Random();
-		double random_attack = r.nextDouble() * attack;
+		double random_attack = r.nextDouble() * this.attack;
 
-		damageDealt = (int) Math.round( random_attack ) + level;
+		this.damageDealt = (int) Math.round( random_attack ) + this.level;
 		
 		
-		if ( damageDealt > attack ){
-			damageDealt = attack;
+		if ( this.damageDealt > this.attack ){
+			this.damageDealt = this.attack;
 		}else{
 
 			// Nothing to do
@@ -140,14 +140,14 @@ public abstract class Actor extends Entity{
 		
 		
 		// makes the calculation of new hp from enemies
-		defender.setHP( defender.getHP() - damageDealt );
-		defender.setDamageTaken( damageDealt );
+		defender.setHP( defender.getHP() - this.damageDealt );
+		defender.setDamageTaken( this.damageDealt );
 		this.setStance( false , true , false , false );
 
-		if ( damageDealt > 0 ){
+		if ( this.damageDealt > 0 ){
 			
 			LOGGER.setLevel( Level.INFO );
-			LOGGER.info("Battling Enemmy. Damage =" + damageDealt);
+			LOGGER.info("Battling Enemmy. Damage =" + this.damageDealt);
 			
 			defender.setStance( false , false , true , false );
 		}else{
@@ -168,7 +168,7 @@ public abstract class Actor extends Entity{
 		LOGGER.setLevel( Level.CONFIG );
 		LOGGER.config("End Turn");
 		
-		myTurn = false;
+		this.myTurn = false;
 		nextActor.setTurn( true );
 
 		/*
@@ -219,7 +219,7 @@ public abstract class Actor extends Entity{
 
 	public boolean getTurn (){
 
-		return myTurn;
+		return this.myTurn;
 	}
 
 	// Moves your character to a place if it is possible
@@ -237,11 +237,11 @@ public abstract class Actor extends Entity{
 			LOGGER.setLevel( Level.CONFIG);
 			LOGGER.config("Moving. No Enemy blocking.");
 
-			loc.removeEntity( this );
-			loc = node;
-			loc.addEntity( this );
-			damageDealt = 0;
-			path.remove( node );
+			this.loc.removeEntity( this );
+			this.loc = node;
+			this.loc.addEntity( this );
+			this.damageDealt = 0;
+			this.path.remove( node );
 			
 		}else{
 			// nothing to do
@@ -251,31 +251,31 @@ public abstract class Actor extends Entity{
 	// Resets some states
 	protected void clearFlags (){
 
-		acted = false;
-		moved = false;
-		attacked = false;
+		this.acted = false;
+		this.moved = false;
+		this.attacked = false;
 	}
 
 	// Plays some sounds dependending on the action
 	protected void playSound (){
 
-		if ( attacked && damageDealt > 0 ){
+		if ( this.attacked && this.damageDealt > 0 ){
 			
 			LOGGER.setLevel( Level.INFO );
 			LOGGER.info("Strike sound played");
 
-			soundManager.playSound( "strike" );
+			this.soundManager.playSound( "strike" );
 		}else{
 
 			// Nothing to do
 		}
 
-		if ( attacked && damageDealt == 0 ){
+		if ( this.attacked && this.damageDealt == 0 ){
 			
 			LOGGER.setLevel( Level.INFO );
 			LOGGER.info("Miss sound played");
 
-			soundManager.playSound( "miss" );
+			this.soundManager.playSound( "miss" );
 		}else{
 
 			// Nothing to do
@@ -285,7 +285,7 @@ public abstract class Actor extends Entity{
 	// Actions of the character
 	public boolean getActed (){
 
-		if ( moved || attacked || acted ){
+		if ( this.moved || this.attacked || this.acted ){
 
 			return true;
 		}else{
@@ -297,16 +297,16 @@ public abstract class Actor extends Entity{
 
 	public int[] getTimers (){
 
-		return timers;
+		return this.timers;
 	}
 
 	public void decrementTimers (){
 
-		for ( int i = 0 ; i < timers.length ; i++ ){
+		for ( int i = 0 ; i < this.timers.length ; i++ ){
 
-			if ( timers[i] > 0 ){
+			if ( this.timers[i] > 0 ){
 
-				timers[i]--;
+				this.timers[i]--;
 			}
 		}
 	}
@@ -318,24 +318,24 @@ public abstract class Actor extends Entity{
 		 * Next path node will always be index 0. Nodes are removed from path
 		 * list after any action is taken.
 		 */
-		return path.get( 0 );
+		return this.path.get( 0 );
 	}
 
 	public void setPath ( List<Node> list ){
 
 		this.path = list;
-		initialPathSize = this.path.size();
+		this.initialPathSize = this.path.size();
 	}
 
 	public List<Node> getPath (){
 
-		return path;
+		return this.path;
 	}
 
 	public void setPathTo ( Node node ){
 
-		path = map.findPath( this.loc , node );
-		initialPathSize = path.size();
+		this.path = this.map.findPath( this.loc , node );
+		this.initialPathSize = this.path.size();
 	}
 
 	public void setPathToConnectedRoom (){
@@ -344,14 +344,14 @@ public abstract class Actor extends Entity{
 		Room nextRoom = null;
 
 		// If the player is currently in a room.
-		if ( map.inRoom( loc ) ){
+		if ( this.map.inRoom( this.loc ) ){
 
-			current = getOccupiedRoom( loc );
+			current = getOccupiedRoom( this.loc );
 		}
 		// Else player is in a hallway. Get room in occupied column/row.
 		else{
 
-			current = map.getNearestRoom( loc );
+			current = this.map.getNearestRoom( this.loc );
 		}
 
 		// If room only has one connection, only option is that room
@@ -365,7 +365,7 @@ public abstract class Actor extends Entity{
 
 		Node destination = nextRoom.getRandomNodeInRoom();
 
-		path = map.findPath( loc , destination );
+		this.path = this.map.findPath( this.loc , destination );
 	}
 
 	// Renderizes the graphic
@@ -374,8 +374,8 @@ public abstract class Actor extends Entity{
 		if ( this.inDisplayedNodes() ){
 
 			// Row and column in displayed nodes
-			int wx = map.getDisplayedX( loc );
-			int wy = map.getDisplayedY( loc );
+			int wx = this.map.getDisplayedX( this.loc );
+			int wy = this.map.getDisplayedY( this.loc );
 
 			// Pixel x and y in game window
 			int px = wx * Game.SCALED_TILE_SIZE;
@@ -385,11 +385,11 @@ public abstract class Actor extends Entity{
 			int width = Game.SCALED_TILE_SIZE;
 			int height = Game.SCALED_TILE_SIZE;
 
-			if ( hp > 0 ){
+			if ( this.hp > 0 ){
 
 				if ( this.getVisibleToPlayer() ){
 
-					g.drawImage( image , px , py , width , height , null );
+					g.drawImage( this.image , px , py , width , height , null );
 					renderHealthBar( g , px , py , width , height );
 				}else{
 
@@ -397,7 +397,7 @@ public abstract class Actor extends Entity{
 				}
 				// Draw damage indicator
 
-				boolean myTurnAndTimerDamageGreaterZero = myTurn && Game.tickTimer > 0 && getDamageTaken() > 0;
+				boolean myTurnAndTimerDamageGreaterZero = this.myTurn && Game.tickTimer > 0 && getDamageTaken() > 0;
 
 				if ( myTurnAndTimerDamageGreaterZero ){
 
@@ -409,7 +409,7 @@ public abstract class Actor extends Entity{
 					// Nothing to do
 				}
 
-				boolean wizzardAndTimersTen = this instanceof trl.entity.player.Wizard && timers[1] == 10;
+				boolean wizzardAndTimersTen = this instanceof trl.entity.player.Wizard && this.timers[1] == 10;
 
 				if ( wizzardAndTimersTen ){
 
@@ -437,7 +437,7 @@ public abstract class Actor extends Entity{
 				}
 
 				// If attacking
-				if ( stance[1] ){
+				if ( this.stance[1] ){
 
 					g.drawImage( Game.getImageManager().swords , px , py , width , height , null );
 				}else{
@@ -446,7 +446,7 @@ public abstract class Actor extends Entity{
 				}
 
 				// If shooting
-				if ( stance[3] ){
+				if ( this.stance[3] ){
 
 					g.drawImage( Game.getImageManager().arrows , px , py , width , height , null );
 				}else{
@@ -479,7 +479,7 @@ public abstract class Actor extends Entity{
 		g.drawRect( x + 1 , y + (int) ( height * .75 ) - 1 , width - 2 , 6 );
 
 		// Calculate width of bar
-		double percentHealth = (double) hp / (double) maxHP;
+		double percentHealth = (double) this.hp / (double) this.maxHP;
 		if ( percentHealth > .75 ){
 
 			g.setColor( trGreen );
@@ -509,6 +509,10 @@ public abstract class Actor extends Entity{
 	}
 
 	// Renderizes the explosions
+	/**
+	 * @param x  
+	 * @param y 
+	 */
 	public void renderExplosion ( Graphics g , int x , int y ){
 
 		// Blast radius
@@ -534,13 +538,13 @@ public abstract class Actor extends Entity{
 				return;
 			}
 
-			List<Node> blastArea = map.getAoENodes( loc , r );
+			List<Node> blastArea = this.map.getAoENodes( this.loc , r );
 
 			for ( Node node : blastArea ){
 
-				int gameSizeY = ( Game.W_HEIGHT - Game.SCALED_TILE_SIZE ) - ( map.getDisplayedY( node ) * Game.SCALED_TILE_SIZE );
+				int gameSizeY = ( Game.W_HEIGHT - Game.SCALED_TILE_SIZE ) - ( this.map.getDisplayedY( node ) * Game.SCALED_TILE_SIZE );
 
-				int gameSizeX = map.getDisplayedX( node ) * Game.SCALED_TILE_SIZE;
+				int gameSizeX = this.map.getDisplayedX( node ) * Game.SCALED_TILE_SIZE;
 
 				g.drawImage( Game.getImageManager().fire , gameSizeX , gameSizeY , Game.SCALED_TILE_SIZE , Game.SCALED_TILE_SIZE , null );
 			}
@@ -549,10 +553,10 @@ public abstract class Actor extends Entity{
 
 	public void setStance ( boolean normal , boolean attacking , boolean hit , boolean shooting ){
 
-		stance[0] = normal;
-		stance[1] = attacking;
-		stance[2] = hit;
-		stance[3] = shooting;
+		this.stance[0] = normal;
+		this.stance[1] = attacking;
+		this.stance[2] = hit;
+		this.stance[3] = shooting;
 	}
 
 	// Closes the door
@@ -573,7 +577,7 @@ public abstract class Actor extends Entity{
 		if ( this instanceof trl.entity.player.Player ){
 
 			GameplayState.getPlayer().close = false;
-			path.remove( node );
+			this.path.remove( node );
 		}else{
 
 			// Nothing to do
@@ -596,7 +600,7 @@ public abstract class Actor extends Entity{
 
 		if ( this instanceof trl.entity.player.Player ){
 
-			path.remove( node );
+			this.path.remove( node );
 		}else{
 
 			// Nothing to do
@@ -608,7 +612,7 @@ public abstract class Actor extends Entity{
 
 	public int getLevel (){
 
-		return level;
+		return this.level;
 	}
 
 	public void setActed ( boolean acted ){
