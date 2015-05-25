@@ -14,7 +14,8 @@ import trl.map.Node;
 public class Ranger extends Player{
 
 	// Private Node target;
-	private List<Enemy> targets;
+	@SuppressWarnings ( "unused" )
+	private List<Enemy> allTargets;
 
 	public Ranger ( Map map ){
 
@@ -34,10 +35,10 @@ public class Ranger extends Player{
 		LOGGER.setLevel( Level.INFO );
 		LOGGER.info("Ranger intialized");
 
-		this.hp = maxHP;
+		this.hp = this.maxHP;
 		this.myTurn = true;
-		timers = new int[1];
-		targets = new ArrayList<Enemy>();
+		this.timers = new int[1];
+		this.allTargets = new ArrayList<Enemy>();
 	}
 
 	public List<Enemy> getTargets (){
@@ -46,7 +47,7 @@ public class Ranger extends Player{
 		 * For each node in visibleNodes, look through entities list. If an
 		 * enemy is found, add to enemies list, then return the list.
 		 */
-		targets.clear();
+		this.targets.clear();
 		List<Enemy> enemies = new ArrayList<Enemy>();
 		List<Entity> entities = null;
 		
@@ -59,7 +60,7 @@ public class Ranger extends Player{
 	// Add enemies to the list
 	public void addEnemies ( List<Enemy> enemies , List<Entity> entities ){
 
-		for ( Node node : map.getVisibleToPlayer() ){
+		for ( Node node : this.map.getVisibleToPlayer() ){
 
 			if ( node.getEntities() != null ){
 
@@ -85,7 +86,7 @@ public class Ranger extends Player{
 	}
 
 	// Action to enemy
-	public void fireArrow ( Enemy target ){
+	public void fireArrow ( Enemy theTarget ){
 		
 		LOGGER.setLevel( Level.INFO );
 		LOGGER.info("Ranger has fired arrow");
@@ -108,12 +109,12 @@ public class Ranger extends Player{
 			// Nothing to do
 		}
 
-		target.setHP( target.getHP() - damage );
-		damageDealt = damage;
-		target.setDamageTaken( damage );
+		theTarget.setHP( theTarget.getHP() - damage );
+		this.damageDealt = damage;
+		theTarget.setDamageTaken( damage );
 		setStance( false , false , false , true );
-		target.setStance( false , false , true , false );
-		fireArrow = false;
+		theTarget.setStance( false , false , true , false );
+		this.fireArrow = false;
 		// attacked = true;
 	}
 }
