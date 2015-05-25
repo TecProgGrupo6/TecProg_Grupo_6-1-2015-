@@ -56,8 +56,8 @@ public class Game extends Canvas implements Runnable , MouseListener{
 		LOGGER.setLevel( Level.INFO );
 		LOGGER.info("Initializing game");
 		ImageLoader loader = new ImageLoader();
-		spriteSheet = loader.load( "/tiled_roguelike_sheet.png" );
-		SpriteSheet ss = new SpriteSheet( spriteSheet );
+		this.spriteSheet = loader.load( "/tiled_roguelike_sheet.png" );
+		SpriteSheet ss = new SpriteSheet( this.spriteSheet );
 		im = new ImageManager( ss );
 		gsm = new GameStateManager();
 		gsm.setGameState( GameStateManager.MENU_STATE );
@@ -93,6 +93,7 @@ public class Game extends Canvas implements Runnable , MouseListener{
 		}
 	}
 
+	@Override
 	public void run (){
 
 		init();
@@ -226,16 +227,19 @@ public class Game extends Canvas implements Runnable , MouseListener{
 		return im;
 	}
 
+	@Override
 	public void mousePressed ( MouseEvent e ){
 		
 		// Nothing to do
 	}
 
+	@Override
 	public void mouseEntered ( MouseEvent e ){
 		
 		// Nothing to do
 	}
 
+	@Override
 	public void mouseClicked ( MouseEvent e ){
 
 		if ( gsm.getGameState() == 1 ){
@@ -264,11 +268,13 @@ public class Game extends Canvas implements Runnable , MouseListener{
 		}
 	}
 
+	@Override
 	public void mouseExited ( MouseEvent e ){
 		
 		// Nothing to do
 	}
 
+	@Override
 	public void mouseReleased ( MouseEvent e ){
 		
 		// Nothing to do
