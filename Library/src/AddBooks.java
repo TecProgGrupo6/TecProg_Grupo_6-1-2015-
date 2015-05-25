@@ -10,7 +10,6 @@ import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -19,19 +18,19 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-
-
-
 
 /**
  * A public class
  */
 public class AddBooks extends JInternalFrame{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	// Log system from AddBooks Class
 	private final static Logger LOGGER = Logger.getLogger( AddBooks.class.getName() );
 
@@ -43,7 +42,7 @@ public class AddBooks extends JInternalFrame{
 
 	private JPanel northPanel = new JPanel();
 	// For creaing the North Label.
-	private JLabel northLabel = new JLabel( "BOOK INFORMATION" );
+	private JLabel northLabel = new JLabel( "BOOK INFORMATION" ); //$NON-NLS-1$
 
 	// For creating the Center Panel.
 	private JPanel centerPanel = new JPanel();
@@ -53,13 +52,20 @@ public class AddBooks extends JInternalFrame{
 
 	// For creating an array of JLabel.
 	private JLabel[] informationLabel = new JLabel[10];
-	private JLabel lblShelfNo = new JLabel( " Shelf No" );
+	private JLabel lblShelfNo = new JLabel( " Shelf No" ); //$NON-NLS-1$
 	private JTextField txtShelfNo = new JTextField();
 
 	// For creating an array of String.
-	private String[] informationString = { " The book subject: " , " The book title: " , " The name of the Author(s): " ,
-			" The name of the Publisher: " , " Copyright for the book: " , " The edition number: " , " The number of Pages: " ,
-			" ISBN for the book: " , " The number of copies: " , " The name of the Library: " };
+	private String[] informationString = { " The book subject: " , //$NON-NLS-1$
+											" The book title: " ,  //$NON-NLS-1$
+											" The name of the Author(s): " , //$NON-NLS-1$
+											" The name of the Publisher: " ,  //$NON-NLS-1$
+											" Copyright for the book: " ,  //$NON-NLS-1$
+											" The edition number: " , //$NON-NLS-1$
+											" The number of Pages: " , //$NON-NLS-1$
+											" ISBN for the book: " , //$NON-NLS-1$
+											" The number of copies: " , //$NON-NLS-1$
+											" The name of the Library: " }; //$NON-NLS-1$
 
 	// For creating an Internal Panel in the center panel.
 	private JPanel informationTextFieldPanel = new JPanel();
@@ -71,13 +77,13 @@ public class AddBooks extends JInternalFrame{
 	private JPanel insertInformationButtonPanel = new JPanel();
 
 	// For creating a button.
-	private JButton insertInformationButton = new JButton( "Insert the Information" );
+	private JButton insertInformationButton = new JButton( "Insert the Information" ); //$NON-NLS-1$
 
 	// For creating South Panel.
 	private JPanel southPanel = new JPanel();
 
 	// For creating a button.
-	private JButton OKButton = new JButton( "Exit" );
+	private JButton OKButton = new JButton( "Exit" ); //$NON-NLS-1$
 
 	// Create objects from another classes for using them in the ActionListener.
 	private Books book;
@@ -89,19 +95,19 @@ public class AddBooks extends JInternalFrame{
 	private boolean availble = true;
 
 	// For checking the information from the text field.
-	double informationLabelLength = informationLabel.length;
+	double informationLabelLength = this.informationLabel.length;
 
 	public boolean isCorrect (){
 
-		data = new String[10];
-		for ( int i = 0 ; i < informationLabelLength ; i++ ){
+		this.data = new String[10];
+		for ( int i = 0 ; i < this.informationLabelLength ; i++ ){
 
-			if ( !informationTextField[i].getText().equals( "" ) ){
+			if ( !this.informationTextField[i].getText().equals( "" ) ){ //$NON-NLS-1$
 
-				data[i] = informationTextField[i].getText();
+				this.data[i] = this.informationTextField[i].getText();
 				
 				LOGGER.setLevel( Level.INFO );
-				LOGGER.info("Information is Correct");
+				LOGGER.info("Information is Correct"); //$NON-NLS-1$
 
 			}else{
 				return false;
