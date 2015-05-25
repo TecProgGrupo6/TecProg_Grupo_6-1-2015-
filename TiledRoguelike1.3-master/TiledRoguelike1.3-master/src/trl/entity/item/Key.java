@@ -24,6 +24,6 @@ public class Key extends Item{
 		LOGGER.info("Key intialized");
 
 		this.image = Game.getImageManager().key;
-		this.loc = map.placeEntity( this , map.getRandomNodeInRoom() );
+		this.loc = this.map.placeEntity( this , this.map.getRandomNodeInRoom() );
 	}
 }
