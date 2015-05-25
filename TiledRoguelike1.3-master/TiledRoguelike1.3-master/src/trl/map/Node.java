@@ -84,8 +84,8 @@ public class Node{
 		LOGGER.setLevel( Level.CONFIG );
 		LOGGER.config("Initializing node");
 
-		seenByPlayer = false;
-		entities = new ArrayList<Entity>();
+		this.seenByPlayer = false;
+		this.entities = new ArrayList<Entity>();
 	}
 
 	public boolean isWall (){
@@ -94,7 +94,7 @@ public class Node{
 		LOGGER.config("Verifying if node is a wall");
 
 
-		if ( feature instanceof trl.map.feature.Wall ){
+		if ( this.feature instanceof trl.map.feature.Wall ){
 			return true;
 		}
 		return false;
@@ -105,7 +105,7 @@ public class Node{
 		LOGGER.setLevel( Level.CONFIG );
 		LOGGER.config("Verifying if node is a floor");
 
-		if ( feature instanceof trl.map.feature.Floor ){
+		if ( this.feature instanceof trl.map.feature.Floor ){
 			return true;
 		}
 		return false;
@@ -113,12 +113,12 @@ public class Node{
 
 	public int getAxisX (){
 
-		return axisX;
+		return this.axisX;
 	}
 
 	public int getAxisY (){
 
-		return axisY;
+		return this.axisY;
 	}
 
 	public List<Entity> getEntities (){
@@ -126,8 +126,8 @@ public class Node{
 		LOGGER.setLevel( Level.CONFIG );
 		LOGGER.config("Getting entities");
 
-		if ( entities.size() > 0 ){
-			return entities;
+		if ( this.entities.size() > 0 ){
+			return this.entities;
 		}else{
 			return null;
 		}
@@ -138,8 +138,8 @@ public class Node{
 		LOGGER.setLevel( Level.CONFIG );
 		LOGGER.config("Verifying if the Entity contains a node");
 
-		if ( entities.size() > 0 ){
-			for ( Entity entity : entities ){
+		if ( this.entities.size() > 0 ){
+			for ( Entity entity : this.entities ){
 				if ( entity.equals( entityToFind ) ){
 					return true;
 				}else{
@@ -157,10 +157,10 @@ public class Node{
 		LOGGER.setLevel( Level.CONFIG );
 		LOGGER.config("Adding " + entity.getClass().toString());
 
-		if ( entity instanceof trl.entity.actor.Actor && entities.size() > 0 ){
-			entities.add( entities.size() - 1 , entity );
+		if ( entity instanceof trl.entity.actor.Actor && this.entities.size() > 0 ){
+			this.entities.add( this.entities.size() - 1 , entity );
 		}else{
-			entities.add( 0 , entity );
+			this.entities.add( 0 , entity );
 		}
 	}
 
@@ -169,7 +169,7 @@ public class Node{
 		LOGGER.setLevel( Level.CONFIG );
 		LOGGER.config("Remove an Entity");
 
-		entities.remove( entity );
+		this.entities.remove( entity );
 	}
 
 	public void setParent ( Node node ){
@@ -185,17 +185,17 @@ public class Node{
 	public void setGScore (){
 
 		// Check for diagonal movement. G score = 14.
-		if ( axisX != getParent().getAxisX() && axisY != getParent().getAxisY() ){
-			gScore = getParent().getGScore() + 14;
+		if ( this.axisX != getParent().getAxisX() && this.axisY != getParent().getAxisY() ){
+			this.gScore = getParent().getGScore() + 14;
 		}
 		// Orthogonal movement cost = 10
 		else{
-			gScore = getParent().getGScore() + 10;
+			this.gScore = getParent().getGScore() + 10;
 		}
 		// Check map node at this node's coords for enemy occupation
-		if ( map.getNode( axisX , axisY ) != null ){
-			if ( map.getNode( axisX , axisY ).checkEntityByID( (byte) 0 ) ){
-				gScore += 70;
+		if ( this.map.getNode( this.axisX , this.axisY ) != null ){
+			if ( this.map.getNode( this.axisX , this.axisY ).checkEntityByID( (byte) 0 ) ){
+				this.gScore += 70;
 			}else{
 				// Nothing
 			}
@@ -206,17 +206,17 @@ public class Node{
 
 	public void setGScore ( int g ){
 
-		gScore = g;
+		this.gScore = g;
 	}
 
 	public void setHScore ( int h ){
 
-		gScore = h;
+		this.gScore = h;
 	}
 
 	public void setFScore ( int f ){
 
-		fScore = f;
+		this.fScore = f;
 	}
 
 	public int getGScore (){
@@ -231,12 +231,12 @@ public class Node{
 
 	public void setHScore ( Node endNode ){
 
-		this.hScore = 10 * ( Math.abs( axisX - endNode.getAxisX() ) + Math.abs( axisY - endNode.getAxisY() ) );
+		this.hScore = 10 * ( Math.abs( this.axisX - endNode.getAxisX() ) + Math.abs( this.axisY - endNode.getAxisY() ) );
 	}
 
 	public int getHScore (){
 
-		return hScore;
+		return this.hScore;
 	}
 
 	public void setFScore (){
@@ -271,18 +271,19 @@ public class Node{
 		return false;
 	}
 
+	@SuppressWarnings ( "cast" )
 	public boolean checkEntityByID ( byte entityID ){
 		
 		LOGGER.setLevel( Level.CONFIG );
 		LOGGER.config("Checking entity by id");
 
-		if ( entities == null ){
+		if ( this.entities == null ){
 			// System.out.println("entities NULL");
 		}else{
 			// Nothing
 		}
-		if ( entities != null && entities.size() > 0 ){
-			for ( Entity entity : entities ){
+		if ( this.entities != null && this.entities.size() > 0 ){
+			for ( Entity entity : this.entities ){
 				switch ( entityID ) {
 
 				case 0:{
@@ -365,6 +366,8 @@ public class Node{
 					break;
 
 				}
+				default:
+					break;
 				}
 			}
 		}else{
@@ -373,11 +376,12 @@ public class Node{
 		return false;
 	}
 
+	@SuppressWarnings ( "cast" )
 	public void removeEntityByID ( byte entityID ){
 		LOGGER.setLevel( Level.CONFIG );
 		LOGGER.config("Removing entity by ID");
 
-		Iterator<Entity> entity = entities.iterator();
+		Iterator<Entity> entity = this.entities.iterator();
 		while ( entity.hasNext() ){
 			switch ( entityID ) {
 
@@ -452,13 +456,15 @@ public class Node{
 				break;
 
 			}
+			default:
+				break;
 			}
 		}
 	}
 
 	public boolean isGoal (){
 
-		if ( feature instanceof trl.map.feature.Goal ){
+		if ( this.feature instanceof trl.map.feature.Goal ){
 			return true;
 		}else{
 			// Nothing
@@ -488,7 +494,7 @@ public class Node{
 
 	public Feature getFeature (){
 
-		return feature;
+		return this.feature;
 	}
 
 	public void setFeature ( Feature feature ){
@@ -498,12 +504,12 @@ public class Node{
 
 	public void makeWall (){
 
-		feature = wall;
+		this.feature = wall;
 	}
 
 	public void makeFloor (){
 
-		feature = floor;
+		this.feature = floor;
 	}
 
 	public void makeOpenDoor (){
@@ -511,7 +517,7 @@ public class Node{
 		LOGGER.setLevel( Level.INFO );
 		LOGGER.info("Door Succesfully opened");
 
-		feature = openDoor;
+		this.feature = openDoor;
 	}
 
 	public void makeClosedDoor (){
@@ -519,17 +525,17 @@ public class Node{
 		LOGGER.setLevel( Level.INFO );
 		LOGGER.info("Door Closed Successfully");
 
-		feature = closedDoor;
+		this.feature = closedDoor;
 	}
 
 	public void makeVoid (){
 
-		feature = new Void();
+		this.feature = new Void();
 	}
 
 	public boolean isVoid (){
 
-		if ( feature instanceof trl.map.feature.Void ){
+		if ( this.feature instanceof trl.map.feature.Void ){
 			return true;
 		}else{
 			// Nothing
@@ -539,7 +545,7 @@ public class Node{
 
 	public boolean isClosedDoor (){
 
-		if ( feature instanceof trl.map.feature.DoorClosed ){
+		if ( this.feature instanceof trl.map.feature.DoorClosed ){
 			return true;
 		}else{
 			// Nothing
@@ -549,7 +555,7 @@ public class Node{
 
 	public boolean isOpenDoor (){
 
-		if ( feature instanceof trl.map.feature.DoorOpen ){
+		if ( this.feature instanceof trl.map.feature.DoorOpen ){
 			return true;
 		}else{
 			// Nothing
@@ -559,7 +565,7 @@ public class Node{
 
 	public boolean isStairDown (){
 
-		if ( feature instanceof trl.map.feature.StairDown ){
+		if ( this.feature instanceof trl.map.feature.StairDown ){
 			return true;
 		}else{
 			// Nothing
@@ -569,8 +575,8 @@ public class Node{
 
 	public boolean hasEnemy (){
 
-		if ( entities != null && entities.size() > 0 ){
-			for ( Entity entity : entities ){
+		if ( this.entities != null && this.entities.size() > 0 ){
+			for ( Entity entity : this.entities ){
 				if ( entity instanceof trl.entity.enemy.Enemy ){
 					return true;
 				}else{
