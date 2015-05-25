@@ -93,7 +93,6 @@ public class Game extends Canvas implements Runnable , MouseListener{
 		}
 	}
 
-	@Override
 	public void run (){
 
 		init();
@@ -227,19 +226,16 @@ public class Game extends Canvas implements Runnable , MouseListener{
 		return im;
 	}
 
-	@Override
 	public void mousePressed ( MouseEvent e ){
 		
 		// Nothing to do
 	}
 
-	@Override
 	public void mouseEntered ( MouseEvent e ){
 		
 		// Nothing to do
 	}
 
-	@Override
 	public void mouseClicked ( MouseEvent e ){
 
 		if ( gsm.getGameState() == 1 ){
@@ -268,13 +264,11 @@ public class Game extends Canvas implements Runnable , MouseListener{
 		}
 	}
 
-	@Override
 	public void mouseExited ( MouseEvent e ){
 		
 		// Nothing to do
 	}
 
-	@Override
 	public void mouseReleased ( MouseEvent e ){
 		
 		// Nothing to do

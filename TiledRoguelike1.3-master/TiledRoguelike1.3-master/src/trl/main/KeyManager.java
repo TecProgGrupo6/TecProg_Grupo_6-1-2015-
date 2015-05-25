@@ -23,7 +23,6 @@ public class KeyManager implements KeyListener{
 	}
 
 	// Action event from the keyboard
-	@Override
 	public void keyPressed ( KeyEvent e ){
 		LOGGER.setLevel( Level.CONFIG );
 		LOGGER.config("Key pressed");
@@ -75,7 +74,6 @@ public class KeyManager implements KeyListener{
 		}
 	}
 
-	@Override
 	public void keyReleased ( KeyEvent e ){
 		LOGGER.setLevel( Level.CONFIG );
 		LOGGER.config("Key released");
@@ -292,7 +290,6 @@ public class KeyManager implements KeyListener{
 		}
 	}
 
-	@Override
 	public void keyTyped ( KeyEvent e ){
 		
 		// Nothing to do
