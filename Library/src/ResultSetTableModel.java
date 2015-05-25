@@ -13,6 +13,11 @@ import java.util.logging.Logger;
  */
 public class ResultSetTableModel extends AbstractTableModel{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	// Log system from ResultSetTableModel class
 	private final static Logger LOGGER = Logger.getLogger( ResultSetTableModel.class.getName() );
 
@@ -42,23 +47,24 @@ public class ResultSetTableModel extends AbstractTableModel{
 		Class.forName( driver );
 
 		// Connect to database
-		connection = DriverManager.getConnection( url );
+		this.connection = DriverManager.getConnection( url );
 
 		// Create Statement to query database.
-		statement = connection.createStatement( ResultSet.TYPE_SCROLL_INSENSITIVE , ResultSet.CONCUR_READ_ONLY );
+		this.statement = this.connection.createStatement( ResultSet.TYPE_SCROLL_INSENSITIVE , ResultSet.CONCUR_READ_ONLY );
 
 		// Update database connection status.
-		connectedToDatabase = true;
+		this.connectedToDatabase = true;
 
 		// Set query and execute it.
 		setQuery( query );
 	}
 
 	// Get class that represents column type.
-	public Class getColumnClass ( int column ) throws IllegalStateException{
+	@Override
+	public Class<?> getColumnClass ( int column ) throws IllegalStateException{
 
 		// Ensure database connection is available.
-		if ( !connectedToDatabase ){
+		if ( !this.connectedToDatabase ){
 			throw new IllegalStateException( "Not Connected to Database" );
 		}else{
 
@@ -66,7 +72,7 @@ public class ResultSetTableModel extends AbstractTableModel{
 
 		// Determine Java class of column.
 		try{
-			String className = metaData.getColumnClassName( column + 1 );
+			String className = this.metaData.getColumnClassName( column + 1 );
 
 			// Return Class object that represents className.
 			return Class.forName( className );
@@ -83,10 +89,11 @@ public class ResultSetTableModel extends AbstractTableModel{
 	}
 
 	// Get number of columns in ResultSet.
+	@Override
 	public int getColumnCount () throws IllegalStateException{
 
 		// Ensure database connection is available.
-		if ( !connectedToDatabase ){
+		if ( !this.connectedToDatabase ){
 			throw new IllegalStateException( "Not Connected to Database" );
 		}else{
 
@@ -94,7 +101,7 @@ public class ResultSetTableModel extends AbstractTableModel{
 
 		// Determine number of columns.
 		try{
-			return metaData.getColumnCount();
+			return this.metaData.getColumnCount();
 		}
 
 		// Catch SQLExceptions and print error message.
@@ -107,10 +114,11 @@ public class ResultSetTableModel extends AbstractTableModel{
 	}
 
 	// Get name of a particular column in ResultSet.
+	@Override
 	public String getColumnName ( int column ) throws IllegalStateException{
 
 		// Ensure database connection is available.
-		if ( !connectedToDatabase ){
+		if ( !this.connectedToDatabase ){
 			throw new IllegalStateException( "Not Connected to Database" );
 		}else{
 
@@ -118,7 +126,7 @@ public class ResultSetTableModel extends AbstractTableModel{
 
 		// Determine column name.
 		try{
-			return metaData.getColumnName( column + 1 );
+			return this.metaData.getColumnName( column + 1 );
 		}
 
 		// Catch SQLExceptions and print error message.
@@ -131,22 +139,24 @@ public class ResultSetTableModel extends AbstractTableModel{
 	}
 
 	// Return number of rows in ResultSet.
+	@Override
 	public int getRowCount () throws IllegalStateException{
 
 		// Ensure database connection is available.
-		if ( !connectedToDatabase ){
+		if ( !this.connectedToDatabase ){
 			throw new IllegalStateException( "Not Connected to Database" );
 		}else{
 			//No action
 		}
-		return numberOfRows;
+		return this.numberOfRows;
 	}
 
 	// Obtain value in particular row and column.
+	@Override
 	public Object getValueAt ( int row , int column ) throws IllegalStateException{
 
 		// Ensure database connection is available.
-		if ( !connectedToDatabase ){
+		if ( !this.connectedToDatabase ){
 			throw new IllegalStateException( "Not Connected to Database" );
 		}else{
 			//No action
@@ -154,8 +164,8 @@ public class ResultSetTableModel extends AbstractTableModel{
 
 		// Obtain a value at specified ResultSet row and column.
 		try{
-			resultSet.absolute( row + 1 );
-			return resultSet.getObject( column + 1 );
+			this.resultSet.absolute( row + 1 );
+			return this.resultSet.getObject( column + 1 );
 		}
 
 		// Catch SQLExceptions and print error message.
@@ -171,22 +181,22 @@ public class ResultSetTableModel extends AbstractTableModel{
 	public void setQuery ( String query ) throws SQLException, IllegalStateException{
 
 		// Ensure database connection is available.
-		if ( !connectedToDatabase ){
+		if ( !this.connectedToDatabase ){
 			throw new IllegalStateException( "Not Connected to Database" );
 		}else{
 
 		}
 		// Specify query and execute it.
-		resultSet = statement.executeQuery( query );
+		this.resultSet = this.statement.executeQuery( query );
 
 		// Obtain meta data for ResultSet.
-		metaData = resultSet.getMetaData();
+		this.metaData = this.resultSet.getMetaData();
 
 		// Determine number of rows in ResultSet.
-		resultSet.last(); // move to last row
+		this.resultSet.last(); // move to last row
 
 		// Get row number.
-		numberOfRows = resultSet.getRow();
+		this.numberOfRows = this.resultSet.getRow();
 
 		// Notify JTable that model has changed.
 		fireTableStructureChanged();
@@ -200,8 +210,8 @@ public class ResultSetTableModel extends AbstractTableModel{
 		
 		// Close Statement and Connection.
 		try{
-			statement.close();
-			connection.close();
+			this.statement.close();
+			this.connection.close();
 		}
 
 		// Catch SQLExceptions and print error message.
@@ -211,7 +221,7 @@ public class ResultSetTableModel extends AbstractTableModel{
 
 		// Update database connection status.
 		finally{
-			connectedToDatabase = false;
+			this.connectedToDatabase = false;
 		}
 	}
 } // End class ResultSetTableModel.
