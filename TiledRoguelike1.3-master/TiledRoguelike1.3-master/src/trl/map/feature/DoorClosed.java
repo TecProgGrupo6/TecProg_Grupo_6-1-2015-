@@ -10,6 +10,6 @@ public class DoorClosed extends Feature{
 		LOGGER.setLevel( Level.INFO );
 		LOGGER.info("Returned closed door");
 
-		passable = false;
+		this.passable = false;
 	}
 }
