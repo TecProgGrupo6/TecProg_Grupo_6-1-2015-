@@ -18,16 +18,17 @@ public class Rat extends Enemy{
 	private final static Logger LOGGER = Logger.getLogger( Rat.class.getName() );
 
 	// Initiliaze Rat
+	@Override
 	public void init (){
 		
 		LOGGER.setLevel( Level.INFO );
 		LOGGER.info("Rat intialized");
 
-		maxHP = 8;
-		attack = 5;
-		image = Game.getImageManager().rat;
-		hp = maxHP;
-		level = 3;
-		xpReward = 3;
+		this.maxHP = 8;
+		this.attack = 5;
+		this.image = Game.getImageManager().rat;
+		this.hp = this.maxHP;
+		this.level = 3;
+		this.xpReward = 3;
 	}
 }
