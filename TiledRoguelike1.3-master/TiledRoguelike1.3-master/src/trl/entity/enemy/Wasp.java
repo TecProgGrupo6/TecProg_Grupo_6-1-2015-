@@ -18,16 +18,17 @@ public class Wasp extends Enemy{
 	private final static Logger LOGGER = Logger.getLogger( Wasp.class.getName() );
 
 	// Initiliaze Wasp
+	@Override
 	public void init (){
 		
 		LOGGER.setLevel( Level.INFO );
 		LOGGER.info("Wasp intialized");
 
-		maxHP = 10;
-		attack = 5;
-		image = Game.getImageManager().wasp;
-		hp = maxHP;
-		xpReward = 5;
-		level = 5;
+		this.maxHP = 10;
+		this.attack = 5;
+		this.image = Game.getImageManager().wasp;
+		this.hp = this.maxHP;
+		this.xpReward = 5;
+		this.level = 5;
 	}
 }
