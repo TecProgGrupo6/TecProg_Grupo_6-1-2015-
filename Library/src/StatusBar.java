@@ -14,6 +14,11 @@ import java.util.logging.Level;
 
 public class StatusBar extends JPanel{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	// Log system from Toolbar class
 	private final static Logger LOGGER = Logger.getLogger( StatusBar.class.getName() );
 
@@ -21,16 +26,16 @@ public class StatusBar extends JPanel{
 	 *** declaration of the private variables used in the program ***
 	 ***************************************************************************/
 
-	private JLabel statusBar = new JLabel( "  " );
+	private JLabel statusBar = new JLabel( "  " ); //$NON-NLS-1$
 
 	// Constructor of StatusBar
 	public StatusBar (){
 
 		LOGGER.setLevel( Level.INFO );
-		LOGGER.info("StatusBar created.");
+		LOGGER.info("StatusBar created."); //$NON-NLS-1$
 		
-		statusBar.setFont( new Font( "Tahoma" , Font.BOLD , 9 ) );
-		this.add( statusBar );
+		this.statusBar.setFont( new Font( "Tahoma" , Font.BOLD , 9 ) ); //$NON-NLS-1$
+		this.add( this.statusBar );
 		this.setBorder( new SoftBevelBorder( javax.swing.border.BevelBorder.LOWERED ) );
 
 	}

@@ -11,7 +11,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -20,6 +19,11 @@ import java.util.logging.Logger;
  */
 public class ReturnBooks extends JInternalFrame implements ActionListener{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	// Log system from ReturnBooks class
 	private final static Logger LOGGER = Logger.getLogger( ReturnBooks.class.getName() );
 
@@ -31,7 +35,7 @@ public class ReturnBooks extends JInternalFrame implements ActionListener{
 	private JPanel northPanel = new JPanel();
 
 	// For creating the label
-	private JLabel title = new JLabel( "BOOK INFORMATION" );
+	private JLabel title1 = new JLabel( "BOOK INFORMATION" );
 
 	// For creating the Center Panel
 	private JPanel centerPanel = new JPanel();
@@ -75,13 +79,13 @@ public class ReturnBooks extends JInternalFrame implements ActionListener{
 	// For checking the information from the text field
 	public boolean isCorrect (){
 
-		data = new String[2];
+		this.setData(new String[2]);
 
-		for ( int i = 0 ; i < informationLabel.length ; i++ ){
+		for ( int i = 0 ; i < this.informationLabel.length ; i++ ){
 
-			if ( !informationTextField[i].getText().equals( "" ) ){
+			if ( !this.getInformationTextField()[i].getText().equals( "" ) ){
 
-				data[i] = informationTextField[i].getText();
+				this.getData()[i] = this.getInformationTextField()[i].getText();
 
 			}else{
 
@@ -95,17 +99,17 @@ public class ReturnBooks extends JInternalFrame implements ActionListener{
 	// For setting the array of JTextField to null
 	public void clearTextField (){
 
-		for ( int i = 0 ; i < informationTextField.length ; i++ ){
+		for ( int i = 0 ; i < this.getInformationTextField().length ; i++ ){
 
 			if ( i != 2 ){
 
-				informationTextField[i].setText( null );
+				this.getInformationTextField()[i].setText( null );
 
 			}else{
 				// No action
 			}
-			txtFinePerDay.setText( null );
-			txtTotalFineAmt.setText( null );
+			this.getTxtFinePerDay().setText( null );
+			this.getTxtTotalFineAmt().setText( null );
 		}
 	}
 
@@ -117,22 +121,22 @@ public class ReturnBooks extends JInternalFrame implements ActionListener{
 		 * container *
 		 ***********************************************************************/
 	
-		for ( int i = 0 ; i < informationLabel.length ; i++ ){
+		for ( int i = 0 ; i < this.informationLabel.length ; i++ ){
 	
-			informationPanel.add( informationLabel[i] = new JLabel( informationString[i] ) );
-			informationLabel[i].setFont( new Font( "Tahoma" , Font.BOLD , 11 ) );
-			informationPanel.add( informationTextField[i] = new JTextField() );
-			informationTextField[i].setFont( new Font( "Tahoma" , Font.PLAIN , 11 ) );
+			this.informationPanel.add( this.informationLabel[i] = new JLabel( this.informationString[i] ) );
+			this.informationLabel[i].setFont( new Font( "Tahoma" , Font.BOLD , 11 ) );
+			this.informationPanel.add( this.getInformationTextField()[i] = new JTextField() );
+			this.getInformationTextField()[i].setFont( new Font( "Tahoma" , Font.PLAIN , 11 ) );
 	
 		}
 	
-		informationPanel.add( lblFinePerDay );
-		informationPanel.add( txtFinePerDay );
-		informationPanel.add( lblTotalFineAmt );
-		informationPanel.add( txtTotalFineAmt );
-		txtTotalFineAmt.setEditable( false );
-		txtFinePerDay.addKeyListener( new keyListener() );
-		centerPanel.add( "Center" , informationPanel );
+		this.informationPanel.add( this.lblFinePerDay );
+		this.informationPanel.add( this.getTxtFinePerDay() );
+		this.informationPanel.add( this.lblTotalFineAmt );
+		this.informationPanel.add( this.getTxtTotalFineAmt() );
+		this.getTxtTotalFineAmt().setEditable( false );
+		this.getTxtFinePerDay().addKeyListener( new keyListener() );
+		this.centerPanel.add( "Center" , this.informationPanel );
 	
 	}
 	
@@ -152,57 +156,57 @@ public class ReturnBooks extends JInternalFrame implements ActionListener{
 		Container cp = getContentPane();
 
 		// For setting the layout
-		northPanel.setLayout( new FlowLayout( FlowLayout.CENTER ) );
+		this.northPanel.setLayout( new FlowLayout( FlowLayout.CENTER ) );
 
 		// For setting the font
-		title.setFont( new Font( "Tahoma" , Font.BOLD , 14 ) );
+		this.title1.setFont( new Font( "Tahoma" , Font.BOLD , 14 ) );
 
 		// For adding the label
-		northPanel.add( title );
+		this.northPanel.add( this.title1 );
 
 		// For adding the north panel to the container
-		cp.add( "North" , northPanel );
+		cp.add( "North" , this.northPanel );
 
 		// For setting the layout
-		centerPanel.setLayout( new BorderLayout() );
+		this.centerPanel.setLayout( new BorderLayout() );
 
 		// For setting the layout for the internal panel
-		informationPanel.setLayout( new GridLayout( 4 , 2 , 1 , 1 ) );
+		this.informationPanel.setLayout( new GridLayout( 4 , 2 , 1 , 1 ) );
 
 		addStringsAndSettingFonts();
 
 		// For setting the layout
-		returnButtonPanel.setLayout( new FlowLayout( FlowLayout.RIGHT ) );
+		this.returnButtonPanel.setLayout( new FlowLayout( FlowLayout.RIGHT ) );
 
 		// For adding the button
-		returnButtonPanel.add( returnButton );
+		this.returnButtonPanel.add( this.returnButton );
 
 		// For setting the font to the button
-		returnButton.setFont( new Font( "Tahoma" , Font.BOLD , 11 ) );
+		this.returnButton.setFont( new Font( "Tahoma" , Font.BOLD , 11 ) );
 
 		// For adding the internal panel to the panel
-		centerPanel.add( "South" , returnButtonPanel );
+		this.centerPanel.add( "South" , this.returnButtonPanel );
 
 		// For setting the border
-		centerPanel.setBorder( BorderFactory.createTitledBorder( "Return a book:" ) );
+		this.centerPanel.setBorder( BorderFactory.createTitledBorder( "Return a book:" ) );
 
 		// For adding the center panel to the container
-		cp.add( "Center" , centerPanel );
+		cp.add( "Center" , this.centerPanel );
 
 		// For setting the layout
-		southPanel.setLayout( new FlowLayout( FlowLayout.RIGHT ) );
+		this.southPanel.setLayout( new FlowLayout( FlowLayout.RIGHT ) );
 
 		// For adding the button
-		southPanel.add( cancelButton );
+		this.southPanel.add( this.cancelButton );
 
 		// For setting the font to the button
-		cancelButton.setFont( new Font( "Tahoma" , Font.BOLD , 11 ) );
+		this.cancelButton.setFont( new Font( "Tahoma" , Font.BOLD , 11 ) );
 
 		// For setting the border
-		southPanel.setBorder( BorderFactory.createEtchedBorder() );
+		this.southPanel.setBorder( BorderFactory.createEtchedBorder() );
 
 		// For adding the south panel to the container
-		cp.add( "South" , southPanel );
+		cp.add( "South" , this.southPanel );
 
 		/***********************************************************************
 		 * For adding the action listener to the button,first the text will be *
@@ -210,10 +214,10 @@ public class ReturnBooks extends JInternalFrame implements ActionListener{
 		 * after that update the table in the database with the new value *
 		 ***********************************************************************/
 
-		returnButton.addActionListener( this );
+		this.returnButton.addActionListener( this );
 
 		// For adding the action listener for the button to dispose the frame
-		cancelButton.addActionListener( this );
+		this.cancelButton.addActionListener( this );
 
 		// For setting the visible to true
 		setVisible( true );
@@ -222,24 +226,26 @@ public class ReturnBooks extends JInternalFrame implements ActionListener{
 		pack();
 	}
 
+	@Override
 	public void actionPerformed ( ActionEvent ae ){
 
-		if ( ae.getSource() == returnButton ){
+		if ( ae.getSource() == this.returnButton ){
 
 			// For checking if there is a missing information
 			if ( isCorrect() ){
 				Thread runner = new Thread(){
 
+					@Override
 					public void run (){
 
-						book = new Books();
-						member = new Members();
-						borrow = new Borrow();
-						book.connection( "SELECT * FROM Books WHERE BookID = " + data[0] );
-						member.connection( "SELECT * FROM Members WHERE MemberID = " + data[1] );
-						int numberOfAvailbleBooks = book.getNumberOfAvailbleBooks();
-						int numberOfBorrowedBooks = book.getNumberOfBorrowedBooks() - 1;
-						int numberOfBooks = member.getNumberOfBooks();
+						ReturnBooks.this.setBook(new Books());
+						ReturnBooks.this.setMember(new Members());
+						ReturnBooks.this.setBorrow(new Borrow());
+						getBook().connection( "SELECT * FROM Books WHERE BookID = " + ReturnBooks.this.getData()[0] );
+						getMember().connection( "SELECT * FROM Members WHERE MemberID = " + getData()[1] );
+						int numberOfAvailbleBooks = getBook().getNumberOfAvailbleBooks();
+						int numberOfBorrowedBooks = getBook().getNumberOfBorrowedBooks() - 1;
+						int numberOfBooks = getMember().getNumberOfBooks();
 
 						// For checking if there is no same information in the
 						// database
@@ -248,10 +254,10 @@ public class ReturnBooks extends JInternalFrame implements ActionListener{
 							numberOfAvailbleBooks += 1;
 							numberOfBooks -= 1;
 
-							book.update( "UPDATE Books SET NumberOfAvailbleBooks =" + numberOfAvailbleBooks + ",NumberOfBorrowedBooks ="
-									+ numberOfBorrowedBooks + ",Availble = true WHERE BookID =" + data[0] );
-							member.update( "UPDATE Members SET NumberOfBooks =" + numberOfBooks + " WHERE MemberID =" + data[1] );
-							borrow.update( "DELETE FROM Borrow WHERE BookID =" + data[0] + " AND MemberID =" + data[1] );
+							getBook().update( "UPDATE Books SET NumberOfAvailbleBooks =" + numberOfAvailbleBooks + ",NumberOfBorrowedBooks ="
+									+ numberOfBorrowedBooks + ",Availble = true WHERE BookID =" + getData()[0] );
+							getMember().update( "UPDATE Members SET NumberOfBooks =" + numberOfBooks + " WHERE MemberID =" + getData()[1] );
+							getBorrow().update( "DELETE FROM Borrow WHERE BookID =" + getData()[0] + " AND MemberID =" + getData()[1] );
 
 							// For setting the array of JTextField to null
 							JOptionPane.showMessageDialog( null , "The book is Successfully returned" , "Success" ,
@@ -263,10 +269,10 @@ public class ReturnBooks extends JInternalFrame implements ActionListener{
 							numberOfAvailbleBooks += 1;
 							numberOfBooks -= 1;
 
-							book.update( "UPDATE Books SET NumberOfAvailbleBooks =" + numberOfAvailbleBooks + ",NumberOfBorrowedBooks ="
-									+ numberOfBorrowedBooks + " WHERE BookID =" + data[0] );
-							member.update( "UPDATE Members SET NumberOfBooks =" + numberOfBooks + " WHERE MemberID =" + data[1] );
-							borrow.update( "DELETE FROM Borrow WHERE BookID =" + data[0] + " AND MemberID =" + data[1] );
+							getBook().update( "UPDATE Books SET NumberOfAvailbleBooks =" + numberOfAvailbleBooks + ",NumberOfBorrowedBooks ="
+									+ numberOfBorrowedBooks + " WHERE BookID =" + getData()[0] );
+							getMember().update( "UPDATE Members SET NumberOfBooks =" + numberOfBooks + " WHERE MemberID =" + getData()[1] );
+							getBorrow().update( "DELETE FROM Borrow WHERE BookID =" + getData()[0] + " AND MemberID =" + getData()[1] );
 
 							// For setting the array of JTextField to null
 							JOptionPane.showMessageDialog( null , "The book is Successfully Returned" , "Success" ,
@@ -285,15 +291,72 @@ public class ReturnBooks extends JInternalFrame implements ActionListener{
 				JOptionPane.showMessageDialog( null , "Please, complete the information" , "Warning" , JOptionPane.WARNING_MESSAGE );
 			}
 		}
-		if ( ae.getSource() == cancelButton ){
+		if ( ae.getSource() == this.cancelButton ){
 			dispose();
 		}else{
 			// No action
 		}
 	}
 
+	public Books getBook(){
+		return this.book;
+	}
+
+	public void setBook( Books book ){
+		this.book = book;
+	}
+
+	public Members getMember(){
+		return this.member;
+	}
+
+	public void setMember( Members member ){
+		this.member = member;
+	}
+
+	public Borrow getBorrow(){
+		return this.borrow;
+	}
+
+	public void setBorrow( Borrow borrow ){
+		this.borrow = borrow;
+	}
+
+	public String[] getData(){
+		return this.data;
+	}
+
+	public void setData( String[] data ){
+		this.data = data;
+	}
+
+	public JTextField getTxtFinePerDay(){
+		return this.txtFinePerDay;
+	}
+
+	public void setTxtFinePerDay( JTextField txtFinePerDay ){
+		this.txtFinePerDay = txtFinePerDay;
+	}
+
+	public JTextField[] getInformationTextField(){
+		return this.informationTextField;
+	}
+
+	public void setInformationTextField( JTextField[] informationTextField ){
+		this.informationTextField = informationTextField;
+	}
+
+	public JTextField getTxtTotalFineAmt(){
+		return this.txtTotalFineAmt;
+	}
+
+	public void setTxtTotalFineAmt( JTextField txtTotalFineAmt ){
+		this.txtTotalFineAmt = txtTotalFineAmt;
+	}
+
 	class keyListener extends KeyAdapter{
 
+		@Override
 		public void keyPressed ( KeyEvent k ){
 
 			java.sql.Date da = null;
@@ -302,12 +365,12 @@ public class ReturnBooks extends JInternalFrame implements ActionListener{
 
 				try{
 
-					int fineamt = Integer.parseInt( txtFinePerDay.getText() );
+					int fineamt = Integer.parseInt( ReturnBooks.this.getTxtFinePerDay().getText() );
 					Class.forName( "sun.jdbc.odbc.JdbcOdbcDriver" );
 					Connection con = DriverManager.getConnection( "jdbc:odbc:JLibrary" );
 					Statement st = con.createStatement();
-					int bookid = Integer.parseInt( informationTextField[0].getText() );
-					int memid = Integer.parseInt( informationTextField[1].getText() );
+					int bookid = Integer.parseInt( ReturnBooks.this.getInformationTextField()[0].getText() );
+					int memid = Integer.parseInt( getInformationTextField()[1].getText() );
 
 					try{
 
@@ -336,10 +399,10 @@ public class ReturnBooks extends JInternalFrame implements ActionListener{
 								final int HOURS = 24;
 								int days = (int) ( finedays / ( 1000 * SECONDS * MINUTES * HOURS ) );
 								System.out.println( days );
-								txtTotalFineAmt.setText( String.valueOf( fineamt * days ) );
+								ReturnBooks.this.getTxtTotalFineAmt().setText( String.valueOf( fineamt * days ) );
 
 							}else{
-								txtTotalFineAmt.setText( "0" );
+								getTxtTotalFineAmt().setText( "0" );
 							}
 						}else{
 							JOptionPane.showMessageDialog( null , "Member ID entered not found on databse" );

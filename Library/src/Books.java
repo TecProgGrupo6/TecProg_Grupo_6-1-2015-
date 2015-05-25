@@ -66,72 +66,72 @@ public class Books{
 
 	public int getBookID (){
 
-		return bookID;
+		return this.bookID;
 	}
 
 	public String getSubject (){
 
-		return subject;
+		return this.subject;
 	}
 
 	public String getTitle (){
 
-		return title;
+		return this.title;
 	}
 
 	public String getAuthor (){
 
-		return author;
+		return this.author;
 	}
 
 	public String getPublisher (){
 
-		return publisher;
+		return this.publisher;
 	}
 
 	public int getCopyright (){
 
-		return copyright;
+		return this.copyright;
 	}
 
 	public int getEdition (){
 
-		return edition;
+		return this.edition;
 	}
 
 	public int getPages (){
 
-		return pages;
+		return this.pages;
 	}
 
 	public String getISBN (){
 
-		return ISBN;
+		return this.ISBN;
 	}
 
 	public int getNumberOfBooks (){
 
-		return numberOfBooks;
+		return this.numberOfBooks;
 	}
 
 	public int getNumberOfAvailbleBooks (){
 
-		return numberOfAvailbleBooks;
+		return this.numberOfAvailbleBooks;
 	}
 
 	public int getNumberOfBorrowedBooks (){
 
-		return numberOfBorrowedBooks;
+		return this.numberOfBorrowedBooks;
 	}
 
 	public String getLibrary (){
 
-		return library;
+		return this.library;
 	}
 
 	public boolean getAvailble (){
 
-		return availble;
+		return this.availble;
 	}
 
 	// Establishing connection
@@ -162,36 +162,36 @@ public class Books{
 
 		try{
 
-			connection = DriverManager.getConnection( URL );
-			statement = connection.createStatement();
-			resultSet = statement.executeQuery( Query );
+			this.connection = DriverManager.getConnection( this.URL );
+			this.statement = this.connection.createStatement();
+			this.resultSet = this.statement.executeQuery( Query );
 
-			while ( resultSet.next() ){
+			while ( this.resultSet.next() ){
 
 				// Getting the book specification
-				bookID = resultSet.getInt( 1 );
-				subject = resultSet.getString( 2 );
-				title = resultSet.getString( 3 );
-				author = resultSet.getString( 4 );
-				publisher = resultSet.getString( 5 );
-				copyright = resultSet.getInt( 6 );
-				edition = resultSet.getInt( 7 );
-				pages = resultSet.getInt( 8 );
-				ISBN = resultSet.getString( 9 );
-				numberOfBooks = resultSet.getInt( 10 );
-				numberOfAvailbleBooks = resultSet.getInt( 11 );
-				numberOfBorrowedBooks = resultSet.getInt( 12 );
-				library = resultSet.getString( 13 );
-				availble = resultSet.getBoolean( 14 );
+				this.bookID = this.resultSet.getInt( 1 );
+				this.subject = this.resultSet.getString( 2 );
+				this.title = this.resultSet.getString( 3 );
+				this.author = this.resultSet.getString( 4 );
+				this.publisher = this.resultSet.getString( 5 );
+				this.copyright = this.resultSet.getInt( 6 );
+				this.edition = this.resultSet.getInt( 7 );
+				this.pages = this.resultSet.getInt( 8 );
+				this.ISBN = this.resultSet.getString( 9 );
+				this.numberOfBooks = this.resultSet.getInt( 10 );
+				this.numberOfAvailbleBooks = this.resultSet.getInt( 11 );
+				this.numberOfBorrowedBooks = this.resultSet.getInt( 12 );
+				this.library = this.resultSet.getString( 13 );
+				this.availble = this.resultSet.getBoolean( 14 );
 
 			}
 			
 			LOGGER.setLevel( Level.INFO );
 			LOGGER.info("Connection established");
 
-			resultSet.close();
-			statement.close();
-			connection.close();
+			this.resultSet.close();
+			this.statement.close();
+			this.connection.close();
 
 		}catch ( SQLException SQLe ){
 
@@ -228,11 +228,11 @@ public class Books{
 		try{
 
 			// connection = DriverManager.getConnection("jdbc:odbc:JLibrary2");
-			connection = DriverManager.getConnection( URL );
-			statement = connection.createStatement();
-			statement.executeUpdate( Query );
-			statement.close();
-			connection.close();
+			this.connection = DriverManager.getConnection( this.URL );
+			this.statement = this.connection.createStatement();
+			this.statement.executeUpdate( Query );
+			this.statement.close();
+			this.connection.close();
 			
 			LOGGER.setLevel( Level.INFO );
 			LOGGER.info("Updated");

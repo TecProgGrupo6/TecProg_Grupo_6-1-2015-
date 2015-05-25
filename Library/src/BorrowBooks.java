@@ -24,11 +24,12 @@ import javax.swing.JTextField;
 /**
  * A public class
  */
+@SuppressWarnings ( "serial" )
 public class BorrowBooks extends JInternalFrame{
 
 	// Log system from AddBooks Class
 	private final static Logger LOGGER = Logger.getLogger( BorrowBooks.class.getName() );
-			
+
 	/***************************************************************************
 	 *** declaration of the private variables used in the program ***
 	 ***************************************************************************/
@@ -37,6 +38,7 @@ public class BorrowBooks extends JInternalFrame{
 	private JPanel northPanel = new JPanel();
 
 	// For creating the label.
+	@SuppressWarnings ( "hiding" )
 	private JLabel title = new JLabel( "BOOK INFORMATION" );
 
 	// For creating the Center Panel.
@@ -82,20 +84,22 @@ public class BorrowBooks extends JInternalFrame{
 	// To check the information from the text field.
 	public boolean isCorrect (){
 
-		data = new String[4];
-		for ( int i = 0 ; i < informationLabel.length ; i++ ){
-			if ( !informationTextField[i].getText().equals( "" ) ){
+		this.data = new String[4];
 
-				data[i] = informationTextField[i].getText();
-				
+		for ( int i = 0 ; i < this.informationLabel.length ; i++ ){
+
+			if ( !this.informationTextField[i].getText().equals( "" ) ){
+
+				this.data[i] = this.informationTextField[i].getText();
+
 				LOGGER.setLevel( Level.INFO );
-				LOGGER.info("Is correct");
+				LOGGER.info( "Is correct" );
 
 			}else{
-				
+
 				LOGGER.setLevel( Level.INFO );
-				LOGGER.info("Is not correct");
-				
+				LOGGER.info( "Is not correct" );
+
 				return false;
 			}
 		}
@@ -105,44 +109,47 @@ public class BorrowBooks extends JInternalFrame{
 	// For setting the array of JTextField to null.
 	public void clearTextField (){
 
-		for ( int i = 0 ; i < informationTextField.length ; i++ )
+		for ( int i = 0 ; i < this.informationTextField.length ; i++ ){
+
 			if ( i != 2 ){
 
-				informationTextField[i].setText( null );
+				this.informationTextField[i].setText( null );
 
 			}else{
+
 				// No action
 			}
+		}
 	}
-	
-	void addingTheStringsToTheLabels(){
-		
+
+	void addingTheStringsToTheLabels (){
+
 		/***********************************************************************
 		 * for adding the strings to the labels, for setting the font * and
 		 * adding these labels to the panel. * finally adding the panel to the
 		 * container *
 		 ***********************************************************************/
-		for ( int i = 0 ; i < informationLabel.length ; i++ ){
-	
-			informationPanel.add( informationLabel[i] = new JLabel( informationString[i] ) );
-			informationLabel[i].setFont( new Font( "Tahoma" , Font.BOLD , 11 ) );
-	
+		for ( int i = 0 ; i < this.informationLabel.length ; i++ ){
+
+			this.informationPanel.add( this.informationLabel[i] = new JLabel( this.informationString[i] ) );
+			this.informationLabel[i].setFont( new Font( "Tahoma" , Font.BOLD , 11 ) );
+
 			if ( i == 2 ){
-	
-				informationPanel.add( informationTextField[i] = new JTextField( date ) );
-				informationTextField[i].setFont( new Font( "Tahoma" , Font.PLAIN , 11 ) );
-				informationTextField[i].setEnabled( false );
-	
+
+				this.informationPanel.add( this.informationTextField[i] = new JTextField( this.date ) );
+				this.informationTextField[i].setFont( new Font( "Tahoma" , Font.PLAIN , 11 ) );
+				this.informationTextField[i].setEnabled( false );
+
 			}else{
-	
-				informationPanel.add( informationTextField[i] = new JTextField() );
-				informationTextField[i].setFont( new Font( "Tahoma" , Font.PLAIN , 11 ) );
+
+				this.informationPanel.add( this.informationTextField[i] = new JTextField() );
+				this.informationTextField[i].setFont( new Font( "Tahoma" , Font.PLAIN , 11 ) );
 			}
 		}
-		
+
 		LOGGER.setLevel( Level.INFO );
-		LOGGER.info("String added");
-		
+		LOGGER.info( "String added" );
+
 	}
 
 	// Constructor of borrowBooks.
@@ -158,100 +165,107 @@ public class BorrowBooks extends JInternalFrame{
 		Container cp = getContentPane();
 
 		// For setting the layout.
-		northPanel.setLayout( new FlowLayout( FlowLayout.CENTER ) );
+		this.northPanel.setLayout( new FlowLayout( FlowLayout.CENTER ) );
 
 		// For setting the font.
-		title.setFont( new Font( "Tahoma" , Font.BOLD , 14 ) );
+		this.title.setFont( new Font( "Tahoma" , Font.BOLD , 14 ) );
 
 		// For adding the label to the panel.
-		northPanel.add( title );
+		this.northPanel.add( this.title );
 
 		// For adding the panel to the container.
-		cp.add( "North" , northPanel );
+		cp.add( "North" , this.northPanel );
 
 		// For setting the layout.
-		centerPanel.setLayout( new BorderLayout() );
+		this.centerPanel.setLayout( new BorderLayout() );
 
 		// For setting the layout for the internal panel.
-		informationPanel.setLayout( new GridLayout( 4 , 2 , 1 , 1 ) );
+		this.informationPanel.setLayout( new GridLayout( 4 , 2 , 1 , 1 ) );
 
 		addingTheStringsToTheLabels();
-		
-		centerPanel.add( "Center" , informationPanel );
+
+		this.centerPanel.add( "Center" , this.informationPanel );
 
 		// For setting the layout.
-		borrowButtonPanel.setLayout( new FlowLayout( FlowLayout.RIGHT ) );
+		this.borrowButtonPanel.setLayout( new FlowLayout( FlowLayout.RIGHT ) );
 
 		// For setting the font to the button.
-		borrowButton.setFont( new Font( "Tahoma" , Font.BOLD , 11 ) );
+		this.borrowButton.setFont( new Font( "Tahoma" , Font.BOLD , 11 ) );
 
 		// For adding the button to the panel.
-		borrowButtonPanel.add( borrowButton );
+		this.borrowButtonPanel.add( this.borrowButton );
 
 		// For adding the panel to the center panel.
-		centerPanel.add( "South" , borrowButtonPanel );
+		this.centerPanel.add( "South" , this.borrowButtonPanel );
 
 		// For setting the border to the panel.
-		centerPanel.setBorder( BorderFactory.createTitledBorder( "Borrow a book:" ) );
+		this.centerPanel.setBorder( BorderFactory.createTitledBorder( "Borrow a book:" ) );
 
 		// For adding the panel to the container.
-		cp.add( "Center" , centerPanel );
+		cp.add( "Center" , this.centerPanel );
 
 		// For adding the layout.
-		southPanel.setLayout( new FlowLayout( FlowLayout.RIGHT ) );
+		this.southPanel.setLayout( new FlowLayout( FlowLayout.RIGHT ) );
 
 		// For setting the font to the button.
-		cancelButton.setFont( new Font( "Tahoma" , Font.BOLD , 11 ) );
+		this.cancelButton.setFont( new Font( "Tahoma" , Font.BOLD , 11 ) );
 
 		// For adding the button to the panel.
-		southPanel.add( cancelButton );
+		this.southPanel.add( this.cancelButton );
 
 		// For setting the border to the panel.
-		southPanel.setBorder( BorderFactory.createEtchedBorder() );
+		this.southPanel.setBorder( BorderFactory.createEtchedBorder() );
 
 		// For adding the panel to the container.
-		cp.add( "South" , southPanel );
+		cp.add( "South" , this.southPanel );
 
 		/***********************************************************************
 		 * for adding the action listener to the button,first the text will be *
 		 * taken from the JTextField[] and make the connection for database, *
 		 * after that update the table in the database with the new value *
 		 ***********************************************************************/
-		borrowButton.addActionListener( new ActionListener(){
+		this.borrowButton.addActionListener( new ActionListener(){
 
+			@Override
 			public void actionPerformed ( ActionEvent ae ){
 
 				// For checking if there is a missing information.
 				if ( isCorrect() ){
 					Thread runner = new Thread(){
 
+						@SuppressWarnings ( "synthetic-access" )
+						@Override
 						public void run (){
 
-							book = new Books();
-							member = new Members();
-							borrow = new Borrow();
-							book.connection( "SELECT * FROM Books WHERE BookID = " + data[0] );
-							member.connection( "SELECT * FROM Members WHERE MemberID = " + data[1] );
+							BorrowBooks.this.book = new Books();
+							BorrowBooks.this.member = new Members();
+							BorrowBooks.this.borrow = new Borrow();
+							BorrowBooks.this.book.connection( "SELECT * FROM Books WHERE BookID = " + BorrowBooks.this.data[0] );
+							BorrowBooks.this.member.connection( "SELECT * FROM Members WHERE MemberID = " + BorrowBooks.this.data[1] );
 
-							int numberOfAvailbleBooks = book.getNumberOfAvailbleBooks();
-							int numberOfBorrowedBooks = 1 + book.getNumberOfBorrowedBooks();
-							int numberOfBooks = 1 + member.getNumberOfBooks();
+							int numberOfAvailbleBooks = BorrowBooks.this.book.getNumberOfAvailbleBooks();
+							int numberOfBorrowedBooks = 1 + BorrowBooks.this.book.getNumberOfBorrowedBooks();
+							int numberOfBooks = 1 + BorrowBooks.this.member.getNumberOfBooks();
 
 							// For checking if there is no same information in.
 							// The database.
 							if ( numberOfAvailbleBooks == 1 ){
 
 								numberOfAvailbleBooks -= 1;
-								book.update( "UPDATE Books SET NumberOfAvailbleBooks =" + numberOfAvailbleBooks
-										+ ",NumberOfBorrowedBooks =" + numberOfBorrowedBooks + ",Availble = false WHERE BookID =" + data[0] );
+								BorrowBooks.this.book.update( "UPDATE Books SET NumberOfAvailbleBooks =" + numberOfAvailbleBooks
+										+ ",NumberOfBorrowedBooks =" + numberOfBorrowedBooks + ",Availble = false WHERE BookID ="
+										+ BorrowBooks.this.data[0] );
 
-								member.update( "UPDATE Members SET NumberOfBooks = " + numberOfBooks + " WHERE MemberID = " + data[1] );
+								BorrowBooks.this.member.update( "UPDATE Members SET NumberOfBooks = " + numberOfBooks
+										+ " WHERE MemberID = " + BorrowBooks.this.data[1] );
 
-								borrow.update( "INSERT INTO Borrow (BookID, MemberID, DayOfBorrowed, DayOfReturn) VALUES (" + data[0] + ","
-										+ data[1] + ",'" + data[2] + "','" + data[3] + "')" );
-								
+								BorrowBooks.this.borrow
+										.update( "INSERT INTO Borrow (BookID, MemberID, DayOfBorrowed, DayOfReturn) VALUES ("
+												+ BorrowBooks.this.data[0] + "," + BorrowBooks.this.data[1] + ",'"
+												+ BorrowBooks.this.data[2] + "','" + BorrowBooks.this.data[3] + "')" );
+
 								LOGGER.setLevel( Level.INFO );
-								LOGGER.info("Informations updated");
+								LOGGER.info( "Informations updated" );
 
 								// For setting the array of JTextField to null
 								clearTextField();
@@ -259,23 +273,29 @@ public class BorrowBooks extends JInternalFrame{
 							}else if ( numberOfAvailbleBooks > 1 ){
 
 								numberOfAvailbleBooks -= 1;
-								book.update( "UPDATE Books SET NumberOfAvailbleBooks =" + numberOfAvailbleBooks
-										+ ",NumberOfBorrowedBooks =" + numberOfBorrowedBooks + " WHERE BookID =" + data[0] );
+								BorrowBooks.this.book
+										.update( "UPDATE Books SET NumberOfAvailbleBooks =" + numberOfAvailbleBooks
+												+ ",NumberOfBorrowedBooks =" + numberOfBorrowedBooks + " WHERE BookID ="
+												+ BorrowBooks.this.data[0] );
 
-								member.update( "UPDATE Members SET NumberOfBooks =" + numberOfBooks + " WHERE MemberID =" + data[1] );
+								BorrowBooks.this.member.update( "UPDATE Members SET NumberOfBooks =" + numberOfBooks + " WHERE MemberID ="
+										+ BorrowBooks.this.data[1] );
 
-								borrow.update( "INSERT INTO Borrow (BookID, MemberID, DayOfBorrowed, DayOfReturn) VALUES (" + data[0] + ","
-										+ data[1] + ",'" + data[2] + "','" + data[3] + "')" );
+								BorrowBooks.this.borrow
+										.update( "INSERT INTO Borrow (BookID, MemberID, DayOfBorrowed, DayOfReturn) VALUES ("
+												+ BorrowBooks.this.data[0] + "," + BorrowBooks.this.data[1] + ",'"
+												+ BorrowBooks.this.data[2] + "','" + BorrowBooks.this.data[3] + "')" );
 
 								// For setting the array of JTextField to null.
 								JOptionPane.showMessageDialog( null , "The book is Successfully borrowed" , "Success" ,
 										JOptionPane.INFORMATION_MESSAGE );
 								clearTextField();
-								
+
 								LOGGER.setLevel( Level.INFO );
-								LOGGER.info("Informations updated");
+								LOGGER.info( "Informations updated" );
 
 							}else{
+								
 								JOptionPane
 										.showMessageDialog( null , "The book is Not Available" , "Warning" , JOptionPane.WARNING_MESSAGE );
 							}
@@ -285,14 +305,16 @@ public class BorrowBooks extends JInternalFrame{
 				}
 				// If there is a missing data, then display Message Dialog.
 				else{
+					
 					JOptionPane.showMessageDialog( null , "Please, complete the information" , "Warning" , JOptionPane.WARNING_MESSAGE );
 				}
 			}
 		} );
 
 		// For adding the action listener for the button to dispose the frame.
-		cancelButton.addActionListener( new ActionListener(){
+		this.cancelButton.addActionListener( new ActionListener(){
 
+			@Override
 			public void actionPerformed ( ActionEvent ae ){
 
 				dispose();
@@ -302,9 +324,9 @@ public class BorrowBooks extends JInternalFrame{
 		setVisible( true );
 		// Show the internal frame.
 		pack();
-		
+
 		LOGGER.setLevel( Level.INFO );
-		LOGGER.info("Book Borrowed");
-		
+		LOGGER.info( "Book Borrowed" );
+
 	}
 }

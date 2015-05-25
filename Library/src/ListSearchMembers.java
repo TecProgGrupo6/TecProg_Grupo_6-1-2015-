@@ -1,9 +1,11 @@
 //import the packages for using the classes in them into the program
 
-import javax.swing.*;
-import javax.swing.table.TableColumn;
-
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Container;
+import java.awt.Cursor;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.print.PrinterException;
@@ -12,10 +14,25 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JInternalFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.table.TableColumn;
+
 /**
  * A public class
  */
 public class ListSearchMembers extends JInternalFrame{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	// Log system from ListSearchMembers class
 	private final static Logger LOGGER = Logger.getLogger( ListSearchMembers.class.getName() );
@@ -73,14 +90,15 @@ public class ListSearchMembers extends JInternalFrame{
 
 		// For bassing the required information to the ResultSetTableModel
 		// object
+		ResultSetTableModel tableModel2 = this.tableModel;
 		try{
 
-			tableModel = new ResultSetTableModel( JDBC_DRIVER , DATABASE_URL , DEFAULT_QUERY );
+			this.tableModel = new ResultSetTableModel( JDBC_DRIVER , DATABASE_URL , DEFAULT_QUERY );
 
 			// for setting the Query
 			try{
-				tableModel.setQuery( DEFAULT_QUERY );
-			}catch ( SQLException sqlException ){
+				tableModel2.setQuery( DEFAULT_QUERY );
+			}catch ( @SuppressWarnings("unused") SQLException sqlException ){
 
 				// Nothing to do
 			}
@@ -88,102 +106,104 @@ public class ListSearchMembers extends JInternalFrame{
 
 			System.out.println( "ListSearchMembers.java\n" + classNotFound.toString() );
 
-		}catch ( SQLException sqlException ){
+		}catch ( @SuppressWarnings("unused") SQLException sqlException ){
 
 			// Nothing to do
 		}
 
 		// For setting the table with the information
-		table = new JTable( tableModel );
+		this.table = new JTable( tableModel2 );
 
 		// For setting the size for the table
-		table.setPreferredScrollableViewportSize( new Dimension( 700 , 200 ) );
+		JTable table2 = this.table;
+		table2.setPreferredScrollableViewportSize( new Dimension( 700 , 200 ) );
 
 		// For setting the font
-		table.setFont( new Font( "Tahoma" , Font.PLAIN , 12 ) );
+		table2.setFont( new Font( "Tahoma" , Font.PLAIN , 12 ) );
 
-		// For setting the scrollpane to the table
-		scrollPane = new JScrollPane( table );
+		this.scrollPane = new JScrollPane( table2 );
 
 		// For setting the size for the table columns
 		for ( int i = 0 ; i < 6 ; i++ ){
 
-			column = table.getColumnModel().getColumn( i );
+			this.column = this.table.getColumnModel().getColumn( i );
 
 			if ( i == 0 ){// MemberID
 
-				column.setPreferredWidth( 30 );
+				this.column.setPreferredWidth( 30 );
 
 			}else if ( i == 1 ){// ID
 
-				column.setPreferredWidth( 20 );
+				this.column.setPreferredWidth( 20 );
 
 			}else if ( i == 2 ){// Name
 
-				column.setPreferredWidth( 150 );
+				this.column.setPreferredWidth( 150 );
 
 			}else if ( i == 3 ){// E-MAIL
 
-				column.setPreferredWidth( 120 );
+				this.column.setPreferredWidth( 120 );
 
 			}else if ( i == 4 ){// Major
 
-				column.setPreferredWidth( 20 );
+				this.column.setPreferredWidth( 20 );
 
 			}else if ( i == 5 ){// Expired
 
-				column.setPreferredWidth( 40 );
+				this.column.setPreferredWidth( 40 );
 
 			}else{
 				// No action
 			}
 
 			// For setting the font to the label
-			label.setFont( new Font( "Tahoma" , Font.BOLD , 14 ) );
+			this.label.setFont( new Font( "Tahoma" , Font.BOLD , 14 ) );
 
 			// For setting the layout to the panel
-			northPanel.setLayout( new FlowLayout( FlowLayout.CENTER ) );
+			this.northPanel.setLayout( new FlowLayout( FlowLayout.CENTER ) );
 
 			// For adding the label to the panel
-			northPanel.add( label );
+			this.northPanel.add( this.label );
 
 			// For adding the panel to the container
-			cp.add( "North" , northPanel );
+			cp.add( "North" , this.northPanel );
 
 			// For setting the layout to the panel
-			centerPanel.setLayout( new BorderLayout() );
+			this.centerPanel.setLayout( new BorderLayout() );
 
 			// For creating an image for the button
 			ImageIcon printIcon = new ImageIcon( ClassLoader.getSystemResource( "images/Print16.gif" ) );
 
 			// For adding the button to the panel
-			printButton = new JButton( "print the members" , printIcon );
+			this.printButton = new JButton( "print the members" , printIcon );
 
 			// For setting the tip text
-			printButton.setToolTipText( "Print" );
+			this.printButton.setToolTipText( "Print" );
 
 			// For setting the font to the button
-			printButton.setFont( new Font( "Tahoma" , Font.PLAIN , 12 ) );
+			this.printButton.setFont( new Font( "Tahoma" , Font.PLAIN , 12 ) );
 
 			// For adding the button to the panel
-			centerPanel.add( printButton , BorderLayout.NORTH );
+			this.centerPanel.add( this.printButton , BorderLayout.NORTH );
 
 			// For adding the scrollpane to the panel
-			centerPanel.add( scrollPane , BorderLayout.CENTER );
+			this.centerPanel.add( this.scrollPane , BorderLayout.CENTER );
 
 			// For setting the border to the panel
-			centerPanel.setBorder( BorderFactory.createTitledBorder( "Members:" ) );
+			this.centerPanel.setBorder( BorderFactory.createTitledBorder( "Members:" ) );
 
 			// For adding the panel to the container
-			cp.add( "Center" , centerPanel );
+			cp.add( "Center" , this.centerPanel );
 
 			// for adding the actionListener to the button
-			printButton.addActionListener( new ActionListener(){
+			this.printButton.addActionListener( new ActionListener(){
 
+				@Override
 				public void actionPerformed ( ActionEvent ae ){
 
 					Thread runner = new Thread(){
 
+						@Override
 						public void run (){
 
 							try{

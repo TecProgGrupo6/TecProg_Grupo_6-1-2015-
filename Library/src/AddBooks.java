@@ -30,6 +30,7 @@ import java.util.logging.Logger;
 /**
  * A public class
  */
+@SuppressWarnings ( "serial" )
 public class AddBooks extends JInternalFrame{
 	
 	// Log system from AddBooks Class
@@ -89,16 +90,16 @@ public class AddBooks extends JInternalFrame{
 	private boolean availble = true;
 
 	// For checking the information from the text field.
-	double informationLabelLength = informationLabel.length;
+	double informationLabelLength = this.informationLabel.length;
 
 	public boolean isCorrect (){
 
-		data = new String[10];
-		for ( int i = 0 ; i < informationLabelLength ; i++ ){
+		this.data = new String[10];
+		for ( int i = 0 ; i < this.informationLabelLength ; i++ ){
 
-			if ( !informationTextField[i].getText().equals( "" ) ){
+			if ( !this.informationTextField[i].getText().equals( "" ) ){
 
-				data[i] = informationTextField[i].getText();
+				this.data[i] = this.informationTextField[i].getText();
 				
 				LOGGER.setLevel( Level.INFO );
 				LOGGER.info("Information is Correct");
@@ -111,15 +112,15 @@ public class AddBooks extends JInternalFrame{
 	}
 
 	// For setting the array of JTextField to empty.
-	double informationTextFieldLength = informationTextField.length;
+	double informationTextFieldLength = this.informationTextField.length;
 
 	public void clearTextField (){
 
-		for ( int i = 0 ; i < informationTextFieldLength ; i++ ){
+		for ( int i = 0 ; i < this.informationTextFieldLength ; i++ ){
 
-			informationTextField[i].setText( null );
+			this.informationTextField[i].setText( null );
 		}
-		txtShelfNo.setText( null );
+		this.txtShelfNo.setText( null );
 	}
 	
 	
@@ -130,22 +131,22 @@ public class AddBooks extends JInternalFrame{
 		 * and adding the button to the panel. * finally adding the panel to the
 		 * container *
 		 ***********************************************************************/
-		insertInformationButtonPanel.setLayout( new FlowLayout( FlowLayout.RIGHT ) );
-		insertInformationButton.setFont( new Font( "Tahoma" , Font.BOLD , 11 ) );
-		insertInformationButtonPanel.add( insertInformationButton );
-		centerPanel.add( "South" , insertInformationButtonPanel );
-		cp.add( "Center" , centerPanel );
+		this.insertInformationButtonPanel.setLayout( new FlowLayout( FlowLayout.RIGHT ) );
+		this.insertInformationButton.setFont( new Font( "Tahoma" , Font.BOLD , 11 ) );
+		this.insertInformationButtonPanel.add( this.insertInformationButton );
+		this.centerPanel.add( "South" , this.insertInformationButtonPanel );
+		cp.add( "Center" , this.centerPanel );
 	
 		/***********************************************************************
 		 * for setting the layout for the panel,setting the font for the button*
 		 * adding the button to the panel & setting the border. * finally adding
 		 * the panel to the container *
 		 ***********************************************************************/
-		southPanel.setLayout( new FlowLayout( FlowLayout.RIGHT ) );
-		OKButton.setFont( new Font( "Tahoma" , Font.BOLD , 11 ) );
-		southPanel.add( OKButton );
-		southPanel.setBorder( BorderFactory.createEtchedBorder() );
-		cp.add( "South" , southPanel );
+		this.southPanel.setLayout( new FlowLayout( FlowLayout.RIGHT ) );
+		this.OKButton.setFont( new Font( "Tahoma" , Font.BOLD , 11 ) );
+		this.southPanel.add( this.OKButton );
+		this.southPanel.setBorder( BorderFactory.createEtchedBorder() );
+		cp.add( "South" , this.southPanel );
 		
 
 		LOGGER.setLevel( Level.INFO );
@@ -167,56 +168,56 @@ public class AddBooks extends JInternalFrame{
 		Container cp = getContentPane();
 
 		// For setting the layout.
-		northPanel.setLayout( new FlowLayout( FlowLayout.CENTER ) );
+		this.northPanel.setLayout( new FlowLayout( FlowLayout.CENTER ) );
 
 		// For setting the font for the North Panel.
-		northLabel.setFont( new Font( "Tahoma" , Font.BOLD , 14 ) );
+		this.northLabel.setFont( new Font( "Tahoma" , Font.BOLD , 14 ) );
 
 		// For adding the label in the North Panel.
-		northPanel.add( northLabel );
+		this.northPanel.add( this.northLabel );
 
 		// For adding the north panel to the container.
-		cp.add( "North" , northPanel );
+		cp.add( "North" , this.northPanel );
 
 		// For setting the layout.
-		centerPanel.setLayout( new BorderLayout() );
+		this.centerPanel.setLayout( new BorderLayout() );
 
 		// For setting the border to the panel.
-		centerPanel.setBorder( BorderFactory.createTitledBorder( "Add a new book:" ) );
+		this.centerPanel.setBorder( BorderFactory.createTitledBorder( "Add a new book:" ) );
 
 		// For setting the layout.
-		informationLabelPanel.setLayout( new GridLayout( 11 , 1 , 1 , 1 ) );
+		this.informationLabelPanel.setLayout( new GridLayout( 11 , 1 , 1 , 1 ) );
 
 		/***********************************************************************
 		 * for adding the strings to the labels, for setting the font * and
 		 * adding these labels to the panel. * finally adding the panel to the
 		 * container *
 		 ***********************************************************************/
-		for ( int i = 0 ; i < informationLabel.length ; i++ ){
+		for ( int i = 0 ; i < this.informationLabel.length ; i++ ){
 
-			informationLabelPanel.add( informationLabel[i] = new JLabel( informationString[i] ) );
-			informationLabel[i].setFont( new Font( "Tahoma" , Font.BOLD , 11 ) );
+			this.informationLabelPanel.add( this.informationLabel[i] = new JLabel( this.informationString[i] ) );
+			this.informationLabel[i].setFont( new Font( "Tahoma" , Font.BOLD , 11 ) );
 
 		}
-		centerPanel.add( "West" , informationLabelPanel );
+		this.centerPanel.add( "West" , this.informationLabelPanel );
 
 		// For setting the layout.
-		informationTextFieldPanel.setLayout( new GridLayout( 11 , 1 , 1 , 1 ) );
+		this.informationTextFieldPanel.setLayout( new GridLayout( 11 , 1 , 1 , 1 ) );
 		/***********************************************************************
 		 * for adding the strings to the labels, for setting the font * and
 		 * adding these labels to the panel. * finally adding the panel to the
 		 * container *
 		 ***********************************************************************/
-		for ( int i = 0 ; i < informationTextField.length ; i++ ){
-			informationTextFieldPanel.add( informationTextField[i] = new JTextField( 25 ) );
-			informationTextField[i].setFont( new Font( "Tahoma" , Font.PLAIN , 11 ) );
+		for ( int i = 0 ; i < this.informationTextField.length ; i++ ){
+			this.informationTextFieldPanel.add( this.informationTextField[i] = new JTextField( 25 ) );
+			this.informationTextField[i].setFont( new Font( "Tahoma" , Font.PLAIN , 11 ) );
 		}
 
-		lblShelfNo.setFont( new Font( "Tahoma" , Font.BOLD , 11 ) );
-		informationLabelPanel.add( lblShelfNo );
-		txtShelfNo.setFont( new Font( "Tahoma" , Font.PLAIN , 11 ) );
-		informationTextFieldPanel.add( txtShelfNo );
-		centerPanel.add( "East" , informationTextFieldPanel );
+		this.lblShelfNo.setFont( new Font( "Tahoma" , Font.BOLD , 11 ) );
+		this.informationLabelPanel.add( this.lblShelfNo );
+		this.txtShelfNo.setFont( new Font( "Tahoma" , Font.PLAIN , 11 ) );
+		this.informationTextFieldPanel.add( this.txtShelfNo );
+		this.centerPanel.add( "East" , this.informationTextFieldPanel );
 
 		settingTheLayoutForThePanel(cp);
 
@@ -225,43 +226,51 @@ public class AddBooks extends JInternalFrame{
 		 * taken from the JTextField[] and make the connection for database, *
 		 * after that update the table in the database with the new value *
 		 ***********************************************************************/
-		insertInformationButton.addActionListener( new ActionListener(){
+		this.insertInformationButton.addActionListener( new ActionListener(){
 
+			@Override
 			public void actionPerformed ( ActionEvent ae ){
 
 				// For checking if there is a missing information.
 				if ( isCorrect() ){
 					Thread runner = new Thread(){
 
+						@SuppressWarnings ( "synthetic-access" )
+						@Override
 						public void run (){
 
-							book = new Books();
+							AddBooks.this.book = new Books();
 							// For checking if there is no double information in
 							// the database.
-							book.connection( "SELECT BookID FROM Books WHERE ISBN = '" + data[7] + "'" );
-							String ISBN = book.getISBN();
-							if ( !data[7].equalsIgnoreCase( ISBN ) ){
+							AddBooks.this.book.connection( "SELECT BookID FROM Books WHERE ISBN = '" + AddBooks.this.data[7] + "'" );
+							String ISBN = AddBooks.this.book.getISBN();
+							if ( !AddBooks.this.data[7].equalsIgnoreCase( ISBN ) ){
 
 								try{
 									String sql = "INSERT INTO Books (Subject,Title,Author,Publisher,Copyright,"
 											+ "Edition,Pages,ISBN,NumberOfBooks,NumberOfAvailbleBooks,Library,Availble,ShelfNo) VALUES "
 											+ " (?,?,?,?,?,?,?,?,?,?,?,?,?)";
 									Class.forName( "sun.jdbc.odbc.JdbcOdbcDriver" );
+									
+									@SuppressWarnings ( "resource" )
 									Connection con = DriverManager.getConnection( "jdbc:odbc:JLibrary" );
+									
+									@SuppressWarnings ( "resource" )
 									PreparedStatement ps = con.prepareStatement( sql );
-									ps.setString( 1 , data[0] );
-									ps.setString( 2 , data[1] );
-									ps.setString( 3 , data[2] );
-									ps.setString( 4 , data[3] );
-									ps.setInt( 5 , Integer.parseInt( data[4] ) );
-									ps.setInt( 6 , Integer.parseInt( data[5] ) );
-									ps.setInt( 7 , Integer.parseInt( data[6] ) );
-									ps.setString( 8 , data[7] );
-									ps.setInt( 9 , Integer.parseInt( data[8] ) );
-									ps.setInt( 10 , Integer.parseInt( data[8] ) );
-									ps.setString( 11 , data[9] );
-									ps.setBoolean( 12 , availble );
-									ps.setInt( 13 , Integer.parseInt( txtShelfNo.getText() ) );
+									
+									ps.setString( 1 , AddBooks.this.data[0] );
+									ps.setString( 2 , AddBooks.this.data[1] );
+									ps.setString( 3 , AddBooks.this.data[2] );
+									ps.setString( 4 , AddBooks.this.data[3] );
+									ps.setInt( 5 , Integer.parseInt( AddBooks.this.data[4] ) );
+									ps.setInt( 6 , Integer.parseInt( AddBooks.this.data[5] ) );
+									ps.setInt( 7 , Integer.parseInt( AddBooks.this.data[6] ) );
+									ps.setString( 8 , AddBooks.this.data[7] );
+									ps.setInt( 9 , Integer.parseInt( AddBooks.this.data[8] ) );
+									ps.setInt( 10 , Integer.parseInt( AddBooks.this.data[8] ) );
+									ps.setString( 11 , AddBooks.this.data[9] );
+									ps.setBoolean( 12 , AddBooks.this.availble );
+									ps.setInt( 13 , Integer.parseInt( AddBooks.this.txtShelfNo.getText() ) );
 									ps.executeUpdate();
 
 								}catch ( Exception ex ){
@@ -303,8 +312,9 @@ public class AddBooks extends JInternalFrame{
 		} );
 
 		// For adding the action listener for the button to dispose the frame.
-		OKButton.addActionListener( new ActionListener(){
+		this.OKButton.addActionListener( new ActionListener(){
 
+			@Override
 			public void actionPerformed ( ActionEvent ae ){
 
 				dispose();

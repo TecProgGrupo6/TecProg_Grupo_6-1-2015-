@@ -14,6 +14,11 @@ import java.util.logging.Logger;
 
 public class PrintingMembers extends JInternalFrame implements Printable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	// Log system from PrintingMembers class
 	private final static Logger LOGGER = Logger.getLogger( PrintingMembers.class.getName() );
 
@@ -39,7 +44,7 @@ public class PrintingMembers extends JInternalFrame implements Printable{
 	private JTextArea textArea = new JTextArea();
 
 	// For creating the vector to use it in the print.
-	private Vector lines;
+	private Vector<String> lines;
 
 	// Constant to check number os spaces in the Vector method
 	public static final int TAB_SIZE = 10;
@@ -56,10 +61,10 @@ public class PrintingMembers extends JInternalFrame implements Printable{
 		Container container = getContentPane();
 
 		// For setting the font.
-		textArea.setFont( new Font( "Tahoma" , Font.PLAIN , 9 ) );
+		this.textArea.setFont( new Font( "Tahoma" , Font.PLAIN , 9 ) );
 
 		// For adding the text area to the container.
-		container.add( textArea );
+		container.add( this.textArea );
 		try{
 
 			Class.forName( "sun.jdbc.odbc.JdbcOdbcDriver" );
@@ -77,20 +82,20 @@ public class PrintingMembers extends JInternalFrame implements Printable{
 		 * connection. There is catch block SQLException for error *
 		 ***************************************************************/
 		try{
-			connection = DriverManager.getConnection( URL );
-			statement = connection.createStatement();
-			resultset = statement.executeQuery( query );
-			textArea.append( "=============== Members Information ===============\n\n" );
+			this.connection = DriverManager.getConnection( this.URL );
+			this.statement = this.connection.createStatement();
+			this.resultset = this.statement.executeQuery( query );
+			this.textArea.append( "=============== Members Information ===============\n\n" );
 
-			while ( resultset.next() ){
-				textArea.append( "Member ID: " + resultset.getString( "ID" ) + "\n" + "Name: " + resultset.getString( "Name" ) + "\n"
-						+ "Major: " + resultset.getString( "Major" ) + "\n" + "Expired: " + resultset.getString( "Expired" ) + "\n\n" );
+			while ( this.resultset.next() ){
+				this.textArea.append( "Member ID: " + this.resultset.getString( "ID" ) + "\n" + "Name: " + this.resultset.getString( "Name" ) + "\n"
+						+ "Major: " + this.resultset.getString( "Major" ) + "\n" + "Expired: " + this.resultset.getString( "Expired" ) + "\n\n" );
 			}
 
-			textArea.append( "=============== Members Information ===============" );
-			resultset.close();
-			statement.close();
-			connection.close();
+			this.textArea.append( "=============== Members Information ===============" );
+			this.resultset.close();
+			this.statement.close();
+			this.connection.close();
 
 		}catch ( SQLException SQLe ){
 
@@ -103,6 +108,7 @@ public class PrintingMembers extends JInternalFrame implements Printable{
 		pack();
 	}
 
+	@Override
 	public int print ( Graphics graphics , PageFormat pageFormat , int pageIndex ) throws PrinterException{
 
 		graphics.translate( (int) pageFormat.getImageableX() , (int) pageFormat.getImageableY() );
@@ -110,18 +116,18 @@ public class PrintingMembers extends JInternalFrame implements Printable{
 		int hPage = (int) pageFormat.getImageableHeight();
 		graphics.setClip( 0 , 0 , wPage , hPage );
 
-		graphics.setColor( textArea.getBackground() );
+		graphics.setColor( this.textArea.getBackground() );
 		graphics.fillRect( 0 , 0 , wPage , hPage );
-		graphics.setColor( textArea.getForeground() );
+		graphics.setColor( this.textArea.getForeground() );
 
-		Font font = textArea.getFont();
+		Font font = this.textArea.getFont();
 		graphics.setFont( font );
 		FontMetrics fontMetrics = graphics.getFontMetrics();
 		int hLine = fontMetrics.getHeight();
 
-		if ( lines == null ){
+		if ( this.lines == null ){
 
-			lines = getLines( fontMetrics , wPage );
+			this.lines = getLines( fontMetrics , wPage );
 
 		}else{
 
@@ -129,12 +135,12 @@ public class PrintingMembers extends JInternalFrame implements Printable{
 
 		}
 
-		int numLines = lines.size();
+		int numLines = this.lines.size();
 		int linesPerPage = Math.max( hPage / hLine , 1 );
 		int numPages = (int) Math.ceil( (double) numLines / (double) linesPerPage );
 
 		if ( pageIndex >= numPages ){
-			lines = null;
+			this.lines = null;
 			return NO_SUCH_PAGE;
 		}
 
@@ -142,9 +148,9 @@ public class PrintingMembers extends JInternalFrame implements Printable{
 		int yAxis = fontMetrics.getAscent();
 		int lineIndex = linesPerPage * pageIndex;
 
-		while ( lineIndex < lines.size() && yAxis < hPage ){
+		while ( lineIndex < this.lines.size() && yAxis < hPage ){
 
-			String string = (String) lines.get( lineIndex );
+			String string = this.lines.get( lineIndex );
 			graphics.drawString( string , xAxis , yAxis );
 			yAxis += hLine;
 			lineIndex++;
@@ -153,11 +159,11 @@ public class PrintingMembers extends JInternalFrame implements Printable{
 		return PAGE_EXISTS;
 	}
 
-	protected Vector getLines ( FontMetrics fontMetrics , int wPage ){
+	protected Vector<String> getLines ( FontMetrics fontMetrics , int wPage ){
 
-		Vector vector = new Vector();
+		Vector<String> vector = new Vector<>();
 
-		String text = textArea.getText();
+		String text = this.textArea.getText();
 		String prevToken = "";
 		StringTokenizer stringTokenizer = new StringTokenizer( text , "\n\r" , true );
 

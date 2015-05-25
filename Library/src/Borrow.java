@@ -40,32 +40,35 @@ public class Borrow{
 
 	public int getBookID (){
 
-		return bookID;
+		return this.bookID;
 	}
 
 	public int getMemberID (){
 
-		return memberID;
+		return this.memberID;
 	}
 
 	public Date getDayOfBorrowed (){
 
-		return dayOfBorrowed;
+		return this.dayOfBorrowed;
 	}
 
 	public Date getDayOfReturn (){
 
-		return dayOfReturn;
+		return this.dayOfReturn;
 	}
 
 	// Establishing the connection
 	public void connection (){
 
 		try{
+			
 			Class.forName( "sun.jdbc.odbc.JdbcOdbcDriver" );
 		}catch ( ClassNotFoundException cnfe ){
+			
 			System.out.println( "Borrow.java\n" + cnfe.toString() );
 		}catch ( Exception e ){
+			
 			System.out.println( "Borrow.java\n" + e.toString() );
 		}
 
@@ -76,39 +79,44 @@ public class Borrow{
 		 ***************************************************************/
 		try{
 
-			connection = DriverManager.getConnection( URL );
-			statement = connection.createStatement();
-			resultSet = statement.executeQuery( "SELECT * FROM Borrow" );
+			this.connection = DriverManager.getConnection( this.URL );
+			this.statement = this.connection.createStatement();
+			this.resultSet = this.statement.executeQuery( "SELECT * FROM Borrow" );
 
-			while ( resultSet.next() ){
+			while ( this.resultSet.next() ){
 
-				bookID = resultSet.getInt( 1 );
-				memberID = resultSet.getInt( 2 );
-				dayOfBorrowed = resultSet.getDate( 3 );
-				dayOfReturn = resultSet.getDate( 4 );
+				this.bookID = this.resultSet.getInt( 1 );
+				this.memberID = this.resultSet.getInt( 2 );
+				this.dayOfBorrowed = this.resultSet.getDate( 3 );
+				this.dayOfReturn = this.resultSet.getDate( 4 );
 
 			}
 			
 			LOGGER.setLevel( Level.INFO );
 			LOGGER.info("Connection established");
 
-			resultSet.close();
-			statement.close();
-			connection.close();
+			this.resultSet.close();
+			this.statement.close();
+			this.connection.close();
 
 		}catch ( SQLException SQLe ){
+			
 			System.out.println( "Borrow.java\n" + SQLe.toString() );
 		}
 	}
 
 	// Executing the class
+	@SuppressWarnings ( "static-method" )
 	public void executeClass (){
 
 		try{
+			
 			Class.forName( "sun.jdbc.odbc.JdbcOdbcDriver" );
 		}catch ( ClassNotFoundException cnfe ){
+			
 			System.out.println( "Borrow.java\n" + cnfe.toString() );
 		}catch ( Exception e ){
+			
 			System.out.println( "Borrow.java\n" + e.toString() );
 		}
 
@@ -126,16 +134,17 @@ public class Borrow{
 
 		try{
 
-			connection = DriverManager.getConnection( URL );
-			statement = connection.createStatement();
-			statement.executeUpdate( Query );
-			statement.close();
-			connection.close();
+			this.connection = DriverManager.getConnection( this.URL );
+			this.statement = this.connection.createStatement();
+			this.statement.executeUpdate( Query );
+			this.statement.close();
+			this.connection.close();
 			
 			LOGGER.setLevel( Level.INFO );
 			LOGGER.info("Updated");
 
 		}catch ( SQLException SQLe ){
+			
 			System.out.println( "Borrow.java\n" + SQLe.toString() );
 		}
 	}
