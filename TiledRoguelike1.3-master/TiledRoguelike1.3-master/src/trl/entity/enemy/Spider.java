@@ -18,16 +18,17 @@ public class Spider extends Enemy{
 	private final static Logger LOGGER = Logger.getLogger( Spider.class.getName() );
 
 	// Initiliaze Spider
+	@Override
 	public void init (){
 		
 		LOGGER.setLevel( Level.INFO );
 		LOGGER.info("Spider intialized");
 
-		maxHP = 7;
-		attack = 5;
-		image = Game.getImageManager().spider;
-		hp = maxHP;
-		level = 2;
-		xpReward = 2;
+		this.maxHP = 7;
+		this.attack = 5;
+		this.image = Game.getImageManager().spider;
+		this.hp = this.maxHP;
+		this.level = 2;
+		this.xpReward = 2;
 	}
 }
