@@ -18,16 +18,17 @@ public class Worm extends Enemy{
 	private final static Logger LOGGER = Logger.getLogger( Worm.class.getName() );
 
 	// Initiliaze Worm
+	@Override
 	public void init (){
 		
 		LOGGER.setLevel( Level.INFO );
 		LOGGER.info("Worm intialized");
 
-		maxHP = 5;
-		attack = 5;
-		image = Game.getImageManager().worm;
-		hp = maxHP;
-		xpReward = 1;
-		level = 1;
+		this.maxHP = 5;
+		this.attack = 5;
+		this.image = Game.getImageManager().worm;
+		this.hp = this.maxHP;
+		this.xpReward = 1;
+		this.level = 1;
 	}
 }
