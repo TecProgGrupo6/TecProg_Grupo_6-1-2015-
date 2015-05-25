@@ -28,7 +28,7 @@ public class EnemyGroup{
 	// Initiliazes enemies
 	public void init (){
 
-		enemies = new ArrayList<Enemy>();
+		this.enemies = new ArrayList<Enemy>();
 	}
 
 	// Generates enemies
@@ -37,7 +37,7 @@ public class EnemyGroup{
 		int dungeonLevel = GameplayState.dungeonLevel;
 		int maxEnemies = dungeonLevel + ( GameplayState.getPlayer().getTurnsOnLevel() / GameplayState.addEnemyInterval );
 
-		while ( enemies.size() < maxEnemies ){
+		while ( this.enemies.size() < maxEnemies ){
 			
 			randomEnemies( dungeonLevel );
 			
@@ -48,6 +48,7 @@ public class EnemyGroup{
 	 * Generate a random type of enemy to spawn on the map
 	 * params: the level of the dungeon
 	 */
+	@SuppressWarnings ( "null" )
 	public void randomEnemies( int dungeonLevel ){
 		
 		Random r = new Random();
@@ -59,24 +60,24 @@ public class EnemyGroup{
 
 			if ( roll > .9 ){
 
-				enemy = new Rat( map );
+				enemy = new Rat( this.map );
 			}else if ( roll > .6 ){
 
-				enemy = new Spider( map );
+				enemy = new Spider( this.map );
 			}else{
 
-				enemy = new Bat( map );
+				enemy = new Bat( this.map );
 			}
 			break;
 
 		case 2:
 
 			if ( roll > .9 ){
-				enemy = new Scorpion( map );
+				enemy = new Scorpion( this.map );
 			}else if ( roll > .6 ){
-				enemy = new Wasp( map );
+				enemy = new Wasp( this.map );
 			}else{
-				enemy = new Ant( map );
+				enemy = new Ant( this.map );
 			}
 
 			break;
@@ -84,40 +85,45 @@ public class EnemyGroup{
 		case 3:
 			if ( roll > .9 ){
 
-				enemy = new Panther( map );
+				enemy = new Panther( this.map );
 			}else if ( roll > .6 ){
 
-				enemy = new Goblin( map );
+				enemy = new Goblin( this.map );
 			}else{
 
-				enemy = new GelatinousCube( map );
+				enemy = new GelatinousCube( this.map );
 			}
 			break;
 
 		case 4:
 			if ( roll > .9 ){
 
-				enemy = new Gremlin( map );
+				enemy = new Gremlin( this.map );
 			}else if ( roll > .6 ){
 
-				enemy = new Wyvern( map );
+				enemy = new Wyvern( this.map );
 			}else{
 
-				enemy = new Wolf( map );
+				enemy = new Wolf( this.map );
 			}
 			break;
 
 		case 5:
 			if ( roll > .9 ){
 
-				enemy = new Gargoyle( map );
+				enemy = new Gargoyle( this.map );
 			}else if ( roll > .6 ){
 
-				enemy = new Ogre( map );
+				enemy = new Ogre( this.map );
 			}else{
 
-				enemy = new Zombie( map );
+				enemy = new Zombie( this.map );
 			}
+			break;
+			
+		default:
+			
+			// Nothing to do
 			break;
 
 		}
@@ -130,7 +136,7 @@ public class EnemyGroup{
 			// Nothing to do
 		}
 
-		enemies.add( enemy );
+		this.enemies.add( enemy );
 		GameplayState.getActorQueue().addActor( enemy );
 		
 	}
@@ -139,14 +145,14 @@ public class EnemyGroup{
 	public void removeEnemy ( Actor enemy ){
 
 		// Remove from enemy list
-		enemies.remove( enemy );
+		this.enemies.remove( enemy );
 		// Remove from map node currently occupied
-		map.getNodeWith( enemy ).removeEntity( enemy );
+		this.map.getNodeWith( enemy ).removeEntity( enemy );
 	}
 
 	public Enemy getEnemy ( Node node ){
 
-		for ( Enemy enemy : enemies ){
+		for ( Enemy enemy : this.enemies ){
 
 			if ( enemy.getLoc().equals( node ) ){
 
@@ -162,18 +168,18 @@ public class EnemyGroup{
 
 	public Enemy getEnemy ( int index ){
 
-		return ( enemies.get( index ) );
+		return ( this.enemies.get( index ) );
 	}
 
 	public List<Enemy> getEnemies (){
 
-		return enemies;
+		return this.enemies;
 	}
 
 	// Render graphics of the enemy
 	public void render ( Graphics g ){
 
-		for ( Enemy enemy : enemies ){
+		for ( Enemy enemy : this.enemies ){
 
 			enemy.render( g );
 		}
@@ -182,13 +188,14 @@ public class EnemyGroup{
 	public void flush (){
 
 		for ( @SuppressWarnings ( "unused" )
-		Enemy enemy : enemies ){
+		Enemy enemy : this.enemies ){
 
 			enemy = null;
 		}
 	}
 
 	// List the current enemies in the map
+	@SuppressWarnings ( "unqualified-field-access" )
 	public void listEnemies (){
 
 		System.out.println( "Current enemies:" );
