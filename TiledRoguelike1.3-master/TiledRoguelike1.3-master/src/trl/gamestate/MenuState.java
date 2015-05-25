@@ -139,6 +139,7 @@ public class MenuState extends GameState{
 			
 
 		}
+			break;
 		default:
 			
 			// Nothing to do
@@ -164,7 +165,6 @@ public class MenuState extends GameState{
 
 	}
 
-	@SuppressWarnings ( "static-method" )
 	public BufferedImage renderBarbarian ( Graphics g , int linePosition , BufferedImage classImage ){
 
 		classImage = Game.getImageManager().barbarian;
@@ -181,7 +181,6 @@ public class MenuState extends GameState{
 
 	}
 
-	@SuppressWarnings ( "static-method" )
 	public BufferedImage renderThief ( Graphics g , int linePosition , BufferedImage classImage ){
 
 		classImage = Game.getImageManager().thief;
@@ -196,7 +195,6 @@ public class MenuState extends GameState{
 
 	}
 
-	@SuppressWarnings ( "static-method" )
 	public BufferedImage renderRanger ( Graphics g , int linePosition , BufferedImage classImage ){
 
 		classImage = Game.getImageManager().ranger;
@@ -217,10 +215,9 @@ public class MenuState extends GameState{
 
 	}
 
-	@SuppressWarnings ( "static-method" )
 	public BufferedImage renderWizard ( Graphics g , int linePosition , BufferedImage classImage ){
 
-		classImage = Game.getImageManager().wizard;;
+		classImage = Game.getImageManager().wizard;
 
 		g.drawString( "Physically weak, but has a powerful magic attack " , 0 , linePosition );
 		linePosition += g.getFont().getSize();
