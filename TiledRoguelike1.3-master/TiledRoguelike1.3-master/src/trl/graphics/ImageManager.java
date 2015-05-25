@@ -179,67 +179,67 @@ public class ImageManager{
 	public ImageManager ( SpriteSheet ss ){
 
 		// Row 1
-		barbarian = ss.crop( 0 , 0 , Game.TILE_SIZE , Game.TILE_SIZE );
-		thief = ss.crop( 1 , 0 , Game.TILE_SIZE , Game.TILE_SIZE );
-		wizard = ss.crop( 2 , 0 , Game.TILE_SIZE , Game.TILE_SIZE );
-		ranger = ss.crop( 3 , 0 , Game.TILE_SIZE , Game.TILE_SIZE );
+		this.barbarian = ss.crop( 0 , 0 , Game.TILE_SIZE , Game.TILE_SIZE );
+		this.thief = ss.crop( 1 , 0 , Game.TILE_SIZE , Game.TILE_SIZE );
+		this.wizard = ss.crop( 2 , 0 , Game.TILE_SIZE , Game.TILE_SIZE );
+		this.ranger = ss.crop( 3 , 0 , Game.TILE_SIZE , Game.TILE_SIZE );
 		// Row 2
-		rat = ss.crop( 0 , 1 , Game.TILE_SIZE , Game.TILE_SIZE );
-		spider = ss.crop( 1 , 1 , Game.TILE_SIZE , Game.TILE_SIZE );
-		bat = ss.crop( 2 , 1 , Game.TILE_SIZE , Game.TILE_SIZE );
-		snake = ss.crop( 3 , 1 , Game.TILE_SIZE , Game.TILE_SIZE );
-		wolf = ss.crop( 4 , 1 , Game.TILE_SIZE , Game.TILE_SIZE );
-		wyvern = ss.crop( 5 , 1 , Game.TILE_SIZE , Game.TILE_SIZE );
+		this.rat = ss.crop( 0 , 1 , Game.TILE_SIZE , Game.TILE_SIZE );
+		this.spider = ss.crop( 1 , 1 , Game.TILE_SIZE , Game.TILE_SIZE );
+		this.bat = ss.crop( 2 , 1 , Game.TILE_SIZE , Game.TILE_SIZE );
+		this.snake = ss.crop( 3 , 1 , Game.TILE_SIZE , Game.TILE_SIZE );
+		this.wolf = ss.crop( 4 , 1 , Game.TILE_SIZE , Game.TILE_SIZE );
+		this.wyvern = ss.crop( 5 , 1 , Game.TILE_SIZE , Game.TILE_SIZE );
 		// Row 3
-		ant = ss.crop( 0 , 2 , Game.TILE_SIZE , Game.TILE_SIZE );
-		wasp = ss.crop( 1 , 2 , Game.TILE_SIZE , Game.TILE_SIZE );
-		imp = ss.crop( 2 , 2 , Game.TILE_SIZE , Game.TILE_SIZE );
-		frogKnight = ss.crop( 3 , 2 , Game.TILE_SIZE , Game.TILE_SIZE );
-		archer = ss.crop( 4 , 2 , Game.TILE_SIZE , Game.TILE_SIZE );
-		gelatinousCube = ss.crop( 5 , 2 , Game.TILE_SIZE , Game.TILE_SIZE );
+		this.ant = ss.crop( 0 , 2 , Game.TILE_SIZE , Game.TILE_SIZE );
+		this.wasp = ss.crop( 1 , 2 , Game.TILE_SIZE , Game.TILE_SIZE );
+		this.imp = ss.crop( 2 , 2 , Game.TILE_SIZE , Game.TILE_SIZE );
+		this.frogKnight = ss.crop( 3 , 2 , Game.TILE_SIZE , Game.TILE_SIZE );
+		this.archer = ss.crop( 4 , 2 , Game.TILE_SIZE , Game.TILE_SIZE );
+		this.gelatinousCube = ss.crop( 5 , 2 , Game.TILE_SIZE , Game.TILE_SIZE );
 		// Row 4
-		worm = ss.crop( 0 , 3 , Game.TILE_SIZE , Game.TILE_SIZE );
-		scorpion = ss.crop( 1 , 3 , Game.TILE_SIZE , Game.TILE_SIZE );
-		goblin = ss.crop( 2 , 3 , Game.TILE_SIZE , Game.TILE_SIZE );
-		gremlin = ss.crop( 3 , 3 , Game.TILE_SIZE , Game.TILE_SIZE );
-		gargoyle = ss.crop( 4 , 3 , Game.TILE_SIZE , Game.TILE_SIZE );
-		zombie = ss.crop( 5 , 3 , Game.TILE_SIZE , Game.TILE_SIZE );
+		this.worm = ss.crop( 0 , 3 , Game.TILE_SIZE , Game.TILE_SIZE );
+		this.scorpion = ss.crop( 1 , 3 , Game.TILE_SIZE , Game.TILE_SIZE );
+		this.goblin = ss.crop( 2 , 3 , Game.TILE_SIZE , Game.TILE_SIZE );
+		this.gremlin = ss.crop( 3 , 3 , Game.TILE_SIZE , Game.TILE_SIZE );
+		this.gargoyle = ss.crop( 4 , 3 , Game.TILE_SIZE , Game.TILE_SIZE );
+		this.zombie = ss.crop( 5 , 3 , Game.TILE_SIZE , Game.TILE_SIZE );
 		// Row 5
-		ogre = ss.crop( 0 , 4 , Game.TILE_SIZE , Game.TILE_SIZE );
-		panther = ss.crop( 1 , 4 , Game.TILE_SIZE , Game.TILE_SIZE );
+		this.ogre = ss.crop( 0 , 4 , Game.TILE_SIZE , Game.TILE_SIZE );
+		this.panther = ss.crop( 1 , 4 , Game.TILE_SIZE , Game.TILE_SIZE );
 		// Row 6
 
 		// Row 7
-		stoneTile = ss.crop( 0 , 6 , Game.TILE_SIZE , Game.TILE_SIZE );
-		stoneWall = ss.crop( 1 , 6 , Game.TILE_SIZE , Game.TILE_SIZE );
-		closedDoor = ss.crop( 2 , 6 , Game.TILE_SIZE , Game.TILE_SIZE );
-		openDoor = ss.crop( 3 , 6 , Game.TILE_SIZE , Game.TILE_SIZE );
-		stairDown = ss.crop( 4 , 6 , Game.TILE_SIZE , Game.TILE_SIZE );
-		goal = ss.crop( 5 , 6 , Game.TILE_SIZE , Game.TILE_SIZE );
+		this.stoneTile = ss.crop( 0 , 6 , Game.TILE_SIZE , Game.TILE_SIZE );
+		this.stoneWall = ss.crop( 1 , 6 , Game.TILE_SIZE , Game.TILE_SIZE );
+		this.closedDoor = ss.crop( 2 , 6 , Game.TILE_SIZE , Game.TILE_SIZE );
+		this.openDoor = ss.crop( 3 , 6 , Game.TILE_SIZE , Game.TILE_SIZE );
+		this.stairDown = ss.crop( 4 , 6 , Game.TILE_SIZE , Game.TILE_SIZE );
+		this.goal = ss.crop( 5 , 6 , Game.TILE_SIZE , Game.TILE_SIZE );
 		// Row 8
-		potion = ss.crop( 0 , 7 , Game.TILE_SIZE , Game.TILE_SIZE );
-		hammer = ss.crop( 1 , 7 , Game.TILE_SIZE , Game.TILE_SIZE );
-		key = ss.crop( 2 , 7 , Game.TILE_SIZE , Game.TILE_SIZE );
-		lock = ss.crop( 3 , 7 , Game.TILE_SIZE , Game.TILE_SIZE );
-		lockOpen = ss.crop( 4 , 7 , Game.TILE_SIZE , Game.TILE_SIZE );
+		this.potion = ss.crop( 0 , 7 , Game.TILE_SIZE , Game.TILE_SIZE );
+		this.hammer = ss.crop( 1 , 7 , Game.TILE_SIZE , Game.TILE_SIZE );
+		this.key = ss.crop( 2 , 7 , Game.TILE_SIZE , Game.TILE_SIZE );
+		this.lock = ss.crop( 3 , 7 , Game.TILE_SIZE , Game.TILE_SIZE );
+		this.lockOpen = ss.crop( 4 , 7 , Game.TILE_SIZE , Game.TILE_SIZE );
 		// Row 9
-		bang = ss.crop( 0 , 8 , Game.TILE_SIZE , Game.TILE_SIZE );
-		corpse = ss.crop( 1 , 8 , Game.TILE_SIZE , Game.TILE_SIZE );
-		swords = ss.crop( 2 , 8 , Game.TILE_SIZE , Game.TILE_SIZE );
-		fire = ss.crop( 3 , 8 , Game.TILE_SIZE , Game.TILE_SIZE );
-		arrows = ss.crop( 4 , 8 , Game.TILE_SIZE , Game.TILE_SIZE );
+		this.bang = ss.crop( 0 , 8 , Game.TILE_SIZE , Game.TILE_SIZE );
+		this.corpse = ss.crop( 1 , 8 , Game.TILE_SIZE , Game.TILE_SIZE );
+		this.swords = ss.crop( 2 , 8 , Game.TILE_SIZE , Game.TILE_SIZE );
+		this.fire = ss.crop( 3 , 8 , Game.TILE_SIZE , Game.TILE_SIZE );
+		this.arrows = ss.crop( 4 , 8 , Game.TILE_SIZE , Game.TILE_SIZE );
 
 		// Shadow transforms
-		stoneWallShadow = transformAlpha( stoneWall );
-		stoneTile1Shadow = transformAlpha( stoneTile );
-		openDoorShadow = transformAlpha( openDoor );
-		closedDoorShadow = transformAlpha( closedDoor );
-		potionShadow = transformAlpha( potion );
-		hammerShadow = transformAlpha( hammer );
-		stairDownShadow = transformAlpha( stairDown );
-		goalShadow = transformAlpha( goal );
-		keyShadow = transformAlpha( key );
-		lockShadow = transformAlpha( lock );
+		this.stoneWallShadow = transformAlpha( this.stoneWall );
+		this.stoneTile1Shadow = transformAlpha( this.stoneTile );
+		this.openDoorShadow = transformAlpha( this.openDoor );
+		this.closedDoorShadow = transformAlpha( this.closedDoor );
+		this.potionShadow = transformAlpha( this.potion );
+		this.hammerShadow = transformAlpha( this.hammer );
+		this.stairDownShadow = transformAlpha( this.stairDown );
+		this.goalShadow = transformAlpha( this.goal );
+		this.keyShadow = transformAlpha( this.key );
+		this.lockShadow = transformAlpha( this.lock );
 	}
 
 	public BufferedImage transformAlpha ( BufferedImage image ){
