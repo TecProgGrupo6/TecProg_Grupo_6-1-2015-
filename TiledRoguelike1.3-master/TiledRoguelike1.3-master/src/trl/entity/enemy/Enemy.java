@@ -1,6 +1,5 @@
 package trl.entity.enemy;
 
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import trl.entity.actor.Actor;
@@ -21,18 +20,16 @@ public abstract class Enemy extends Actor{
 		super( map );
 	}
 	
-	// Log system from Enemy Class
-	private final static Logger LOGGER = Logger.getLogger( Enemy.class.getName() );
-
 	// Initialize enemy
 	public void init (){
 
-		hp = maxHP;
-		myTurn = false;
-		awareOfPlayer = false;
+		this.hp = this.maxHP;
+		this.myTurn = false;
+		this.awareOfPlayer = false;
 	}
 
 	// Responses of the enemy
+	@Override
 	public void tick (){
 
 		clearFlags(); // Set acted, attacked, moved to false.
@@ -45,11 +42,11 @@ public abstract class Enemy extends Actor{
 			// Nothing to do
 		}
 
-		boolean myTurnAndGameTimer = ( myTurn && Game.tickTimer == 0 );
+		boolean myTurnAndGameTimer = ( this.myTurn && Game.tickTimer == 0 );
 
 		if ( myTurnAndGameTimer ){
 
-			if ( !awareOfPlayer ){
+			if ( !this.awareOfPlayer ){
 
 				// If all path nodes are consumed, get a new path.
 				// If enemy has been on the same node for 3 turns, get new path.
@@ -73,7 +70,7 @@ public abstract class Enemy extends Actor{
 			 * setDamageTaken(0) is a clumsy fix to prevent player from
 			 * indicating damage on rounds after he wasn't in combat.
 			 */
-			if ( !attacked ){
+			if ( !this.attacked ){
 
 				enemyNotAttacked();
 			}else{
@@ -87,16 +84,16 @@ public abstract class Enemy extends Actor{
 	// returns zero damage to the player
 	public void enemyNotAttacked (){
 
-		previousNode = loc;
+		this.previousNode = this.loc;
 		move( getNextPathNode() );
-		moved = true;
+		this.moved = true;
 
-		if ( loc.equals( previousNode ) ){
+		if ( this.loc.equals( this.previousNode ) ){
 
-			turnsOnNode++;
+			this.turnsOnNode++;
 		}else{
 
-			turnsOnNode = 0;
+			this.turnsOnNode = 0;
 		}
 
 		GameplayState.getPlayer().setDamageTaken( 0 );
@@ -109,8 +106,8 @@ public abstract class Enemy extends Actor{
 		if ( this.loc.adjacent( GameplayState.getPlayer().getLoc() ) ){
 
 			attack( GameplayState.getPlayer() );
-			GameplayState.getPlayer().setDamageTaken( damageDealt );
-			attacked = true;
+			GameplayState.getPlayer().setDamageTaken( this.damageDealt );
+			this.attacked = true;
 		}else{
 
 			// Set path to player's location
@@ -122,7 +119,7 @@ public abstract class Enemy extends Actor{
 	// If enemy is not aware, changes the path
 	public void enemyNotAware (){
 
-		if ( path.size() == 0 || turnsOnNode >= 3 ){
+		if ( this.path.size() == 0 || this.turnsOnNode >= 3 ){
 
 			// setPathTo(map.getRandomNode());
 			setPathToConnectedRoom();
@@ -135,7 +132,7 @@ public abstract class Enemy extends Actor{
 
 	public int getXP (){
 
-		return xpReward;
+		return this.xpReward;
 	}
 
 	public void setAwareOfPlayer ( boolean awareOfPlayer ){
@@ -146,13 +143,13 @@ public abstract class Enemy extends Actor{
 	// returns the atribute
 	public boolean awareOfPlayer (){
 
-		return awareOfPlayer;
+		return this.awareOfPlayer;
 	}
 
 	// returns the atribute
 	public boolean getTargeted (){
 
-		return targeted;
+		return this.targeted;
 	}
 
 	public void setTargeted ( boolean targeted ){
