@@ -52,7 +52,7 @@ public class Entity{
 
 	public int getAxisY (){
 
-		return loc.getAxisY();
+		return this.loc.getAxisY();
 	}
 
 	/*

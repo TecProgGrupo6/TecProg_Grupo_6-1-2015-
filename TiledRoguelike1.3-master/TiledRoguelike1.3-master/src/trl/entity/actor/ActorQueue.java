@@ -15,7 +15,7 @@ public class ActorQueue{
 	// Represent the queue of the Actors
 	private List<Actor> queue;
 
-	private final static Logger LOGGER = Logger.getLogger( Actor.class.getName() );
+	private final static Logger LOGGER = Logger.getLogger( ActorQueue.class.getName() );
 
 	public ActorQueue (){
 		
@@ -28,6 +28,9 @@ public class ActorQueue{
 	}
 
 	public void addActor ( Actor actor ){
+		
+		LOGGER.setLevel( Level.CONFIG );
+		LOGGER.config("Adding actor");
 
 		// Add actor at beginning of queue
 		queue.add( 0 , actor );
