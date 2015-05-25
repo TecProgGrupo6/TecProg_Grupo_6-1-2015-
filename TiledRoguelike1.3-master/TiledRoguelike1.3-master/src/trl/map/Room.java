@@ -53,18 +53,18 @@ public class Room{
 		Random r = new Random();
 		this.width = (int) ( r.nextDouble() * Map.MAX_ROOM_WIDTH );
 		this.height = (int) ( r.nextDouble() * Map.MAX_ROOM_HEIGHT );
-		if ( width < Map.MIN_ROOM_WIDTH ){
+		if ( this.width < Map.MIN_ROOM_WIDTH ){
 
-			width = Map.MIN_ROOM_WIDTH;
+			this.width = Map.MIN_ROOM_WIDTH;
 		}
-		if ( height < Map.MIN_ROOM_HEIGHT ){
+		if ( this.height < Map.MIN_ROOM_HEIGHT ){
 
-			height = Map.MIN_ROOM_HEIGHT;
+			this.height = Map.MIN_ROOM_HEIGHT;
 		}
-		x = ( column * Map.MAX_ROOM_WIDTH ) + ( Map.MAX_ROOM_WIDTH - width ) / 2;
-		y = ( row * Map.MAX_ROOM_HEIGHT ) + ( Map.MAX_ROOM_HEIGHT - height ) / 2;
-		boundary = new Rectangle( x , y , width , height );
-		connectedTo = new ArrayList<Room>();
+		this.x = ( this.column * Map.MAX_ROOM_WIDTH ) + ( Map.MAX_ROOM_WIDTH - this.width ) / 2;
+		this.y = ( this.row * Map.MAX_ROOM_HEIGHT ) + ( Map.MAX_ROOM_HEIGHT - this.height ) / 2;
+		this.boundary = new Rectangle( this.x , this.y , this.width , this.height );
+		this.connectedTo = new ArrayList<Room>();
 	}
 
 	public void connect ( Room room ){
@@ -93,8 +93,8 @@ public class Room{
 				endY = room.y + room.height - 1;
 				startX = this.getCenterX();
 				endX = room.getCenterX();
-				map.getNode( startX , startY ).setFeature( rollDoor() );
-				map.getNode( endX , endY ).setFeature( rollDoor() );
+				this.map.getNode( startX , startY ).setFeature( rollDoor() );
+				this.map.getNode( endX , endY ).setFeature( rollDoor() );
 				startY -= 1;
 				endY += 1;
 			}else{
@@ -105,8 +105,8 @@ public class Room{
 				endY = room.y;
 				startX = this.getCenterX();
 				endX = room.getCenterX();
-				map.getNode( startX , startY ).setFeature( rollDoor() );
-				map.getNode( endX , endY ).setFeature( rollDoor() );
+				this.map.getNode( startX , startY ).setFeature( rollDoor() );
+				this.map.getNode( endX , endY ).setFeature( rollDoor() );
 				startY += 1;
 				endY -= 1;
 			}else{
@@ -117,8 +117,8 @@ public class Room{
 				endX = room.x;
 				startY = this.getCenterY();
 				endY = room.getCenterY();
-				map.getNode( startX , startY ).setFeature( rollDoor() );
-				map.getNode( endX , endY ).setFeature( rollDoor() );
+				this.map.getNode( startX , startY ).setFeature( rollDoor() );
+				this.map.getNode( endX , endY ).setFeature( rollDoor() );
 				startX += 1;
 				endX -= 1;
 			}else{
@@ -129,18 +129,18 @@ public class Room{
 				endX = room.x + room.width - 1;
 				startY = this.getCenterY();
 				endY = room.getCenterY();
-				map.getNode( startX , startY ).setFeature( rollDoor() );
-				map.getNode( endX , endY ).setFeature( rollDoor() );
+				this.map.getNode( startX , startY ).setFeature( rollDoor() );
+				this.map.getNode( endX , endY ).setFeature( rollDoor() );
 				startX -= 1;
 				endX += 1;
 			}else{
 				// Nothing
 			}
 			// }
-			Node start = new Node( startX , startY , map );
-			map.createNode( start );
-			Node end = new Node( endX , endY , map );
-			map.createNode( end );
+			Node start = new Node( startX , startY , this.map );
+			this.map.createNode( start );
+			Node end = new Node( endX , endY , this.map );
+			this.map.createNode( end );
 
 			/*
 			 * If the connection between nodes is longer than a single node,
@@ -148,32 +148,32 @@ public class Room{
 			 */
 			if ( !start.equals( end ) ){
 				// System.out.println("Connecting rooms with path > 1");
-				start = new Node( startX , startY , map );
-				map.createNode( start );
+				start = new Node( startX , startY , this.map );
+				this.map.createNode( start );
 				start.makeFloor();
-				end = new Node( endX , endY , map );
-				map.createNode( end );
+				end = new Node( endX , endY , this.map );
+				this.map.createNode( end );
 				end.makeFloor();
-				connection = map.findRoomConnection( start , end );
+				connection = this.map.findRoomConnection( start , end );
 			}
 			// Connection start and end nodes are the same.
 			else{
-				map.createNode( startX , startY );
-				map.getNode( startX , startY ).makeFloor();
-				connection.add( map.getNode( startX , startY ) );
+				this.map.createNode( startX , startY );
+				this.map.getNode( startX , startY ).makeFloor();
+				connection.add( this.map.getNode( startX , startY ) );
 			}
 			// System.out.println("Connection list size = " +
 			// connection.size());
 			// System.out.println("Connecting " + startX + "," + startY + " to "
 			// + endX + "," + endY + " via:");
 			for ( Node node : connection ){
-				map.createNode( node );
+				this.map.createNode( node );
 				node.makeFloor();
 			}
 			// System.out.println("Connected " + this.column + "," + this.row +
 			// " to " + room.column + "," + room.row + " path size " +
 			// connection.size());
-			connectedTo.add( room );
+			this.connectedTo.add( room );
 			room.connectedTo.add( this );
 		}else{
 			// Nothing
@@ -182,38 +182,38 @@ public class Room{
 
 	public int getX (){
 
-		return x;
+		return this.x;
 	}
 
 	public int getY (){
 
-		return y;
+		return this.y;
 	}
 
 	public int getHeight (){
 
-		return height;
+		return this.height;
 	}
 
 	public int getCenterX (){
 
-		return x + ( width / 2 );
+		return this.x + ( this.width / 2 );
 	}
 
 	public int getCenterY (){
 
-		return y + ( height / 2 );
+		return this.y + ( this.height / 2 );
 
 	}
 
 	public int getWidth (){
 
-		return width;
+		return this.width;
 	}
 
 	public boolean isConnected (){
 
-		return connected;
+		return this.connected;
 	}
 
 	public boolean connectedTo ( Room room ){
@@ -221,8 +221,8 @@ public class Room{
 		LOGGER.setLevel( Level.CONFIG );
 		LOGGER.config("Verifying connectability with room");
 
-		if ( connectedTo != null && connectedTo.size() > 0 ){
-			if ( connectedTo.contains( room ) ){
+		if ( this.connectedTo != null && this.connectedTo.size() > 0 ){
+			if ( this.connectedTo.contains( room ) ){
 				// System.out.println(this.toString() + " connected to " +
 				// room.toString());
 				return true;
@@ -282,12 +282,12 @@ public class Room{
 		LOGGER.setLevel( Level.CONFIG );
 		LOGGER.config("Getting occupied room with node");
 
-		Room[][] rooms = map.getRooms();
+		Room[][] rooms = this.map.getRooms();
 		Point position = new Point( node.getAxisX() , node.getAxisY() );
-		for ( int x = 0 ; x < rooms.length ; x++ ){
-			for ( int y = 0 ; y < rooms[0].length ; y++ ){
-				if ( rooms[x][y].boundary.contains( position ) ){
-					return rooms[x][y];
+		for ( int axisX = 0 ; axisX < rooms.length ; axisX++ ){
+			for ( int axisY = 0 ; axisY < rooms[0].length ; axisY++ ){
+				if ( rooms[axisX][axisY].boundary.contains( position ) ){
+					return rooms[axisX][axisY];
 				}else{
 					// Nothing
 				}
@@ -302,18 +302,18 @@ public class Room{
 		LOGGER.config("Getting random connected room");
 
 		Random random = new Random();
-		int randomRoomIndex = (int) ( connectedTo.size() * random.nextDouble() );
+		int randomRoomIndex = (int) ( this.connectedTo.size() * random.nextDouble() );
 		// System.out.println("connected rooms size = " + connectedTo.size());
 		// System.out.println("connected rooms index = " + randomRoomIndex);
 		
 		// System.out.println("getRandomConnectedRoom: current room = " +
 		// this.toString() + ", next = " + connectedRoom.toString());
-		return connectedTo.get( randomRoomIndex );
+		return this.connectedTo.get( randomRoomIndex );
 	}
 
 	public Rectangle getBoundary (){
 
-		return boundary;
+		return this.boundary;
 	}
 
 	public Node getRandomNodeInRoom (){
@@ -324,37 +324,37 @@ public class Room{
 		Random random = new Random();
 		// int x = (int)(random.nextDouble() * ((boundary.getMinX() + 1) +
 		// boundary.getMaxX()));
-		int minX = 0 , maxX = 0 , minY = 0 , maxY = 0 , x = 0 , y = 0;
+		int minX = 0 , maxX = 0 , minY = 0 , maxY = 0 , axisX = 0 , axisY = 0;
 		boolean nodePicked = false;
 		while ( !nodePicked ){
-			minX = (int) boundary.getMinX() + 1;
-			maxX = (int) boundary.getMaxX();
-			minY = (int) boundary.getMinY() + 1;
-			maxY = (int) boundary.getMaxY();
-			x = minX + (int) ( random.nextDouble() * ( maxX - minX ) );
-			y = minY + (int) ( random.nextDouble() * ( maxY - minY ) );
-			if ( map.getNode( x , y ).isFloor() ){
+			minX = (int) this.boundary.getMinX() + 1;
+			maxX = (int) this.boundary.getMaxX();
+			minY = (int) this.boundary.getMinY() + 1;
+			maxY = (int) this.boundary.getMaxY();
+			axisX = minX + (int) ( random.nextDouble() * ( maxX - minX ) );
+			axisY = minY + (int) ( random.nextDouble() * ( maxY - minY ) );
+			if ( this.map.getNode( axisX , axisY ).isFloor() ){
 				nodePicked = true;
 				break;
 			}else{
 				// Nothing
 			}
 		}
-		return map.getNode( x , y );
+		return this.map.getNode( axisX , axisY );
 	}
 
 	public List<Room> getConnectedTo (){
 
-		return connectedTo;
+		return this.connectedTo;
 	}
 
 	public int getRow (){
 
-		return row;
+		return this.row;
 	}
 
 	public int getColumn (){
 
-		return column;
+		return this.column;
 	}
 }
