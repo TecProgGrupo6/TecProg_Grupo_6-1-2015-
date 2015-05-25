@@ -18,16 +18,17 @@ public class Gremlin extends Enemy{
 	private final static Logger LOGGER = Logger.getLogger( Gremlin.class.getName() );
 
 	// Initiliaze Gremlin
+	@Override
 	public void init (){
 		
 		LOGGER.setLevel( Level.INFO );
 		LOGGER.info("Gremlin intialized");
 
-		maxHP = 24;
-		attack = 5;
-		image = Game.getImageManager().gremlin;
-		hp = maxHP;
-		xpReward = 12;
-		level = 12;
+		this.maxHP = 24;
+		this.attack = 5;
+		this.image = Game.getImageManager().gremlin;
+		this.hp = this.maxHP;
+		this.xpReward = 12;
+		this.level = 12;
 	}
 }
