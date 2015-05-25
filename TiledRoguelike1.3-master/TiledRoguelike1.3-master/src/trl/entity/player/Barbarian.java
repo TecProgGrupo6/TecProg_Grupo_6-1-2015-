@@ -27,9 +27,9 @@ public class Barbarian extends Player{
 		LOGGER.setLevel( Level.INFO );
 		LOGGER.info("Barbarian intialized");
 
-		this.hp = maxHP;
+		this.hp = this.maxHP;
 		this.myTurn = true;
-		timers = new int[1];
+		this.timers = new int[1];
 	}
 
 	// Action to shout
@@ -41,7 +41,7 @@ public class Barbarian extends Player{
 		// Cause all enemies to set path to node occupied by player
 		for ( Enemy enemy : GameplayState.getEnemyGroup().getEnemies() ){
 			enemy.setPathTo( this.loc );
-			timers[0] = 31;
+			this.timers[0] = 31;
 		}
 	}
 
