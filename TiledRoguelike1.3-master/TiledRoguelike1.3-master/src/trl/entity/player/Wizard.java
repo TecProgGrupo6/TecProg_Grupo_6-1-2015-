@@ -30,12 +30,12 @@ public class Wizard extends Player{
 		LOGGER.setLevel( Level.INFO );
 		LOGGER.info("Wizard intialized");
 
-		this.hp = maxHP;
+		this.hp = this.maxHP;
 		this.myTurn = true;
 		// timers[0] = blink, timers[1] = explode, timers[2] = quicken
-		timers = new int[3];
+		this.timers = new int[3];
 		for ( @SuppressWarnings ( "unused" )
-		int i : timers ){
+		int i : this.timers ){
 			i = 0;
 		}
 	}
@@ -46,9 +46,9 @@ public class Wizard extends Player{
 		LOGGER.setLevel( Level.INFO );
 		LOGGER.info("Wizard has used quicken magic");
 
-		this.hp = (int) ( (double) hp * .75 );
-		timers[2] = 3;
-		timers[1] = 0;
+		this.hp = (int) ( this.hp * .75 );
+		this.timers[2] = 3;
+		this.timers[1] = 0;
 	}
 
 	// Magic action
@@ -57,8 +57,8 @@ public class Wizard extends Player{
 		LOGGER.setLevel( Level.INFO );
 		LOGGER.info("Wizard has used explode magic");
 
-		List<Node> blastArea = map.getAoENodes( loc , 2 );
-		int blastDamage = (int) ( Math.ceil( 6.0 + (double) ( GameplayState.getPlayer().getLevel() / 1.1 ) ) );
+		List<Node> blastArea = this.map.getAoENodes( this.loc , 2 );
+		int blastDamage = (int) ( Math.ceil( 6.0 + GameplayState.getPlayer().getLevel() / 1.1 ) );
 		for ( Enemy enemy : GameplayState.getEnemyGroup().getEnemies() ){
 
 			{
@@ -73,7 +73,7 @@ public class Wizard extends Player{
 
 			}
 		}
-		timers[1] = 11;
+		this.timers[1] = 11;
 	}
 
 	// Magic action
@@ -84,12 +84,12 @@ public class Wizard extends Player{
 
 		// Move to random node, make enemies forget player and player forget
 		// enemies
-		move( map.getRandomNode() );
+		move( this.map.getRandomNode() );
 		for ( Enemy enemy : GameplayState.getEnemyGroup().getEnemies() ){
 
 			enemy.setAwareOfPlayer( false );
 			enemy.setSeenByPlayer( false );
 		}
-		timers[0] = 31;
+		this.timers[0] = 31;
 	}
 }
