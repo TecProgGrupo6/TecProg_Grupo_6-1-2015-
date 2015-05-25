@@ -3,7 +3,6 @@ package trl.entity.enemy;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import trl.entity.actor.Actor;
 import trl.map.Map;
 
 public class Ghost extends Enemy{
@@ -18,16 +17,17 @@ public class Ghost extends Enemy{
 	private final static Logger LOGGER = Logger.getLogger( Ghost.class.getName() );
 
 	// Initiliaze Ghost
+	@Override
 	public void init (){
 		
 		LOGGER.setLevel( Level.INFO );
 		LOGGER.info("Ghost intialized");
 
-		maxHP = 5;
-		attack = 5;
+		this.maxHP = 5;
+		this.attack = 5;
 		// image = Game.getImageManager().ghost;
-		hp = maxHP;
-		xpReward = 1;
-		level = 1;
+		this.hp = this.maxHP;
+		this.xpReward = 1;
+		this.level = 1;
 	}
 }
