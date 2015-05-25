@@ -10,6 +10,7 @@ public class SoundManager{
 	private final static Logger LOGGER = Logger.getLogger( SoundManager.class.getName() );
 
 
+	@SuppressWarnings ( "unused" )
 	private Clip[] sounds;
 
 	public SoundManager (){
