@@ -13,6 +13,6 @@ public class Wall extends Feature{
 		LOGGER.setLevel( Level.CONFIG );
 		LOGGER.config("Returned Wall");
 
-		passable = false;
+		this.passable = false;
 	}
 }

@@ -14,6 +14,6 @@ public class StairDown extends Feature{
 		LOGGER.config("Returned StairDown");
 
 
-		passable = true;
+		this.passable = true;
 	}
 }

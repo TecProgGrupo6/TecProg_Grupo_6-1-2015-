@@ -13,7 +13,7 @@ public class Void extends Feature{
 		LOGGER.setLevel( Level.CONFIG );
 		LOGGER.config("Returned Void");
 
-		passable = false;
+		this.passable = false;
 	}
 
 }

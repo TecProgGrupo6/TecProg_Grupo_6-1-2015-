@@ -12,6 +12,6 @@ public class DoorOpen extends Feature{
 
 		LOGGER.setLevel( Level.INFO );
 		LOGGER.info("Returned open door");
-		passable = true;
+		this.passable = true;
 	}
 }

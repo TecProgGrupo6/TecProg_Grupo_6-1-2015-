@@ -14,6 +14,6 @@ public class Feature{
 		LOGGER.setLevel( Level.CONFIG );
 		LOGGER.config("Returned Feature");
 
-		return passable;
+		return this.passable;
 	}
 }

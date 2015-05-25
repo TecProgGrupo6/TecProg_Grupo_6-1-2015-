@@ -12,6 +12,6 @@ public class Floor extends Feature{
 		LOGGER.setLevel( Level.CONFIG );
 		LOGGER.config("Returned Floor");
 
-		passable = true;
+		this.passable = true;
 	}
 }

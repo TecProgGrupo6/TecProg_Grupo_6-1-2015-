@@ -12,6 +12,6 @@ public class Goal extends Feature{
 		LOGGER.setLevel( Level.CONFIG );
 		LOGGER.config("Returned Goal");
 
-		passable = true;
+		this.passable = true;
 	}
 }
