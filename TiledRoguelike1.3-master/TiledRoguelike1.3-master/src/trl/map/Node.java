@@ -8,7 +8,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import trl.entity.Entity;
-import trl.entity.actor.Actor;
 import trl.map.feature.DoorClosed;
 import trl.map.feature.DoorOpen;
 import trl.map.feature.Feature;
@@ -41,21 +40,6 @@ public class Node{
 
 	// List of entities space
 	private List<Entity> entities;
-
-	// Define if the node is wall
-	private boolean isWall = false;
-
-	// Define if the node is floor
-	private boolean isFloor = false;
-
-	// Define if the node is empty
-	private boolean isVoid = true;
-
-	// Define if the Door node is open
-	private boolean isDoorOpen = false;
-
-	// Define if the Door node is closed
-	private boolean isDoorClosed = false;
 
 	// Image of the node
 	private BufferedImage image;
@@ -101,8 +85,6 @@ public class Node{
 		LOGGER.config("Initializing node");
 
 		seenByPlayer = false;
-		isFloor = false;
-		isWall = false;
 		entities = new ArrayList<Entity>();
 	}
 
