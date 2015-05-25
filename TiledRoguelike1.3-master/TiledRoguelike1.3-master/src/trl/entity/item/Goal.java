@@ -24,6 +24,6 @@ public class Goal extends Item{
 		LOGGER.info("Goal intialized");
 
 		this.image = Game.getImageManager().goal;
-		this.loc = map.placeEntity( this , map.getRandomNodeInRoom() );
+		this.loc = this.map.placeEntity( this , this.map.getRandomNodeInRoom() );
 	}
 }
