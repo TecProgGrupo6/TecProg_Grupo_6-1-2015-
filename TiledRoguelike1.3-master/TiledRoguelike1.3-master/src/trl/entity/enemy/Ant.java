@@ -3,7 +3,6 @@ package trl.entity.enemy;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import trl.entity.actor.Actor;
 import trl.main.Game;
 import trl.map.Map;
 
@@ -19,14 +18,15 @@ public class Ant extends Enemy{
 	private final static Logger LOGGER = Logger.getLogger( Ant.class.getName() );
 
 	// Initiliaze an ant
+	@Override
 	public void init (){
 
-		maxHP = 8;
-		attack = 5;
-		image = Game.getImageManager().ant;
-		hp = maxHP;
-		xpReward = 4;
-		level = 4;
+		this.maxHP = 8;
+		this.attack = 5;
+		this.image = Game.getImageManager().ant;
+		this.hp = this.maxHP;
+		this.xpReward = 4;
+		this.level = 4;
 
 		LOGGER.setLevel( Level.INFO );
 		LOGGER.info( "Ant Initialized" );
