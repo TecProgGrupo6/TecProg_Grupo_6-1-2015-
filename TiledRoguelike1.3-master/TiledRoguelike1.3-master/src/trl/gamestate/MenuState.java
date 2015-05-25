@@ -23,23 +23,25 @@ public class MenuState extends GameState{
 		init();
 	}
 
+	@Override
 	public void init (){
 
-		menuOptions = new String[] { "Barbarian" , "Thief" , "Wizard" , "Ranger" };
+		this.menuOptions = new String[] { "Barbarian" , "Thief" , "Wizard" , "Ranger" };
 		LOGGER.setLevel( Level.INFO );
 		LOGGER.info( "Initializing player's options" );
 	}
 
+	@Override
 	public void tick (){
 
 		if ( down ){
 
-			if ( classChoice < menuOptions.length - 1 ){
+			if ( this.classChoice < this.menuOptions.length - 1 ){
 
-				classChoice += 1;
+				this.classChoice += 1;
 			}else{
 
-				classChoice = 0;
+				this.classChoice = 0;
 			}
 
 			down = false;
@@ -48,12 +50,12 @@ public class MenuState extends GameState{
 		}
 		if ( up ){
 
-			if ( classChoice > 0 ){
+			if ( this.classChoice > 0 ){
 
-				classChoice -= 1;
+				this.classChoice -= 1;
 			}else{
 
-				classChoice = menuOptions.length - 1;
+				this.classChoice = this.menuOptions.length - 1;
 			}
 
 			up = false;
@@ -63,10 +65,10 @@ public class MenuState extends GameState{
 		}
 		if ( enter ){
 
-			Game.getGameStateManager().addGameState( 1 , new GameplayState( classChoice ) );
+			Game.getGameStateManager().addGameState( 1 , new GameplayState( this.classChoice ) );
 			Game.getGameStateManager().setGameState( 1 );
 			LOGGER.setLevel( Level.INFO );
-			LOGGER.info( "Option '" + menuOptions[classChoice] + "' chosen" );
+			LOGGER.info( "Option '" + this.menuOptions[this.classChoice] + "' chosen" );
 			enter = false;
 			
 		}else{
@@ -76,6 +78,7 @@ public class MenuState extends GameState{
 		// Game.classChoice = classChoice;
 	}
 
+	@Override
 	public void render ( Graphics g ){
 
 		final int HALF = 2;
@@ -89,9 +92,9 @@ public class MenuState extends GameState{
 		g.setColor( Color.WHITE );
 		g.drawString( "Choose Your Class" , ( Game.W_WIDTH - fm.stringWidth( "Choose Your Class" ) ) / HALF , FONT_SIZE );
 
-		for ( int i = 0 ; i < menuOptions.length ; i++ ){
+		for ( int i = 0 ; i < this.menuOptions.length ; i++ ){
 
-			if ( i == classChoice ){
+			if ( i == this.classChoice ){
 
 				g.setColor( Color.YELLOW );
 			}else{
@@ -99,14 +102,14 @@ public class MenuState extends GameState{
 				g.setColor( Color.WHITE );
 			}
 
-			g.drawString( menuOptions[i] , ( Game.W_WIDTH - fm.stringWidth( menuOptions[i] ) ) / HALF , i * FONT_SIZE + 2 * FONT_SIZE );
+			g.drawString( this.menuOptions[i] , ( Game.W_WIDTH - fm.stringWidth( this.menuOptions[i] ) ) / HALF , i * FONT_SIZE + 2 * FONT_SIZE );
 		}
 
 		BufferedImage classImage = null;
 		g.setColor( Color.WHITE );
 		int linePosition = Game.W_HEIGHT - Game.W_HEIGHT / QUARTER;
 
-		switch ( classChoice ) {
+		switch ( this.classChoice ) {
 
 		case 0:{
 
@@ -136,6 +139,10 @@ public class MenuState extends GameState{
 			
 
 		}
+		default:
+			
+			// Nothing to do
+			break;
 		}
 		g.setColor( Color.LIGHT_GRAY );
 
@@ -157,6 +164,7 @@ public class MenuState extends GameState{
 
 	}
 
+	@SuppressWarnings ( "static-method" )
 	public BufferedImage renderBarbarian ( Graphics g , int linePosition , BufferedImage classImage ){
 
 		classImage = Game.getImageManager().barbarian;
@@ -173,6 +181,7 @@ public class MenuState extends GameState{
 
 	}
 
+	@SuppressWarnings ( "static-method" )
 	public BufferedImage renderThief ( Graphics g , int linePosition , BufferedImage classImage ){
 
 		classImage = Game.getImageManager().thief;
@@ -187,6 +196,7 @@ public class MenuState extends GameState{
 
 	}
 
+	@SuppressWarnings ( "static-method" )
 	public BufferedImage renderRanger ( Graphics g , int linePosition , BufferedImage classImage ){
 
 		classImage = Game.getImageManager().ranger;
@@ -207,6 +217,7 @@ public class MenuState extends GameState{
 
 	}
 
+	@SuppressWarnings ( "static-method" )
 	public BufferedImage renderWizard ( Graphics g , int linePosition , BufferedImage classImage ){
 
 		classImage = Game.getImageManager().wizard;;
