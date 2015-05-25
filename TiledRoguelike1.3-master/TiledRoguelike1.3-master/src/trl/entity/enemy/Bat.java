@@ -4,7 +4,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
-import trl.entity.actor.Actor;
 import trl.main.Game;
 import trl.map.Map;
 
@@ -20,16 +19,17 @@ public class Bat extends Enemy{
 	private final static Logger LOGGER = Logger.getLogger( Bat.class.getName() );
 
 	// Initiliaze Bat
+	@Override
 	public void init (){
 		
 		LOGGER.setLevel( Level.INFO );
 		LOGGER.info("Bat intialized");
 
-		maxHP = 6;
-		attack = 5;
-		image = Game.getImageManager().bat;
-		hp = maxHP;
-		level = 1;
-		xpReward = 1;
+		this.maxHP = 6;
+		this.attack = 5;
+		this.image = Game.getImageManager().bat;
+		this.hp = this.maxHP;
+		this.level = 1;
+		this.xpReward = 1;
 	}
 }
