@@ -16,6 +16,6 @@ public class SpriteSheet{
 
 	public BufferedImage crop ( int col , int row , int w , int h ){
 
-		return sheet.getSubimage( col * Game.TILE_SIZE , row * Game.TILE_SIZE , w , h );
+		return this.sheet.getSubimage( col * Game.TILE_SIZE , row * Game.TILE_SIZE , w , h );
 	}
 }
