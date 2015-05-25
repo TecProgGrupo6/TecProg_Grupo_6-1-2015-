@@ -252,7 +252,7 @@ public class Map{
 				for ( int y = 1 ; y >= -1 ; y-- ){
 					int candXPos = toCheck.getAxisX() + x;
 					int candYPos = toCheck.getAxisY() + y;
-					if ( ( candXPos >= 0 && candXPos < hSize ) && ( candYPos >= 0 && candYPos < vSize ) ){
+					if ( ( candXPos >= 0 && candXPos < this.hSize ) && ( candYPos >= 0 && candYPos < this.vSize ) ){
 						/*
 						 * Get node at coordinates if it is within bounds of the
 						 * map grid
@@ -295,12 +295,12 @@ public class Map{
 		LOGGER.config("Adding all walkable adjacents nodes");
 
 		int walkableNodes = 0;
-		for ( int x = 0 ; x < mapGrid.length ; x++ ){
-			for ( int y = 0 ; y < mapGrid[0].length ; y++ ){
+		for ( int x = 0 ; x < this.mapGrid.length ; x++ ){
+			for ( int y = 0 ; y < this.mapGrid[0].length ; y++ ){
 
-				if ( mapGrid[x][y] != null ){
-					if ( mapGrid[x][y].getFeature().isPassable() || mapGrid[x][y].getFeature() instanceof trl.map.feature.DoorClosed ){
-						if ( mapGrid[x][y].getFeature() instanceof trl.map.feature.DoorOpen ){
+				if ( this.mapGrid[x][y] != null ){
+					if ( this.mapGrid[x][y].getFeature().isPassable() || this.mapGrid[x][y].getFeature() instanceof trl.map.feature.DoorClosed ){
+						if ( this.mapGrid[x][y].getFeature() instanceof trl.map.feature.DoorOpen ){
 							// Nothing
 						}else{
 							// Nothing
@@ -348,11 +348,11 @@ public class Map{
 		 */
 		while ( !allNodesWalkable() ){
 			Random r = new Random();
-			int column1 = (int) Math.floor( r.nextDouble() * rooms.length );
-			int row1 = (int) Math.floor( r.nextDouble() * rooms[column1].length );
-			int column2 = (int) Math.floor( r.nextDouble() * rooms.length );
-			int row2 = (int) Math.floor( r.nextDouble() * rooms[column2].length );
-			rooms[column1][row1].connect( rooms[column2][row2] );
+			int column1 = (int) Math.floor( r.nextDouble() * this.rooms.length );
+			int row1 = (int) Math.floor( r.nextDouble() * this.rooms[column1].length );
+			int column2 = (int) Math.floor( r.nextDouble() * this.rooms.length );
+			int row2 = (int) Math.floor( r.nextDouble() * this.rooms[column2].length );
+			this.rooms[column1][row1].connect( this.rooms[column2][row2] );
 		}
 	}
 
@@ -363,7 +363,7 @@ public class Map{
 
 		List<Node> openList = new ArrayList<Node>();
 		List<Node> closedList = new ArrayList<Node>();
-		endNodeFound = false;
+		this.endNodeFound = false;
 
 		Node startNode = new Node( start.getAxisX() , start.getAxisY() , this );
 		startNode.setParent( startNode );
@@ -380,8 +380,8 @@ public class Map{
 		openList.remove( startNode );
 
 		// Repeating process
-		while ( !endNodeFound ){
-			if ( openList.isEmpty() && !endNodeFound ){
+		while ( !this.endNodeFound ){
+			if ( openList.isEmpty() && !this.endNodeFound ){
 
 				return null;
 			}else{
@@ -400,7 +400,7 @@ public class Map{
 
 		List<Node> openList = new ArrayList<Node>();
 		List<Node> closedList = new ArrayList<Node>();
-		endNodeFound = false;
+		this.endNodeFound = false;
 
 		Node startNode = new Node( start.getAxisX() , start.getAxisY() , this );
 		startNode.setParent( startNode );
@@ -417,8 +417,8 @@ public class Map{
 		openList.remove( startNode );
 
 		// Repeating process
-		while ( !endNodeFound ){
-			if ( openList.isEmpty() && !endNodeFound ){
+		while ( !this.endNodeFound ){
+			if ( openList.isEmpty() && !this.endNodeFound ){
 				return null;
 			}else{
 				// Nothing
@@ -455,25 +455,25 @@ public class Map{
 		 * Divide map into cells and generate a room of random width/height
 		 * centered within each cell.
 		 */
-		rooms = new Room[(int) Game.COLUMNS / MAX_ROOM_WIDTH][(int) Game.ROWS / MAX_ROOM_HEIGHT];
+		this.rooms = new Room[Game.COLUMNS / MAX_ROOM_WIDTH][Game.ROWS / MAX_ROOM_HEIGHT];
 
-		for ( int column = 0 ; column < (int) Game.COLUMNS / MAX_ROOM_WIDTH ; column++ ){
+		for ( int column = 0 ; column < Game.COLUMNS / MAX_ROOM_WIDTH ; column++ ){
 			for ( int row = 0 ; row < Game.ROWS / MAX_ROOM_HEIGHT ; row++ ){
-				rooms[column][row] = new Room( this , row , column );
+				this.rooms[column][row] = new Room( this , row , column );
 			}
 		}
 
-		for ( int column = 0 ; column < rooms.length ; column++ ){
-			for ( int row = 0 ; row < rooms[column].length ; row++ ){
-				for ( int x = rooms[column][row].getX() ; x < rooms[column][row].getX() + rooms[column][row].getWidth() ; x++ ){
-					for ( int y = rooms[column][row].getY() ; y < rooms[column][row].getY() + rooms[column][row].getHeight() ; y++ ){
+		for ( int column = 0 ; column < this.rooms.length ; column++ ){
+			for ( int row = 0 ; row < this.rooms[column].length ; row++ ){
+				for ( int x = this.rooms[column][row].getX() ; x < this.rooms[column][row].getX() + this.rooms[column][row].getWidth() ; x++ ){
+					for ( int y = this.rooms[column][row].getY() ; y < this.rooms[column][row].getY() + this.rooms[column][row].getHeight() ; y++ ){
 						/*
 						 * Create a new node at x and y. If x and y aren't in
 						 * boundary nodes, make them floor.
 						 */
 						createNode( x , y );
-						if ( x != rooms[column][row].getX() && x != rooms[column][row].getX() + rooms[column][row].getWidth() - 1
-								&& y != rooms[column][row].getY() && y != rooms[column][row].getY() + rooms[column][row].getHeight() - 1 ){
+						if ( x != this.rooms[column][row].getX() && x != this.rooms[column][row].getX() + this.rooms[column][row].getWidth() - 1
+								&& y != this.rooms[column][row].getY() && y != this.rooms[column][row].getY() + this.rooms[column][row].getHeight() - 1 ){
 							getNode( x , y ).makeFloor();
 						}
 						// Else make them walls.
@@ -495,8 +495,8 @@ public class Map{
 		List<Node> aoe = new ArrayList<Node>();
 		for ( int x = origin.getAxisX() - radius ; x <= origin.getAxisX() + radius ; x++ ){
 			for ( int y = origin.getAxisY() - radius ; y <= origin.getAxisY() + radius ; y++ ){
-				if ( mapGrid[x][y] != null && mapGrid[x][y].getFeature().isPassable() && isVisibleToPlayer( mapGrid[x][y] ) ){
-					aoe.add( mapGrid[x][y] );
+				if ( this.mapGrid[x][y] != null && this.mapGrid[x][y].getFeature().isPassable() && isVisibleToPlayer( this.mapGrid[x][y] ) ){
+					aoe.add( this.mapGrid[x][y] );
 				}else{
 					// Nothing
 				}
@@ -553,6 +553,9 @@ public class Map{
 		return bestNode;
 	}
 
+	/**
+	 * @param endNode  
+	 */
 	public List<Node> getConnection ( Node startNode , Node endNode , List<Node> closedList ){
 		
 		LOGGER.setLevel( Level.CONFIG );
@@ -579,7 +582,7 @@ public class Map{
 		LOGGER.setLevel( Level.CONFIG );
 		LOGGER.config("Getting display nodes");
 		
-		return displayedNodes;
+		return this.displayedNodes;
 	}
 
 	public Node getDisplayedNodesOrigin (){
@@ -591,19 +594,19 @@ public class Map{
 		int x = 0 , y = 0;
 		@SuppressWarnings ( "unused" )
 		boolean nonNullFound = false;
-		Node firstNonNull = displayedNodes[0][0];
+		Node firstNonNull = this.displayedNodes[0][0];
 		if ( firstNonNull == null ){
 			for ( x = 0 ; x < Game.W_COLS ; x++ ){
 				for ( y = 0 ; y < Game.W_ROWS ; y++ ){
-					if ( displayedNodes[x][y] != null ){
-						return new Node( displayedNodes[x][y].getAxisX() - x , displayedNodes[x][y].getAxisY() - y , this );
+					if ( this.displayedNodes[x][y] != null ){
+						return new Node( this.displayedNodes[x][y].getAxisX() - x , this.displayedNodes[x][y].getAxisY() - y , this );
 					}else{
 						// Nothing
 					}
 				}
 			}
 		}
-		return displayedNodes[0][0];
+		return this.displayedNodes[0][0];
 	}
 
 	public int getDisplayedX ( Node node ){
@@ -729,7 +732,7 @@ public class Map{
 		LOGGER.config("Getting node");
 
 		if ( x >= 0 && x < Game.COLUMNS && y >= 0 && y < Game.ROWS ){
-			return mapGrid[x][y];
+			return this.mapGrid[x][y];
 		}else{
 			return null;
 		}
@@ -742,9 +745,9 @@ public class Map{
 
 		for ( int x = 0 ; x < Game.ROWS ; x++ ){
 			for ( int y = 0 ; y < Game.COLUMNS ; y++ ){
-				if ( mapGrid[x][y] != null ){
-					if ( mapGrid[x][y].nodeContains( entity ) ){
-						return mapGrid[x][y];
+				if ( this.mapGrid[x][y] != null ){
+					if ( this.mapGrid[x][y].nodeContains( entity ) ){
+						return this.mapGrid[x][y];
 					}else{
 						// Nothing
 					}
@@ -756,6 +759,10 @@ public class Map{
 		return null;
 	}
 
+	/**
+	 * @param startNode  
+	 * @param endNode 
+	 */
 	public List<Node> getPath ( Node startNode , Node endNode , List<Node> closedList ){
 		
 		LOGGER.setLevel( Level.CONFIG );
@@ -785,8 +792,8 @@ public class Map{
 		Random r = new Random();
 		boolean gotNode = false;
 		while ( !gotNode ){
-			int x = (int) ( r.nextDouble() * hSize );
-			int y = (int) ( r.nextDouble() * vSize );
+			int x = (int) ( r.nextDouble() * this.hSize );
+			int y = (int) ( r.nextDouble() * this.vSize );
 			// Using isFLoor() prevents entities from spawning in open doorways
 			if ( getNode( x , y ) != null && getNode( x , y ).isFloor() ){
 				if ( !getNode( x , y ).checkEntityByID( (byte) 4 ) ){
@@ -818,8 +825,8 @@ public class Map{
 
 		boolean gotNode = false;
 		while ( !gotNode ){
-			int x = (int) ( r.nextDouble() * hSize );
-			int y = (int) ( r.nextDouble() * vSize );
+			int x = (int) ( r.nextDouble() * this.hSize );
+			int y = (int) ( r.nextDouble() * this.vSize );
 			if ( x > room.getX() && x < room.getX() + room.getWidth() && y > room.getY() && y < room.getY() + room.getHeight() ){
 				// Using isFLoor() prevents entities from spawning in open
 				// doorways
@@ -846,14 +853,14 @@ public class Map{
 		LOGGER.config("Getting random room");
 
 		Random r = new Random();
-		int roomColumn = (int) ( r.nextDouble() * rooms.length );
-		int roomRow = (int) ( r.nextDouble() * rooms[0].length );
-		return rooms[roomColumn][roomRow];
+		int roomColumn = (int) ( r.nextDouble() * this.rooms.length );
+		int roomRow = (int) ( r.nextDouble() * this.rooms[0].length );
+		return this.rooms[roomColumn][roomRow];
 	}
 
 	public List<Node> getVisibleToPlayer (){
 
-		return visibleToPlayer;
+		return this.visibleToPlayer;
 	}
 
 	public boolean hammerOnMap (){
@@ -863,9 +870,9 @@ public class Map{
 
 		for ( int x = 0 ; x < Game.ROWS ; x++ ){
 			for ( int y = 0 ; y < Game.COLUMNS ; y++ ){
-				if ( mapGrid[x][y] != null ){
-					if ( mapGrid[x][y].checkEntityByID( (byte) 4 ) ){
-						for ( Entity entity : mapGrid[x][y].getEntities() ){
+				if ( this.mapGrid[x][y] != null ){
+					if ( this.mapGrid[x][y].checkEntityByID( (byte) 4 ) ){
+						for ( Entity entity : this.mapGrid[x][y].getEntities() ){
 							if ( entity instanceof trl.entity.item.Hammer ){
 								LOGGER.setLevel( Level.INFO );
 								LOGGER.info("Hammer found");
@@ -892,10 +899,10 @@ public class Map{
 		LOGGER.setLevel( Level.INFO );
 		LOGGER.info("Initializing map");
 
-		mapGrid = new Node[vSize][hSize];
-		displayedNodes = new Node[Game.W_ROWS][Game.W_COLS];
-		visibleToPlayer = new ArrayList<Node>();
-		imageMap = new BufferedImage[Game.W_COLS][Game.W_ROWS];
+		this.mapGrid = new Node[this.vSize][this.hSize];
+		this.displayedNodes = new Node[Game.W_ROWS][Game.W_COLS];
+		this.visibleToPlayer = new ArrayList<Node>();
+		this.imageMap = new BufferedImage[Game.W_COLS][Game.W_ROWS];
 		generateMap();
 	}
 
@@ -926,7 +933,7 @@ public class Map{
 
 	public boolean isVisibleToPlayer ( Node node ){
 
-		if ( visibleToPlayer.contains( node ) ){
+		if ( this.visibleToPlayer.contains( node ) ){
 			LOGGER.setLevel( Level.CONFIG);
 			LOGGER.config("Node visible to player");
 			return true;
@@ -953,13 +960,13 @@ public class Map{
 		 * Check for newly created hallways that border on void nodes. Change
 		 * the bordering nodes to walls.
 		 */
-		for ( int x = 0 ; x < mapGrid.length ; x++ ){
-			for ( int y = 0 ; y < mapGrid[0].length ; y++ ){
-				if ( mapGrid[x][y] != null && mapGrid[x][y].isFloor() ){
+		for ( int x = 0 ; x < this.mapGrid.length ; x++ ){
+			for ( int y = 0 ; y < this.mapGrid[0].length ; y++ ){
+				if ( this.mapGrid[x][y] != null && this.mapGrid[x][y].isFloor() ){
 					for ( int neighborX = x - 1 ; neighborX <= x + 1 ; neighborX++ ){
 						for ( int neighborY = y - 1 ; neighborY <= y + 1 ; neighborY++ ){
-							if ( neighborX >= 0 && neighborY >= 0 && neighborX < mapGrid.length && neighborY < mapGrid[0].length ){
-								if ( mapGrid[neighborX][neighborY] == null ){
+							if ( neighborX >= 0 && neighborY >= 0 && neighborX < this.mapGrid.length && neighborY < this.mapGrid[0].length ){
+								if ( this.mapGrid[neighborX][neighborY] == null ){
 									Node neighbor = new Node( neighborX , neighborY , this );
 									createNode( neighbor );
 									neighbor.makeWall();
@@ -985,9 +992,9 @@ public class Map{
 
 		for ( int x = 0 ; x < Game.ROWS ; x++ ){
 			for ( int y = 0 ; y < Game.COLUMNS ; y++ ){
-				if ( mapGrid[x][y] != null ){
-					if ( mapGrid[x][y].checkEntityByID( (byte) 4 ) ){
-						for ( Entity entity : mapGrid[x][y].getEntities() ){
+				if ( this.mapGrid[x][y] != null ){
+					if ( this.mapGrid[x][y].checkEntityByID( (byte) 4 ) ){
+						for ( Entity entity : this.mapGrid[x][y].getEntities() ){
 							if ( entity instanceof trl.entity.item.Potion ){
 								LOGGER.setLevel( Level.INFO);
 								LOGGER.info("Have potion on map");
@@ -1014,8 +1021,8 @@ public class Map{
 		LOGGER.setLevel( Level.INFO);
 		LOGGER.info("Printing feature list");
 		
-		for ( int x = 0 ; x < hSize ; x++ ){
-			for ( int y = 0 ; y < vSize ; y++ ){
+		for ( int x = 0 ; x < this.hSize ; x++ ){
+			for ( int y = 0 ; y < this.vSize ; y++ ){
 				System.out.println( x + "," + y + ": " + getNode( x , y ).getFeature().toString() + ", passable = "
 						+ getNode( x , y ).getFeature().isPassable() );
 			}
@@ -1037,7 +1044,7 @@ public class Map{
 			addRectAdjacents( openList , closedList , endNode , bestNode );
 		}
 		if ( bestNode.equals( endNode ) ){
-			endNodeFound = true;
+			this.endNodeFound = true;
 		}else{
 			// Nothing
 		}
@@ -1053,14 +1060,14 @@ public class Map{
 		for ( int x = 0 ; x < Game.W_COLS ; x++ ){
 			for ( int y = 0 ; y < Game.W_ROWS ; y++ ){
 				// Skip null (void) nodes
-				if ( imageMap[x][y] != null ){
+				if ( this.imageMap[x][y] != null ){
 					// Draw features
-					g.drawImage( imageMap[x][y] , x * Game.SCALED_TILE_SIZE , ( Game.W_HEIGHT - Game.SCALED_TILE_SIZE ) - y
+					g.drawImage( this.imageMap[x][y] , x * Game.SCALED_TILE_SIZE , ( Game.W_HEIGHT - Game.SCALED_TILE_SIZE ) - y
 							* Game.SCALED_TILE_SIZE , Game.SCALED_TILE_SIZE , Game.SCALED_TILE_SIZE , null );
 					// Draw entities
-					if ( visibleToPlayer.contains( displayedNodes[x][y] ) ){
-						if ( displayedNodes[x][y].getEntities() != null && displayedNodes[x][y].getEntities().size() > 0 ){
-							for ( Entity entity : displayedNodes[x][y].getEntities() ){
+					if ( this.visibleToPlayer.contains( this.displayedNodes[x][y] ) ){
+						if ( this.displayedNodes[x][y].getEntities() != null && this.displayedNodes[x][y].getEntities().size() > 0 ){
+							for ( Entity entity : this.displayedNodes[x][y].getEntities() ){
 								// Skip actors. They are drawn in their
 								// Respective classes.
 								if ( !( entity instanceof trl.entity.actor.Actor ) ){
@@ -1087,10 +1094,10 @@ public class Map{
 
 		for ( int x = 0 ; x < Game.ROWS ; x++ ){
 			for ( int y = 0 ; y < Game.COLUMNS ; y++ ){
-				if ( mapGrid[x][y] != null ){
-					mapGrid[x][y].setSeenByPlayer( true );
-					if ( mapGrid[x][y].getEntities() != null && mapGrid[x][y].getEntities().size() > 0 ){
-						for ( Entity entity : mapGrid[x][y].getEntities() ){
+				if ( this.mapGrid[x][y] != null ){
+					this.mapGrid[x][y].setSeenByPlayer( true );
+					if ( this.mapGrid[x][y].getEntities() != null && this.mapGrid[x][y].getEntities().size() > 0 ){
+						for ( Entity entity : this.mapGrid[x][y].getEntities() ){
 							entity.setSeenByPlayer( true );
 						}
 					}else{
@@ -1122,11 +1129,11 @@ public class Map{
 		}else if ( GameplayState.getPlayer().getAxisX() + ( Game.W_COLS / 2 ) >= Game.COLUMNS ){
 			startX = Game.COLUMNS - Game.W_COLS;
 		}else{
-			startX = GameplayState.getPlayer().getAxisX() - (int) ( Game.W_COLS / 2 );
+			startX = GameplayState.getPlayer().getAxisX() - Game.W_COLS / 2;
 		}
 		if ( GameplayState.getPlayer().getAxisY() <= Game.W_ROWS / 2 ){
 			startY = 0;
-		}else if ( GameplayState.getPlayer().getAxisY() + (int) ( Game.W_ROWS / 2 ) >= Game.COLUMNS ){
+		}else if ( GameplayState.getPlayer().getAxisY() + Game.W_ROWS / 2 >= Game.COLUMNS ){
 			startY = Game.COLUMNS - Game.W_COLS;
 		}else{
 			startY = GameplayState.getPlayer().getAxisY() - Game.W_ROWS / 2;
@@ -1134,7 +1141,7 @@ public class Map{
 
 		for ( int x = 0 ; x < Game.W_COLS ; x++ ){
 			for ( int y = 0 ; y < Game.W_ROWS ; y++ ){
-				displayedNodes[x][y] = mapGrid[startX + x][startY + y];
+				this.displayedNodes[x][y] = this.mapGrid[startX + x][startY + y];
 			}
 		}
 
@@ -1149,61 +1156,61 @@ public class Map{
 		LOGGER.setLevel( Level.CONFIG);
 		LOGGER.config("Updating image map");
 
-		for ( int x = 0 ; x < displayedNodes.length ; x++ ){
-			for ( int y = 0 ; y < displayedNodes[0].length ; y++ ){
-				Node current = displayedNodes[x][y];
+		for ( int x = 0 ; x < this.displayedNodes.length ; x++ ){
+			for ( int y = 0 ; y < this.displayedNodes[0].length ; y++ ){
+				Node current = this.displayedNodes[x][y];
 				if ( current != null ){
 					if ( current.isFloor() ){
-						if ( visibleToPlayer.contains( current ) ){
-							imageMap[x][y] = Game.getImageManager().stoneTile;
+						if ( this.visibleToPlayer.contains( current ) ){
+							this.imageMap[x][y] = Game.getImageManager().stoneTile;
 						}else if ( current.seenByPlayer() ){
-							imageMap[x][y] = Game.getImageManager().stoneTile1Shadow;
+							this.imageMap[x][y] = Game.getImageManager().stoneTile1Shadow;
 						}else{
-							imageMap[x][y] = null;
+							this.imageMap[x][y] = null;
 						}
 					}else if ( current.isWall() ){
-						if ( visibleToPlayer.contains( current ) ){
-							imageMap[x][y] = Game.getImageManager().stoneWall;
+						if ( this.visibleToPlayer.contains( current ) ){
+							this.imageMap[x][y] = Game.getImageManager().stoneWall;
 						}else if ( current.seenByPlayer() ){
-							imageMap[x][y] = Game.getImageManager().stoneWallShadow;
+							this.imageMap[x][y] = Game.getImageManager().stoneWallShadow;
 						}else{
-							imageMap[x][y] = null;
+							this.imageMap[x][y] = null;
 						}
 					}else if ( current.isOpenDoor() ){
-						if ( visibleToPlayer.contains( current ) ){
-							imageMap[x][y] = Game.getImageManager().openDoor;
+						if ( this.visibleToPlayer.contains( current ) ){
+							this.imageMap[x][y] = Game.getImageManager().openDoor;
 						}else if ( current.seenByPlayer() ){
-							imageMap[x][y] = Game.getImageManager().openDoorShadow;
+							this.imageMap[x][y] = Game.getImageManager().openDoorShadow;
 						}else{
-							imageMap[x][y] = null;
+							this.imageMap[x][y] = null;
 						}
 					}else if ( current.isClosedDoor() ){
-						if ( visibleToPlayer.contains( current ) ){
-							imageMap[x][y] = Game.getImageManager().closedDoor;
+						if ( this.visibleToPlayer.contains( current ) ){
+							this.imageMap[x][y] = Game.getImageManager().closedDoor;
 						}else if ( current.seenByPlayer() ){
-							imageMap[x][y] = Game.getImageManager().closedDoorShadow;
+							this.imageMap[x][y] = Game.getImageManager().closedDoorShadow;
 						}else{
-							imageMap[x][y] = null;
+							this.imageMap[x][y] = null;
 						}
 					}else if ( current.isStairDown() ){
-						if ( visibleToPlayer.contains( current ) ){
-							imageMap[x][y] = Game.getImageManager().stairDown;
+						if ( this.visibleToPlayer.contains( current ) ){
+							this.imageMap[x][y] = Game.getImageManager().stairDown;
 						}else if ( current.seenByPlayer() ){
-							imageMap[x][y] = Game.getImageManager().stairDownShadow;
+							this.imageMap[x][y] = Game.getImageManager().stairDownShadow;
 						}else{
-							imageMap[x][y] = null;
+							this.imageMap[x][y] = null;
 						}
 					}else if ( current.isGoal() ){
-						if ( visibleToPlayer.contains( current ) ){
-							imageMap[x][y] = Game.getImageManager().goal;
+						if ( this.visibleToPlayer.contains( current ) ){
+							this.imageMap[x][y] = Game.getImageManager().goal;
 						}else if ( current.seenByPlayer() ){
-							imageMap[x][y] = Game.getImageManager().goalShadow;
+							this.imageMap[x][y] = Game.getImageManager().goalShadow;
 						}else{
-							imageMap[x][y] = null;
+							this.imageMap[x][y] = null;
 						}
 					}
 				}else{
-					imageMap[x][y] = null;
+					this.imageMap[x][y] = null;
 				}
 			}
 		}
@@ -1218,7 +1225,7 @@ public class Map{
 		 * New strategy: Just clear visibleToPlayer and set all enemieseach time
 		 * this method is called.
 		 */
-		visibleToPlayer.clear();
+		this.visibleToPlayer.clear();
 		for ( Enemy enemy : GameplayState.getEnemyGroup().getEnemies() ){
 			enemy.setVisibleToPlayer( false );
 		}
@@ -1228,7 +1235,7 @@ public class Map{
 		// Loop through displayed nodes
 		for ( int x = 0 ; x < Game.W_COLS ; x++ ){
 			for ( int y = 0 ; y < Game.W_ROWS ; y++ ){
-				Node displayedNode = displayedNodes[x][y];
+				Node displayedNode = this.displayedNodes[x][y];
 				// Don't bother with LoS for null nodes.
 				if ( displayedNode != null ){
 					// PlayerLoS contains all nodes in a Bresenham line
@@ -1260,8 +1267,8 @@ public class Map{
 						 * If the unobstructed node isn't already in
 						 * visibleToPlayer, add it.
 						 */
-						if ( !visibleToPlayer.contains( displayedNode ) ){
-							visibleToPlayer.add( displayedNode );
+						if ( !this.visibleToPlayer.contains( displayedNode ) ){
+							this.visibleToPlayer.add( displayedNode );
 						}else{
 							// Nothing
 						}
@@ -1295,16 +1302,17 @@ public class Map{
 		LOGGER.setLevel( Level.CONFIG);
 		LOGGER.config("Creating one node");
 
-		mapGrid[x][y] = new Node( x , y , this );
-		mapGrid[x][y].makeFloor();
+		this.mapGrid[x][y] = new Node( x , y , this );
+		this.mapGrid[x][y].makeFloor();
 	}
 
+	@SuppressWarnings ( "null" )
 	public void createNode ( Node node ){
 		
 		LOGGER.setLevel( Level.CONFIG);
 		LOGGER.config("Creating one node");
 
-		if ( mapGrid == null ){
+		if ( this.mapGrid == null ){
 			// System.out.println("mapGrid NULL");
 		}else{
 			// Nothing
@@ -1314,7 +1322,7 @@ public class Map{
 		}else{
 			// Nothing
 		}
-		mapGrid[node.getAxisX()][node.getAxisY()] = node;
+		this.mapGrid[node.getAxisX()][node.getAxisY()] = node;
 	}
 
 	public void setDisplayedNodesMinX (){
@@ -1330,14 +1338,14 @@ public class Map{
 		 */
 		int x = 0 , y = 0;
 		boolean nonNullFound = false;
-		Node firstNonNull = displayedNodes[0][0];
+		Node firstNonNull = this.displayedNodes[0][0];
 		/* If origin node is null */
 		if ( firstNonNull == null ){
 			for ( x = 0 ; x < Game.W_COLS ; x++ ){
 				for ( y = 0 ; y < Game.W_ROWS ; y++ ){
-					if ( displayedNodes[x][y] != null ){
+					if ( this.displayedNodes[x][y] != null ){
 
-						displayedNodesMinX = displayedNodes[x][y].getAxisX() - x;
+						displayedNodesMinX = this.displayedNodes[x][y].getAxisX() - x;
 						nonNullFound = true;
 						break;
 					}else{
@@ -1352,7 +1360,7 @@ public class Map{
 			}
 		}else{
 			// If origin node is non-null, just return its x value
-			displayedNodesMinX = displayedNodes[0][0].getAxisX();
+			displayedNodesMinX = this.displayedNodes[0][0].getAxisX();
 		}
 	}
 
@@ -1369,13 +1377,13 @@ public class Map{
 		 */
 		int x = 0 , y = 0;
 		boolean nonNullFound = false;
-		Node firstNonNull = displayedNodes[0][0];
+		Node firstNonNull = this.displayedNodes[0][0];
 		/* If origin node is null */
 		if ( firstNonNull == null ){
 			for ( x = 0 ; x < Game.W_COLS ; x++ ){
 				for ( y = 0 ; y < Game.W_ROWS ; y++ ){
-					if ( displayedNodes[x][y] != null ){
-						displayedNodesMinY = displayedNodes[x][y].getAxisY() - y;
+					if ( this.displayedNodes[x][y] != null ){
+						displayedNodesMinY = this.displayedNodes[x][y].getAxisY() - y;
 						nonNullFound = true;
 						break;
 					}else{
@@ -1390,7 +1398,7 @@ public class Map{
 			}
 		}else{
 			// If origin node non-null, return its y value
-			displayedNodesMinY = displayedNodes[0][0].getAxisY();
+			displayedNodesMinY = this.displayedNodes[0][0].getAxisY();
 		}
 	}
 
@@ -1418,7 +1426,7 @@ public class Map{
 		int count = 0;
 		for ( int x = 0 ; x < Game.COLUMNS ; x++ ){
 			for ( int y = 0 ; y < Game.ROWS ; y++ ){
-				if ( mapGrid[x][y] != null ){
+				if ( this.mapGrid[x][y] != null ){
 					count++;
 				}else{
 					// Nothing
@@ -1432,7 +1440,7 @@ public class Map{
 
 		LOGGER.setLevel( Level.CONFIG);
 		LOGGER.config("Getting rooms");
-		return rooms;
+		return this.rooms;
 	}
 
 	public boolean inRoom ( Node node ){
@@ -1441,9 +1449,9 @@ public class Map{
 		LOGGER.config("Verifying if node is in a room");
 
 		Point loc = new Point( node.getAxisX() , node.getAxisY() );
-		for ( int x = 0 ; x < rooms.length ; x++ ){
-			for ( int y = 0 ; y < rooms[0].length ; y++ ){
-				if ( rooms[x][y].getBoundary().contains( loc ) ){
+		for ( int x = 0 ; x < this.rooms.length ; x++ ){
+			for ( int y = 0 ; y < this.rooms[0].length ; y++ ){
+				if ( this.rooms[x][y].getBoundary().contains( loc ) ){
 					return true;
 				}else{
 					// Nothing
@@ -1453,6 +1461,9 @@ public class Map{
 		return false;
 	}
 
+	/**
+	 * @param loc  
+	 */
 	public Room getNearestRoom ( Node loc ){
 		
 		LOGGER.setLevel( Level.CONFIG);
@@ -1461,7 +1472,7 @@ public class Map{
 
 		int roomColumn = Game.COLUMNS / MAX_ROOM_WIDTH - 1;
 		int roomRow = Game.ROWS / MAX_ROOM_HEIGHT - 1;
-		Room nearest = rooms[roomColumn][roomRow];
+		Room nearest = this.rooms[roomColumn][roomRow];
 		return nearest;
 	}
 }
