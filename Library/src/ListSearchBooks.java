@@ -17,6 +17,11 @@ import java.util.logging.Logger;
  */
 public class ListSearchBooks extends JInternalFrame{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	// Log system from ListSearchBooks class
 	private final static Logger LOGGER = Logger.getLogger( ListSearchBooks.class.getName() );
 	
@@ -74,10 +79,10 @@ public class ListSearchBooks extends JInternalFrame{
 		// For bassing the required information to the ResultSetTableModel.
 		// Object.
 		try{
-			tableModel = new ResultSetTableModel( JDBC_DRIVER , DATABASE_URL , DEFAULT_QUERY );
+			this.tableModel = new ResultSetTableModel( JDBC_DRIVER , DATABASE_URL , DEFAULT_QUERY );
 			// For setting the Query.
 			try{
-				tableModel.setQuery( DEFAULT_QUERY );
+				this.tableModel.setQuery( DEFAULT_QUERY );
 			}catch ( SQLException sqlException ){
 
 				// Do nothing
@@ -94,102 +99,102 @@ public class ListSearchBooks extends JInternalFrame{
 		}
 
 		// For setting the table with the information.
-		table = new JTable( tableModel );
+		this.table = new JTable( this.tableModel );
 
 		// For setting the size for the table.
-		table.setPreferredScrollableViewportSize( new Dimension( 990 , 200 ) );
+		this.table.setPreferredScrollableViewportSize( new Dimension( 990 , 200 ) );
 
 		// For setting the font.
-		table.setFont( new Font( "Tahoma" , Font.PLAIN , 12 ) );
+		this.table.setFont( new Font( "Tahoma" , Font.PLAIN , 12 ) );
 
 		// For setting the scrollpane to the table.
-		scrollPane = new JScrollPane( table );
+		this.scrollPane = new JScrollPane( this.table );
 
 		// For setting the size for the table columns.
 		for ( int i = 0 ; i < 13 ; i++ ){
-			column = table.getColumnModel().getColumn( i );
+			this.column = this.table.getColumnModel().getColumn( i );
 			if ( i == 0 ){ // BookID.
-				column.setPreferredWidth( 20 );
+				this.column.setPreferredWidth( 20 );
 			}else{
 
 				// Do nothing
 			}
 
 			if ( i == 1 ){ // Subject.
-				column.setPreferredWidth( 100 );
+				this.column.setPreferredWidth( 100 );
 			}else{
 
 				// Do nothing
 			}
 
 			if ( i == 2 ){ // Title.
-				column.setPreferredWidth( 150 );
+				this.column.setPreferredWidth( 150 );
 			}else{
 
 				// Do nothing
 			}
 
 			if ( i == 3 ){ // Auther.
-				column.setPreferredWidth( 50 );
+				this.column.setPreferredWidth( 50 );
 			}else{
 
 				// Do nothing
 			}
 
 			if ( i == 4 ){ // Publisher.
-				column.setPreferredWidth( 70 );
+				this.column.setPreferredWidth( 70 );
 			}
 			if ( i == 5 ){ // Copyright.
-				column.setPreferredWidth( 40 );
+				this.column.setPreferredWidth( 40 );
 			}else{
 
 				// Do nothing
 			}
 
 			if ( i == 6 ){ // Edition.
-				column.setPreferredWidth( 40 );
+				this.column.setPreferredWidth( 40 );
 			}else{
 
 				// Do nothing
 			}
 
 			if ( i == 7 ){ // Pages.
-				column.setPreferredWidth( 40 );
+				this.column.setPreferredWidth( 40 );
 			}else{
 
 				// Do nothing
 			}
 
 			if ( i == 8 ){ // NumberOfBooks.
-				column.setPreferredWidth( 80 );
+				this.column.setPreferredWidth( 80 );
 			}else{
 
 				// Do nothing
 			}
 
 			if ( i == 9 ){ // ISBN.
-				column.setPreferredWidth( 70 );
+				this.column.setPreferredWidth( 70 );
 			}else{
 
 				// Do nothing
 			}
 
 			if ( i == 10 ){ // Library.
-				column.setPreferredWidth( 30 );
+				this.column.setPreferredWidth( 30 );
 			}else{
 
 				// Do nothing
 			}
 
 			if ( i == 11 ){ // Availble.
-				column.setPreferredWidth( 30 );
+				this.column.setPreferredWidth( 30 );
 			}else{
 
 				// Do nothing
 			}
 
 			if ( i == 12 ){ // ShelfNo.
-				column.setPreferredWidth( 30 );
+				this.column.setPreferredWidth( 30 );
 			}else{
 
 				// Do nothing
@@ -197,46 +202,46 @@ public class ListSearchBooks extends JInternalFrame{
 
 		}
 		// For setting the font to the label.
-		label.setFont( new Font( "Tahoma" , Font.BOLD , 14 ) );
+		this.label.setFont( new Font( "Tahoma" , Font.BOLD , 14 ) );
 
 		// For setting the layout to the panel.
-		northPanel.setLayout( new FlowLayout( FlowLayout.CENTER ) );
+		this.northPanel.setLayout( new FlowLayout( FlowLayout.CENTER ) );
 
 		// For adding the label to the panel.
-		northPanel.add( label );
+		this.northPanel.add( this.label );
 
 		// For adding the panel to the container.
-		cp.add( "North" , northPanel );
+		cp.add( "North" , this.northPanel );
 
 		// For setting the layout to the panel.
-		centerPanel.setLayout( new BorderLayout() );
+		this.centerPanel.setLayout( new BorderLayout() );
 
 		// For creating an image for the button.
 		ImageIcon printIcon = new ImageIcon( ClassLoader.getSystemResource( "images/Print16.gif" ) );
 
 		// For adding the button to the panel.
-		printButton = new JButton( "print the books" , printIcon );
+		this.printButton = new JButton( "print the books" , printIcon );
 
 		// For setting the tip text.
-		printButton.setToolTipText( "Print" );
+		this.printButton.setToolTipText( "Print" );
 
 		// For setting the font to the button.
-		printButton.setFont( new Font( "Tahoma" , Font.PLAIN , 12 ) );
+		this.printButton.setFont( new Font( "Tahoma" , Font.PLAIN , 12 ) );
 
 		// For adding the button to the panel.
-		centerPanel.add( printButton , BorderLayout.NORTH );
+		this.centerPanel.add( this.printButton , BorderLayout.NORTH );
 
 		// For adding the scrollpane to the panel.
-		centerPanel.add( scrollPane , BorderLayout.CENTER );
+		this.centerPanel.add( this.scrollPane , BorderLayout.CENTER );
 
 		// For setting the border to the panel.
-		centerPanel.setBorder( BorderFactory.createTitledBorder( "Books:" ) );
+		this.centerPanel.setBorder( BorderFactory.createTitledBorder( "Books:" ) );
 
 		// For adding the panel to the container.
-		cp.add( "Center" , centerPanel );
+		cp.add( "Center" , this.centerPanel );
 
 		// For adding the actionListener to the button.
-		printButton.addActionListener( new ActionListener(){
+		this.printButton.addActionListener( new ActionListener(){
 
 			public void actionPerformed ( ActionEvent ae ){
 
