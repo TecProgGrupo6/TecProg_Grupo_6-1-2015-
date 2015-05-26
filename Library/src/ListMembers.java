@@ -17,6 +17,11 @@ import java.util.logging.Logger;
  */
 public class ListMembers extends JInternalFrame{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	// Log system from ListMembers class
 	private final static Logger LOGGER = Logger.getLogger( ListMembers.class.getName() );
 
@@ -76,106 +81,109 @@ public class ListMembers extends JInternalFrame{
 		 */
 		try{
 
-			tableModel = new ResultSetTableModel( JDBC_DRIVER , DATABASE_URL , DEFAULT_QUERY );
+			this.tableModel = new ResultSetTableModel( JDBC_DRIVER , DATABASE_URL , DEFAULT_QUERY );
 
 			// For setting the Query
 			try{
 
-				tableModel.setQuery( DEFAULT_QUERY );
+				this.tableModel.setQuery( DEFAULT_QUERY );
 
 			}
 
 			catch ( SQLException sqlException ){
+				//no action
 			}
 		}catch ( ClassNotFoundException classNotFound ){
+			//no action
 		}catch ( SQLException sqlException ){
+			//no action
 		}
 
 		// For setting the table with the information
-		table = new JTable( tableModel );
+		this.table = new JTable( this.tableModel );
 
 		// For setting the size for the table
-		table.setPreferredScrollableViewportSize( new Dimension( 700 , 200 ) );
+		this.table.setPreferredScrollableViewportSize( new Dimension( 700 , 200 ) );
 
 		// For setting the font
-		table.setFont( new Font( "Tahoma" , Font.PLAIN , 12 ) );
+		this.table.setFont( new Font( "Tahoma" , Font.PLAIN , 12 ) );
 
 		// For setting the scrollpane to the table
-		scrollPane = new JScrollPane( table );
+		this.scrollPane = new JScrollPane( this.table );
 
 		// For setting the size for the table columns
 		for ( int i = 0 ; i < 6 ; i++ ){
 
-			column = table.getColumnModel().getColumn( i );
+			this.column = this.table.getColumnModel().getColumn( i );
 			if ( i == 0 ){// MemberID
 
-				column.setPreferredWidth( 30 );
+				this.column.setPreferredWidth( 30 );
 
 			}else if ( i == 1 ){ // ID
 
-				column.setPreferredWidth( 20 );
+				this.column.setPreferredWidth( 20 );
 
 			}else if ( i == 2 ){ // Name
 
-				column.setPreferredWidth( 150 );
+				this.column.setPreferredWidth( 150 );
 
 			}else if ( i == 3 ){ // E-MAIL
 
-				column.setPreferredWidth( 120 );
+				this.column.setPreferredWidth( 120 );
 
 			}else if ( i == 4 ){ // Major
 
-				column.setPreferredWidth( 20 );
+				this.column.setPreferredWidth( 20 );
 
 			}else if ( i == 5 ){// Expired
 
-				column.setPreferredWidth( 40 );
+				this.column.setPreferredWidth( 40 );
 
 			}else{
 				// No action
 			}
 
 			// For setting the font to the label
-			label.setFont( new Font( "Tahoma" , Font.BOLD , 14 ) );
+			this.label.setFont( new Font( "Tahoma" , Font.BOLD , 14 ) );
 
 			// For setting the layout to the panel
-			northPanel.setLayout( new FlowLayout( FlowLayout.CENTER ) );
+			this.northPanel.setLayout( new FlowLayout( FlowLayout.CENTER ) );
 
 			// For adding the label to the panel
-			northPanel.add( label );
+			this.northPanel.add( this.label );
 
 			// For adding the panel to the container
-			cp.add( "North" , northPanel );
+			cp.add( "North" , this.northPanel );
 
 			// For setting the layout to the panel
-			centerPanel.setLayout( new BorderLayout() );
+			this.centerPanel.setLayout( new BorderLayout() );
 
 			// For creating an image for the button
 			ImageIcon printIcon = new ImageIcon( ClassLoader.getSystemResource( "images/Print16.gif" ) );
 
 			// For adding the button to the panel
-			printButton = new JButton( "print the members" , printIcon );
+			this.printButton = new JButton( "print the members" , printIcon );
 
 			// For setting the tip text
-			printButton.setToolTipText( "Print" );
+			this.printButton.setToolTipText( "Print" );
 
 			// For setting the font to the button
-			printButton.setFont( new Font( "Tahoma" , Font.PLAIN , 12 ) );
+			this.printButton.setFont( new Font( "Tahoma" , Font.PLAIN , 12 ) );
 
 			// For adding the button to the panel
-			centerPanel.add( printButton , BorderLayout.NORTH );
+			this.centerPanel.add( this.printButton , BorderLayout.NORTH );
 
 			// For adding the scrollpane to the panel
-			centerPanel.add( scrollPane , BorderLayout.CENTER );
+			this.centerPanel.add( this.scrollPane , BorderLayout.CENTER );
 
 			// For setting the border to the panel
-			centerPanel.setBorder( BorderFactory.createTitledBorder( "Members:" ) );
+			this.centerPanel.setBorder( BorderFactory.createTitledBorder( "Members:" ) );
 
 			// For adding the panel to the container
-			cp.add( "Center" , centerPanel );
+			cp.add( "Center" , this.centerPanel );
 
 			// For adding the actionListener to the button
-			printButton.addActionListener( new ActionListener(){
+			this.printButton.addActionListener( new ActionListener(){
 
 				public void actionPerformed ( ActionEvent ae ){
 
