@@ -38,7 +38,7 @@ public class BorrowBooks extends JInternalFrame{
 	private JPanel northPanel = new JPanel();
 
 	// For creating the label.
-	@SuppressWarnings ( "hiding" )
+
 	private JLabel title = new JLabel( "BOOK INFORMATION" );
 
 	// For creating the Center Panel.
