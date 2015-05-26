@@ -252,11 +252,11 @@ public class AddBooks extends JInternalFrame{
 											+ " (?,?,?,?,?,?,?,?,?,?,?,?,?)";
 									Class.forName( "sun.jdbc.odbc.JdbcOdbcDriver" );
 									
-									@SuppressWarnings ( "resource" )
-									Connection con = DriverManager.getConnection( "jdbc:odbc:JLibrary" );
 									
-									@SuppressWarnings ( "resource" )
-									PreparedStatement ps = con.prepareStatement( sql );
+									Connection connnect = DriverManager.getConnection( "jdbc:odbc:JLibrary" );
+									
+									
+									PreparedStatement ps = connnect.prepareStatement( sql );
 									
 									ps.setString( 1 , AddBooks.this.data[0] );
 									ps.setString( 2 , AddBooks.this.data[1] );

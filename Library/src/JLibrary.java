@@ -13,6 +13,11 @@ import java.util.logging.Level;
  */
 public class JLibrary extends JFrame implements ActionListener{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	// Log system from AddBooks Class
 	private final static Logger LOGGER = Logger.getLogger( JLibrary.class.getName() );
 		
@@ -36,16 +41,7 @@ public class JLibrary extends JFrame implements ActionListener{
 	private JButton goButton = new JButton( "Go" );
 
 	// Variable to add objects from others classes
-	private JDesktopPane desktop = new JDesktopPane();
-
-	// Does nothing...
-	private JSplitPane splitPane;
-
-	// Does nothing...
-	private JScrollPane desktopScrollPane;
-
-	// Does nothing...
-	private JScrollPane treeScrollPane;
+	JDesktopPane desktop = new JDesktopPane();
 
 	/***************************************************************************
 	 * create objects from another classes for using them in the ActionListener
@@ -64,7 +60,7 @@ public class JLibrary extends JFrame implements ActionListener{
 	private ListBooks listBooks;
 
 	// To add books
-	private AddBooks addBooks;
+	AddBooks addBooks;
 
 	// To borrow books
 	private BorrowBooks borrowBooks;
@@ -73,7 +69,7 @@ public class JLibrary extends JFrame implements ActionListener{
 	private ReturnBooks returnBooks;
 
 	// To add members
-	private AddMembers addMembers;
+	AddMembers addMembers;
 
 	// To list members
 	private ListMembers listMembers;
@@ -108,61 +104,61 @@ public class JLibrary extends JFrame implements ActionListener{
 		// For setting the size
 		Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
 
-		setExtendedState( JFrame.MAXIMIZED_BOTH );
+		setExtendedState( Frame.MAXIMIZED_BOTH );
 
 		Toolkit kit = Toolkit.getDefaultToolkit();
 		Image image = kit.getImage( ClassLoader.getSystemResource( "images/Host16.gif" ) );
 		setIconImage( image );
 
 		// Creating a Menubar and a Toolbar
-		menu = new Menubar();
-		toolbar = new Toolbar();
+		this.menu = new Menubar();
+		this.toolbar = new Toolbar();
 
-		setMenu(menu);
+		setMenu(this.menu);
 
 		// Get the graphical user interface components display the desktop
 		Container cp = getContentPane();
 
-		desktop.setBackground( Color.GRAY );
+		this.desktop.setBackground( Color.GRAY );
 
-		cp.add( "Center" , desktop );
-
-		// For setting the font
-		searchLabel.setFont( new Font( "Tahoma" , Font.BOLD , 11 ) );
+		cp.add( "Center" , this.desktop );
 
 		// For setting the font
-		searchTextField.setFont( new Font( "Tahoma" , Font.PLAIN , 12 ) );
+		this.searchLabel.setFont( new Font( "Tahoma" , Font.BOLD , 11 ) );
 
-		goButton.setFont( new Font( "Tahoma" , Font.BOLD , 9 ) );
+		// For setting the font
+		this.searchTextField.setFont( new Font( "Tahoma" , Font.PLAIN , 12 ) );
+
+		this.goButton.setFont( new Font( "Tahoma" , Font.BOLD , 9 ) );
 
 		// For adding the searchLable to the searchToolBar
-		searchToolBar.add( searchLabel );
+		this.searchToolBar.add( this.searchLabel );
 
 		// For adding the searchTextField to searchToolBar
-		searchToolBar.add( searchTextField );
+		this.searchToolBar.add( this.searchTextField );
 
 		// For adding the goButton to searchToolBar
-		searchToolBar.add( goButton );
+		this.searchToolBar.add( this.goButton );
 
 		// For adding listenerAction for the button
-		goButton.addActionListener( this );
+		this.goButton.addActionListener( this );
 
 		// For setting the layout
-		searchPanel.setLayout( new BorderLayout() );
+		this.searchPanel.setLayout( new BorderLayout() );
 
 		// For adding the toolBar to the searchPanel
-		searchPanel.add( "Center" , toolbar );
+		this.searchPanel.add( "Center" , this.toolbar );
 
 		// For adding the searchPanel to the Container
-		cp.add( "North" , searchPanel );
+		cp.add( "North" , this.searchPanel );
 
 		// For adding the statusbar to the Container
-		cp.add( "South" , statusbar );
+		cp.add( "South" , this.statusbar );
 
-		for ( int i = 0 ; i < toolbar.imageName24.length ; i++ ){
+		for ( int i = 0 ; i < this.toolbar.imageName24.length ; i++ ){
 
 			// For adding the action to the button
-			toolbar.button[i].addActionListener( this );
+			this.toolbar.button[i].addActionListener( this );
 
 		}
 
@@ -191,18 +187,18 @@ public class JLibrary extends JFrame implements ActionListener{
 	 */
 	public void actionPerformed ( ActionEvent ae ){
 
-		if ( ae.getSource() == menu.addBook || ae.getSource() == toolbar.button[0] ){
+		if ( ae.getSource() == this.menu.addBook || ae.getSource() == this.toolbar.button[0] ){
 
 			Thread runner = new Thread(){
 
 				public void run (){
 
-					addBooks = new AddBooks();
-					desktop.add( addBooks );
+					JLibrary.this.addBooks = new AddBooks();
+					JLibrary.this.desktop.add( JLibrary.this.addBooks );
 
 					try{
 
-						addBooks.setSelected( true );
+						JLibrary.this.addBooks.setSelected( true );
 
 					}catch ( java.beans.PropertyVetoException e ){
 
@@ -212,18 +208,18 @@ public class JLibrary extends JFrame implements ActionListener{
 				}
 			};
 			runner.start();
-		}else if ( ae.getSource() == menu.listBook || ae.getSource() == toolbar.button[1] ){
+		}else if ( ae.getSource() == this.menu.listBook || ae.getSource() == this.toolbar.button[1] ){
 
 			Thread runner = new Thread(){
 
 				public void run (){
 
-					listBooks = new ListBooks();
-					desktop.add( listBooks );
+					JLibrary.this.setListBooks(new ListBooks());
+					JLibrary.this.desktop.add( getListBooks() );
 
 					try{
 
-						listBooks.setSelected( true );
+						getListBooks().setSelected( true );
 
 					}catch ( java.beans.PropertyVetoException e ){
 
@@ -233,41 +229,18 @@ public class JLibrary extends JFrame implements ActionListener{
 				}
 			};
 			runner.start();
-		}else if ( ae.getSource() == menu.addMember || ae.getSource() == toolbar.button[2] ){
+		}else if ( ae.getSource() == this.menu.addMember || ae.getSource() == this.toolbar.button[2] ){
 
 			Thread runner = new Thread(){
 
 				public void run (){
 
-					addMembers = new AddMembers();
-					desktop.add( addMembers );
+					JLibrary.this.addMembers = new AddMembers();
+					JLibrary.this.desktop.add( JLibrary.this.addMembers );
 
 					try{
 
-						addMembers.setSelected( true );
-
-					}catch ( java.beans.PropertyVetoException e ){
-
-						// Do nothing
-
-					}
-				}
-			};
-			runner.start();
-		}
-
-		else if ( ae.getSource() == menu.listMember || ae.getSource() == toolbar.button[3] ){
-
-			Thread runner = new Thread(){
-
-				public void run (){
-
-					listMembers = new ListMembers();
-					desktop.add( listMembers );
-
-					try{
-
-						listMembers.setSelected( true );
+						JLibrary.this.addMembers.setSelected( true );
 
 					}catch ( java.beans.PropertyVetoException e ){
 
@@ -278,35 +251,19 @@ public class JLibrary extends JFrame implements ActionListener{
 			};
 			runner.start();
 		}
-		if ( ae.getSource() == menu.searchBooksAndMembers || ae.getSource() == toolbar.button[4] ){
-			Thread runner = new Thread(){
 
-				public void run (){
-
-					search = new SearchBooksAndMembers();
-					desktop.add( search );
-					try{
-						search.setSelected( true );
-					}catch ( java.beans.PropertyVetoException e ){
-
-						// Do nothing
-
-					}
-				}
-			};
-			runner.start();
-		}else if ( ae.getSource() == menu.borrowBook || ae.getSource() == toolbar.button[5] ){
+		else if ( ae.getSource() == this.menu.listMember || ae.getSource() == this.toolbar.button[3] ){
 
 			Thread runner = new Thread(){
 
 				public void run (){
 
-					borrowBooks = new BorrowBooks();
-					desktop.add( borrowBooks );
+					JLibrary.this.setListMembers(new ListMembers());
+					JLibrary.this.desktop.add( JLibrary.this.getListMembers() );
 
 					try{
 
-						borrowBooks.setSelected( true );
+						getListMembers().setSelected( true );
 
 					}catch ( java.beans.PropertyVetoException e ){
 
@@ -316,18 +273,36 @@ public class JLibrary extends JFrame implements ActionListener{
 				}
 			};
 			runner.start();
-		}else if ( ae.getSource() == menu.returnBook || ae.getSource() == toolbar.button[6] ){
+		}
+		if ( ae.getSource() == this.menu.searchBooksAndMembers || ae.getSource() == this.toolbar.button[4] ){
+			Thread runner = new Thread(){
+
+				public void run (){
+
+					JLibrary.this.setSearch(new SearchBooksAndMembers());
+					JLibrary.this.desktop.add( getSearch() );
+					try{
+						getSearch().setSelected( true );
+					}catch ( java.beans.PropertyVetoException e ){
+
+						// Do nothing
+
+					}
+				}
+			};
+			runner.start();
+		}else if ( ae.getSource() == this.menu.borrowBook || ae.getSource() == this.toolbar.button[5] ){
 
 			Thread runner = new Thread(){
 
 				public void run (){
 
-					returnBooks = new ReturnBooks();
-					desktop.add( returnBooks );
+					JLibrary.this.setBorrowBooks(new BorrowBooks());
+					JLibrary.this.desktop.add( JLibrary.this.getBorrowBooks() );
 
 					try{
 
-						returnBooks.setSelected( true );
+						getBorrowBooks().setSelected( true );
 
 					}catch ( java.beans.PropertyVetoException e ){
 
@@ -337,7 +312,28 @@ public class JLibrary extends JFrame implements ActionListener{
 				}
 			};
 			runner.start();
-		}else if ( ae.getSource() == menu.exit || ae.getSource() == toolbar.button[7] ){
+		}else if ( ae.getSource() == this.menu.returnBook || ae.getSource() == this.toolbar.button[6] ){
+
+			Thread runner = new Thread(){
+
+				public void run (){
+
+					JLibrary.this.setReturnBooks(new ReturnBooks());
+					JLibrary.this.desktop.add( JLibrary.this.getReturnBooks() );
+
+					try{
+
+						getReturnBooks().setSelected( true );
+
+					}catch ( java.beans.PropertyVetoException e ){
+
+						// Do nothing
+
+					}
+				}
+			};
+			runner.start();
+		}else if ( ae.getSource() == this.menu.exit || ae.getSource() == this.toolbar.button[7] ){
 
 			dispose();
 			System.exit( 0 );
@@ -345,5 +341,45 @@ public class JLibrary extends JFrame implements ActionListener{
 		}else{
 			// No action
 		}
+	}
+	public ListBooks getListBooks(){
+
+		return this.listBooks;
+	}
+	public void setListBooks(ListBooks listBooks){
+
+		this.listBooks = listBooks;
+	}
+	public ListMembers getListMembers(){
+
+		return this.listMembers;
+	}
+	public void setListMembers(ListMembers listMembers){
+
+		this.listMembers = listMembers;
+	}
+	public SearchBooksAndMembers getSearch(){
+
+		return this.search;
+	}
+	public void setSearch(SearchBooksAndMembers search){
+
+		this.search = search;
+	}
+	public BorrowBooks getBorrowBooks(){
+
+		return this.borrowBooks;
+	}
+	public void setBorrowBooks(BorrowBooks borrowBooks){
+
+		this.borrowBooks = borrowBooks;
+	}
+	public ReturnBooks getReturnBooks(){
+
+		return this.returnBooks;
+	}
+	public void setReturnBooks(ReturnBooks returnBooks){
+
+		this.returnBooks = returnBooks;
 	}
 }
