@@ -98,7 +98,7 @@ public class ListSearchMembers extends JInternalFrame{
 			// for setting the Query
 			try{
 				tableModel2.setQuery( DEFAULT_QUERY );
-			}catch ( @SuppressWarnings("unused") SQLException sqlException ){
+			}catch ( SQLException sqlException ){
 
 				// Nothing to do
 			}
@@ -106,7 +106,7 @@ public class ListSearchMembers extends JInternalFrame{
 
 			System.out.println( "ListSearchMembers.java\n" + classNotFound.toString() );
 
-		}catch ( @SuppressWarnings("unused") SQLException sqlException ){
+		}catch ( SQLException sqlException ){
 
 			// Nothing to do
 		}
