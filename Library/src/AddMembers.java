@@ -77,10 +77,10 @@ public class AddMembers extends JInternalFrame{
 	private JButton OKButton = new JButton( "Exit" );
 
 	// Create objects from another classes for using them in the ActionListener.
-	private Members member;
+	Members member;
 
 	// For creating an array of string to store the data.
-	private String[] data;
+	String[] data;
 
 	// For checking the password.
 	@SuppressWarnings ( "deprecation" )
@@ -314,9 +314,7 @@ public class AddMembers extends JInternalFrame{
 							public void run (){
 
 								AddMembers.this.member = new Members();
-								@SuppressWarnings ( "unused" )
-								Date d = new Date();
-
+								
 								// For checking if there is no same information
 								// in the database.
 								AddMembers.this.member.connection( "SELECT * FROM Members WHERE ID = " + AddMembers.this.data[0] );
