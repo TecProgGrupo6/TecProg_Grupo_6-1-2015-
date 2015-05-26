@@ -24,7 +24,7 @@ public class Center{
 	public void LibraryCenter (){
 
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		l.setLocation( ( screenSize.width - l.getWidth() ) / 2 , ( screenSize.height - l.getHeight() ) / 2 );
+		this.l.setLocation( ( screenSize.width - this.l.getWidth() ) / 2 , ( screenSize.height - this.l.getHeight() ) / 2 );
 		
 		LOGGER.setLevel( Level.INFO );
 		LOGGER.info("Window centered");
