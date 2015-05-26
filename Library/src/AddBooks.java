@@ -94,12 +94,12 @@ public class AddBooks extends JInternalFrame{
 
 	public boolean isCorrect (){
 
-		this.data = new String[10];
+		this.setData(new String[10]);
 		for ( int i = 0 ; i < this.informationLabelLength ; i++ ){
 
 			if ( !this.informationTextField[i].getText().equals( "" ) ){
 
-				this.data[i] = this.informationTextField[i].getText();
+				this.getData()[i] = this.informationTextField[i].getText();
 				
 				LOGGER.setLevel( Level.INFO );
 				LOGGER.info("Information is Correct");
@@ -120,7 +120,7 @@ public class AddBooks extends JInternalFrame{
 
 			this.informationTextField[i].setText( null );
 		}
-		this.txtShelfNo.setText( null );
+		this.getTxtShelfNo().setText( null );
 	}
 	
 	
@@ -215,8 +215,8 @@ public class AddBooks extends JInternalFrame{
 
 		this.lblShelfNo.setFont( new Font( "Tahoma" , Font.BOLD , 11 ) );
 		this.informationLabelPanel.add( this.lblShelfNo );
-		this.txtShelfNo.setFont( new Font( "Tahoma" , Font.PLAIN , 11 ) );
-		this.informationTextFieldPanel.add( this.txtShelfNo );
+		this.getTxtShelfNo().setFont( new Font( "Tahoma" , Font.PLAIN , 11 ) );
+		this.informationTextFieldPanel.add( this.getTxtShelfNo() );
 		this.centerPanel.add( "East" , this.informationTextFieldPanel );
 
 		settingTheLayoutForThePanel(cp);
@@ -242,9 +242,9 @@ public class AddBooks extends JInternalFrame{
 							AddBooks.this.book = new Books();
 							// For checking if there is no double information in
 							// the database.
-							AddBooks.this.book.connection( "SELECT BookID FROM Books WHERE ISBN = '" + AddBooks.this.data[7] + "'" );
+							AddBooks.this.book.connection( "SELECT BookID FROM Books WHERE ISBN = '" + AddBooks.this.getData()[7] + "'" );
 							String ISBN = AddBooks.this.book.getISBN();
-							if ( !AddBooks.this.data[7].equalsIgnoreCase( ISBN ) ){
+							if ( !AddBooks.this.getData()[7].equalsIgnoreCase( ISBN ) ){
 
 								try{
 									String sql = "INSERT INTO Books (Subject,Title,Author,Publisher,Copyright,"
@@ -253,25 +253,25 @@ public class AddBooks extends JInternalFrame{
 									Class.forName( "sun.jdbc.odbc.JdbcOdbcDriver" );
 									
 									
-									Connection connnect = DriverManager.getConnection( "jdbc:odbc:JLibrary" );
+									Connection connect = DriverManager.getConnection( "jdbc:odbc:JLibrary" );
 									
+
+									PreparedStatement preparedStatement = connect.prepareStatement( sql );
 									
-									PreparedStatement ps = connnect.prepareStatement( sql );
-									
-									ps.setString( 1 , AddBooks.this.data[0] );
-									ps.setString( 2 , AddBooks.this.data[1] );
-									ps.setString( 3 , AddBooks.this.data[2] );
-									ps.setString( 4 , AddBooks.this.data[3] );
-									ps.setInt( 5 , Integer.parseInt( AddBooks.this.data[4] ) );
-									ps.setInt( 6 , Integer.parseInt( AddBooks.this.data[5] ) );
-									ps.setInt( 7 , Integer.parseInt( AddBooks.this.data[6] ) );
-									ps.setString( 8 , AddBooks.this.data[7] );
-									ps.setInt( 9 , Integer.parseInt( AddBooks.this.data[8] ) );
-									ps.setInt( 10 , Integer.parseInt( AddBooks.this.data[8] ) );
-									ps.setString( 11 , AddBooks.this.data[9] );
-									ps.setBoolean( 12 , AddBooks.this.availble );
-									ps.setInt( 13 , Integer.parseInt( AddBooks.this.txtShelfNo.getText() ) );
-									ps.executeUpdate();
+									preparedStatement.setString( 1 , AddBooks.this.getData()[0] );
+									preparedStatement.setString( 2 , AddBooks.this.getData()[1] );
+									preparedStatement.setString( 3 , AddBooks.this.getData()[2] );
+									preparedStatement.setString( 4 , AddBooks.this.getData()[3] );
+									preparedStatement.setInt( 5 , Integer.parseInt( AddBooks.this.getData()[4] ) );
+									preparedStatement.setInt( 6 , Integer.parseInt( AddBooks.this.getData()[5] ) );
+									preparedStatement.setInt( 7 , Integer.parseInt( AddBooks.this.getData()[6] ) );
+									preparedStatement.setString( 8 , AddBooks.this.getData()[7] );
+									preparedStatement.setInt( 9 , Integer.parseInt( AddBooks.this.getData()[8] ) );
+									preparedStatement.setInt( 10 , Integer.parseInt( AddBooks.this.getData()[8] ) );
+									preparedStatement.setString( 11 , AddBooks.this.getData()[9] );
+									preparedStatement.setBoolean( 12 , AddBooks.this.isAvailble() );
+									preparedStatement.setInt( 13 , Integer.parseInt( AddBooks.this.getTxtShelfNo().getText() ) );
+									preparedStatement.executeUpdate();
 
 								}catch ( Exception ex ){
 
@@ -331,5 +331,41 @@ public class AddBooks extends JInternalFrame{
 		LOGGER.setLevel( Level.INFO );
 		LOGGER.info("Book added");
 
+	}
+
+
+	public String[] getData(){
+
+		return this.data;
+	}
+
+
+	public void setData(String[] data){
+
+		this.data = data;
+	}
+
+
+	public boolean isAvailble(){
+
+		return this.availble;
+	}
+
+
+	public void setAvailble(boolean availble){
+
+		this.availble = availble;
+	}
+
+
+	public JTextField getTxtShelfNo(){
+
+		return this.txtShelfNo;
+	}
+
+
+	public void setTxtShelfNo(JTextField txtShelfNo){
+
+		this.txtShelfNo = txtShelfNo;
 	}
 }
