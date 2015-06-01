@@ -17,7 +17,6 @@ import java.util.logging.Logger;
 import trl.entity.Entity;
 import trl.entity.enemy.Enemy;
 import trl.entity.enemy.Wolf;
-import trl.entity.item.Key;
 import trl.gamestate.GameplayState;
 import trl.main.Game;
 
@@ -439,11 +438,6 @@ public class Map{
 		connectRooms();
 
 		placeHallwayWalls();
-
-		// Place stairway
-
-		@SuppressWarnings ( "unused" )
-		Key key = new Key( this );
 	}
 
 	public void generateRooms (){
