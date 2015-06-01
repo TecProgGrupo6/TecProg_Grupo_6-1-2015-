@@ -592,8 +592,13 @@ public class Node{
 	@Override
 	public boolean equals ( Object other ){
 
-		Node node = (Node) other;
-		return ( this.axisX == node.axisX && this.axisY == node.axisY );
+		if(other != null){
+			Node node = (Node) other;
+			return ( this.axisX == node.axisX && this.axisY == node.axisY );
+		}
+		else{
+			return false;
+		}
 	}
 
 	@Override
