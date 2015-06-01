@@ -49,7 +49,7 @@ public class GameplayState extends GameState{
 	public GameplayState ( int classChoice ){
 
 		this.classChoice = classChoice;
-		dungeonLevel = 1;
+		setDungeonLevel(1);
 		init();
 	}
 
