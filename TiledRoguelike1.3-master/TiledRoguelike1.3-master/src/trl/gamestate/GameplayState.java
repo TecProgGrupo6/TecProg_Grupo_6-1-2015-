@@ -136,7 +136,7 @@ public class GameplayState extends GameState{
 			map.init();
 			// map = new Map();
 			enemyGroup.flush();
-			enemyGroup = new EnemyGroup( map );
+			setEnemyGroup(new EnemyGroup( map ));
 			actorQueue = new ActorQueue();
 			player.refresh();
 			actorQueue.addActor( player );
@@ -202,6 +202,12 @@ public class GameplayState extends GameState{
 			player.endTurn( actorQueue.getActor( 0 ) );
 		}
 
+	}
+
+	
+	public static void setEnemyGroup ( EnemyGroup enemyGroup ){
+	
+		GameplayState.enemyGroup = enemyGroup;
 	}
 
 	@Override
@@ -517,9 +523,10 @@ public class GameplayState extends GameState{
 		return dungeonLevel;
 	}
 
-	@SuppressWarnings ( "static-access" )
+	
 	public void setDungeonLevel ( int dungeonLevel ){
-
-		this.dungeonLevel = dungeonLevel;
+	
+		GameplayState.dungeonLevel = dungeonLevel;
 	}
+	
 }
