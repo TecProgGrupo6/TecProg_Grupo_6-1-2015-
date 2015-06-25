@@ -11,9 +11,10 @@ public class AddBooksTest{
 	@Before
 	public void setup (){
 
-		addBooks = new AddBooks();
+		this.addBooks = new AddBooks();
 	}
 
+	@SuppressWarnings ( "boxing" )
 	@Test
 	/*
 	 * Checks the return of the method isCorrect, should return false if no
@@ -23,17 +24,17 @@ public class AddBooksTest{
 
 		try{
 
-			assertEquals( false , addBooks.isCorrect() );
+			assertEquals( false , this.addBooks.isCorrect() );
 		}catch ( Exception e ){
 
-			assertEquals( true , addBooks.isCorrect() );
+			assertEquals( true , this.addBooks.isCorrect() );
 		}
 	}
 
 	public void clearTextFieldTest (){
 		
-		addBooks.clearTextField();
-		assertThat( addBooks.getTxtShelfNo() , not( equalTo( null ) ) );
+		this.addBooks.clearTextField();
+		assertThat( this.addBooks.getTxtShelfNo() , not( equalTo( null ) ) );
 	}
 
 }
